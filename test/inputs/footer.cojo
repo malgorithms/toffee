@@ -1,0 +1,4 @@
+<hr />
+copyright #{copyright} by #{if name? then name else ""}
+</body>
+</html>

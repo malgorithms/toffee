@@ -1,15 +1,33 @@
-parser          = require('./cojo_lang').parser
-coffee          = require 'coffee-script'
-vm              = require 'vm'
+{view}          = require './view'
 fs              = require 'fs'
-
+path            = require 'path'
 class engine
+
   constructor: (options) ->
     @viewCache      = {} # filename
     @lastCacheReset = Date.now()
     @maxCacheAge    = 1000 # TODO: move to option
 
   run: (filename, options, cb) ->
+    ###
+    "options" contains the pub vars
+    may also contain special items:
+      __dir: path to look relative to
+    ###
+    [err, res] = @runSync filename, options
+    cb err, res
+
+  runSync: (filename, options) ->
+    ###
+    returns [err, res];
+    "options" the same as run() above
+    ###
+    options       = options or {}
+    options.__dir = options.__dir or process.cwd()
+    filename      = "#{options.__dir}/#{filename}"
+    realpath      = fs.realpathSync filename
+    pwd           = path.dirname realpath
+
     if Date.now() - @lastCacheReset > @maxCacheAge
       @_resetCache()
     if @viewCache[filename]?
@@ -17,10 +35,24 @@ class engine
     else
       v = @_loadAndCache filename
     if v 
-      res = v.run options
-      cb null, res
+      view_options = {
+        include_fn: (filename, lvars) => @_inlineInclude filename, lvars, pwd
+        filename:   filename
+        pwd:        pwd
+      }
+      res = v.run options, view_options
+      return [null, res]
     else
-      cb "Couldn't load #{filename}", null
+      return ["Couldn't load #{filename}", null]
+
+  _inlineInclude: (filename, local_vars, dir) =>
+    options       = local_vars or {}
+    options.__dir = dir
+    [err, res] = @runSync filename, options
+    if err
+      return err
+    else
+      return res
 
   _loadAndCache: (filename) ->
     txt = fs.readFileSync filename, 'utf-8'
@@ -37,88 +69,4 @@ class engine
     @lastCacheReset = Date.now()
 
 
-class view
-  constructor: (txt) ->
-    @codeObj      = null # these are all constructed as needed
-    @coffeeScript = null # these are all constructed as needed
-    @javaScript   = null # these are all constructed as needed
-    @scriptObj    = null # these are all constructed as needed 
-    @loadFromText txt
-
-  loadFromText: (txt) ->
-    @txt          = txt
-    @codeObj      = parser.parse txt
-
-  run: (vars) ->
-    script = @_toScriptObj()
-    vars.__res__ = ""
-    script.runInNewContext vars
-    res = vars.__res__
-    delete vars.__res__ 
-    return res
-
-  _toScriptObj: ->
-    if not @scriptObj?
-      txt = @_toJavascript()
-      d = Date.now()
-      @scriptObj = vm.createScript txt
-      console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
-    @scriptObj
-
-  _toJavascript: ->
-    if not @javaScript?
-      c = @_toCoffee()
-      d = Date.now()
-      @javaScript = coffee.compile c
-      console.log "Compiled to JavaScript in #{Date.now()-d}ms"
-    @javaScript
-
-  _toCoffee: ->
-    if not @coffeeScript?
-      d = Date.now()
-      indent_depth = 1
-      res = @_coffeeHeaders()
-      for chunk in @codeObj
-        switch chunk[0]
-          when 'COJO'    then res += "\n#{@_space indent_depth}__res__ += " + '"""' + chunk[1] + '"""'
-          when 'COFFEE'  then res += "\n#{@_reindent chunk[1], indent_depth}"
-          when 'INDENT'  then indent_depth += 1
-          when 'OUTDENT' then indent_depth -= 1
-          else throw 'Bad parsing.'
-      res += @_coffeeFooters()
-      @coffeeScript = res
-      console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
-    @coffeeScript
-
-
-  _reindent: (coffee, indent_depth) ->    
-    lines = coffee.split '\n'
-    # strip out any leading whitespace lines
-    while lines.length and lines[0].match /^[\t\r ]*$/
-      lines = lines[1...]
-    return '' unless lines.length
-    rxx    = /^[\t ]*/
-    strip  = lines[0].match(rxx)[0].length
-    res = ("#{@_space indent_depth}#{line[strip...]}" for line in lines).join "\n"
-    res
-
-  _space: (n) -> ("  " for i in [0...n]).join ""
-
-
-  _coffeeHeaders: ->
-    header = """
-run = ->
-"""
-    header
-
-  _coffeeFooters: ->
-    footer = """
-
-#{@_space 1}return __res__
-run()
-"""
-    footer
-
-
-exports.view   = view
 exports.engine = engine

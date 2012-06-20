@@ -14,4 +14,5 @@ todo
 	 - template errors
 	 - runtime errors
 - get unit test suite together
-
+- get cache options as parameters available
+- meaningful errors (line numbers!)

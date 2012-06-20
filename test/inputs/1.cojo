@@ -1,3 +1,4 @@
+#{include("header.cojo")}
 
 {#
 
@@ -24,3 +25,5 @@
     }}
   #}
 </table>
+
+#{include("footer.cojo", {copyright: 2012})}
