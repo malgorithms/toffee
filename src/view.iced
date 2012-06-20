@@ -16,14 +16,22 @@ class view
     @codeObj      = parser.parse txt
 
   run: (vars, options) ->
+    ###
+    returns [err, str]
+    ###
     script = @_toScriptObj()
     vars.__res__ = ""
+    err = null
     if options.include_fn
       vars.include = options.include_fn
-    script.runInNewContext vars
-    res = vars.__res__
-    delete vars.__res__ 
-    return res
+    try
+      script.runInNewContext vars
+      res = vars.__res__
+      delete vars.__res__
+    catch e
+      err = "Error: #{e.message}"
+      err += "\nStack: #{e.stack}"
+    return [err, res]
 
   _toScriptObj: ->
     if not @scriptObj?

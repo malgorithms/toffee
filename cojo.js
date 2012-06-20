@@ -469,7 +469,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this._inlineInclude = __bind(this._inlineInclude, this);
       this.viewCache = {};
       this.lastCacheReset = Date.now();
-      this.maxCacheAge = 1000;
+      this.maxCacheAge = 100;
     }
 
     engine.prototype.run = function(filename, options, cb) {
@@ -490,38 +490,34 @@ if (typeof module !== 'undefined' && require.main === module) {
           "options" the same as run() above
       */
 
-      var pwd, realpath, res, v, view_options,
+      var err, pwd, realpath, res, v, view_options, _ref,
         _this = this;
       options = options || {};
       options.__dir = options.__dir || process.cwd();
       filename = "" + options.__dir + "/" + filename;
-      realpath = fs.realpathSync(filename);
+      realpath = filename;
       pwd = path.dirname(realpath);
       if (Date.now() - this.lastCacheReset > this.maxCacheAge) this._resetCache();
-      if (this.viewCache[filename] != null) {
-        v = this.viewCache[filename];
-      } else {
-        v = this._loadAndCache(filename);
-      }
+      v = this.viewCache[filename] || this._loadAndCache(filename, options);
       if (v) {
         view_options = {
-          include_fn: function(filename, lvars) {
-            return _this._inlineInclude(filename, lvars, pwd);
+          include_fn: function(fname, lvars) {
+            return _this._inlineInclude(fname, lvars, realpath);
           },
-          filename: filename,
-          pwd: pwd
+          parent: filename
         };
-        res = v.run(options, view_options);
-        return [null, res];
+        _ref = v.run(options, view_options), err = _ref[0], res = _ref[1];
+        return [err, res];
       } else {
         return ["Couldn't load " + filename, null];
       }
     };
 
-    engine.prototype._inlineInclude = function(filename, local_vars, dir) {
+    engine.prototype._inlineInclude = function(filename, local_vars, parent_realpath) {
       var err, options, res, _ref;
       options = local_vars || {};
-      options.__dir = dir;
+      options.__dir = path.dirname(parent_realpath);
+      options.__parent = parent_realpath;
       _ref = this.runSync(filename, options), err = _ref[0], res = _ref[1];
       if (err) {
         return err;
@@ -530,17 +526,17 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
     };
 
-    engine.prototype._loadAndCache = function(filename) {
+    engine.prototype._loadAndCache = function(filename, options) {
       var txt, v;
-      txt = fs.readFileSync(filename, 'utf-8');
-      if (txt) {
-        v = new view(txt);
-        this.viewCache[filename] = v;
-        return v;
-      } else {
-        console.log("Couldn't load " + filename + ".");
-        return null;
+      try {
+        txt = fs.readFileSync(filename, 'utf-8');
+      } catch (e) {
+        txt = "Error: Could not read " + filename;
+        if (options.__parent != null) txt += " requested in " + options.__parent;
       }
+      v = new view(txt);
+      this.viewCache[filename] = v;
+      return v;
     };
 
     engine.prototype._resetCache = function() {
@@ -581,14 +577,24 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype.run = function(vars, options) {
-      var res, script;
+      /*
+          returns [err, str]
+      */
+
+      var err, res, script;
       script = this._toScriptObj();
       vars.__res__ = "";
+      err = null;
       if (options.include_fn) vars.include = options.include_fn;
-      script.runInNewContext(vars);
-      res = vars.__res__;
-      delete vars.__res__;
-      return res;
+      try {
+        script.runInNewContext(vars);
+        res = vars.__res__;
+        delete vars.__res__;
+      } catch (e) {
+        err = "Error: " + e.message;
+        err += "\nStack: " + e.stack;
+      }
+      return [err, res];
     };
 
     view.prototype._toScriptObj = function() {

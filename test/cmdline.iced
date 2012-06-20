@@ -4,13 +4,16 @@ fs       = require 'fs'
 e = new engine()
 d = Date.now()
 for i in [0...100]
-  await e.run process.argv[2],
-    name : "Chris Coyne"
+  locals = 
     age  : 35
     arr  : [1,2,3,4] 
-  , defer err, res
+  if i > 1000
+    locals.name = "Chris Coyne"
+  await e.run process.argv[2], locals, defer err, res
   await setTimeout defer(), 0
   
 console.log Date.now() - d
-console.log "----------"
+console.log "-------res--"
 console.log res
+console.log "-------err--"
+console.log err
