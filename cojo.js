@@ -52,9 +52,9 @@
 var cojo_lang = (function(){
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"starter":3,"cojo_zone":4,"EOF":5,"cojo_code":6,"flip_to_coffee":7,"START_COFFEE":8,"coffee_zone":9,"END_COFFEE":10,"coffee_code":11,"flip_to_cojo":12,"START_COJO":13,"END_COJO":14,"START_INDENTED_COJO":15,"code":16,"CODE":17,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",8:"START_COFFEE",10:"END_COFFEE",13:"START_COJO",14:"END_COJO",15:"START_INDENTED_COJO",17:"CODE"},
-productions_: [0,[3,2],[4,1],[4,3],[4,2],[7,3],[9,1],[9,3],[9,2],[12,3],[12,3],[6,1],[11,1],[16,1],[16,2]],
+symbols_: {"error":2,"starter":3,"cojo_zone":4,"EOF":5,"cojo_code":6,"flip_to_coffee":7,"flip_to_cojo_comment":8,"START_COJO_COMMENT":9,"code":10,"END_COJO_COMMENT":11,"START_COFFEE":12,"coffee_zone":13,"END_COFFEE":14,"coffee_code":15,"flip_to_cojo":16,"START_COJO":17,"END_COJO":18,"START_INDENTED_COJO":19,"CODE":20,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",9:"START_COJO_COMMENT",11:"END_COJO_COMMENT",12:"START_COFFEE",14:"END_COFFEE",17:"START_COJO",18:"END_COJO",19:"START_INDENTED_COJO",20:"CODE"},
+productions_: [0,[3,2],[4,1],[4,3],[4,2],[4,3],[4,2],[4,0],[8,3],[7,3],[13,1],[13,3],[13,2],[13,0],[16,3],[16,3],[6,1],[15,1],[10,1],[10,2]],
 performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
@@ -67,30 +67,38 @@ case 3: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); for (var i = 0; i < $$[$0-
 break;
 case 4: this.$ = $$[$0-1]; for (var i = 0; i < $$[$0].length; i++) { this.$.push($$[$0][i]);  } 
 break;
-case 5: this.$ = $$[$0-1]; 
+case 5: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); 
 break;
-case 6: this.$ = [$$[$0]]; 
+case 6: this.$ = $$[$0]; 
 break;
-case 7: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); for (var i = 0; i < $$[$0-1].length; i++) { $$[$0].splice(1+i,0,$$[$0-1][i]);  } 
-break;
-case 8: this.$ = $$[$0-1]; for (var i = 0; i < $$[$0].length; i++) { this.$.push($$[$0][i]);  } 
+case 7: this.$ = []; 
 break;
 case 9: this.$ = $$[$0-1]; 
 break;
-case 10: this.$ = $$[$0-1]; $$[$0-1].splice(0,0,["INDENT"]); $$[$0-1].push(["OUTDENT"]); 
+case 10: this.$ = [$$[$0]]; 
 break;
-case 11: this.$ = ["COJO", $$[$0]]; 
+case 11: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); for (var i = 0; i < $$[$0-1].length; i++) { $$[$0].splice(1+i,0,$$[$0-1][i]);  } 
 break;
-case 12: this.$ = ["COFFEE", $$[$0]]; 
+case 12: this.$ = $$[$0-1]; for (var i = 0; i < $$[$0].length; i++) { this.$.push($$[$0][i]);  } 
 break;
-case 13: this.$ = $$[$0]; 
+case 13: this.$ = []; 
 break;
-case 14: this.$ = $$[$0-1] + $$[$0]; 
+case 14: this.$ = $$[$0-1]; 
+break;
+case 15: this.$ = $$[$0-1]; $$[$0-1].splice(0,0,["INDENT"]); $$[$0-1].push(["OUTDENT"]); 
+break;
+case 16: this.$ = ["COJO", $$[$0]]; 
+break;
+case 17: this.$ = ["COFFEE", $$[$0]]; 
+break;
+case 18: this.$ = $$[$0]; 
+break;
+case 19: this.$ = $$[$0-1] + $$[$0]; 
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,8:[1,6],16:5,17:[1,7]},{1:[3]},{5:[1,8]},{5:[2,2],7:9,8:[1,6],14:[2,2]},{4:10,6:3,7:4,8:[1,6],16:5,17:[1,7]},{5:[2,11],8:[2,11],14:[2,11],17:[1,11]},{9:12,11:13,12:14,13:[1,16],15:[1,17],16:15,17:[1,7]},{5:[2,13],8:[2,13],10:[2,13],13:[2,13],14:[2,13],15:[2,13],17:[2,13]},{1:[2,1]},{4:18,6:3,7:4,8:[1,6],16:5,17:[1,7]},{5:[2,4],14:[2,4]},{5:[2,14],8:[2,14],10:[2,14],13:[2,14],14:[2,14],15:[2,14],17:[2,14]},{10:[1,19]},{10:[2,6],12:20,13:[1,16],15:[1,17]},{9:21,11:13,12:14,13:[1,16],15:[1,17],16:15,17:[1,7]},{10:[2,12],13:[2,12],15:[2,12],17:[1,11]},{4:22,6:3,7:4,8:[1,6],16:5,17:[1,7]},{4:23,6:3,7:4,8:[1,6],16:5,17:[1,7]},{5:[2,3],14:[2,3]},{8:[2,5],17:[2,5]},{9:24,11:13,12:14,13:[1,16],15:[1,17],16:15,17:[1,7]},{10:[2,8]},{14:[1,25]},{14:[1,26]},{10:[2,7]},{13:[2,9],15:[2,9],17:[2,9]},{13:[2,10],15:[2,10],17:[2,10]}],
-defaultActions: {8:[2,1],21:[2,8],24:[2,7]},
+table: [{3:1,4:2,5:[2,7],6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],20:[1,9]},{1:[3]},{5:[1,10]},{5:[2,2],7:11,8:12,9:[1,8],12:[1,7],18:[2,2]},{4:13,5:[2,7],6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],18:[2,7],20:[1,9]},{4:14,5:[2,7],6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],18:[2,7],20:[1,9]},{5:[2,16],9:[2,16],12:[2,16],18:[2,16],20:[1,15]},{10:19,13:16,14:[2,13],15:17,16:18,17:[1,20],19:[1,21],20:[1,9]},{10:22,20:[1,9]},{5:[2,18],9:[2,18],11:[2,18],12:[2,18],14:[2,18],17:[2,18],18:[2,18],19:[2,18],20:[2,18]},{1:[2,1]},{4:23,5:[2,7],6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],18:[2,7],20:[1,9]},{4:24,5:[2,7],6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],18:[2,7],20:[1,9]},{5:[2,4],18:[2,4]},{5:[2,6],18:[2,6]},{5:[2,19],9:[2,19],11:[2,19],12:[2,19],14:[2,19],17:[2,19],18:[2,19],19:[2,19],20:[2,19]},{14:[1,25]},{14:[2,10],16:26,17:[1,20],19:[1,21]},{10:19,13:27,14:[2,13],15:17,16:18,17:[1,20],19:[1,21],20:[1,9]},{14:[2,17],17:[2,17],19:[2,17],20:[1,15]},{4:28,6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],18:[2,7],20:[1,9]},{4:29,6:3,7:4,8:5,9:[1,8],10:6,12:[1,7],18:[2,7],20:[1,9]},{11:[1,30],20:[1,15]},{5:[2,3],18:[2,3]},{5:[2,5],18:[2,5]},{5:[2,9],9:[2,9],12:[2,9],18:[2,9],20:[2,9]},{10:19,13:31,14:[2,13],15:17,16:18,17:[1,20],19:[1,21],20:[1,9]},{14:[2,12]},{18:[1,32]},{18:[1,33]},{5:[2,8],9:[2,8],12:[2,8],18:[2,8],20:[2,8]},{14:[2,11]},{14:[2,14],17:[2,14],19:[2,14],20:[2,14]},{14:[2,15],17:[2,15],19:[2,15],20:[2,15]}],
+defaultActions: {10:[2,1],27:[2,12],31:[2,11]},
 parseError: function parseError(str, hash) {
     throw new Error(str);
 },
@@ -413,24 +421,28 @@ lexer.performAction = function anonymous(yy,yy_,$avoiding_name_collisions,YY_STA
 
 var YYSTATE=YY_START
 switch($avoiding_name_collisions) {
-case 0:return 8;
+case 0:return 9;
 break;
-case 1:return 10;
+case 1:return 11;
 break;
-case 2:return 15
+case 2:return 12;
 break;
-case 3:return 13;
+case 3:return 14;
 break;
-case 4:return 14;
+case 4:return 19
 break;
 case 5:return 17;
 break;
-case 6:return 5;
+case 6:return 18;
+break;
+case 7:return 20;
+break;
+case 8:return 5;
 break;
 }
 };
-lexer.rules = [/^\{#/,/^#\}/,/^:[\t\r\n ]*\{\{/,/^\{\{/,/^\}\}/,/^[^{}#\\:]+|[\\{}#:]/,/^$/];
-lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6],"inclusive":true}};
+lexer.rules = [/^\{##/,/^##\}/,/^\{#/,/^#\}/,/^:[\t\r\n ]*\{\{/,/^\{\{/,/^\}\}/,/^[^{}#\\:]+|[\\{}#:]/,/^$/];
+lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
 return parser;
@@ -467,9 +479,11 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     function engine(options) {
       this._inlineInclude = __bind(this._inlineInclude, this);
+
+      this.run = __bind(this.run, this);
       this.viewCache = {};
       this.lastCacheReset = Date.now();
-      this.maxCacheAge = 100;
+      this.maxCacheAge = 2000;
     }
 
     engine.prototype.run = function(filename, options, cb) {
@@ -494,15 +508,25 @@ if (typeof module !== 'undefined' && require.main === module) {
         _this = this;
       options = options || {};
       options.__dir = options.__dir || process.cwd();
-      filename = "" + options.__dir + "/" + filename;
+      if (filename.charAt(0) !== "/") {
+        filename = "" + options.__dir + "/" + filename;
+      }
       realpath = filename;
       pwd = path.dirname(realpath);
       if (Date.now() - this.lastCacheReset > this.maxCacheAge) this._resetCache();
       v = this.viewCache[filename] || this._loadAndCache(filename, options);
       if (v) {
         view_options = {
-          include_fn: function(fname, lvars) {
-            return _this._inlineInclude(fname, lvars, realpath);
+          prebuilt_functions: {
+            include: function(fname, lvars) {
+              return _this._inlineInclude(fname, lvars, realpath);
+            },
+            partial: function(fname, lvars) {
+              return _this._inlineInclude(fname, lvars, realpath);
+            },
+            print: function(txt) {
+              return console.log("TODO: define print in engine.iced");
+            }
           },
           parent: filename
         };
@@ -581,11 +605,17 @@ if (typeof module !== 'undefined' && require.main === module) {
           returns [err, str]
       */
 
-      var err, res, script;
+      var err, fn, name, res, script, _ref;
       script = this._toScriptObj();
       vars.__res__ = "";
       err = null;
-      if (options.include_fn) vars.include = options.include_fn;
+      if (options.prebuilt_functions != null) {
+        _ref = options.prebuilt_functions;
+        for (name in _ref) {
+          fn = _ref[name];
+          vars[name] = fn;
+        }
+      }
       try {
         script.runInNewContext(vars);
         res = vars.__res__;

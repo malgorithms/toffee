@@ -7,8 +7,7 @@ for i in [0...100]
   locals = 
     age  : 35
     arr  : [1,2,3,4] 
-  if i > 1000
-    locals.name = "Chris Coyne"
+    name : "Chris Coyne"
   await e.run process.argv[2], locals, defer err, res
   await setTimeout defer(), 0
   

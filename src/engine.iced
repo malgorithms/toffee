@@ -1,14 +1,15 @@
 {view}          = require './view'
 fs              = require 'fs'
 path            = require 'path'
+
 class engine
 
   constructor: (options) ->
     @viewCache      = {} # filename
     @lastCacheReset = Date.now()
-    @maxCacheAge    = 100 # TODO: move to option
+    @maxCacheAge    = 2000 # TODO: move to option
 
-  run: (filename, options, cb) ->
+  run: (filename, options, cb) =>
     ###
     "options" contains the pub vars
     may also contain special items:
@@ -24,7 +25,7 @@ class engine
     ###
     options       = options or {}
     options.__dir = options.__dir or process.cwd()
-    filename      = "#{options.__dir}/#{filename}"
+    filename      = "#{options.__dir}/#{filename}" if filename.charAt(0) isnt "/"
     realpath      = filename
     pwd           = path.dirname realpath
 
@@ -32,7 +33,10 @@ class engine
     v = @viewCache[filename] or @_loadAndCache filename, options
     if v 
       view_options = {
-        include_fn: (fname, lvars) => @_inlineInclude fname, lvars, realpath
+        prebuilt_functions:
+          include: (fname, lvars) => @_inlineInclude fname, lvars, realpath
+          partial: (fname, lvars) => @_inlineInclude fname, lvars, realpath
+          print: (txt) -> console.log "TODO: define print in engine.iced"
         parent:     filename
       }
       [err, res] = v.run options, view_options

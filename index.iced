@@ -1,1 +1,1 @@
-exports.engine = require './lib/engine'
+exports.engine = require('./lib/engine').engine

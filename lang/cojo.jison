@@ -7,6 +7,8 @@
 %lex
 %%
 
+"{##"                     return 'START_COJO_COMMENT';
+"##}"                     return 'END_COJO_COMMENT';
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
 ":"[\t\r\n ]*"{{"         return 'START_INDENTED_COJO'
@@ -33,6 +35,17 @@ cojo_zone
     cojo_code flip_to_coffee cojo_zone      { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
   |
     flip_to_coffee cojo_zone                { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
+  |
+    cojo_code flip_to_cojo_comment cojo_zone  { $$ = $3; $3.splice(0,0,$1); }
+  |
+    flip_to_cojo_comment cojo_zone          { $$ = $2; }
+  |
+                                            { $$ = []; }
+  ;
+
+flip_to_cojo_comment
+  :
+  START_COJO_COMMENT code END_COJO_COMMENT  {}
   ;
 
 flip_to_coffee
@@ -47,6 +60,8 @@ coffee_zone
     coffee_code flip_to_cojo coffee_zone     { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
   |
     flip_to_cojo coffee_zone                 { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
+  |
+                                             { $$ = []; }
   ;
 
 flip_to_cojo

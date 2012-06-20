@@ -22,14 +22,17 @@ class view
     script = @_toScriptObj()
     vars.__res__ = ""
     err = null
-    if options.include_fn
-      vars.include = options.include_fn
+
+    # make some functions available
+    if options.prebuilt_functions?
+      for name, fn of options.prebuilt_functions
+        vars[name] = fn
     try
       script.runInNewContext vars
       res = vars.__res__
       delete vars.__res__
     catch e
-      err = "Error: #{e.message}"
+      err =    "Error: #{e.message}"
       err += "\nStack: #{e.stack}"
     return [err, res]
 
