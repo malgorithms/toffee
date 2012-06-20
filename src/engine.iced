@@ -1,4 +1,4 @@
-parser          = require('./dude_lang').parser
+parser          = require('./cojo_lang').parser
 coffee          = require 'coffee-script'
 vm              = require 'vm'
 fs              = require 'fs'
@@ -80,7 +80,7 @@ class view
       res = @_coffeeHeaders()
       for chunk in @codeObj
         switch chunk[0]
-          when 'DUDE'    then res += "\n#{@_space indent_depth}__res__ += " + '"""' + chunk[1] + '"""'
+          when 'COJO'    then res += "\n#{@_space indent_depth}__res__ += " + '"""' + chunk[1] + '"""'
           when 'COFFEE'  then res += "\n#{@_reindent chunk[1], indent_depth}"
           when 'INDENT'  then indent_depth += 1
           when 'OUTDENT' then indent_depth -= 1

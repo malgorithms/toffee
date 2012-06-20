@@ -1,6 +1,6 @@
 //
 //
-// grammar file for Dude Templating
+// grammar file for Cojo Templating
 //
 //
 
@@ -9,9 +9,9 @@
 
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
-":"[\t\r\n ]*"{{"         return 'START_INDENTED_DUDE'
-"{{"                      return 'START_DUDE';
-"}}"                      return 'END_DUDE';
+":"[\t\r\n ]*"{{"         return 'START_INDENTED_COJO'
+"{{"                      return 'START_COJO';
+"}}"                      return 'END_COJO';
 [^{}#\\:]+|[\\{}#:]       return 'CODE';
 <<EOF>>                   return 'EOF';
 
@@ -23,16 +23,16 @@
 
 starter 
   :
-    dude_zone EOF            { $$ = $1; return $$;}
+    cojo_zone EOF            { $$ = $1; return $$;}
   ;
 
-dude_zone 
+cojo_zone 
   :
-    dude_code                               { $$ = [$1]; }
+    cojo_code                               { $$ = [$1]; }
   |
-    dude_code flip_to_coffee dude_zone      { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
+    cojo_code flip_to_coffee cojo_zone      { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
   |
-    flip_to_coffee dude_zone                { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
+    flip_to_coffee cojo_zone                { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
   ;
 
 flip_to_coffee
@@ -44,22 +44,22 @@ coffee_zone
   :
     coffee_code                              { $$ = [$1]; }
   |
-    coffee_code flip_to_dude coffee_zone     { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
+    coffee_code flip_to_cojo coffee_zone     { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
   |
-    flip_to_dude coffee_zone                 { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
+    flip_to_cojo coffee_zone                 { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
   ;
 
-flip_to_dude
+flip_to_cojo
   :
-    START_DUDE dude_zone END_DUDE            { $$ = $2; }
+    START_COJO cojo_zone END_COJO            { $$ = $2; }
   |
-    START_INDENTED_DUDE dude_zone END_DUDE   { $$ = $2; $2.splice(0,0,["INDENT"]); $2.push(["OUTDENT"]); }
+    START_INDENTED_COJO cojo_zone END_COJO   { $$ = $2; $2.splice(0,0,["INDENT"]); $2.push(["OUTDENT"]); }
   ;
 
 
-dude_code
+cojo_code
   :
-  code                  { $$ = ["DUDE", $1]; }
+  code                  { $$ = ["COJO", $1]; }
   ;
 
 coffee_code

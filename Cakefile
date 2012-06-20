@@ -27,7 +27,7 @@ runIced = (args, cb) ->
 stitchIt = (cb) ->
   s = stitch.createPackage { paths: ['lib'] }
   s.compile (err, source) ->
-    fs.writeFile 'dude.js', source, (err) ->
+    fs.writeFile 'cojo.js', source, (err) ->
       if err then throw err
       console.log "Stitched."
       cb()
@@ -39,12 +39,12 @@ clearLibJs = (cb) ->
   cb()
 
 buildParser = (cb) ->
-  grammar   = fs.readFileSync './lang/dude.jison', 'utf8'
+  grammar   = fs.readFileSync './lang/cojo.jison', 'utf8'
   generator = new jison.Generator grammar
-  file_name = "dude_lang.js"
+  file_name = "cojo_lang.js"
   source    = generator.generate {
     moduleType: 'commonjs'
-    moduleName: 'dude_lang'
+    moduleName: 'cojo_lang'
   }
   fs.writeFileSync "./lib/#{file_name}", source
   cb()
