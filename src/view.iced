@@ -49,14 +49,14 @@ class view
     if not @javaScript?
       c = @_toCoffee()
       d = Date.now()
-      @javaScript = coffee.compile c
+      @javaScript = coffee.compile c, {bare: false}
       console.log "Compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
   _toCoffee: ->
     if not @coffeeScript?
       d = Date.now()
-      indent_depth = 1
+      indent_depth = 0
       res = @_coffeeHeaders()
       for chunk, i in @codeObj
         switch chunk[0]
@@ -92,16 +92,12 @@ class view
 
   _coffeeHeaders: ->
     header = """
-run = ->
-#{@_space 1}__cojo__.state = "COJO"
+__cojo__.state = "COJO"
 """
     header
 
   _coffeeFooters: ->
     footer = """
-
-#{@_space 1}return __cojo__.res
-run()
 """
     footer
 

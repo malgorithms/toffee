@@ -1,6 +1,10 @@
 
 {#
-  print partial "header.cojo"
+  include "constants.cojo"
+  include "header.cojo"
+#}
+
+{#
   print "This is some text4"
   double = (n) -> 2 * n
   num = 10
