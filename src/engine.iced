@@ -33,16 +33,32 @@ class engine
     v = @viewCache[filename] or @_loadAndCache filename, options
     if v 
       view_options = {
+        parent: filename
         prebuilt_functions:
-          include: (fname, lvars) => @_inlineInclude fname, lvars, realpath
-          partial: (fname, lvars) => @_inlineInclude fname, lvars, realpath
-          print: (txt) -> console.log "TODO: define print in engine.iced"
-        parent:     filename
+          include: (fname, lvars) => @_fn_include    fname, lvars, realpath, options
+          partial: (fname, lvars) => @_inlineInclude fname, lvars, realpath, options
+          print:   (txt)          => @_fn_print      txt, options
       }
       [err, res] = v.run options, view_options
       return [err, res]
     else
       return ["Couldn't load #{filename}", null]
+
+  _fn_include: (fname, lvars, realpath, options) ->
+    # include works differently depending on whether
+    # the user calls it inside coffeescript (it prints output)
+    # or calls it inside a #{} container (it returns output)
+    res = @_inlineInclude fname, lvars, realpath
+    if options.__cojo__.state is "COFFEE"
+      @_fn_print res, options
+    else
+      res
+
+  _fn_partial: (fname, lvars, realpath, options) ->
+    @_inlineInclude fname, lvars, realpath
+
+  _fn_print: (txt, options) ->
+    options.__cojo__.res += txt
 
   _inlineInclude: (filename, local_vars, parent_realpath) =>
     options          = local_vars or {}

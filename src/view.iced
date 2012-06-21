@@ -20,7 +20,8 @@ class view
     returns [err, str]
     ###
     script = @_toScriptObj()
-    vars.__res__ = ""
+    vars.__cojo__ =
+      res: ""
     err = null
 
     # make some functions available
@@ -29,8 +30,8 @@ class view
         vars[name] = fn
     try
       script.runInNewContext vars
-      res = vars.__res__
-      delete vars.__res__
+      res = vars.__cojo__.res
+      delete vars.__cojo__
     catch e
       err =    "Error: #{e.message}"
       err += "\nStack: #{e.stack}"
@@ -57,10 +58,15 @@ class view
       d = Date.now()
       indent_depth = 1
       res = @_coffeeHeaders()
-      for chunk in @codeObj
+      for chunk, i in @codeObj
         switch chunk[0]
-          when 'COJO'    then res += "\n#{@_space indent_depth}__res__ += " + '"""' + chunk[1] + '"""'
-          when 'COFFEE'  then res += "\n#{@_reindent chunk[1], indent_depth}"
+          when 'COJO'
+            res += "\n#{@_space indent_depth}__cojo__.state=\"COJO\""
+            res += "\n#{@_space indent_depth}__cojo__.res += " + '"""' + chunk[1] + '"""'
+            res += "\n#{@_space indent_depth}__cojo__.state=\"COFFEE\""
+          when 'COFFEE'
+            res += "\n#{@_space indent_depth}__cojo__.state=\"COFFEE\"" if i is 0
+            res += "\n#{@_reindent chunk[1], indent_depth}"
           when 'INDENT'  then indent_depth += 1
           when 'OUTDENT' then indent_depth -= 1
           else throw 'Bad parsing.'
@@ -87,13 +93,14 @@ class view
   _coffeeHeaders: ->
     header = """
 run = ->
+#{@_space 1}__cojo__.state = "COJO"
 """
     header
 
   _coffeeFooters: ->
     footer = """
 
-#{@_space 1}return __res__
+#{@_space 1}return __cojo__.res
 run()
 """
     footer

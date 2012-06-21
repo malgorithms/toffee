@@ -1,7 +1,7 @@
-#{include("header.cojo")}
 
 {#
-  print "This is some text"
+  print partial "header.cojo"
+  print "This is some text4"
   double = (n) -> 2 * n
   num = 10
   if 20 is double num
@@ -26,7 +26,6 @@
       </table>
 
 #{include("footer.cojo", {copyright: 2012})}
-
 
 {## 
     This is a comment that should not get published. yeah!

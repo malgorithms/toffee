@@ -517,24 +517,42 @@ if (typeof module !== 'undefined' && require.main === module) {
       v = this.viewCache[filename] || this._loadAndCache(filename, options);
       if (v) {
         view_options = {
+          parent: filename,
           prebuilt_functions: {
             include: function(fname, lvars) {
-              return _this._inlineInclude(fname, lvars, realpath);
+              return _this._fn_include(fname, lvars, realpath, options);
             },
             partial: function(fname, lvars) {
-              return _this._inlineInclude(fname, lvars, realpath);
+              return _this._inlineInclude(fname, lvars, realpath, options);
             },
             print: function(txt) {
-              return console.log("TODO: define print in engine.iced");
+              return _this._fn_print(txt, options);
             }
-          },
-          parent: filename
+          }
         };
         _ref = v.run(options, view_options), err = _ref[0], res = _ref[1];
         return [err, res];
       } else {
         return ["Couldn't load " + filename, null];
       }
+    };
+
+    engine.prototype._fn_include = function(fname, lvars, realpath, options) {
+      var res;
+      res = this._inlineInclude(fname, lvars, realpath);
+      if (options.__cojo__.state === "COFFEE") {
+        return this._fn_print(res, options);
+      } else {
+        return res;
+      }
+    };
+
+    engine.prototype._fn_partial = function(fname, lvars, realpath, options) {
+      return this._inlineInclude(fname, lvars, realpath);
+    };
+
+    engine.prototype._fn_print = function(txt, options) {
+      return options.__cojo__.res += txt;
     };
 
     engine.prototype._inlineInclude = function(filename, local_vars, parent_realpath) {
@@ -607,7 +625,9 @@ if (typeof module !== 'undefined' && require.main === module) {
 
       var err, fn, name, res, script, _ref;
       script = this._toScriptObj();
-      vars.__res__ = "";
+      vars.__cojo__ = {
+        res: ""
+      };
       err = null;
       if (options.prebuilt_functions != null) {
         _ref = options.prebuilt_functions;
@@ -618,8 +638,8 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
       try {
         script.runInNewContext(vars);
-        res = vars.__res__;
-        delete vars.__res__;
+        res = vars.__cojo__.res;
+        delete vars.__cojo__;
       } catch (e) {
         err = "Error: " + e.message;
         err += "\nStack: " + e.stack;
@@ -650,19 +670,24 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._toCoffee = function() {
-      var chunk, d, indent_depth, res, _i, _len, _ref;
+      var chunk, d, i, indent_depth, res, _i, _len, _ref;
       if (!(this.coffeeScript != null)) {
         d = Date.now();
         indent_depth = 1;
         res = this._coffeeHeaders();
         _ref = this.codeObj;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          chunk = _ref[_i];
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          chunk = _ref[i];
           switch (chunk[0]) {
             case 'COJO':
-              res += ("\n" + (this._space(indent_depth)) + "__res__ += ") + '"""' + chunk[1] + '"""';
+              res += "\n" + (this._space(indent_depth)) + "__cojo__.state=\"COJO\"";
+              res += ("\n" + (this._space(indent_depth)) + "__cojo__.res += ") + '"""' + chunk[1] + '"""';
+              res += "\n" + (this._space(indent_depth)) + "__cojo__.state=\"COFFEE\"";
               break;
             case 'COFFEE':
+              if (i === 0) {
+                res += "\n" + (this._space(indent_depth)) + "__cojo__.state=\"COFFEE\"";
+              }
               res += "\n" + (this._reindent(chunk[1], indent_depth));
               break;
             case 'INDENT':
@@ -717,13 +742,13 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     view.prototype._coffeeHeaders = function() {
       var header;
-      header = "run = ->";
+      header = "run = ->\n" + (this._space(1)) + "__cojo__.state = \"COJO\"";
       return header;
     };
 
     view.prototype._coffeeFooters = function() {
       var footer;
-      footer = "\n" + (this._space(1)) + "return __res__\nrun()";
+      footer = "\n" + (this._space(1)) + "return __cojo__.res\nrun()";
       return footer;
     };
 
