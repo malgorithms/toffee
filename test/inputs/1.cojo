@@ -19,13 +19,13 @@
 </h1>
       <table>
         <tr><th>x</th><th>sqrt(x)</th></tr>
-        {#
-                  for i in [0...num]: {{
-                    <tr>
-                      <td>#{i}</td><td>#{Math.sqrt i}</td>
-                      {# if (Math.floor Math.sqrt i) == Math.sqrt i: {{ <td>Perfect!</td> }} else: {{ <td>-</td> }} #}
-                    </tr>
-                  }}
+        {# 
+          for i in [0...num] : {{
+                  <tr>
+                    <td>#{i}</td><td>#{Math.sqrt i}</td>
+                    {# if (Math.floor Math.sqrt i) == Math.sqrt i: {{ <td>Perfect!</td> }} else: {{ <td>-</td> }} #}
+                  </tr>
+            }}
         #}
       </table>
 

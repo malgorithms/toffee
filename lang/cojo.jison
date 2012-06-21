@@ -50,7 +50,7 @@ flip_to_cojo_comment
 
 flip_to_coffee
   :
-    START_COFFEE coffee_zone END_COFFEE  { $$ = $2; }
+    START_COFFEE coffee_zone END_COFFEE  { $$ = $2; $2.splice(0,0,["COFFEE_REGION"]); $2.push(["END_COFFEE_REGION"]); }
   ;
 
 coffee_zone 
