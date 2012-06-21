@@ -83,12 +83,12 @@ class view
             res += "\n#{@_space indent_stack}__cojo__.state = \"COJO\""
             res += "\n#{@_space indent_stack}__cojo__.res += " + '"""' + chunk[1] + '"""'
             res += "\n#{@_space indent_stack}__cojo__.state = \"COFFEE\""
-          when 'COFFEE'
+            indent_stack.pop()
+          when 'COFFEE' 
             res += "\n#{@_space indent_stack}__cojo__.state = \"COFFEE\"" if i is 0
             res += "\n#{@_reindent chunk[1], indent_stack, indent_baseline_stack}"
-            # i_delta = @_getIndentationDelta chunk[1]
-            # if i_delta isnt 0
-            #   indent_stack.push i_delta
+            i_delta = @_getIndentationDelta chunk[1]
+            indent_stack.push i_delta
           when 'INDENT'  then indent_stack.push TAB_SPACES
           when 'OUTDENT' then indent_stack.pop()
 
