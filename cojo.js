@@ -576,10 +576,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.codeObj = parser.parse(txt);
       this._cleanTabs();
       console.log(" =====txt=======");
-      console.log(this.txt);
-      console.log(" =====code=======");
-      console.log(JSON.stringify(this.codeObj));
-      return console.log(" ============");
+      return console.log(this.txt);
     };
 
     view.prototype._cleanTabs = function() {
@@ -685,7 +682,6 @@ if (typeof module !== 'undefined' && require.main === module) {
           for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
             item = _ref2[_j];
             _ref3 = this._toCoffeeRecurse(item, indent_level, indent_baseline), s = _ref3[0], delta = _ref3[1];
-            console.log("INDENTING BY " + delta);
             res += s;
           }
           break;
@@ -703,11 +699,10 @@ if (typeof module !== 'undefined' && require.main === module) {
           break;
         case "COJO":
           res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COJO\"";
-          res += ("\n" + (this._space(indent_level)) + "__cojo__.res += ") + '"""' + obj[1] + '"""';
+          res += ("\n" + (this._space(indent_level)) + "__cojo__.res += ") + '"""' + this._escapeForStr(obj[1]) + '"""';
           res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COFFEE\"";
           break;
         case "COFFEE":
-          console.log(obj);
           res += "" + (this._space(indent_level)) + "# DEBUG: indent_level=" + indent_level + " indent_baseline=" + indent_baseline;
           res += "\n" + (this._reindent(obj[1], indent_level, indent_baseline));
           i_delta = this._getIndentationDelta(obj[1], indent_baseline);
@@ -717,6 +712,16 @@ if (typeof module !== 'undefined' && require.main === module) {
           return ["", 0];
       }
       return [res, i_delta];
+    };
+
+    view.prototype._escapeForStr = function(s) {
+      /*
+          escapes a string so it can make it into coffeescript
+          triple quotes without losing whitespace, etc.
+      */
+      s = s.replace(/\n/g, '\\n');
+      s = s.replace(/\t/g, '\\t');
+      return s;
     };
 
     view.prototype._getZoneBaseline = function(obj_arr) {
@@ -751,7 +756,6 @@ if (typeof module !== 'undefined' && require.main === module) {
       */
 
       var lines, res, y, y_l;
-      console.log("Getting indentation delta from " + baseline + "for\n-------\n" + coffee + "\n--------");
       if (!(baseline != null)) baseline = this._getIndentationBaseline(coffee);
       if (!(baseline != null)) {
         res = 0;
@@ -768,7 +772,6 @@ if (typeof module !== 'undefined' && require.main === module) {
           res = y_l - baseline;
         }
       }
-      console.log("" + res + "\n=======");
       return res;
     };
 
