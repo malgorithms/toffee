@@ -656,7 +656,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       if (!(this.coffeeScript != null)) {
         d = Date.now();
         res = this._coffeeHeaders();
-        res += this._toCoffeeRecurse(this.codeObj, 0, 0);
+        res += this._toCoffeeRecurse(this.codeObj, 0, 0)[0];
         res += this._coffeeFooters();
         this.coffeeScript = res;
         console.log(res);
@@ -666,38 +666,39 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._toCoffeeRecurse = function(obj, indent_level, indent_baseline) {
-      var item, rel_baseline, res, zone_baseline, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+      var delta, i_delta, item, res, s, temp_indent_level, zone_baseline, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
       res = "";
+      i_delta = 0;
       switch (obj[0]) {
         case "INDENTED_COJO_ZONE":
           indent_level += TAB_SPACES;
           _ref = obj[1];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             item = _ref[_i];
-            res += this._toCoffeeRecurse(item, indent_level, indent_baseline);
+            _ref1 = this._toCoffeeRecurse(item, indent_level, indent_baseline), s = _ref1[0], delta = _ref1[1];
+            res += s;
           }
           break;
         case "COJO_ZONE":
           res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COJO\"";
-          _ref1 = obj[1];
-          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-            item = _ref1[_j];
-            res += this._toCoffeeRecurse(item, indent_level, indent_baseline);
+          _ref2 = obj[1];
+          for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
+            item = _ref2[_j];
+            _ref3 = this._toCoffeeRecurse(item, indent_level, indent_baseline), s = _ref3[0], delta = _ref3[1];
+            console.log("INDENTING BY " + delta);
+            res += s;
           }
           break;
         case "COFFEE_ZONE":
           res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COFFEE\"";
           zone_baseline = this._getZoneBaseline(obj[1]);
-          indent_baseline = zone_baseline;
-          _ref2 = obj[1];
-          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-            item = _ref2[_k];
-            res += this._toCoffeeRecurse(item, indent_level, indent_baseline);
-            if (item[0] === "COFFEE") {
-              rel_baseline = this._getIndentationBaseline(item[1], zone_baseline);
-              console.log("Rel = " + rel_baseline + " Baseline = " + zone_baseline);
-              indent_level = rel_baseline;
-            }
+          temp_indent_level = indent_level;
+          _ref4 = obj[1];
+          for (_k = 0, _len2 = _ref4.length; _k < _len2; _k++) {
+            item = _ref4[_k];
+            _ref5 = this._toCoffeeRecurse(item, temp_indent_level, zone_baseline), s = _ref5[0], delta = _ref5[1];
+            res += s;
+            temp_indent_level = indent_level + delta;
           }
           break;
         case "COJO":
@@ -709,12 +710,13 @@ if (typeof module !== 'undefined' && require.main === module) {
           console.log(obj);
           res += "" + (this._space(indent_level)) + "# DEBUG: indent_level=" + indent_level + " indent_baseline=" + indent_baseline;
           res += "\n" + (this._reindent(obj[1], indent_level, indent_baseline));
+          i_delta = this._getIndentationDelta(obj[1], indent_baseline);
           break;
         default:
           throw "Bad parsing. " + obj + " not handled.";
-          return "";
+          return ["", 0];
       }
-      return res;
+      return [res, i_delta];
     };
 
     view.prototype._getZoneBaseline = function(obj_arr) {
@@ -749,16 +751,24 @@ if (typeof module !== 'undefined' && require.main === module) {
       */
 
       var lines, res, y, y_l;
+      console.log("Getting indentation delta from " + baseline + "for\n-------\n" + coffee + "\n--------");
       if (!(baseline != null)) baseline = this._getIndentationBaseline(coffee);
-      if (!(baseline != null)) return 0;
-      lines = coffee.split("\n");
-      while (lines.length && lines[lines.length - 1].match(/^[\W]*$/)) {
-        lines.pop();
+      if (!(baseline != null)) {
+        res = 0;
+      } else {
+        lines = coffee.split("\n");
+        while (lines.length && lines[lines.length - 1].match(/^[\W]*$/)) {
+          lines.pop();
+        }
+        if (lines.length < 1) {
+          res = 0;
+        } else {
+          y = lines[lines.length - 1];
+          y_l = y.match(/[\W]*/)[0].length;
+          res = y_l - baseline;
+        }
       }
-      if (lines.length < 1) return 0;
-      y = lines[lines.length - 1];
-      y_l = y.match(/[\W]*/)[0].length;
-      res = y_l - baseline;
+      console.log("" + res + "\n=======");
       return res;
     };
 

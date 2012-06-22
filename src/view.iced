@@ -71,7 +71,7 @@ class view
     if not @coffeeScript?
       d = Date.now()
       res =  @_coffeeHeaders()
-      res += @_toCoffeeRecurse @codeObj, 0, 0
+      res += @_toCoffeeRecurse(@codeObj, 0, 0)[0]
       res += @_coffeeFooters()
       @coffeeScript = res
       console.log res
@@ -79,32 +79,50 @@ class view
     @coffeeScript
 
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
+    # returns [res, indent_baseline_delta]
     # indent_level    = # of spaces to add to each coffeescript section
     # indent_baseline = # of chars to strip from each line inside {# #} 
+
     res = ""
     # console.log "-v--"
     # console.log obj
     # console.log "Handling obj size #{obj.length}; type=#{obj[0]}; children=#{if obj.length > 1 then obj[1]}"
     # console.log "-^--"
+    i_delta = 0
     switch obj[0]
       when "INDENTED_COJO_ZONE"
         indent_level += TAB_SPACES
         for item in obj[1]
-          res += @_toCoffeeRecurse item, indent_level, indent_baseline
+          [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
+          #i_delta += delta
+          #indent_level += delta
+          #i_delta = indent_baseline + delta - indent_baseline
+          res += s
       when "COJO_ZONE"
         res += "\n#{@_space indent_level}__cojo__.state = \"COJO\""
         for item in obj[1]
-          res += @_toCoffeeRecurse item, indent_level, indent_baseline
+          [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
+          console.log "INDENTING BY #{delta}"
+          #indent_level += delta
+          #i_delta += delta
+          #if item[0] is "COFFEE"
+          #  indent_level += 100#delta
+          #indent_baseline += delta
+          #i_delta = delta
+          res += s
       when "COFFEE_ZONE"
         res += "\n#{@_space indent_level}__cojo__.state = \"COFFEE\""
         zone_baseline   = @_getZoneBaseline obj[1]
-        indent_baseline = zone_baseline
+        temp_indent_level = indent_level
         for item in obj[1]
-          res += @_toCoffeeRecurse item, indent_level, indent_baseline
-          if item[0] is "COFFEE"
-            rel_baseline = @_getIndentationBaseline item[1], zone_baseline
-            console.log "Rel = #{rel_baseline} Baseline = #{zone_baseline}"
-            indent_level = rel_baseline
+          [s, delta] = @_toCoffeeRecurse item, temp_indent_level, zone_baseline
+          res += s
+          temp_indent_level = indent_level + delta
+
+          #if item[0] is "COFFEE"
+          #  rel_baseline = @_getIndentationBaseline item[1], zone_baseline
+          #  console.log "Rel = #{rel_baseline} Zone baseline = #{zone_baseline}"
+          #  indent_level = rel_baseline
       when "COJO"
         res += "\n#{@_space indent_level}__cojo__.state = \"COJO\""
         res += "\n#{@_space indent_level}__cojo__.res += " + '"""' + obj[1] + '"""'
@@ -113,13 +131,15 @@ class view
         console.log obj
         res += "#{@_space indent_level}# DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}"
         res += "\n#{@_reindent obj[1], indent_level, indent_baseline}"
-
+        i_delta = @_getIndentationDelta obj[1], indent_baseline
+        #console.log i_delta
+        #indent_level += i_delta
       else 
         throw "Bad parsing. #{obj} not handled."
         #console.log "Bad parsing. #{obj} not handled."
-        return ""
+        return ["",0]
 
-    return res
+    return [res, i_delta]
 
   _getZoneBaseline: (obj_arr) ->
     for obj in obj_arr
@@ -146,18 +166,24 @@ class view
     Ignores leading/trailing whitespace lines
     If passed a baseline, uses that instead of own.
     ###
+    console.log "Getting indentation delta from #{baseline }for\n-------\n#{coffee}\n--------"
+
     if not baseline? then baseline = @_getIndentationBaseline coffee
     if not baseline?
-      return 0
-    lines = coffee.split "\n"
-    while lines.length and lines[lines.length-1].match /^[\W]*$/
-      lines.pop()
-    if lines.length < 1
-      return 0
-    y   = lines[lines.length - 1]
-    y_l = y.match(/[\W]*/)[0].length
-    res = y_l - baseline
-    res
+      res = 0
+    else 
+      lines = coffee.split "\n"
+      while lines.length and lines[lines.length-1].match /^[\W]*$/
+        lines.pop()
+      if lines.length < 1
+        res = 0
+      else 
+        y   = lines[lines.length - 1]
+        y_l = y.match(/[\W]*/)[0].length
+        res = y_l - baseline
+    
+    console.log "#{res}\n======="
+    return res
 
   _reindent: (coffee, indent_level, indent_baseline) ->    
     lines = coffee.split '\n'

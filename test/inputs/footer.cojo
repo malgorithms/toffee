@@ -1,3 +1,8 @@
+{#
+  copyright = 2000 if not copyright?
+  name      = "Chris" if not name?
+#}
+
 <hr />
 copyright #{copyright} by #{if name? then name else ""}
 
