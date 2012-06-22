@@ -53,7 +53,7 @@ class engine
     options.__parent = parent_realpath
 
     # we need to make a shallow copy of parent variables
-    for k,v of parent_options when k[0...2] isnt "__"
+    for k,v of parent_options when (k[0...2] isnt "__") and not local_keys[k]?
       options[k] = v
 
     [err, res] = @runSync filename, options

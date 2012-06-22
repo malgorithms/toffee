@@ -496,7 +496,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       options.__parent = parent_realpath;
       for (k in parent_options) {
         v = parent_options[k];
-        if (k.slice(0, 2) !== "__") options[k] = v;
+        if ((k.slice(0, 2) !== "__") && !(local_keys[k] != null)) options[k] = v;
       }
       _ref = this.runSync(filename, options), err = _ref[0], res = _ref[1];
       if (err) {
