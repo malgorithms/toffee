@@ -25,22 +25,22 @@
 
 starter 
   :
-    cojo_zone EOF            { $$ = $1; return $$;}
+    cojo_zone EOF            { $$ = ["COJO_ZONE", $1]; return $$;}
   ;
 
 cojo_zone 
   :
-    cojo_code                               { $$ = [$1]; }
+    cojo_code                                 { $$ = [$1]; }
   |
-    cojo_code flip_to_coffee cojo_zone      { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
+    cojo_code flip_to_coffee cojo_zone        { $$ = $3; $3.splice(0,0,$1,$2); }
   |
-    flip_to_coffee cojo_zone                { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
+    flip_to_coffee cojo_zone                  { $$ = $2; $2.splice(0,0,$1); }
   |
     cojo_code flip_to_cojo_comment cojo_zone  { $$ = $3; $3.splice(0,0,$1); }
   |
-    flip_to_cojo_comment cojo_zone          { $$ = $2; }
+    flip_to_cojo_comment cojo_zone            { $$ = $2; $2.splice(0,0,$1); }
   |
-                                            { $$ = []; }
+                                              { $$ = []; }
   ;
 
 flip_to_cojo_comment
@@ -50,25 +50,25 @@ flip_to_cojo_comment
 
 flip_to_coffee
   :
-    START_COFFEE coffee_zone END_COFFEE  { $$ = $2; $2.splice(0,0,["COFFEE_REGION"]); $2.push(["END_COFFEE_REGION"]); }
+    START_COFFEE coffee_zone END_COFFEE  { $$ = ["COFFEE_ZONE", $2]; }
   ;
 
 coffee_zone 
   :
     coffee_code                              { $$ = [$1]; }
   |
-    coffee_code flip_to_cojo coffee_zone     { $$ = $3; $3.splice(0,0,$1); for (var i = 0; i < $2.length; i++) { $3.splice(1+i,0,$2[i]);  } }
+    coffee_code flip_to_cojo coffee_zone     { $$ = $3; $3.splice(0,0,$1,$2); }
   |
-    flip_to_cojo coffee_zone                 { $$ = $1; for (var i = 0; i < $2.length; i++) { $$.push($2[i]);  } }
+    flip_to_cojo coffee_zone                 { $$ = $2; $2.splice(0,0,$1); }
   |
                                              { $$ = []; }
   ;
 
 flip_to_cojo
   :
-    START_COJO cojo_zone END_COJO            { $$ = $2; }
+    START_COJO cojo_zone END_COJO            { $$ = ["COJO_ZONE", $2]; }
   |
-    START_INDENTED_COJO cojo_zone END_COJO   { $$ = $2; $2.splice(0,0,["INDENT"]); $2.push(["OUTDENT"]); }
+    START_INDENTED_COJO cojo_zone END_COJO   { $$ = ["INDENTED_COJO_ZONE", $2]; }
   ;
 
 

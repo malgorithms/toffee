@@ -20,7 +20,7 @@ class view
     console.log " =====txt======="
     console.log @txt
     console.log " =====code======="
-    console.log @codeObj
+    console.log JSON.stringify @codeObj
     console.log " ============"
 
   _cleanTabs: ->
@@ -69,88 +69,114 @@ class view
 
   _toCoffee: ->
     if not @coffeeScript?
-      d            = Date.now()
-      indent_stack = [0] # will be a series of numbers ; e.g., [2,3,2]
-      indent_baseline_stack = [] # series of strings to strip from {# #} regions
-      res          = @_coffeeHeaders()
-      for chunk, i in @codeObj
-        switch chunk[0]
-          when 'COFFEE_REGION'
-            indent_baseline_stack.push @_getIndentationBaseline @codeObj[i+1][1]
-          when 'END_COFFEE_REGION'
-            indent_baseline_stack.pop()
-          when 'COJO'
-            res += "\n#{@_space indent_stack}__cojo__.state = \"COJO\""
-            res += "\n#{@_space indent_stack}__cojo__.res += " + '"""' + chunk[1] + '"""'
-            res += "\n#{@_space indent_stack}__cojo__.state = \"COFFEE\""
-            indent_stack.pop()
-          when 'COFFEE' 
-            res += "\n#{@_space indent_stack}__cojo__.state = \"COFFEE\"" if i is 0
-            res += "\n#{@_reindent chunk[1], indent_stack, indent_baseline_stack}"
-            i_delta = @_getIndentationDelta chunk[1]
-            indent_stack.push i_delta
-          when 'INDENT'  then indent_stack.push TAB_SPACES
-          when 'OUTDENT' then indent_stack.pop()
-
-          else throw 'Bad parsing.'
+      d = Date.now()
+      res =  @_coffeeHeaders()
+      res += @_toCoffeeRecurse @codeObj, 0, 0
       res += @_coffeeFooters()
       @coffeeScript = res
       console.log res
       console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
+  _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
+    # indent_level    = # of spaces to add to each coffeescript section
+    # indent_baseline = # of chars to strip from each line inside {# #} 
+    res = ""
+    # console.log "-v--"
+    # console.log obj
+    # console.log "Handling obj size #{obj.length}; type=#{obj[0]}; children=#{if obj.length > 1 then obj[1]}"
+    # console.log "-^--"
+    switch obj[0]
+      when "INDENTED_COJO_ZONE"
+        indent_level += TAB_SPACES
+        for item in obj[1]
+          res += @_toCoffeeRecurse item, indent_level, indent_baseline
+      when "COJO_ZONE"
+        res += "\n#{@_space indent_level}__cojo__.state = \"COJO\""
+        for item in obj[1]
+          res += @_toCoffeeRecurse item, indent_level, indent_baseline
+      when "COFFEE_ZONE"
+        res += "\n#{@_space indent_level}__cojo__.state = \"COFFEE\""
+        zone_baseline   = @_getZoneBaseline obj[1]
+        indent_baseline = zone_baseline
+        for item in obj[1]
+          res += @_toCoffeeRecurse item, indent_level, indent_baseline
+          if item[0] is "COFFEE"
+            rel_baseline = @_getIndentationBaseline item[1], zone_baseline
+            console.log "Rel = #{rel_baseline} Baseline = #{zone_baseline}"
+            indent_level = rel_baseline
+      when "COJO"
+        res += "\n#{@_space indent_level}__cojo__.state = \"COJO\""
+        res += "\n#{@_space indent_level}__cojo__.res += " + '"""' + obj[1] + '"""'
+        res += "\n#{@_space indent_level}__cojo__.state = \"COFFEE\""
+      when "COFFEE"
+        console.log obj
+        res += "#{@_space indent_level}# DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}"
+        res += "\n#{@_reindent obj[1], indent_level, indent_baseline}"
+
+      else 
+        throw "Bad parsing. #{obj} not handled."
+        #console.log "Bad parsing. #{obj} not handled."
+        return ""
+
+    return res
+
+  _getZoneBaseline: (obj_arr) ->
+    for obj in obj_arr
+      if obj[0] is "COFFEE"
+        ib = @_getIndentationBaseline obj[1]
+        return ib if ib?
+    return 0
+
   _getIndentationBaseline: (coffee) ->
-    # returns the indentation level of the first line of coffeescript (as a string)
+    # returns the indentation level of the first line of coffeescript (as a number
+    # or null, if the region doesn't have any real code in it
     lines = coffee.split "\n"
     if lines.length is 0
-      return ""
+      return null
     for line in lines
       if not line.match /^[\W]*$/
-        return line.match(/[\W]*/)[0]
-    return ""
+        return line.match(/[\W]*/)[0].length
+    return null
 
-  _getIndentationDelta: (coffee) ->
+  _getIndentationDelta: (coffee, baseline) ->
     ###
     given an arbitrarily indented set of coffeescript, returns the delta
     between the first and last lines, in chars.
     Ignores leading/trailing whitespace lines
+    If passed a baseline, uses that instead of own.
     ###
+    if not baseline? then baseline = @_getIndentationBaseline coffee
+    if not baseline?
+      return 0
     lines = coffee.split "\n"
-    while lines.length and lines[0].match /^[\W]*$/
-      lines.splice 0,1
     while lines.length and lines[lines.length-1].match /^[\W]*$/
       lines.pop()
-    if lines.length < 2
+    if lines.length < 1
       return 0
-    x   = lines[0]
     y   = lines[lines.length - 1]
-    x_l = x.match(/[\W]*/)[0].length
     y_l = y.match(/[\W]*/)[0].length
-    res = y_l - x_l
+    res = y_l - baseline
     res
 
-  _reindent: (coffee, indent_stack, indent_baseline_stack) ->    
+  _reindent: (coffee, indent_level, indent_baseline) ->    
     lines = coffee.split '\n'
     # strip out any leading whitespace lines
     while lines.length and lines[0].match /^[\W]*$/
       lines = lines[1...]
     return '' unless lines.length
     rxx    = /^[\W]*/
-    strip  = indent_baseline_stack[indent_baseline_stack.length-1].length #lines[0].match(rxx)[0].length
-    indent = @_space indent_stack
+    strip  = indent_baseline
+    indent = @_space indent_level
     res = ("#{indent}#{line[strip...]}" for line in lines).join "\n"
     res
 
-  _space: (indent_stack) ->
-    sum = 0
-    sum += x for x in indent_stack
-    (" " for i in [0...sum]).join ""
-
+  _space: (indent) -> (" " for i in [0...indent]).join ""
+    
   _tabAsSpaces: -> (" " for i in [0...TAB_SPACES]).join ""
 
   _coffeeHeaders: ->
     header = """
-__cojo__.state = "COJO"
 """
     header
 

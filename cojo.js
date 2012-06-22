@@ -59,33 +59,33 @@ performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1: this.$ = $$[$0-1]; return this.$;
+case 1: this.$ = ["COJO_ZONE", $$[$0-1]]; return this.$;
 break;
 case 2: this.$ = [$$[$0]]; 
 break;
-case 3: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); for (var i = 0; i < $$[$0-1].length; i++) { $$[$0].splice(1+i,0,$$[$0-1][i]);  } 
+case 3: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2],$$[$0-1]); 
 break;
-case 4: this.$ = $$[$0-1]; for (var i = 0; i < $$[$0].length; i++) { this.$.push($$[$0][i]);  } 
+case 4: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-1]); 
 break;
 case 5: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); 
 break;
-case 6: this.$ = $$[$0]; 
+case 6: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-1]); 
 break;
 case 7: this.$ = []; 
 break;
-case 9: this.$ = $$[$0-1]; $$[$0-1].splice(0,0,["COFFEE_REGION"]); $$[$0-1].push(["END_COFFEE_REGION"]); 
+case 9: this.$ = ["COFFEE_ZONE", $$[$0-1]]; 
 break;
 case 10: this.$ = [$$[$0]]; 
 break;
-case 11: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2]); for (var i = 0; i < $$[$0-1].length; i++) { $$[$0].splice(1+i,0,$$[$0-1][i]);  } 
+case 11: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-2],$$[$0-1]); 
 break;
-case 12: this.$ = $$[$0-1]; for (var i = 0; i < $$[$0].length; i++) { this.$.push($$[$0][i]);  } 
+case 12: this.$ = $$[$0]; $$[$0].splice(0,0,$$[$0-1]); 
 break;
 case 13: this.$ = []; 
 break;
-case 14: this.$ = $$[$0-1]; 
+case 14: this.$ = ["COJO_ZONE", $$[$0-1]]; 
 break;
-case 15: this.$ = $$[$0-1]; $$[$0-1].splice(0,0,["INDENT"]); $$[$0-1].push(["OUTDENT"]); 
+case 15: this.$ = ["INDENTED_COJO_ZONE", $$[$0-1]]; 
 break;
 case 16: this.$ = ["COJO", $$[$0]]; 
 break;
@@ -103,195 +103,102 @@ parseError: function parseError(str, hash) {
     throw new Error(str);
 },
 parse: function parse(input) {
-    var self = this,
-        stack = [0],
-        vstack = [null], // semantic value stack
-        lstack = [], // location stack
-        table = this.table,
-        yytext = '',
-        yylineno = 0,
-        yyleng = 0,
-        recovering = 0,
-        TERROR = 2,
-        EOF = 1;
-
-    //this.reductionCount = this.shiftCount = 0;
-
+    var self = this, stack = [0], vstack = [null], lstack = [], table = this.table, yytext = "", yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
     this.lexer.setInput(input);
     this.lexer.yy = this.yy;
     this.yy.lexer = this.lexer;
-    if (typeof this.lexer.yylloc == 'undefined')
+    this.yy.parser = this;
+    if (typeof this.lexer.yylloc == "undefined")
         this.lexer.yylloc = {};
     var yyloc = this.lexer.yylloc;
     lstack.push(yyloc);
-
-    if (typeof this.yy.parseError === 'function')
+    var ranges = this.lexer.options && this.lexer.options.ranges;
+    if (typeof this.yy.parseError === "function")
         this.parseError = this.yy.parseError;
-
-    function popStack (n) {
-        stack.length = stack.length - 2*n;
+    function popStack(n) {
+        stack.length = stack.length - 2 * n;
         vstack.length = vstack.length - n;
         lstack.length = lstack.length - n;
     }
-
     function lex() {
         var token;
-        token = self.lexer.lex() || 1; // $end = 1
-        // if token isn't its numeric value, convert
-        if (typeof token !== 'number') {
+        token = self.lexer.lex() || 1;
+        if (typeof token !== "number") {
             token = self.symbols_[token] || token;
         }
         return token;
     }
-
-    var symbol, preErrorSymbol, state, action, a, r, yyval={},p,len,newState, expected;
+    var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
     while (true) {
-        // retreive state number from top of stack
-        state = stack[stack.length-1];
-
-        // use default actions if available
+        state = stack[stack.length - 1];
         if (this.defaultActions[state]) {
             action = this.defaultActions[state];
         } else {
-            if (symbol == null)
+            if (symbol === null || typeof symbol == "undefined") {
                 symbol = lex();
-            // read action for current state and first input
+            }
             action = table[state] && table[state][symbol];
         }
-
-        // handle parse error
-        _handle_error:
-        if (typeof action === 'undefined' || !action.length || !action[0]) {
-
-            if (!recovering) {
-                // Report error
-                expected = [];
-                for (p in table[state]) if (this.terminals_[p] && p > 2) {
-                    expected.push("'"+this.terminals_[p]+"'");
-                }
-                var errStr = '';
-                if (this.lexer.showPosition) {
-                    errStr = 'Parse error on line '+(yylineno+1)+":\n"+this.lexer.showPosition()+"\nExpecting "+expected.join(', ') + ", got '" + this.terminals_[symbol]+ "'";
-                } else {
-                    errStr = 'Parse error on line '+(yylineno+1)+": Unexpected " +
-                                  (symbol == 1 /*EOF*/ ? "end of input" :
-                                              ("'"+(this.terminals_[symbol] || symbol)+"'"));
-                }
-                this.parseError(errStr,
-                    {text: this.lexer.match, token: this.terminals_[symbol] || symbol, line: this.lexer.yylineno, loc: yyloc, expected: expected});
-            }
-
-            // just recovered from another error
-            if (recovering == 3) {
-                if (symbol == EOF) {
-                    throw new Error(errStr || 'Parsing halted.');
-                }
-
-                // discard current lookahead and grab another
+        if (typeof action === "undefined" || !action.length || !action[0]) {
+            var errStr = "";
+        }
+        if (action[0] instanceof Array && action.length > 1) {
+            throw new Error("Parse Error: multiple actions possible at state: " + state + ", token: " + symbol);
+        }
+        switch (action[0]) {
+        case 1:
+            stack.push(symbol);
+            vstack.push(this.lexer.yytext);
+            lstack.push(this.lexer.yylloc);
+            stack.push(action[1]);
+            symbol = null;
+            if (!preErrorSymbol) {
                 yyleng = this.lexer.yyleng;
                 yytext = this.lexer.yytext;
                 yylineno = this.lexer.yylineno;
                 yyloc = this.lexer.yylloc;
-                symbol = lex();
+                if (recovering > 0)
+                    recovering--;
+            } else {
+                symbol = preErrorSymbol;
+                preErrorSymbol = null;
             }
-
-            // try to recover from error
-            while (1) {
-                // check for error recovery rule in this state
-                if ((TERROR.toString()) in table[state]) {
-                    break;
-                }
-                if (state == 0) {
-                    throw new Error(errStr || 'Parsing halted.');
-                }
-                popStack(1);
-                state = stack[stack.length-1];
+            break;
+        case 2:
+            len = this.productions_[action[1]][1];
+            yyval.$ = vstack[vstack.length - len];
+            yyval._$ = {first_line: lstack[lstack.length - (len || 1)].first_line, last_line: lstack[lstack.length - 1].last_line, first_column: lstack[lstack.length - (len || 1)].first_column, last_column: lstack[lstack.length - 1].last_column};
+            if (ranges) {
+                yyval._$.range = [lstack[lstack.length - (len || 1)].range[0], lstack[lstack.length - 1].range[1]];
             }
-
-            preErrorSymbol = symbol; // save the lookahead token
-            symbol = TERROR;         // insert generic error symbol as new lookahead
-            state = stack[stack.length-1];
-            action = table[state] && table[state][TERROR];
-            recovering = 3; // allow 3 real symbols to be shifted before reporting a new error
+            r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
+            if (typeof r !== "undefined") {
+                return r;
+            }
+            if (len) {
+                stack = stack.slice(0, -1 * len * 2);
+                vstack = vstack.slice(0, -1 * len);
+                lstack = lstack.slice(0, -1 * len);
+            }
+            stack.push(this.productions_[action[1]][0]);
+            vstack.push(yyval.$);
+            lstack.push(yyval._$);
+            newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
+            stack.push(newState);
+            break;
+        case 3:
+            return true;
         }
-
-        // this shouldn't happen, unless resolve defaults are off
-        if (action[0] instanceof Array && action.length > 1) {
-            throw new Error('Parse Error: multiple actions possible at state: '+state+', token: '+symbol);
-        }
-
-        switch (action[0]) {
-
-            case 1: // shift
-                //this.shiftCount++;
-
-                stack.push(symbol);
-                vstack.push(this.lexer.yytext);
-                lstack.push(this.lexer.yylloc);
-                stack.push(action[1]); // push state
-                symbol = null;
-                if (!preErrorSymbol) { // normal execution/no error
-                    yyleng = this.lexer.yyleng;
-                    yytext = this.lexer.yytext;
-                    yylineno = this.lexer.yylineno;
-                    yyloc = this.lexer.yylloc;
-                    if (recovering > 0)
-                        recovering--;
-                } else { // error just occurred, resume old lookahead f/ before error
-                    symbol = preErrorSymbol;
-                    preErrorSymbol = null;
-                }
-                break;
-
-            case 2: // reduce
-                //this.reductionCount++;
-
-                len = this.productions_[action[1]][1];
-
-                // perform semantic action
-                yyval.$ = vstack[vstack.length-len]; // default to $$ = $1
-                // default location, uses first token for firsts, last for lasts
-                yyval._$ = {
-                    first_line: lstack[lstack.length-(len||1)].first_line,
-                    last_line: lstack[lstack.length-1].last_line,
-                    first_column: lstack[lstack.length-(len||1)].first_column,
-                    last_column: lstack[lstack.length-1].last_column
-                };
-                r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
-
-                if (typeof r !== 'undefined') {
-                    return r;
-                }
-
-                // pop off stack
-                if (len) {
-                    stack = stack.slice(0,-1*len*2);
-                    vstack = vstack.slice(0, -1*len);
-                    lstack = lstack.slice(0, -1*len);
-                }
-
-                stack.push(this.productions_[action[1]][0]);    // push nonterminal (reduce)
-                vstack.push(yyval.$);
-                lstack.push(yyval._$);
-                // goto new state = table[STATE][NONTERMINAL]
-                newState = table[stack[stack.length-2]][stack[stack.length-1]];
-                stack.push(newState);
-                break;
-
-            case 3: // accept
-                return true;
-        }
-
     }
-
     return true;
-}};
+}
+};
 /* Jison generated lexer */
 var lexer = (function(){
 var lexer = ({EOF:1,
 parseError:function parseError(str, hash) {
-        if (this.yy.parseError) {
-            this.yy.parseError(str, hash);
+        if (this.yy.parser) {
+            this.yy.parser.parseError(str, hash);
         } else {
             throw new Error(str);
         }
@@ -303,21 +210,55 @@ setInput:function (input) {
         this.yytext = this.matched = this.match = '';
         this.conditionStack = ['INITIAL'];
         this.yylloc = {first_line:1,first_column:0,last_line:1,last_column:0};
+        if (this.options.ranges) this.yylloc.range = [0,0];
+        this.offset = 0;
         return this;
     },
 input:function () {
         var ch = this._input[0];
-        this.yytext+=ch;
+        this.yytext += ch;
         this.yyleng++;
-        this.match+=ch;
-        this.matched+=ch;
-        var lines = ch.match(/\n/);
-        if (lines) this.yylineno++;
+        this.offset++;
+        this.match += ch;
+        this.matched += ch;
+        var lines = ch.match(/(?:\r\n?|\n).*/g);
+        if (lines) {
+            this.yylineno++;
+            this.yylloc.last_line++;
+        } else {
+            this.yylloc.last_column++;
+        }
+        if (this.options.ranges) this.yylloc.range[1]++;
+
         this._input = this._input.slice(1);
         return ch;
     },
 unput:function (ch) {
+        var len = ch.length;
+        var lines = ch.split(/(?:\r\n?|\n)/g);
+
         this._input = ch + this._input;
+        this.yytext = this.yytext.substr(0, this.yytext.length-len-1);
+        //this.yyleng -= len;
+        this.offset -= len;
+        var oldLines = this.match.split(/(?:\r\n?|\n)/g);
+        this.match = this.match.substr(0, this.match.length-1);
+        this.matched = this.matched.substr(0, this.matched.length-1);
+
+        if (lines.length-1) this.yylineno -= lines.length-1;
+        var r = this.yylloc.range;
+
+        this.yylloc = {first_line: this.yylloc.first_line,
+          last_line: this.yylineno+1,
+          first_column: this.yylloc.first_column,
+          last_column: lines ?
+              (lines.length === oldLines.length ? this.yylloc.first_column : 0) + oldLines[oldLines.length - lines.length].length - lines[0].length:
+              this.yylloc.first_column - len
+          };
+
+        if (this.options.ranges) {
+            this.yylloc.range = [r[0], r[0] + this.yyleng - len];
+        }
         return this;
     },
 more:function () {
@@ -325,7 +266,7 @@ more:function () {
         return this;
     },
 less:function (n) {
-        this._input = this.match.slice(n) + this._input;
+        this.unput(this.match.slice(n));
     },
 pastInput:function () {
         var past = this.matched.substr(0, this.matched.length - this.match.length);
@@ -369,15 +310,19 @@ next:function () {
             }
         }
         if (match) {
-            lines = match[0].match(/\n.*/g);
+            lines = match[0].match(/(?:\r\n?|\n).*/g);
             if (lines) this.yylineno += lines.length;
             this.yylloc = {first_line: this.yylloc.last_line,
                            last_line: this.yylineno+1,
                            first_column: this.yylloc.last_column,
-                           last_column: lines ? lines[lines.length-1].length-1 : this.yylloc.last_column + match[0].length}
+                           last_column: lines ? lines[lines.length-1].length-lines[lines.length-1].match(/\r?\n?/)[0].length : this.yylloc.last_column + match[0].length};
             this.yytext += match[0];
             this.match += match[0];
+            this.matches = match;
             this.yyleng = this.yytext.length;
+            if (this.options.ranges) {
+                this.yylloc.range = [this.offset, this.offset += this.yyleng];
+            }
             this._more = false;
             this._input = this._input.slice(match[0].length);
             this.matched += match[0];
@@ -389,7 +334,7 @@ next:function () {
         if (this._input === "") {
             return this.EOF;
         } else {
-            this.parseError('Lexical error on line '+(this.yylineno+1)+'. Unrecognized text.\n'+this.showPosition(), 
+            return this.parseError('Lexical error on line '+(this.yylineno+1)+'. Unrecognized text.\n'+this.showPosition(),
                     {text: "", token: null, line: this.yylineno});
         }
     },
@@ -441,30 +386,31 @@ case 8:return 5;
 break;
 }
 };
-lexer.rules = [/^\{##/,/^##\}/,/^\{#/,/^#\}/,/^:[\t\r\n ]*\{\{/,/^\{\{/,/^\}\}/,/^[^{}#\\:]+|[\\{}#:]/,/^$/];
+lexer.rules = [/^(?:\{##)/,/^(?:##\})/,/^(?:\{#)/,/^(?:#\})/,/^(?::[\t\r\n ]*\{\{)/,/^(?:\{\{)/,/^(?:\}\})/,/^(?:[^{}#\\:]+|[\\{}#:])/,/^(?:$)/];
 lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8],"inclusive":true}};
 return lexer;})()
-parser.lexer = lexer;
-return parser;
+parser.lexer = lexer;function Parser () { this.yy = {}; }Parser.prototype = parser;parser.Parser = Parser;
+return new Parser;
 })();
 if (typeof require !== 'undefined' && typeof exports !== 'undefined') {
 exports.parser = cojo_lang;
+exports.Parser = cojo_lang.Parser;
 exports.parse = function () { return cojo_lang.parse.apply(cojo_lang, arguments); }
 exports.main = function commonjsMain(args) {
     if (!args[1])
         throw new Error('Usage: '+args[0]+' FILE');
+    var source, cwd;
     if (typeof process !== 'undefined') {
-        var source = require('fs').readFileSync(require('path').join(process.cwd(), args[1]), "utf8");
+        source = require('fs').readFileSync(require('path').resolve(args[1]), "utf8");
     } else {
-        var cwd = require("file").path(require("file").cwd());
-        var source = cwd.join(args[1]).read({charset: "utf-8"});
+        source = require("file").path(require("file").cwd()).join(args[1]).read({charset: "utf-8"});
     }
     return exports.parser.parse(source);
 }
 if (typeof module !== 'undefined' && require.main === module) {
   exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
 }
-}}, "engine": function(exports, require, module) {// Generated by IcedCoffeeScript 1.3.3a
+}}, "engine": function(exports, require, module) {// Generated by IcedCoffeeScript 1.3.1c
 (function() {
   var engine, fs, path, util, view,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -603,7 +549,7 @@ if (typeof module !== 'undefined' && require.main === module) {
   exports.engine = engine;
 
 }).call(this);
-}, "view": function(exports, require, module) {// Generated by IcedCoffeeScript 1.3.3a
+}, "view": function(exports, require, module) {// Generated by IcedCoffeeScript 1.3.1c
 (function() {
   var TAB_SPACES, coffee, parser, view, vm;
 
@@ -632,7 +578,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       console.log(" =====txt=======");
       console.log(this.txt);
       console.log(" =====code=======");
-      console.log(this.codeObj);
+      console.log(JSON.stringify(this.codeObj));
       return console.log(" ============");
     };
 
@@ -706,46 +652,11 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._toCoffee = function() {
-      var chunk, d, i, i_delta, indent_baseline_stack, indent_stack, res, _i, _len, _ref;
+      var d, res;
       if (!(this.coffeeScript != null)) {
         d = Date.now();
-        indent_stack = [0];
-        indent_baseline_stack = [];
         res = this._coffeeHeaders();
-        _ref = this.codeObj;
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          chunk = _ref[i];
-          switch (chunk[0]) {
-            case 'COFFEE_REGION':
-              indent_baseline_stack.push(this._getIndentationBaseline(this.codeObj[i + 1][1]));
-              break;
-            case 'END_COFFEE_REGION':
-              indent_baseline_stack.pop();
-              break;
-            case 'COJO':
-              res += "\n" + (this._space(indent_stack)) + "__cojo__.state = \"COJO\"";
-              res += ("\n" + (this._space(indent_stack)) + "__cojo__.res += ") + '"""' + chunk[1] + '"""';
-              res += "\n" + (this._space(indent_stack)) + "__cojo__.state = \"COFFEE\"";
-              indent_stack.pop();
-              break;
-            case 'COFFEE':
-              if (i === 0) {
-                res += "\n" + (this._space(indent_stack)) + "__cojo__.state = \"COFFEE\"";
-              }
-              res += "\n" + (this._reindent(chunk[1], indent_stack, indent_baseline_stack));
-              i_delta = this._getIndentationDelta(chunk[1]);
-              indent_stack.push(i_delta);
-              break;
-            case 'INDENT':
-              indent_stack.push(TAB_SPACES);
-              break;
-            case 'OUTDENT':
-              indent_stack.pop();
-              break;
-            default:
-              throw 'Bad parsing.';
-          }
-        }
+        res += this._toCoffeeRecurse(this.codeObj, 0, 0);
         res += this._coffeeFooters();
         this.coffeeScript = res;
         console.log(res);
@@ -754,42 +665,104 @@ if (typeof module !== 'undefined' && require.main === module) {
       return this.coffeeScript;
     };
 
+    view.prototype._toCoffeeRecurse = function(obj, indent_level, indent_baseline) {
+      var item, rel_baseline, res, zone_baseline, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2;
+      res = "";
+      switch (obj[0]) {
+        case "INDENTED_COJO_ZONE":
+          indent_level += TAB_SPACES;
+          _ref = obj[1];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            item = _ref[_i];
+            res += this._toCoffeeRecurse(item, indent_level, indent_baseline);
+          }
+          break;
+        case "COJO_ZONE":
+          res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COJO\"";
+          _ref1 = obj[1];
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            item = _ref1[_j];
+            res += this._toCoffeeRecurse(item, indent_level, indent_baseline);
+          }
+          break;
+        case "COFFEE_ZONE":
+          res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COFFEE\"";
+          zone_baseline = this._getZoneBaseline(obj[1]);
+          indent_baseline = zone_baseline;
+          _ref2 = obj[1];
+          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+            item = _ref2[_k];
+            res += this._toCoffeeRecurse(item, indent_level, indent_baseline);
+            if (item[0] === "COFFEE") {
+              rel_baseline = this._getIndentationBaseline(item[1], zone_baseline);
+              console.log("Rel = " + rel_baseline + " Baseline = " + zone_baseline);
+              indent_level = rel_baseline;
+            }
+          }
+          break;
+        case "COJO":
+          res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COJO\"";
+          res += ("\n" + (this._space(indent_level)) + "__cojo__.res += ") + '"""' + obj[1] + '"""';
+          res += "\n" + (this._space(indent_level)) + "__cojo__.state = \"COFFEE\"";
+          break;
+        case "COFFEE":
+          console.log(obj);
+          res += "" + (this._space(indent_level)) + "# DEBUG: indent_level=" + indent_level + " indent_baseline=" + indent_baseline;
+          res += "\n" + (this._reindent(obj[1], indent_level, indent_baseline));
+          break;
+        default:
+          throw "Bad parsing. " + obj + " not handled.";
+          return "";
+      }
+      return res;
+    };
+
+    view.prototype._getZoneBaseline = function(obj_arr) {
+      var ib, obj, _i, _len;
+      for (_i = 0, _len = obj_arr.length; _i < _len; _i++) {
+        obj = obj_arr[_i];
+        if (obj[0] === "COFFEE") {
+          ib = this._getIndentationBaseline(obj[1]);
+          if (ib != null) return ib;
+        }
+      }
+      return 0;
+    };
+
     view.prototype._getIndentationBaseline = function(coffee) {
       var line, lines, _i, _len;
       lines = coffee.split("\n");
-      if (lines.length === 0) return "";
+      if (lines.length === 0) return null;
       for (_i = 0, _len = lines.length; _i < _len; _i++) {
         line = lines[_i];
-        if (!line.match(/^[\W]*$/)) return line.match(/[\W]*/)[0];
+        if (!line.match(/^[\W]*$/)) return line.match(/[\W]*/)[0].length;
       }
-      return "";
+      return null;
     };
 
-    view.prototype._getIndentationDelta = function(coffee) {
+    view.prototype._getIndentationDelta = function(coffee, baseline) {
       /*
           given an arbitrarily indented set of coffeescript, returns the delta
           between the first and last lines, in chars.
           Ignores leading/trailing whitespace lines
+          If passed a baseline, uses that instead of own.
       */
 
-      var lines, res, x, x_l, y, y_l;
+      var lines, res, y, y_l;
+      if (!(baseline != null)) baseline = this._getIndentationBaseline(coffee);
+      if (!(baseline != null)) return 0;
       lines = coffee.split("\n");
-      while (lines.length && lines[0].match(/^[\W]*$/)) {
-        lines.splice(0, 1);
-      }
       while (lines.length && lines[lines.length - 1].match(/^[\W]*$/)) {
         lines.pop();
       }
-      if (lines.length < 2) return 0;
-      x = lines[0];
+      if (lines.length < 1) return 0;
       y = lines[lines.length - 1];
-      x_l = x.match(/[\W]*/)[0].length;
       y_l = y.match(/[\W]*/)[0].length;
-      res = y_l - x_l;
+      res = y_l - baseline;
       return res;
     };
 
-    view.prototype._reindent = function(coffee, indent_stack, indent_baseline_stack) {
+    view.prototype._reindent = function(coffee, indent_level, indent_baseline) {
       var indent, line, lines, res, rxx, strip;
       lines = coffee.split('\n');
       while (lines.length && lines[0].match(/^[\W]*$/)) {
@@ -797,8 +770,8 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
       if (!lines.length) return '';
       rxx = /^[\W]*/;
-      strip = indent_baseline_stack[indent_baseline_stack.length - 1].length;
-      indent = this._space(indent_stack);
+      strip = indent_baseline;
+      indent = this._space(indent_level);
       res = ((function() {
         var _i, _len, _results;
         _results = [];
@@ -811,17 +784,12 @@ if (typeof module !== 'undefined' && require.main === module) {
       return res;
     };
 
-    view.prototype._space = function(indent_stack) {
-      var i, sum, x, _i, _len;
-      sum = 0;
-      for (_i = 0, _len = indent_stack.length; _i < _len; _i++) {
-        x = indent_stack[_i];
-        sum += x;
-      }
+    view.prototype._space = function(indent) {
+      var i;
       return ((function() {
-        var _j, _results;
+        var _i, _results;
         _results = [];
-        for (i = _j = 0; 0 <= sum ? _j < sum : _j > sum; i = 0 <= sum ? ++_j : --_j) {
+        for (i = _i = 0; 0 <= indent ? _i < indent : _i > indent; i = 0 <= indent ? ++_i : --_i) {
           _results.push(" ");
         }
         return _results;
@@ -842,7 +810,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     view.prototype._coffeeHeaders = function() {
       var header;
-      header = "__cojo__.state = \"COJO\"";
+      header = "";
       return header;
     };
 
