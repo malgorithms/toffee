@@ -29,7 +29,7 @@
         #}
       </table>
 
-{include("footer.cojo", {copyright: 2012})}
+#{include("footer.cojo", {copyright: 2012})}
 
 {## 
     This is a comment that should not get published. yeah!

@@ -16,6 +16,9 @@ copyright #{copyright} by #{if name? then name else ""}
               {{ hi there }}
           else : {{
             Test 22 Passed.
+            {#
+              print "(Because 2 is not 3)"
+            #}
           }}
     #}
 
