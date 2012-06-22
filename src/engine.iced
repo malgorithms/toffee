@@ -6,9 +6,10 @@ util            = require 'util'
 class engine
 
   constructor: (options) ->
+    options         = options or {}
+    @maxCacheAge    = options.maxCacheAge or 2000
     @viewCache      = {} # filename
     @lastCacheReset = Date.now()
-    @maxCacheAge    = 2000 # TODO: move to option
 
   run: (filename, options, cb) =>
     ###
