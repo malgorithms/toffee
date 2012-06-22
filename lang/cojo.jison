@@ -11,9 +11,9 @@
 "##}"                     return 'END_COJO_COMMENT';
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
-":"[\t\r\n ]*"{{"         return 'START_INDENTED_COJO'
-"{{"                      return 'START_COJO';
-"}}"                      return 'END_COJO';
+":"[\t\r\n ]*"{:"         return 'START_INDENTED_COJO'
+"{:"                      return 'START_COJO';
+":}"                      return 'END_COJO';
 [^{}#\\:]+|[\\{}#:]       return 'CODE';
 <<EOF>>                   return 'EOF';
 

@@ -2,31 +2,31 @@
     {#
         if 1 is 1
           if 2 is 2
-            if 3 is 3 : {{Pass}}
+            if 3 is 3 : {:Pass:}
         if 1 is 1
           if 2 is 3
             if 3 is 3 :
-              {{Fail}}
+              {:Fail:}
             else :
-              {{Fail}}
+              {:Fail:}
           else
             if 2 is 2
-              if 3 is 3 : {{Pass}}
+              if 3 is 3 : {:Pass:}
     #}
 <hr />
 
 {#
                     if 1 is 1
                       if 2 is 2
-                        if 3 is 3 : {{Pass}}
+                        if 3 is 3 : {:Pass:}
                     if 1 is 1
                       if 2 is 3
                         if 3 is 3 :
-                          {{Fail}}
+                          {:Fail:}
                         else :
-                          {{Fail}}
+                          {:Fail:}
                       else
                         if 2 is 2
-                          if 3 is 3 : {{Pass}}
+                          if 3 is 3 : {:Pass:}
 #}
 <hr />
