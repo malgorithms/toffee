@@ -1,14 +1,15 @@
 node-cojo
 =========
-an express 3.x templating language based on coffeescript with slicker tokens
+an express 2.x, 3.x, and browser templating language based on coffeescript with slicker tokens and automatic space sensing.
 
 status
 ======
-super pre-alpha. don't use this
+Early beta. Don't use this unless you work at OkCupid.
 
-performance
-===========
-- drop string concat in favor of array pushing and join 
+the basic idea
+==============
+A region inside a cojo template is in one of two modes: `cojo` or `coffee`.  Inside your coffee-script you
+can put whatever coffee-script you like.
 
 todo
 ======

@@ -921,14 +921,14 @@ if (typeof module !== 'undefined' && require.main === module) {
     view.prototype._coffeeHeaders = function() {
       var header, tab;
       tab = this._tabAsSpaces();
-      header = "domain                = this\ndomain.cojoTemplates  = domain.cojoTemplates or {}\ndomain.cojoTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + tab + "domain                = this\n" + tab + "locals.__cojo         = {}\n" + tab + "`with (locals) {`\n" + tab + "__cojo.out = []\n" + tab + "states = " + (JSON.stringify(states)) + "\n" + tab + "if not include? then include = (fname, vars) -> \n" + tab;
+      header = "domain                = this\ndomain.cojoTemplates  = domain.cojoTemplates or {}\ndomain.cojoTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + tab + "domain                = this\n" + tab + "locals.__cojo         = {}\n" + tab + "`with (locals) {`\n" + tab + "__cojo.out = []\n" + tab + "states = " + (JSON.stringify(states));
       return header;
     };
 
     view.prototype._coffeeFooters = function() {
       var footer, tab;
       tab = this._tabAsSpaces();
-      footer = "\n\n" + tab + "__cojo.res = __cojo.out.join \"\"\n" + tab + "return __cojo.res\n" + tab + "`} /* closing JS 'with' */ `\n# sometimes we want to execute the whole thing in a sandbox\n# and just output results\nif __cojo_run_input?\n" + tab + "return domain.cojoTemplates[\"" + this.identifier + "\"] __cojo_run_input";
+      footer = "\n\n" + tab + "__cojo.res = __cojo.out.join \"\"\n" + tab + "return __cojo.res\n" + tab + "`} /* closing JS 'with' */ `\n# sometimes we want to execute the whole thing in a sandbox\n# and just output results\nif __cojo_run_input?\n" + tab + "return domain.cojoTemplates[\"" + this.identifier + "\"] __cojo_run_input\nif not print? then print = (txt) -> __cojo.out.push txt";
       return footer;
     };
 
@@ -944,7 +944,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     return function(vars) {
       var res;
       res = v.run(vars);
-      return console.log(res[1]);
+      return res[1];
     };
   };
 

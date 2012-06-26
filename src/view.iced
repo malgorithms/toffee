@@ -194,8 +194,6 @@ domain.cojoTemplates["#{@identifier}"] = (locals) ->
 #{tab}`with (locals) {`
 #{tab}__cojo.out = []
 #{tab}states = #{JSON.stringify states}
-#{tab}if not include? then include = (fname, vars) -> 
-#{tab}
 """
     header
 
@@ -209,6 +207,7 @@ domain.cojoTemplates["#{@identifier}"] = (locals) ->
 # and just output results
 if __cojo_run_input?
 #{tab}return domain.cojoTemplates["#{@identifier}"] __cojo_run_input
+if not print? then print = (txt) -> __cojo.out.push txt
 """
     footer
 
@@ -220,4 +219,4 @@ exports.expressCompile = (txt, options) ->
   v = new view txt, options
   return (vars) ->
     res = v.run vars
-    console.log res[1]
+    res[1]
