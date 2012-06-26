@@ -1,9 +1,0 @@
-#{include "message.cojo", from: "Chris"}
-#{partial "message.cojo", from: "Max"}
-{#
-  include "message.cojo",       from:   "Sam"
-  print partial "message.cojo", from:   "Christian"
-  partial "message.cojo",       from:   "The enemy"
-  :{:#{include "message.cojo",  from:   "Jennie"}:}
-  include "message.cojo",       sender: "The enemy"
-#}

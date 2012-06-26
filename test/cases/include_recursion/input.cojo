@@ -1,6 +1,0 @@
-{#
-  if (countdown is 0) {:blastoff!:}
-  else 
-    print countdown + "..."
-    include "input.cojo", countdown: (countdown-1)
-#}
