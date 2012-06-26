@@ -7,6 +7,7 @@ obj =
   directories:  {"lib" : "./lib"}
   main:         "index.js"
   author:       "Chris Coyne <ccoyne77@gmail.com>"
+  bin:          "./bin/cojo"
   repository:
     type: "git"
     url:  "http://github.com/malgorithms/node-cojo"

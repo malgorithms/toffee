@@ -50,13 +50,13 @@ class view
 
   _toScriptObj: ->
     if not @scriptObj?
-      txt = @_toJavascript()
+      txt = @_toJavaScript()
       d = Date.now()
       @scriptObj = vm.createScript txt
       console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
     @scriptObj
 
-  _toJavascript: ->
+  _toJavaScript: ->
     if not @javaScript?
       c = @_toCoffee()
       d = Date.now()

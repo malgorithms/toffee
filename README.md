@@ -6,8 +6,15 @@ status
 ======
 super pre-alpha. don't use this
 
+performance
+===========
+- drop string concat in favor of array pushing and join 
+
 todo
 ======
+- state row should have mode and line number isntead of just "COJO" or "COFFEE"
+- make this thing work as compiled output JS, not just node
+- escape functions
 - get string escaping working in case something has triple quotes
 - add to unit tests
 - command line version, like max's

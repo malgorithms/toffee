@@ -24,7 +24,6 @@ run_all_case_dirs = (cb) ->
   time_ms = 0
   case_dirs = fs.readdirSync 'cases/'
   for dir in case_dirs
-    #console.log "Running case #{dir}"
     await run_case_dir "cases/#{dir}", defer err, ms
     time_ms += ms
     if err
