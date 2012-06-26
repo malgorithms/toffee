@@ -36,14 +36,14 @@ cojo_zone
   |
     flip_to_coffee cojo_zone                  { $$ = $2; $2.splice(0,0,$1); }
   |
-    cojo_code flip_to_cojo_comment cojo_zone  { $$ = $3; $3.splice(0,0,$1); }
+    cojo_code flip_to__cojocomment cojo_zone  { $$ = $3; $3.splice(0,0,$1); }
   |
-    flip_to_cojo_comment cojo_zone            { $$ = $2; $2.splice(0,0,$1); }
+    flip_to__cojocomment cojo_zone            { $$ = $2; $2.splice(0,0,$1); }
   |
                                               { $$ = []; }
   ;
 
-flip_to_cojo_comment
+flip_to__cojocomment
   :
   START_COJO_COMMENT code END_COJO_COMMENT  {}
   ;

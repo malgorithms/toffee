@@ -1,7 +1,7 @@
 parser          = require('./cojo_lang').parser
 coffee          = require 'coffee-script'
 {states}        = require './consts'
-#vm              = require 'vm'
+vm              = require 'vm'
 
 
 TAB_SPACES = 2
@@ -36,7 +36,14 @@ class view
     err = null
 
     try
-      res = script options
+      sandbox =
+        __cojo_run_input: options
+      script.runInNewContext sandbox
+      res = sandbox.__cojo_run_input.__cojo.res
+      delete sandbox.__cojo_run_input.__cojo
+      #console.log sandbox
+      #process.exit 1
+      #res = script options
     catch e
       err =    "Error: #{e.message}"
       err += "\nStack: #{e.stack}"
@@ -47,8 +54,8 @@ class view
     if not @scriptObj?
       txt = @_toJavaScript()
       d = Date.now()
-      eval txt
-      @scriptObj = @cojoTemplates["pub"]
+      @scriptObj = vm.createScript txt
+      #@scriptObj = @cojoTemplates["pub"]
       console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
     @scriptObj
 
@@ -84,12 +91,12 @@ class view
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "COJO_ZONE"
-        res += "\n#{@_space indent_level}_cojo_.state = states.COJO"
+        res += "\n#{@_space indent_level}__cojo.state = states.COJO"
         for item in obj[1]
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "COFFEE_ZONE"
-        res += "\n#{@_space indent_level}_cojo_.state = states.COFFEE"
+        res += "\n#{@_space indent_level}__cojo.state = states.COFFEE"
         zone_baseline   = @_getZoneBaseline obj[1]
         temp_indent_level = indent_level
         for item in obj[1]
@@ -97,9 +104,9 @@ class view
           res += s
           temp_indent_level = indent_level + delta
       when "COJO"
-        res += "\n#{@_space indent_level}_cojo_.state = states.COJO"
-        res += "\n#{@_space indent_level}_cojo_.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
-        res += "\n#{@_space indent_level}_cojo_.state = states.COFFEE"
+        res += "\n#{@_space indent_level}__cojo.state = states.COJO"
+        res += "\n#{@_space indent_level}__cojo.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
+        res += "\n#{@_space indent_level}__cojo.state = states.COFFEE"
       when "COFFEE"
         res += "#{@_space indent_level}# DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}"
         res += "\n#{@_reindent obj[1], indent_level, indent_baseline}"
@@ -175,25 +182,32 @@ class view
     
   _tabAsSpaces: -> (" " for i in [0...TAB_SPACES]).join ""
 
-  _coffeeHeaders: ->    
+  _coffeeHeaders: ->
+    tab    = @_tabAsSpaces()
     header = """
 domain                = this
 domain.cojoTemplates  = domain.cojoTemplates or {}
-domain.cojoState      = domain.cojoState     or {}
 domain.cojoTemplates["#{@identifier}"] = (locals) ->
-#{@_tabAsSpaces()}domain                = this
-#{@_tabAsSpaces()}locals._cojo_         = {}
-#{@_tabAsSpaces()}`with (locals) {`
-#{@_tabAsSpaces()}_cojo_.out = []
-#{@_tabAsSpaces()}states = #{JSON.stringify states}
+#{tab}domain                = this
+#{tab}locals.__cojo         = {}
+#{tab}`with (locals) {`
+#{tab}__cojo.out = []
+#{tab}states = #{JSON.stringify states}
+#{tab}if not include? then include = (fname, vars) -> 
+#{tab}
 """
     header
 
   _coffeeFooters: ->
+    tab    = @_tabAsSpaces()
     footer = """\n
-#{@_tabAsSpaces()}_cojo_.res = _cojo_.out.join ""
-#{@_tabAsSpaces()}return _cojo_.res
-#{@_tabAsSpaces()}`} /* closing JS 'with' */ `
+#{tab}__cojo.res = __cojo.out.join ""
+#{tab}return __cojo.res
+#{tab}`} /* closing JS 'with' */ `
+# sometimes we want to execute the whole thing in a sandbox
+# and just output results
+if __cojo_run_input?
+#{tab}return domain.cojoTemplates["#{@identifier}"] __cojo_run_input
 """
     footer
 
