@@ -1,2 +1,4 @@
-From: #{from}
+{# 
+  from = from or "Unknown" 
+#}From: #{from} 
 Msg:  Hello, world

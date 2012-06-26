@@ -3,4 +3,6 @@
 
   exports.engine = require('./lib/engine').engine;
 
+  exports.compile = require('./lib/view').expressCompile;
+
 }).call(this);

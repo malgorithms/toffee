@@ -938,5 +938,15 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   exports.view = view;
 
+  exports.expressCompile = function(txt, options) {
+    var v;
+    v = new view(txt, options);
+    return function(vars) {
+      var res;
+      res = v.run(vars);
+      return console.log(res[1]);
+    };
+  };
+
 }).call(this);
 }});

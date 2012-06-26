@@ -7,6 +7,7 @@ vm              = require 'vm'
 TAB_SPACES = 2
 
 class view
+
   constructor: (txt, options) ->
     options = options or {}
     @fileName     = options.fileName    or null
@@ -213,3 +214,10 @@ if __cojo_run_input?
 
 
 exports.view   = view
+
+# express 2.x support
+exports.expressCompile = (txt, options) ->
+  v = new view txt, options
+  return (vars) ->
+    res = v.run vars
+    console.log res[1]
