@@ -1,4 +1,6 @@
 {view}          = require './view'
+{states}        = require './consts'
+
 fs              = require 'fs'
 path            = require 'path'
 util            = require 'util'
@@ -34,14 +36,11 @@ class engine
     @_resetCache() if Date.now() - @lastCacheReset > @maxCacheAge
     v = @viewCache[filename] or @_loadAndCache filename, options
     if v 
-      view_options = {
-        parent: filename
-        prebuilt_functions:
-          include: (fname, lvars) => @_fn_include fname, lvars, realpath, options
-          partial: (fname, lvars) => @_fn_partial fname, lvars, realpath, options
-          print:   (txt)          => @_fn_print   txt, options
-      }
-      [err, res] = v.run options, view_options
+      options.__parent = filename
+      options.include = options.include or (fname, lvars) => @_fn_include fname, lvars, realpath, options
+      options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
+      options.print   = options.print   or (txt)          => @_fn_print   txt, options
+      [err, res] = v.run options
       return [err, res]
     else
       return ["Couldn't load #{filename}", null]
@@ -86,7 +85,7 @@ class engine
     # the user calls it inside coffeescript (it prints output)
     # or calls it inside a #{} container (it returns output)
     res = @_inlineInclude fname, lvars, realpath, options
-    if options.__cojo__.state is "COFFEE"
+    if options._cojo_.state is states.COFFEE
       @_fn_print res, options
     else
       res
@@ -95,7 +94,7 @@ class engine
     @_inlineInclude fname, lvars, realpath, options
 
   _fn_print: (txt, options) ->
-    options.__cojo__.res += txt
+    options._cojo_.out.push txt
 
   _loadAndCache: (filename, options) ->
     try

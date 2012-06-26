@@ -1,11 +1,16 @@
 parser          = require('./cojo_lang').parser
 coffee          = require 'coffee-script'
-vm              = require 'vm'
+{states}        = require './consts'
+#vm              = require 'vm'
+
 
 TAB_SPACES = 2
 
 class view
-  constructor: (txt) ->
+  constructor: (txt, options) ->
+    options = options or {}
+    @fileName     = options.fileName    or null
+    @identifier   = options.indentifier or "pub"
     @codeObj      = null # these are all constructed as needed
     @coffeeScript = null # these are all constructed as needed
     @javaScript   = null # these are all constructed as needed
@@ -17,42 +22,33 @@ class view
     @codeObj      = parser.parse txt
     @_cleanTabs()
 
-    console.log " =====txt======="
-    console.log @txt
-
   _cleanTabs: ->
     tab = @_tabAsSpaces()
     for chunk, i in @codeObj
       if chunk[0] is 'COFFEE'
         chunk[1] = chunk[1].replace /\t/g, tab
 
-  run: (vars, options) ->
+  run: (options) ->
     ###
     returns [err, str]
     ###
     script = @_toScriptObj()
-    vars.__cojo__ =
-      res: ""
     err = null
 
-    # make some functions available
-    if options.prebuilt_functions?
-      for name, fn of options.prebuilt_functions
-        vars[name] = fn
     try
-      script.runInNewContext vars
-      res = vars.__cojo__.res
-      delete vars.__cojo__
+      res = script options
     catch e
       err =    "Error: #{e.message}"
       err += "\nStack: #{e.stack}"
     return [err, res]
 
   _toScriptObj: ->
+
     if not @scriptObj?
       txt = @_toJavaScript()
       d = Date.now()
-      @scriptObj = vm.createScript txt
+      eval txt
+      @scriptObj = @cojoTemplates["pub"]
       console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
     @scriptObj
 
@@ -68,10 +64,9 @@ class view
     if not @coffeeScript?
       d = Date.now()
       res =  @_coffeeHeaders()
-      res += @_toCoffeeRecurse(@codeObj, 0, 0)[0]
+      res += @_toCoffeeRecurse(@codeObj, TAB_SPACES, 0)[0]
       res += @_coffeeFooters()
       @coffeeScript = res
-      console.log res
       console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
@@ -89,12 +84,12 @@ class view
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "COJO_ZONE"
-        res += "\n#{@_space indent_level}__cojo__.state = \"COJO\""
+        res += "\n#{@_space indent_level}_cojo_.state = states.COJO"
         for item in obj[1]
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "COFFEE_ZONE"
-        res += "\n#{@_space indent_level}__cojo__.state = \"COFFEE\""
+        res += "\n#{@_space indent_level}_cojo_.state = states.COFFEE"
         zone_baseline   = @_getZoneBaseline obj[1]
         temp_indent_level = indent_level
         for item in obj[1]
@@ -102,9 +97,9 @@ class view
           res += s
           temp_indent_level = indent_level + delta
       when "COJO"
-        res += "\n#{@_space indent_level}__cojo__.state = \"COJO\""
-        res += "\n#{@_space indent_level}__cojo__.res += " + '"""' + @_escapeForStr(obj[1]) + '"""'
-        res += "\n#{@_space indent_level}__cojo__.state = \"COFFEE\""
+        res += "\n#{@_space indent_level}_cojo_.state = states.COJO"
+        res += "\n#{@_space indent_level}_cojo_.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
+        res += "\n#{@_space indent_level}_cojo_.state = states.COFFEE"
       when "COFFEE"
         res += "#{@_space indent_level}# DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}"
         res += "\n#{@_reindent obj[1], indent_level, indent_baseline}"
@@ -173,20 +168,32 @@ class view
     rxx    = /^[\W]*/
     strip  = indent_baseline
     indent = @_space indent_level
-    res = ("#{indent}#{line[strip...]}" for line in lines).join "\n"
+    res    = ("#{indent}#{line[strip...]}" for line in lines).join "\n"
     res
 
   _space: (indent) -> (" " for i in [0...indent]).join ""
     
   _tabAsSpaces: -> (" " for i in [0...TAB_SPACES]).join ""
 
-  _coffeeHeaders: ->
+  _coffeeHeaders: ->    
     header = """
+domain                = this
+domain.cojoTemplates  = domain.cojoTemplates or {}
+domain.cojoState      = domain.cojoState     or {}
+domain.cojoTemplates["#{@identifier}"] = (locals) ->
+#{@_tabAsSpaces()}domain                = this
+#{@_tabAsSpaces()}locals._cojo_         = {}
+#{@_tabAsSpaces()}`with (locals) {`
+#{@_tabAsSpaces()}_cojo_.out = []
+#{@_tabAsSpaces()}states = #{JSON.stringify states}
 """
     header
 
   _coffeeFooters: ->
-    footer = """
+    footer = """\n
+#{@_tabAsSpaces()}_cojo_.res = _cojo_.out.join ""
+#{@_tabAsSpaces()}return _cojo_.res
+#{@_tabAsSpaces()}`} /* closing JS 'with' */ `
 """
     footer
 
