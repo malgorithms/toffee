@@ -85,7 +85,7 @@ class engine
     # the user calls it inside coffeescript (it prints output)
     # or calls it inside a #{} container (it returns output)
     res = @_inlineInclude fname, lvars, realpath, options
-    if options.__cojo.state is states.COFFEE
+    if options.__toffee.state is states.COFFEE
       @_fn_print res, options
     else
       res
@@ -94,7 +94,7 @@ class engine
     @_inlineInclude fname, lvars, realpath, options
 
   _fn_print: (txt, options) ->
-    options.__cojo.out.push txt
+    options.__toffee.out.push txt
 
   _loadAndCache: (filename, options) ->
     try

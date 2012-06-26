@@ -5,7 +5,7 @@ fs         = require "fs"
 
 printUsage = ->
   console.log """
-    Usage: cojo [-c] input.cojo
+    Usage: toffee [-c] input.toffee
   
         -c == output to CoffeeScript (instead of JS)
 

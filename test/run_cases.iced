@@ -4,11 +4,11 @@ fs       = require 'fs'
 e = new engine(maxCacheAge: 10000)
 
 run_case_dir = (dir, cb) ->
-  expected = fs.readFileSync "#{dir}/output.cojo", "utf8"
+  expected = fs.readFileSync "#{dir}/output.toffee", "utf8"
   vars     = fs.readFileSync "#{dir}/vars.json", "utf8"
   vars     = JSON.parse vars
   d = Date.now()
-  await e.run "#{dir}/input.cojo", vars, defer err, res
+  await e.run "#{dir}/input.toffee", vars, defer err, res
   time_ms = Date.now() - d
   if err
     cb err, time_ms

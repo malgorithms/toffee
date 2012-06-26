@@ -1,3 +1,3 @@
 exports.states = 
-  COJO:   1
+  TOFFEE:   1
   COFFEE: 2

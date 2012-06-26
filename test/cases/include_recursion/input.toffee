@@ -1,0 +1,6 @@
+{#
+  if (countdown is 0) {:blastoff!:}
+  else 
+    print countdown + "..."
+    include "input.toffee", countdown: (countdown-1)
+#}
