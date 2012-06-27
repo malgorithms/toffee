@@ -214,6 +214,10 @@ toffee      = require 'toffee'
 app.register '.toffee', toffee
 ```
 
+contributing
+=============
+I would love for someone to make a textmate/sublime bundle for Toffee. :-) . I would even pay for it.
+
 
 todo
 ======
