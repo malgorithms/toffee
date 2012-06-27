@@ -1,5 +1,8 @@
 parser          = require('./toffee_lang').parser
-coffee          = require 'coffee-script'
+try
+  coffee          = require "#{__dirname}/../node_modules/coffee-script"
+catch e
+  coffee          = require "#{__dirname}/./node_modules/coffee-script"
 {states}        = require './consts'
 vm              = require 'vm'
 
@@ -57,7 +60,7 @@ class view
       d = Date.now()
       @scriptObj = vm.createScript txt
       #@scriptObj = @toffeeTemplates["pub"]
-      console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
+      #console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
     @scriptObj
 
   _toJavaScript: ->
@@ -65,7 +68,7 @@ class view
       c = @_toCoffee()
       d = Date.now()
       @javaScript = coffee.compile c, {bare: false}
-      console.log "Compiled to JavaScript in #{Date.now()-d}ms"
+      #console.log "Compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
   _toCoffee: ->
@@ -75,7 +78,7 @@ class view
       res += @_toCoffeeRecurse(@codeObj, TAB_SPACES, 0)[0]
       res += @_coffeeFooters()
       @coffeeScript = res
-      console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
+      #console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
