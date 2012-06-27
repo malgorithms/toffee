@@ -1,13 +1,13 @@
 TOFFEE
 =========
 A templating language based on CoffeeScript with slicker tokens and automatic space sensing. 
-Compatible with Express 2.x, 3.x, and the browser. In express 3.0, the toffee engine handles file caching
-and automatic reloading.
+Compatible with Express 2.x, 3.x, and the browser. In Express 3.x, the Toffee engine handles file caching, partials,
+and automatic reloading when a template changes.
 
 status
 ======
-Early beta with lots of bug possibilities. Don't use this unless you work at OkCupid. 
-
+Beta with lots of bug possibilities. Don't use this unless you work at OkCupid 
+or don't mind my changing syntax out from underneath you.
 
 And there aren't yet meaningful line numbers on errors.
 
