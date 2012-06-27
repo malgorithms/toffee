@@ -51,7 +51,7 @@ EJS
 TOFFEE
 ```
 <ul>
-  {# for supply in supplies {:<li>supply</li>:} #}
+  {# for supply in supplies {:<li>#{supply}</li>:} #}
 </ul>
 ```
 
