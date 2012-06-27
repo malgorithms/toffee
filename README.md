@@ -194,14 +194,7 @@ app.register '.toffee', toffee
 
 todo
 ======
-- state row should have mode and line number isntead of just "TOFFEE" or "COFFEE"
-- make this thing work as compiled output JS, not just node
+- finish browser-side includes
 - escape functions
-- get string escaping working in case something has triple quotes
-- add to unit tests
-- command line version, like max's
-- get error checking working
-	 - template errors
-	 - runtime errors
-- get cache options as parameters available
-- meaningful errors (line numbers!)
+- continue to add to unit tests
+- better line numbers on errors
