@@ -196,7 +196,19 @@ installation & usage
 npm install -g toffee
 ```
 
-in express 2.x:
+In Express 3.x to make it your default engine:
+```
+app.set 'view engine', 'toffee'
+```
+
+In Express 3.x to use it just for .toffee files:
+```
+toffee = require 'toffee'
+app.engine 'toffee', toffee.__express
+``
+
+
+In Express 2.x:
 ```
 toffee      = require 'toffee'
 app.register '.toffee', toffee
