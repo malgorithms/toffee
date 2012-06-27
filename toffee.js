@@ -658,9 +658,9 @@ if (typeof module !== 'undefined' && require.main === module) {
   parser = require('./toffee_lang').parser;
 
   try {
-    coffee = require("" + __dirname + "/../node_modules/coffee-script");
+    coffee = require("iced-coffee-script");
   } catch (e) {
-    coffee = require("" + __dirname + "/./node_modules/coffee-script");
+    coffee = require("coffee-script");
   }
 
   states = require('./consts').states;
