@@ -1,10 +1,15 @@
 TOFFEE
 =========
-an express 2.x, 3.x, and browser templating language based on coffeescript with slicker tokens and automatic space sensing.
+A templating language based on CoffeeScript with slicker tokens and automatic space sensing. 
+Compatible with Express 2.x, 3.x, and the browser. In express 3.0, the toffee engine handles file caching
+and automatic reloading.
 
 status
 ======
-Early beta. Don't use this unless you work at OkCupid.
+Early beta with lots of bug possibilities. Don't use this unless you work at OkCupid. 
+
+
+And there aren't yet meaningful line numbers on errors.
 
 examples
 ========
@@ -18,7 +23,7 @@ Which of course is very powerful, if you want to get crazy:
 You have #{(x for x in friends when x.g is "f").length} female friends.
 ```
 
-But the real power comes froms from switching between `coffee` mode and `toffee` mode:
+But real pleasure arises when switching between `coffee` mode and `toffee` mode:
 ```
 {#
    if @projects.length
@@ -189,14 +194,7 @@ app.register '.toffee', toffee
 
 todo
 ======
-- state row should have mode and line number isntead of just "TOFFEE" or "COFFEE"
-- make this thing work as compiled output JS, not just node
+- finish browser-side includes
 - escape functions
-- get string escaping working in case something has triple quotes
-- add to unit tests
-- command line version, like max's
-- get error checking working
-	 - template errors
-	 - runtime errors
-- get cache options as parameters available
-- meaningful errors (line numbers!)
+- continue to add to unit tests
+- better line numbers on errors
