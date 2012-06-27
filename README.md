@@ -51,7 +51,7 @@ EJS
 TOFFEE
 ```
 <ul>
-  {# for supply in supplies {:<li>supply</li>:} #}
+  {# for supply in supplies {:<li>#{supply}</li>:} #}
 </ul>
 ```
 
@@ -214,10 +214,15 @@ toffee      = require 'toffee'
 app.register '.toffee', toffee
 ```
 
+contributing
+=============
+I would love for someone to make a textmate/sublime bundle for Toffee. :-) . I would even pay for it.
+
 
 todo
 ======
-- finish browser-side includes
-- escape functions
+- finish browser-side include and command-line compiler
+- ...then add instructions on how to use it
+- escapeHTML, JS, etc. functions
 - continue to add to unit tests
 - better line numbers on errors
