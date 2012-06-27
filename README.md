@@ -6,7 +6,8 @@ and automatic reloading.
 
 status
 ======
-Early beta. Don't use this unless you work at OkCupid.
+Early beta with lots of bug possibilities. Don't use this unless you work at OkCupid. 
+And there aren't yet meaningful line numbers on errors.
 
 examples
 ========
