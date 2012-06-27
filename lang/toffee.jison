@@ -11,7 +11,7 @@
 "##}"                     return 'END_TOFFEE_COMMENT';
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
-":"[\t\r\n ]*"{:"         return 'START_TOFFEE';
+"-"[\t\r\n ]*"{:"         return 'START_TOFFEE';
 "{:"                      return 'START_INDENTED_TOFFEE';
 ":}"                      return 'END_TOFFEE';
 [^{}#\\:]+|[\\{}#:]       return 'CODE';

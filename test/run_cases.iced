@@ -1,12 +1,16 @@
 {engine} = require '../lib/engine'
 fs       = require 'fs'
+path     = require 'path'
 
 e = new engine(maxCacheAge: 10000)
 
 run_case_dir = (dir, cb) ->
   expected = fs.readFileSync "#{dir}/output.toffee", "utf8"
-  vars     = fs.readFileSync "#{dir}/vars.json", "utf8"
-  vars     = JSON.parse vars
+  if path.existsSync "#{dir}/vars.json"
+    vars     = fs.readFileSync "#{dir}/vars.json", "utf8"
+    vars     = JSON.parse vars
+  else
+    vars     = {}
   d = Date.now()
   await e.run "#{dir}/input.toffee", vars, defer err, res
   time_ms = Date.now() - d

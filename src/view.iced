@@ -140,13 +140,14 @@ class view
   _getIndentationBaseline: (coffee) ->
     # returns the indentation level of the first line of coffeescript (as a number
     # or null, if the region doesn't have any real code in it
+    res = null
     lines = coffee.split "\n"
-    if lines.length is 0
-      return null
-    for line in lines
-      if not line.match /^[\W]*$/
-        return line.match(/[\W]*/)[0].length
-    return null
+    if lines.length isnt 0
+      for line in lines
+        if not line.match /^[ ]*$/
+          res = line.match(/[ ]*/)[0].length
+          break
+    return res
 
   _getIndentationDelta: (coffee, baseline) ->
     ###
@@ -160,23 +161,23 @@ class view
       res = 0
     else 
       lines = coffee.split "\n"
-      while lines.length and lines[lines.length-1].match /^[\W]*$/
+      while lines.length and lines[lines.length-1].match /^[ ]*$/
         lines.pop()
       if lines.length < 1
         res = 0
       else 
         y   = lines[lines.length - 1]
-        y_l = y.match(/[\W]*/)[0].length
+        y_l = y.match(/[ ]*/)[0].length
         res = y_l - baseline
     return res
 
   _reindent: (coffee, indent_level, indent_baseline) ->    
     lines = coffee.split '\n'
     # strip out any leading whitespace lines
-    while lines.length and lines[0].match /^[\W]*$/
+    while lines.length and lines[0].match /^[ ]*$/
       lines = lines[1...]
     return '' unless lines.length
-    rxx    = /^[\W]*/
+    rxx    = /^[ ]*/
     strip  = indent_baseline
     indent = @_space indent_level
     res    = ("#{indent}#{line[strip...]}" for line in lines).join "\n"

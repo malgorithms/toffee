@@ -1,0 +1,13 @@
+{#
+  @projects = [
+    url: "http://localhost:3000", name: "okcupid",   description: "A site for singles"
+    url: "http://localhost:3001", name: "tallygram", description: "A site for anyone"
+  ]
+
+  if @projects.length
+    for project in @projects {:
+      <a href="#{project.url}">#{project.name}</a>
+      <p>#{project.description}</p>
+    :}
+  else {: No projects :}
+#}

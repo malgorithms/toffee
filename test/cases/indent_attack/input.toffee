@@ -7,7 +7,7 @@
           if 2 is 3
             if 3 is 3
               {:Fail:}
-            else :
+            else
               {:Fail:}
           else
             if 2 is 2
@@ -23,7 +23,7 @@
                       if 2 is 3
                         if 3 is 3
                           {:Fail:}
-                        else :
+                        else
                           {:Fail:}
                       else
                         if 2 is 2
@@ -31,5 +31,5 @@
 #}
 <hr />
 {#
-  :{:...passed with flying colors.:}
+  -{:...passed with flying colors.:}
 #}

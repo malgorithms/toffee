@@ -628,7 +628,7 @@ case 8:return 5;
 break;
 }
 };
-lexer.rules = [/^\{##/,/^##\}/,/^\{#/,/^#\}/,/^:[\t\r\n ]*\{:/,/^\{:/,/^:\}/,/^[^{}#\\:]+|[\\{}#:]/,/^$/];
+lexer.rules = [/^\{##/,/^##\}/,/^\{#/,/^#\}/,/^-[\t\r\n ]*\{:/,/^\{:/,/^:\}/,/^[^{}#\\:]+|[\\{}#:]/,/^$/];
 lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
@@ -835,14 +835,19 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._getIndentationBaseline = function(coffee) {
-      var line, lines, _i, _len;
+      var line, lines, res, _i, _len;
+      res = null;
       lines = coffee.split("\n");
-      if (lines.length === 0) return null;
-      for (_i = 0, _len = lines.length; _i < _len; _i++) {
-        line = lines[_i];
-        if (!line.match(/^[\W]*$/)) return line.match(/[\W]*/)[0].length;
+      if (lines.length !== 0) {
+        for (_i = 0, _len = lines.length; _i < _len; _i++) {
+          line = lines[_i];
+          if (!line.match(/^[ ]*$/)) {
+            res = line.match(/[ ]*/)[0].length;
+            break;
+          }
+        }
       }
-      return null;
+      return res;
     };
 
     view.prototype._getIndentationDelta = function(coffee, baseline) {
@@ -859,14 +864,14 @@ if (typeof module !== 'undefined' && require.main === module) {
         res = 0;
       } else {
         lines = coffee.split("\n");
-        while (lines.length && lines[lines.length - 1].match(/^[\W]*$/)) {
+        while (lines.length && lines[lines.length - 1].match(/^[ ]*$/)) {
           lines.pop();
         }
         if (lines.length < 1) {
           res = 0;
         } else {
           y = lines[lines.length - 1];
-          y_l = y.match(/[\W]*/)[0].length;
+          y_l = y.match(/[ ]*/)[0].length;
           res = y_l - baseline;
         }
       }
@@ -876,11 +881,11 @@ if (typeof module !== 'undefined' && require.main === module) {
     view.prototype._reindent = function(coffee, indent_level, indent_baseline) {
       var indent, line, lines, res, rxx, strip;
       lines = coffee.split('\n');
-      while (lines.length && lines[0].match(/^[\W]*$/)) {
+      while (lines.length && lines[0].match(/^[ ]*$/)) {
         lines = lines.slice(1);
       }
       if (!lines.length) return '';
-      rxx = /^[\W]*/;
+      rxx = /^[ ]*/;
       strip = indent_baseline;
       indent = this._space(indent_level);
       res = ((function() {
