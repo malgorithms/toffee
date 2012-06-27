@@ -134,7 +134,7 @@ you can do that with a function of your choice.
 
 A note on indentation
 -----
-Toffee realigns all your coffeescript inside a `{# region #}` by renormalizing the indentation of that region.
+Toffee realigns all your coffeescript inside a `{# region #}` by normalizing the indentation of that region.
 So it doesn't matter how you indent things, as long as it makes local sense inside that region. For example, these
 are all identical:
 
@@ -158,6 +158,7 @@ are all identical:
 
 However, this would cause an error:
 
+ERROR
 ```
 <p>
 {# 
@@ -168,6 +169,7 @@ However, this would cause an error:
 
 As would this more subtle case:
 
+ERROR
 ```
 <p>
 {#   if x == 0 {:Yay!:}
@@ -175,7 +177,17 @@ As would this more subtle case:
 #}</p>
 ```
 
-In the above case, note that the leading whitespaces before the `if` and `else` are different.
+In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different.
+
+Comments
+-----
+Inside a region of coffee, you can use coffee's `#` or `###` syntax to comment. 
+Instead toffee mode, you can comment with `{## ... ##}`.
+
+```
+{## This isn't output ##}
+But this is.
+```
 
 
 installation & usage
