@@ -1,6 +1,8 @@
 TOFFEE
 =========
-an express 2.x, 3.x, and browser templating language based on coffeescript with slicker tokens and automatic space sensing.
+A templating language based on CoffeeScript with slicker tokens and automatic space sensing. 
+Compatible with Express 2.x, 3.x, and the browser. In express 3.0, the toffee engine handles file caching
+and automatic reloading.
 
 status
 ======
