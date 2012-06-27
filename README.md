@@ -20,7 +20,7 @@ Which of course is very powerful, if you want to get crazy:
 You have #{(x for x in friends when x.g is "f").length} female friends.
 ```
 
-But the real power comes from from switching between `coffee` mode and `toffee` mode:
+But real pleasure arises when switching between `coffee` mode and `toffee` mode:
 ```
 {#
    if @projects.length
