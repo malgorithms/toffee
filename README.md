@@ -182,7 +182,7 @@ In the above 2 cases, note that the leading whitespaces before the `if` and `els
 Comments
 -----
 Inside a region of coffee, you can use coffee's `#` or `###` syntax to comment. 
-Instead toffee mode, you can comment with `{## ... ##}`.
+Inside toffee mode, you can comment with `{## ... ##}`.
 
 ```
 {## This isn't output ##}
@@ -205,15 +205,14 @@ In Express 3.x to use it just for .toffee files:
 ```
 toffee = require 'toffee'
 app.engine 'toffee', toffee.__express
-``
+```
 
 
-In Express 2.x:
+Express 2.x:
 ```
 toffee      = require 'toffee'
 app.register '.toffee', toffee
 ```
-
 
 
 todo
