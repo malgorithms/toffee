@@ -1,0 +1,5 @@
+{#
+  supplies = ["broom", "mop", "vacuum"]
+#}<ul>
+  {# for supply in supplies {:<li>#{supply}</li>:} #}
+</ul>
