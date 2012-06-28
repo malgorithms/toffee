@@ -3,7 +3,7 @@ fs = require 'fs'
 obj = 
   name:         "toffee"
   description:  """an express 3.x templating language based on coffeescript with slicker tokens."""
-  version:      "0.0.5"
+  version:      "0.0.7"
   directories:  {"lib" : "./lib"}
   main:         "index.js"
   author:       "Chris Coyne <ccoyne77@gmail.com>"
@@ -12,7 +12,7 @@ obj =
     "coffee-script"      : "1.3.3"
   repository:
     type: "git"
-    url:  "http://github.com/malgorithms/node-toffee"
+    url:  "http://github.com/malgorithms/toffee"
   devDependencies:
     "iced-coffee-script" : "1.3.1a"
   licenses: [

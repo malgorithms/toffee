@@ -226,3 +226,4 @@ todo
 - escapeHTML, JS, etc. functions
 - continue to add to unit tests
 - better line numbers on errors
+- support multi-line #{} statements or prevent users from entering them with parser error

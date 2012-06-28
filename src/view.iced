@@ -19,13 +19,16 @@ class view
     @coffeeScript = null # these are all constructed as needed
     @javaScript   = null # these are all constructed as needed
     @scriptObj    = null # these are all constructed as needed 
-    @compileError = null
+    @error        = null
     @loadFromText txt
 
   loadFromText: (txt) ->
     @txt          = txt
-    @codeObj      = parser.parse txt
-    @_cleanTabs()
+    try
+      @codeObj      = parser.parse txt
+      @_cleanTabs()
+    catch e
+      @_generateParseError e, txt
 
   _cleanTabs: ->
     tab = @_tabAsSpaces()
@@ -39,9 +42,9 @@ class view
     ###
     script = @_toScriptObj()
     err = null
-    if @compileError
-      console.log @compileError.converted_msg
-      return [@_prettyPrintCompileError(), ""]
+    if @error
+      console.log @error.converted_msg
+      return [@_prettyPrintError(), ""]
     else 
       try
         sandbox =
@@ -50,10 +53,15 @@ class view
         res = sandbox.__toffee_run_input.__toffee.res
         delete sandbox.__toffee_run_input.__toffee
       catch e
+        @_generateRuntimeError e
+        console.log @error.converted_msg
+        return [@_prettyPrintError(), @_prettyPrintError()]
+        #console.log e.message
+        #console.log e.stack
         # err =    "Error: #{e.message}"
         # err += "\nStack: #{e.stack}"
         # console.log (k for k of sandbox.__toffee_run_input)
-        res = null
+
         
       return [err, res]
 
@@ -63,16 +71,16 @@ class view
     m = txt.match /^[\t ]*/
     txt = txt.replace m[0], ("&nbsp;" for i in [0...(m[0].length)]).join ""
 
-  _prettyPrintCompileError: ->
-    if not @compileError
+  _prettyPrintError: ->
+    if not @error
       ""
     else
       res = """<div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:100%;z-index:9999;">"""
-      res += "<b>#{@compileError.converted_msg}</b>"
+      res += "<b>#{@_ppEscape @error.converted_msg}</b>"
       res += "\n  <br />--------<br />"
       res += "\n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">"
       txt_lines = @txt.split '\n'
-      for i in [(@compileError.toffee_line_range[0]-3)...(@compileError.toffee_line_range[1]+1)]
+      for i in [(@error.toffee_line_range[0]-3)...(@error.toffee_line_range[1]+1)]
         if (i < 0) or i > txt_lines.length - 1
           continue
         line = @_ppEscape txt_lines[i] 
@@ -82,15 +90,76 @@ class view
       res += "\n</div>"
       res
 
-  _generateCompileError: (e, src) ->
+  _generateParseError: (e) ->
+    ###
+    e: the error caught when compiling
+    so that we can handle outputting this error
+    the same as compile errors, we'll produce a similar object
+    to _generateCompileError
+    ###
+    msg = e.message
+    res = 
+      src_line:           0
+      toffee_line_range:  [0,1]
+      original_msg:       msg
+      converted_msg:      msg
+
+    search = msg.match /on line ([0-9]+)/
+    if not (search?.length >= 2) then return res
+    res.src_line = parseInt search[1]
+    res.toffee_line_range = [res.src_line, res.src_line]
+    if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
+    @error = res
+    res
+
+
+  _generateRuntimeError: (e) ->
+    ###
+    when everything compiled to JS fine, but we hit a runtime error.
+    e: the error caught when compiling
+    Creates an object like _generateCompileError
+    ###
+    src = @javaScript
+    msg = e.message
+    stack = e.stack
+    res =
+      src_line: 0
+      toffee_line_range: [0,1]
+      original_msg: msg
+      converted_msg: msg
+    search = stack.match /([0-9]+):[0-9]+/
+    if not (search?.length >= 2) then return res
+    res.src_line = search[1]
+    src_lines = src.split '\n'
+    txt_lines = @txt.split '\n'
+    before = src_lines[0...res.src_line].join "\n"
+    after  = src_lines[res.src_line...].join  "\n"
+    prev_matches  = before.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    after_matches = after.match  /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    if prev_matches?.length
+      res.toffee_line_range[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
+    else
+      res.toffee_line_range[0] = 1
+    if after_matches?.length
+      res.toffee_line_range[1] = parseInt after_matches[0].match(/[0-9]+/)[0]
+    else
+      res.toffee_line_range[1] = txt_lines.length
+    res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
+    if res.toffee_line_range[0] is res.toffee_line_range[1]
+      new_msg = "on line #{res.toffee_line_range[0]}"
+    else
+      new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
+    res.converted_msg = res.original_msg + " " + new_msg
+    if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
+    @error = res
+    res
+
+  _generateCompileToJsError: (e) ->
     ###
 
     e: the error caught when compiling
 
-    src: should be either the compiled coffeescript or JS, depending
-    on which one had the error.
-
-    Creates an object like this and stores in @compileError
+    Creates an object like this and stores in @error
     {
       src_line:    14
       toffee_line_range: [6,8]
@@ -99,6 +168,7 @@ class view
       offensive_lines: (array of lines)
     }
     ###
+    src = @coffeeScript
     msg = e.message
     res =
       src_line: 0
@@ -106,7 +176,7 @@ class view
       original_msg: msg
       converted_msg: msg
     search = msg.match /on line ([0-9]+)/
-    if not search?.length is 2 then return res
+    if not (search?.length >= 2) then return res
     res.src_line = search[1]
     src_lines = src.split '\n'
     txt_lines = @txt.split '\n'
@@ -129,11 +199,11 @@ class view
       new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
     res.converted_msg = res.original_msg.replace "on line #{res.src_line}", new_msg
     if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
-    @compileError = res
+    @error = res
     res
 
   _toScriptObj: ->
-    if not @scriptObj?
+    if not (@scriptObj? or @error?)
       txt = @_toJavaScript()
       d = Date.now()
       @scriptObj = vm.createScript txt
@@ -147,7 +217,7 @@ class view
       try
         @javaScript = coffee.compile c, {bare: false}
       catch e
-        @_generateCompileError e, c
+        @_generateCompileToJsError e
       #console.log "Compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 

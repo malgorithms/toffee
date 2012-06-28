@@ -1,7 +1,7 @@
 {#
   @projects = [
-    url: "http://localhost:3000", name: "okcupid",   description: "A site for singles"
-    url: "http://localhost:3001", name: "tallygram", description: "A site for anyone"
+    {url: "http://localhost:3000", name: "okcupid",   description: "A site for singles"}
+    {url: "http://localhost:3001", name: "tallygram", description: "A site for anyone"}
   ]
 
   if @projects.length
