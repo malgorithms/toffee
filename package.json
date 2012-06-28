@@ -13,7 +13,7 @@
  },
  "repository": {
   "type": "git",
-  "url": "http://github.com/malgorithms/node-toffee"
+  "url": "http://github.com/malgorithms/toffee"
  },
  "devDependencies": {
   "iced-coffee-script": "1.3.1a"
