@@ -216,8 +216,22 @@ app.register '.toffee', toffee
 
 contributing
 =============
-I would love for someone to make a textmate/sublime bundle for Toffee. :-) . I would even pay for it.
+I'm likely to accept good pull requests.
 
+If you'd like to edit code for this project, note that you should always edit the `.coffee` files,
+as the `.js` files as generated automatically by building.
+
+To build
+```
+> cake build
+```
+
+To make sure you didn't break something
+```
+> coffee tests/run_cases.coffee
+```
+
+I'm also very interested in someone building a Sublime/Textmate package for Toffee.
 
 todo
 ======

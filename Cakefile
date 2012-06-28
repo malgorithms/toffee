@@ -6,18 +6,18 @@ stitch        = require 'stitch'
 task 'build', 'build the whole jam', (cb) ->  
   console.log "Building"
   files = fs.readdirSync 'src'
-  files = ('src/' + file for file in files when file.match(/\.iced$/))
+  files = ('src/' + file for file in files when file.match(/\.coffee$/))
   clearLibJs ->
     buildParser ->
-      runIced ['-I', 'inline', '-c', '-o', 'lib/'].concat(files), ->
-        runIced ['-I', 'none', '-c', 'index.iced'], ->
-          runIced ['package.iced'], ->
+      runCoffee ['-c', '-o', 'lib/'].concat(files), ->
+        runCoffee ['-c', 'index.coffee'], ->
+          runCoffee ['package.coffee'], ->
             stitchIt ->
               console.log "Done building."
               cb() if typeof cb is 'function'
 
-runIced = (args, cb) ->
-  proc =  spawn 'iced', args
+runCoffee = (args, cb) ->
+  proc =  spawn 'coffee', args
   console.log args
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.on        'exit', (status) ->
