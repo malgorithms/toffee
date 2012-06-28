@@ -40,7 +40,7 @@ await run_all_case_dirs defer err, time, tests_run
 console.log "SUCCESS for #{tests_run} cold tests in #{time}ms"
 
 times       = []
-speed_runs = 100
+speed_runs = 20
 for i in [0...speed_runs]
   await run_all_case_dirs defer err, times[i], tests_run
 total_time = 0

@@ -8,6 +8,8 @@
     maxCacheAge: 2000
   });
 
+  exports.render = e.run;
+
   exports.__express = e.run;
 
   exports.compile = require('./lib/view').expressCompile;

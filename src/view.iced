@@ -1,5 +1,5 @@
 parser          = require('./toffee_lang').parser
-try
+try 
   coffee          = require "iced-coffee-script"
 catch e
   coffee          = require "coffee-script"
@@ -13,12 +13,13 @@ class view
 
   constructor: (txt, options) ->
     options = options or {}
-    @fileName     = options.fileName    or null
+    @fileName     = (options.fileName or options.filename) or null
     @identifier   = options.indentifier or "pub"
     @codeObj      = null # these are all constructed as needed
     @coffeeScript = null # these are all constructed as needed
     @javaScript   = null # these are all constructed as needed
     @scriptObj    = null # these are all constructed as needed 
+    @compileError = null
     @loadFromText txt
 
   loadFromText: (txt) ->
@@ -38,28 +39,104 @@ class view
     ###
     script = @_toScriptObj()
     err = null
+    if @compileError
+      console.log @compileError.converted_msg
+      return [@_prettyPrintCompileError(), ""]
+    else 
+      try
+        sandbox =
+          __toffee_run_input: options
+        script.runInNewContext sandbox
+        res = sandbox.__toffee_run_input.__toffee.res
+        delete sandbox.__toffee_run_input.__toffee
+      catch e
+        # err =    "Error: #{e.message}"
+        # err += "\nStack: #{e.stack}"
+        # console.log (k for k of sandbox.__toffee_run_input)
+        res = null
+        
+      return [err, res]
 
-    try
-      sandbox =
-        __toffee_run_input: options
-      script.runInNewContext sandbox
-      res = sandbox.__toffee_run_input.__toffee.res
-      delete sandbox.__toffee_run_input.__toffee
-      #console.log sandbox
-      #process.exit 1
-      #res = script options
-    catch e
-      err =    "Error: #{e.message}"
-      err += "\nStack: #{e.stack}"
-    return [err, res]
+  _ppEscape: (txt) ->
+    txt = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;')
+    # retain leading spaces
+    m = txt.match /^[\t ]*/
+    txt = txt.replace m[0], ("&nbsp;" for i in [0...(m[0].length)]).join ""
+
+  _prettyPrintCompileError: ->
+    if not @compileError
+      ""
+    else
+      res = """<div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:100%;z-index:9999;">"""
+      res += "<b>#{@compileError.converted_msg}</b>"
+      res += "\n  <br />--------<br />"
+      res += "\n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">"
+      txt_lines = @txt.split '\n'
+      for i in [(@compileError.toffee_line_range[0]-3)...(@compileError.toffee_line_range[1]+1)]
+        if (i < 0) or i > txt_lines.length - 1
+          continue
+        line = @_ppEscape txt_lines[i] 
+        lineno = i+1
+        res+= "\n#{lineno}: #{line} <br />"
+      res += "\n</div>"
+      res += "\n</div>"
+      res
+
+  _generateCompileError: (e, src) ->
+    ###
+
+    e: the error caught when compiling
+
+    src: should be either the compiled coffeescript or JS, depending
+    on which one had the error.
+
+    Creates an object like this and stores in @compileError
+    {
+      src_line:    14
+      toffee_line_range: [6,8]
+      original_msg:  'reserved word "var" on line 14'
+      converted_msg: 'reserved word "var" between lines 6 and 8'
+      offensive_lines: (array of lines)
+    }
+    ###
+    msg = e.message
+    res =
+      src_line: 0
+      toffee_line_range: [0,1]
+      original_msg: msg
+      converted_msg: msg
+    search = msg.match /on line ([0-9]+)/
+    if not search?.length is 2 then return res
+    res.src_line = search[1]
+    src_lines = src.split '\n'
+    txt_lines = @txt.split '\n'
+    before = src_lines[0...res.src_line].join "\n"
+    after  = src_lines[res.src_line...].join  "\n"
+    prev_matches  = before.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    after_matches = after.match  /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    if prev_matches?.length
+      res.toffee_line_range[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
+    else
+      res.toffee_line_range[0] = 1
+    if after_matches?.length
+      res.toffee_line_range[1] = parseInt after_matches[0].match(/[0-9]+/)[0]
+    else
+      res.toffee_line_range[1] = txt_lines.length
+    res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
+    if res.toffee_line_range[0] is res.toffee_line_range[1]
+      new_msg = "on line #{res.toffee_line_range[0]}"
+    else
+      new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
+    res.converted_msg = res.original_msg.replace "on line #{res.src_line}", new_msg
+    if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
+    @compileError = res
+    res
 
   _toScriptObj: ->
-
     if not @scriptObj?
       txt = @_toJavaScript()
       d = Date.now()
       @scriptObj = vm.createScript txt
-      #@scriptObj = @toffeeTemplates["pub"]
       #console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
     @scriptObj
 
@@ -67,7 +144,10 @@ class view
     if not @javaScript?
       c = @_toCoffee()
       d = Date.now()
-      @javaScript = coffee.compile c, {bare: false}
+      try
+        @javaScript = coffee.compile c, {bare: false}
+      catch e
+        @_generateCompileError e, c
       #console.log "Compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
@@ -95,7 +175,7 @@ class view
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "TOFFEE_ZONE"
-        res += "\n#{@_space indent_level}__toffee.state = states.TOFFEE"
+        res += "\n#{@_space indent_level}__toffee.state  = states.TOFFEE"
         for item in obj[1]
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
@@ -108,12 +188,27 @@ class view
           res += s
           temp_indent_level = indent_level + delta
       when "TOFFEE"
+        res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2]}"
         res += "\n#{@_space indent_level}__toffee.state = states.TOFFEE"
-        res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
+        lines = obj[1].split "\n"
+        for line, i in lines
+          if not line.match /#/
+            if i
+              res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2]+i}"
+            lbreak = if i isnt lines.length - 1 then "\n" else ""
+            res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(line + lbreak) + '"""'
+          else
+              res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(lines[(i)...].join "\n") + '"""'
+              break
+
+        #res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
+        res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2] + (obj[1].split('\n').length-1)}"
         res += "\n#{@_space indent_level}__toffee.state = states.COFFEE"
       when "COFFEE"
-        res += "#{@_space indent_level}# DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}"
-        res += "\n#{@_reindent obj[1], indent_level, indent_baseline}"
+        #res += "\n#{@_space indent_level}#`/*DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}*/`"
+        #res += "\n#{@_space indent_level}###__toffee.lineno = #{obj[2]}###"
+        c = "#{obj[1]}" ##__toffee.lineno = #{obj[2]}###" ##__toffee.lineno = #{obj[2]}"
+        res += "\n#{@_reindent c, indent_level, indent_baseline}"
         i_delta = @_getIndentationDelta obj[1], indent_baseline
       else 
         throw "Bad parsing. #{obj} not handled."
@@ -190,11 +285,11 @@ class view
   _coffeeHeaders: ->
     tab    = @_tabAsSpaces()
     header = """
-domain                = this
+domain                  = this
 domain.toffeeTemplates  = domain.toffeeTemplates or {}
 domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{tab}domain                = this
-#{tab}locals.__toffee         = {}
+#{tab}locals.__toffee       = {}
 #{tab}`with (locals) {`
 #{tab}__toffee.out = []
 #{tab}states = #{JSON.stringify states}
@@ -223,4 +318,7 @@ exports.expressCompile = (txt, options) ->
   v = new view txt, options
   return (vars) ->
     res = v.run vars
-    res[1]
+    if res[0]
+      res[0]
+    else
+      res[1]

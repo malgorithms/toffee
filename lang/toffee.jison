@@ -11,10 +11,10 @@
 "##}"                     return 'END_TOFFEE_COMMENT';
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
-"-"[\t\r\n ]*"{:"         return 'START_TOFFEE';
-"{:"                      return 'START_INDENTED_TOFFEE';
+[\-][\t\r\n ]*"{:"        return 'START_TOFFEE';
 ":}"                      return 'END_TOFFEE';
-[^{}#\\:]+|[\\{}#:]       return 'CODE';
+"{:"                      return 'START_INDENTED_TOFFEE';
+[^{}#\\:\-]+|[\\{}#:\-]   return 'CODE';
 <<EOF>>                   return 'EOF';
 
 /lex
@@ -25,43 +25,43 @@
 
 starter 
   :
-    toffee_zone EOF            { $$ = ["TOFFEE_ZONE", $1]; return $$;}
+    toffee_zone EOF                                 { $$ = ["TOFFEE_ZONE", $1]; return $$;}
   ;
 
 toffee_zone 
   :
-    toffee_code                                 { $$ = [$1]; }
+    toffee_code                                     { $$ = [$1]; }
   |
-    toffee_code flip_to_coffee toffee_zone        { $$ = $3; $3.splice(0,0,$1,$2); }
+    toffee_code flip_to_coffee toffee_zone          { $$ = $3; $3.splice(0,0,$1,$2); }
   |
-    flip_to_coffee toffee_zone                  { $$ = $2; $2.splice(0,0,$1); }
+    flip_to_coffee toffee_zone                      { $$ = $2; $2.splice(0,0,$1); }
   |
-    toffee_code flip_to__toffeecomment toffee_zone  { $$ = $3; $3.splice(0,0,$1); }
+    toffee_code flip_to_toffeecomment toffee_zone   { $$ = $3; $3.splice(0,0,$1); }
   |
-    flip_to__toffeecomment toffee_zone            { $$ = $2; $2.splice(0,0,$1); }
+    flip_to_toffeecomment toffee_zone               { $$ = $2; $2.splice(0,0,$1); }
   |
-                                              { $$ = []; }
+                                                    { $$ = []; }
   ;
 
-flip_to__toffeecomment
+flip_to_toffeecomment
   :
   START_TOFFEE_COMMENT code END_TOFFEE_COMMENT  {}
   ;
 
 flip_to_coffee
   :
-    START_COFFEE coffee_zone END_COFFEE  { $$ = ["COFFEE_ZONE", $2]; }
+    START_COFFEE coffee_zone END_COFFEE         { $$ = ["COFFEE_ZONE", $2]; }
   ;
 
 coffee_zone 
   :
-    coffee_code                              { $$ = [$1]; }
+    coffee_code                                 { $$ = [$1]; }
   |
-    coffee_code flip_to_toffee coffee_zone     { $$ = $3; $3.splice(0,0,$1,$2); }
+    coffee_code flip_to_toffee coffee_zone      { $$ = $3; $3.splice(0,0,$1,$2); }
   |
-    flip_to_toffee coffee_zone                 { $$ = $2; $2.splice(0,0,$1); }
+    flip_to_toffee coffee_zone                  { $$ = $2; $2.splice(0,0,$1); }
   |
-                                             { $$ = []; }
+                                                { $$ = []; }
   ;
 
 flip_to_toffee
@@ -74,18 +74,23 @@ flip_to_toffee
 
 toffee_code
   :
-  code                  { $$ = ["TOFFEE", $1]; }
+  code                  { $$ = ["TOFFEE", $1[0], $1[1] ]; }
   ;
 
 coffee_code
   :
-  code                  { $$ = ["COFFEE", $1]; }
+  code                  { $$ = ["COFFEE", $1[0], $1[1] ]; }
   ;
 
 
 code
   :
-    CODE                                 { $$ = $1; }
+    CODE                                 { var ln = yylineno + 1 - $1.split("\n").length + 1; 
+                                           $$ = [$1, ln]; 
+                                         }
   |
-    code CODE                            { $$ = $1 + $2; }
+    code CODE                            { var c = $1[0] + $2; 
+                                           var ln = yylineno + 1 - c.split("\n").length + 1; 
+                                           $$ = [c, ln]; 
+                                         }
   ;

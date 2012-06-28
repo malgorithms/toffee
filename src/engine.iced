@@ -102,7 +102,7 @@ class engine
     catch e
       txt = "Error: Could not read #{filename}"
       if options.__parent? then txt += " requested in #{options.__parent}"
-    v = new view txt
+    v = new view txt, {fileName: filename}
     @viewCache[filename] = v
     v
 

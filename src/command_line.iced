@@ -27,7 +27,7 @@ exports.run = ->
     printUsage()
   fname = args[-1..][0]
   source = fs.readFileSync fname, "utf8"
-  v = new view source
+  v = new view source, {fileName: fname}
   if coffee
     console.log v._toCoffee()
   else
