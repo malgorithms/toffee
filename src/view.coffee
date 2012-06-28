@@ -1,10 +1,11 @@
 parser          = require('./toffee_lang').parser
-try 
-  coffee          = require "iced-coffee-script"
-catch e
-  coffee          = require "coffee-script"
+{errorHandler}  = require './errorHandler'
 {states}        = require './consts'
 vm              = require 'vm'
+try 
+  coffee        = require "iced-coffee-script"
+catch e
+  coffee        = require "coffee-script"
 
 
 TAB_SPACES = 2
@@ -19,7 +20,7 @@ class view
     @coffeeScript = null # these are all constructed as needed
     @javaScript   = null # these are all constructed as needed
     @scriptObj    = null # these are all constructed as needed 
-    @error        = null
+    @error        = null # assigned via errorHandler module
     @loadFromText txt
 
   loadFromText: (txt) ->
@@ -28,7 +29,7 @@ class view
       @codeObj      = parser.parse txt
       @_cleanTabs()
     catch e
-      @_generateParseError e, txt
+      @error = errorHandler.generateParseError @, e
 
   _cleanTabs: ->
     tab = @_tabAsSpaces()
@@ -44,7 +45,7 @@ class view
     err = null
     if @error
       console.log @error.converted_msg
-      return [@_prettyPrintError(), ""]
+      return [errorHandler.prettyPrintError @, ""]
     else 
       try
         sandbox =
@@ -53,154 +54,12 @@ class view
         res = sandbox.__toffee_run_input.__toffee.res
         delete sandbox.__toffee_run_input.__toffee
       catch e
-        @_generateRuntimeError e
+        @error = errorHandler.generateRuntimeError @, e
         console.log @error.converted_msg
-        return [@_prettyPrintError(), @_prettyPrintError()]
-        #console.log e.message
-        #console.log e.stack
-        # err =    "Error: #{e.message}"
-        # err += "\nStack: #{e.stack}"
-        # console.log (k for k of sandbox.__toffee_run_input)
-
+        pp = errorHandler.prettyPrintError @
+        return [null, pp]
         
       return [err, res]
-
-  _ppEscape: (txt) ->
-    txt = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;')
-    # retain leading spaces
-    m = txt.match /^[\t ]*/
-    txt = txt.replace m[0], ("&nbsp;" for i in [0...(m[0].length)]).join ""
-
-  _prettyPrintError: ->
-    if not @error
-      ""
-    else
-      res = """<div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:100%;z-index:9999;">"""
-      res += "<b>#{@_ppEscape @error.converted_msg}</b>"
-      res += "\n  <br />--------<br />"
-      res += "\n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">"
-      txt_lines = @txt.split '\n'
-      for i in [(@error.toffee_line_range[0]-3)...(@error.toffee_line_range[1]+1)]
-        if (i < 0) or i > txt_lines.length - 1
-          continue
-        line = @_ppEscape txt_lines[i] 
-        lineno = i+1
-        res+= "\n#{lineno}: #{line} <br />"
-      res += "\n</div>"
-      res += "\n</div>"
-      res
-
-  _generateParseError: (e) ->
-    ###
-    e: the error caught when compiling
-    so that we can handle outputting this error
-    the same as compile errors, we'll produce a similar object
-    to _generateCompileError
-    ###
-    msg = e.message
-    res = 
-      src_line:           0
-      toffee_line_range:  [0,1]
-      original_msg:       msg
-      converted_msg:      msg
-
-    search = msg.match /on line ([0-9]+)/
-    if not (search?.length >= 2) then return res
-    res.src_line = parseInt search[1]
-    res.toffee_line_range = [res.src_line, res.src_line]
-    if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
-    @error = res
-    res
-
-
-  _generateRuntimeError: (e) ->
-    ###
-    when everything compiled to JS fine, but we hit a runtime error.
-    e: the error caught when compiling
-    Creates an object like _generateCompileError
-    ###
-    src = @javaScript
-    msg = e.message
-    stack = e.stack
-    res =
-      src_line: 0
-      toffee_line_range: [0,1]
-      original_msg: msg
-      converted_msg: msg
-    search = stack.match /([0-9]+):[0-9]+/
-    if not (search?.length >= 2) then return res
-    res.src_line = search[1]
-    src_lines = src.split '\n'
-    txt_lines = @txt.split '\n'
-    before = src_lines[0...res.src_line].join "\n"
-    after  = src_lines[res.src_line...].join  "\n"
-    prev_matches  = before.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    after_matches = after.match  /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    if prev_matches?.length
-      res.toffee_line_range[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
-    else
-      res.toffee_line_range[0] = 1
-    if after_matches?.length
-      res.toffee_line_range[1] = parseInt after_matches[0].match(/[0-9]+/)[0]
-    else
-      res.toffee_line_range[1] = txt_lines.length
-    res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
-    if res.toffee_line_range[0] is res.toffee_line_range[1]
-      new_msg = "on line #{res.toffee_line_range[0]}"
-    else
-      new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
-    res.converted_msg = res.original_msg + " " + new_msg
-    if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
-    @error = res
-    res
-
-  _generateCompileToJsError: (e) ->
-    ###
-
-    e: the error caught when compiling
-
-    Creates an object like this and stores in @error
-    {
-      src_line:    14
-      toffee_line_range: [6,8]
-      original_msg:  'reserved word "var" on line 14'
-      converted_msg: 'reserved word "var" between lines 6 and 8'
-      offensive_lines: (array of lines)
-    }
-    ###
-    src = @coffeeScript
-    msg = e.message
-    res =
-      src_line: 0
-      toffee_line_range: [0,1]
-      original_msg: msg
-      converted_msg: msg
-    search = msg.match /on line ([0-9]+)/
-    if not (search?.length >= 2) then return res
-    res.src_line = search[1]
-    src_lines = src.split '\n'
-    txt_lines = @txt.split '\n'
-    before = src_lines[0...res.src_line].join "\n"
-    after  = src_lines[res.src_line...].join  "\n"
-    prev_matches  = before.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    after_matches = after.match  /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    if prev_matches?.length
-      res.toffee_line_range[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
-    else
-      res.toffee_line_range[0] = 1
-    if after_matches?.length
-      res.toffee_line_range[1] = parseInt after_matches[0].match(/[0-9]+/)[0]
-    else
-      res.toffee_line_range[1] = txt_lines.length
-    res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
-    if res.toffee_line_range[0] is res.toffee_line_range[1]
-      new_msg = "on line #{res.toffee_line_range[0]}"
-    else
-      new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
-    res.converted_msg = res.original_msg.replace "on line #{res.src_line}", new_msg
-    if @fileName then res.converted_msg = "#{@fileName}: #{res.converted_msg}"
-    @error = res
-    res
 
   _toScriptObj: ->
     if not (@scriptObj? or @error?)
@@ -217,7 +76,7 @@ class view
       try
         @javaScript = coffee.compile c, {bare: false}
       catch e
-        @_generateCompileToJsError e
+        @error = errorHandler.generateCompileToJsError @, e
       #console.log "Compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
@@ -362,6 +221,8 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{tab}locals.__toffee       = {}
 #{tab}`with (locals) {`
 #{tab}__toffee.out = []
+#{tab}if not print?
+#{tab}#{tab}print = (txt) -> __toffee.out.push txt
 #{tab}states = #{JSON.stringify states}
 """
     header
@@ -376,7 +237,6 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 # and just output results
 if __toffee_run_input?
 #{tab}return domain.toffeeTemplates["#{@identifier}"] __toffee_run_input
-if not print? then print = (txt) -> __toffee.out.push txt
 """
     footer
 
