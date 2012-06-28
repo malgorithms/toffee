@@ -207,12 +207,36 @@ toffee = require 'toffee'
 app.engine 'toffee', toffee.__express
 ```
 
-
 Express 2.x:
 ```
 toffee      = require 'toffee'
 app.register '.toffee', toffee
 ```
+
+express 3.x options
+===================
+
+Express's default error page is very hard to read, and Toffee is capable of highlighting error lines in your 
+source code. So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
+it fakes an okay result by returning some pretty HTML showing the error. If you don't like this - say you want to catch render errors - 
+you can turn it off.
+
+```
+toffee = require 'toffee'
+toffee.expressEngine.prettyPrintErrors = false
+```
+
+Caching.  Toffee doesn't read from the disk every time you request a template. It compiles and caches for short periods (2 seconds, by default),
+to save IO and compile time. You can set this cache, in milliseconds, anywhere from 0 to Infinity. 
+
+You might consider different rules for production and development, although a short cache time performs well in both cases.
+
+```
+toffee = require 'toffee'
+toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
+```
+
+
 
 contributing
 =============
