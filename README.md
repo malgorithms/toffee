@@ -6,10 +6,8 @@ and view caching (with convenient time limits).
 
 status
 ======
-Beta with lots of bug possibilities. Don't use unless you work at OkCupid 
-or don't mind changing syntax.
-
-And there aren't yet meaningful line numbers on errors.
+Beta with a few bugs. Don't use unless you work at OkCupid 
+or don't mind changing syntax. At the bottom of this page you'll see a couple key language issues.
 
 examples
 ========
@@ -236,7 +234,21 @@ toffee = require 'toffee'
 toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 ```
 
+a couple issues
+===============
+1. currently `#{}` regions have to be on a single line. For example:
+```
+#{3 + 5}
+```
+...is ok. But not:
+```
+#{3
++ 5}
+```
+...which will cause an error.
 
+2. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
+be useful for temporarily commenting off a region of a template.
 
 contributing
 =============
