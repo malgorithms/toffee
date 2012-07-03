@@ -1,0 +1,19 @@
+{## Fail ##}
+Pass
+{##
+
+  Fail
+
+##}
+Pass
+{#
+
+	# print "Fail"	
+
+	###
+	print "FAIL FAIL FAIL"
+	###
+
+#}
+Pass
+{## Fail ##}{## Fail ##}

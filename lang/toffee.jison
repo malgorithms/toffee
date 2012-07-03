@@ -9,11 +9,11 @@
 
 "{##"                     return 'START_TOFFEE_COMMENT';
 "##}"                     return 'END_TOFFEE_COMMENT';
+":}"                      return 'END_TOFFEE';
+"{:"                      return 'START_INDENTED_TOFFEE';
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
 [\-][\t\r\n ]*"{:"        return 'START_TOFFEE';
-":}"                      return 'END_TOFFEE';
-"{:"                      return 'START_INDENTED_TOFFEE';
 [^{}#\\:\-]+|[\\{}#:\-]   return 'CODE';
 <<EOF>>                   return 'EOF';
 
@@ -38,7 +38,7 @@ toffee_zone
   |
     toffee_code flip_to_toffeecomment toffee_zone   { $$ = $3; $3.splice(0,0,$1); }
   |
-    flip_to_toffeecomment toffee_zone               { $$ = $2; $2.splice(0,0,$1); }
+    flip_to_toffeecomment toffee_zone               { $$ = $2;  }
   |
                                                     { $$ = []; }
   ;
