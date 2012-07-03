@@ -99,7 +99,7 @@ eh = exports.errorHandler =
     if not view.error
       ""
     else
-      res = """<div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:100%;z-index:9999;">"""
+      res = """<div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;">"""
       res += "<b>#{eh._ppEscape view.error.converted_msg}</b>"
       res += "\n  <br />--------<br />"
       res += "\n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">"

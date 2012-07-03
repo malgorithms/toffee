@@ -8,10 +8,11 @@ util            = require 'util'
 class engine
 
   constructor: (options) ->
-    options         = options or {}
-    @maxCacheAge    = options.maxCacheAge or 2000
-    @viewCache      = {} # filename
-    @lastCacheReset = Date.now()
+    options             = options or {}
+    @maxCacheAge        = options.maxCacheAge or 2000
+    @prettyPrintErrors  = if options.prettyPrintErrors then options.prettyPrintErrors else true
+    @viewCache          = {} # filename
+    @lastCacheReset     = Date.now()
 
   run: (filename, options, cb) =>
     ###
@@ -20,8 +21,11 @@ class engine
       __dir: path to look relative to
     ###
     [err, res] = @runSync filename, options
-    cb err, res
-
+    if err and @prettyPrintErrors      
+      cb null, err
+    else
+      cb err, res
+      
   runSync: (filename, options) ->
     ###
     returns [err, res];

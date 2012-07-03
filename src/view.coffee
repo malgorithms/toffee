@@ -7,7 +7,6 @@ try
 catch e
   coffee        = require "coffee-script"
 
-
 TAB_SPACES = 2
 
 class view
@@ -25,17 +24,21 @@ class view
 
   loadFromText: (txt) ->
     @txt          = txt
+    @_cleanTabs @txt
     try
       @codeObj      = parser.parse txt
-      @_cleanTabs()
+      @_cleanTabs @codeObj
     catch e
       @error = errorHandler.generateParseError @, e
 
-  _cleanTabs: ->
-    tab = @_tabAsSpaces()
-    for chunk, i in @codeObj
-      if chunk[0] is 'COFFEE'
-        chunk[1] = chunk[1].replace /\t/g, tab
+  _cleanTabs: (obj) ->
+    ###
+    replaces tabs with spaces in their coffee regions
+    ###
+    if obj[0] in ["INDENTED_TOFFEE_ZONE", "TOFFEE_ZONE", "COFFEE_ZONE"]
+      @_cleanTabs item for item in obj[1]
+    else if obj[0] is "COFFEE"
+      obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
 
   run: (options) ->
     ###
@@ -45,7 +48,7 @@ class view
     err = null
     if @error
       console.log @error.converted_msg
-      return [errorHandler.prettyPrintError @, ""]
+      return [errorHandler.prettyPrintError @, null]
     else 
       try
         sandbox =
@@ -57,7 +60,7 @@ class view
         @error = errorHandler.generateRuntimeError @, e
         console.log @error.converted_msg
         pp = errorHandler.prettyPrintError @
-        return [null, pp]
+        return [pp, null]
         
       return [err, res]
 
@@ -134,11 +137,11 @@ class view
         res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2] + (obj[1].split('\n').length-1)}"
         res += "\n#{@_space indent_level}__toffee.state = states.COFFEE"
       when "COFFEE"
-        #res += "\n#{@_space indent_level}#`/*DEBUG: indent_level=#{indent_level} indent_baseline=#{indent_baseline}*/`"
-        #res += "\n#{@_space indent_level}###__toffee.lineno = #{obj[2]}###"
-        c = "#{obj[1]}" ##__toffee.lineno = #{obj[2]}###" ##__toffee.lineno = #{obj[2]}"
+        #obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
+        #console.log "=====\n#{obj[1]}\n===="
+        c = obj[1]#c.replace /\t/g, @_tabAsSpaces()
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
-        i_delta = @_getIndentationDelta obj[1], indent_baseline
+        i_delta = @_getIndentationDelta c, indent_baseline
       else 
         throw "Bad parsing. #{obj} not handled."
         return ["",0]

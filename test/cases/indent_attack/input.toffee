@@ -2,7 +2,7 @@
     {#
         if 1 is 1
           if 2 is 2
-            if 3 is 3 {:Pass:}
+            if 3 is 3 {:Pass1:}
         if 1 is 1
           if 2 is 3
             if 3 is 3
@@ -11,14 +11,14 @@
               {:Fail:}
           else
             if 2 is 2
-              if 3 is 3 {:Pass:}
+              if 3 is 3 {:Pass2:}
     #}
 <hr />
 
 {#
                     if 1 is 1
                       if 2 is 2
-                        if 3 is 3 {:Pass:}
+                        if 3 is 3 {:Pass3:}
                     if 1 is 1
                       if 2 is 3
                         if 3 is 3
@@ -27,9 +27,25 @@
                           {:Fail:}
                       else
                         if 2 is 2
-                          if 3 is 3 {:Pass:}
+                          if 3 is 3 {:Pass4:}
 #}
 <hr />
+
+{#
+		        if 10 is 10
+		          if 20 is 20
+		            if 30 is 30 {:Pass5:}
+		        if 10 is 10
+					        if 20 is 30
+					          if 30 is 30
+					            {:Fail:}
+					          else
+					            {:Fail:}
+					        else
+					          if 20 is 20
+					            if 30 is 30 {:Pass6:}
+#}
+
 {#
   -{:...passed with flying colors.:}
 #}

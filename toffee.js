@@ -124,6 +124,7 @@
       this.run = __bind(this.run, this);
       options = options || {};
       this.maxCacheAge = options.maxCacheAge || 2000;
+      this.prettyPrintErrors = options.prettyPrintErrors ? options.prettyPrintErrors : true;
       this.viewCache = {};
       this.lastCacheReset = Date.now();
     }
@@ -137,7 +138,11 @@
 
       var err, res, _ref;
       _ref = this.runSync(filename, options), err = _ref[0], res = _ref[1];
-      return cb(err, res);
+      if (err && this.prettyPrintErrors) {
+        return cb(null, err);
+      } else {
+        return cb(err, res);
+      }
     };
 
     engine.prototype.runSync = function(filename, options) {
@@ -376,7 +381,7 @@
       if (!view.error) {
         return "";
       } else {
-        res = "<div style=\"border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:100%;z-index:9999;\">";
+        res = "<div style=\"border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;\">";
         res += "<b>" + (eh._ppEscape(view.error.converted_msg)) + "</b>";
         res += "\n  <br />--------<br />";
         res += "\n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">";
@@ -867,28 +872,32 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     view.prototype.loadFromText = function(txt) {
       this.txt = txt;
+      this._cleanTabs(this.txt);
       try {
         this.codeObj = parser.parse(txt);
-        return this._cleanTabs();
+        return this._cleanTabs(this.codeObj);
       } catch (e) {
         return this.error = errorHandler.generateParseError(this, e);
       }
     };
 
-    view.prototype._cleanTabs = function() {
-      var chunk, i, tab, _i, _len, _ref, _results;
-      tab = this._tabAsSpaces();
-      _ref = this.codeObj;
-      _results = [];
-      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-        chunk = _ref[i];
-        if (chunk[0] === 'COFFEE') {
-          _results.push(chunk[1] = chunk[1].replace(/\t/g, tab));
-        } else {
-          _results.push(void 0);
+    view.prototype._cleanTabs = function(obj) {
+      /*
+          replaces tabs with spaces in their coffee regions
+      */
+
+      var item, _i, _len, _ref, _ref1, _results;
+      if ((_ref = obj[0]) === "INDENTED_TOFFEE_ZONE" || _ref === "TOFFEE_ZONE" || _ref === "COFFEE_ZONE") {
+        _ref1 = obj[1];
+        _results = [];
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          item = _ref1[_i];
+          _results.push(this._cleanTabs(item));
         }
+        return _results;
+      } else if (obj[0] === "COFFEE") {
+        return obj[1] = obj[1].replace(/\t/g, this._tabAsSpaces());
       }
-      return _results;
     };
 
     view.prototype.run = function(options) {
@@ -901,7 +910,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       err = null;
       if (this.error) {
         console.log(this.error.converted_msg);
-        return [errorHandler.prettyPrintError(this, "")];
+        return [errorHandler.prettyPrintError(this, null)];
       } else {
         try {
           sandbox = {
@@ -914,7 +923,7 @@ if (typeof module !== 'undefined' && require.main === module) {
           this.error = errorHandler.generateRuntimeError(this, e);
           console.log(this.error.converted_msg);
           pp = errorHandler.prettyPrintError(this);
-          return [null, pp];
+          return [pp, null];
         }
         return [err, res];
       }
@@ -1014,9 +1023,9 @@ if (typeof module !== 'undefined' && require.main === module) {
           res += "\n" + (this._space(indent_level)) + "__toffee.state = states.COFFEE";
           break;
         case "COFFEE":
-          c = "" + obj[1];
+          c = obj[1];
           res += "\n" + (this._reindent(c, indent_level, indent_baseline));
-          i_delta = this._getIndentationDelta(obj[1], indent_baseline);
+          i_delta = this._getIndentationDelta(c, indent_baseline);
           break;
         default:
           throw "Bad parsing. " + obj + " not handled.";
