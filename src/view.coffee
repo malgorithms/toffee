@@ -120,22 +120,26 @@ class view
           res += s
           temp_indent_level = indent_level + delta
       when "TOFFEE"
-        res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2]}"
-        res += "\n#{@_space indent_level}__toffee.state = states.TOFFEE"
+        ind = indent_level# - indent_baseline
+        res += "\n#{@_space ind}__toffee.lineno = #{obj[2]}"
+        res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
+        res += "\n#{@_space ind}__toffee.indent_baseline = #{indent_baseline}"
+        res += "\n#{@_space ind}__toffee.indent_level = #{indent_level}"
+
         lines = obj[1].split "\n"
         for line, i in lines
           if not line.match /#/
             if i
-              res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2]+i}"
+              res += "\n#{@_space ind}__toffee.lineno = #{obj[2]+i}"
             lbreak = if i isnt lines.length - 1 then "\n" else ""
-            res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(line + lbreak) + '"""'
+            res += "\n#{@_space ind}__toffee.out.push " + '"""' + @_escapeForStr(line + lbreak) + '"""'
           else
-              res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(lines[(i)...].join "\n") + '"""'
+              res += "\n#{@_space ind}__toffee.out.push " + '"""' + @_escapeForStr(lines[(i)...].join "\n") + '"""'
               break
 
         #res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
-        res += "\n#{@_space indent_level}__toffee.lineno = #{obj[2] + (obj[1].split('\n').length-1)}"
-        res += "\n#{@_space indent_level}__toffee.state = states.COFFEE"
+        res += "\n#{@_space ind}__toffee.lineno = #{obj[2] + (obj[1].split('\n').length-1)}"
+        res += "\n#{@_space ind}__toffee.state = states.COFFEE"
       when "COFFEE"
         #obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
         #console.log "=====\n#{obj[1]}\n===="
@@ -174,6 +178,9 @@ class view
         if not line.match /^[ ]*$/
           res = line.match(/[ ]*/)[0].length
           break
+    if not res
+      res = coffee.length - 1
+    #console.log "====\n#{coffee}\n#{res}\n---"
     return res
 
   _getIndentationDelta: (coffee, baseline) ->
@@ -188,8 +195,9 @@ class view
       res = 0
     else 
       lines = coffee.split "\n"
-      while lines.length and lines[lines.length-1].match /^[ ]*$/
-        lines.pop()
+      # if the last line has coffeescript in it, ignore it in the calculation
+      #if lines.length and not (lines[lines.length-1].match /^[ ]*$/)
+      #  lines.pop()
       if lines.length < 1
         res = 0
       else 

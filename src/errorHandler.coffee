@@ -109,7 +109,9 @@ eh = exports.errorHandler =
           continue
         line = eh._ppEscape txt_lines[i] 
         lineno = i+1
-        res+= "\n#{lineno}: #{line} <br />"
+        padding_len = 5 - ("#{lineno}").length
+        padding     = ("&nbsp;" for i in [0...padding_len]).join ""
+        res+= "\n#{lineno}: #{padding} #{line} <br />"
       res += "\n</div>"
       res += "\n</div>"
       res    

@@ -3,6 +3,7 @@ Pass
 {##
 
   Fail
+  #{x}
 
 ##}
 Pass
@@ -11,7 +12,8 @@ Pass
 	# print "Fail"	
 
 	###
-	print "FAIL FAIL FAIL"
+	print "FAIL FAIL FAIL"	
+	#{ foo }
 	###
 
 #}

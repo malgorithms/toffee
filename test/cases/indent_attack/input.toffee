@@ -47,5 +47,14 @@
 #}
 
 {#
-  -{:...passed with flying colors.:}
+  if 99 is 99
+    print 'Pass7'
+  else
+    print 'Fail'
+  {:Fail8:}
+  -{:Pass8:}
+#}
+
+{#
+      -{:...passed with flying colors.:}
 #}

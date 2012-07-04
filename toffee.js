@@ -377,7 +377,7 @@
       return res;
     },
     prettyPrintError: function(view) {
-      var i, line, lineno, res, txt_lines, _i, _ref, _ref1;
+      var i, line, lineno, padding, padding_len, res, txt_lines, _i, _ref, _ref1;
       if (!view.error) {
         return "";
       } else {
@@ -392,7 +392,16 @@
           }
           line = eh._ppEscape(txt_lines[i]);
           lineno = i + 1;
-          res += "\n" + lineno + ": " + line + " <br />";
+          padding_len = 5 - ("" + lineno).length;
+          padding = ((function() {
+            var _j, _results;
+            _results = [];
+            for (i = _j = 0; 0 <= padding_len ? _j < padding_len : _j > padding_len; i = 0 <= padding_len ? ++_j : --_j) {
+              _results.push("&nbsp;");
+            }
+            return _results;
+          })()).join("");
+          res += "\n" + lineno + ": " + padding + " " + line + " <br />";
         }
         res += "\n</div>";
         res += "\n</div>";
@@ -968,7 +977,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._toCoffeeRecurse = function(obj, indent_level, indent_baseline) {
-      var c, delta, i, i_delta, item, lbreak, line, lines, res, s, temp_indent_level, zone_baseline, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+      var c, delta, i, i_delta, ind, item, lbreak, line, lines, res, s, temp_indent_level, zone_baseline, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
       res = "";
       i_delta = 0;
       switch (obj[0]) {
@@ -1003,24 +1012,27 @@ if (typeof module !== 'undefined' && require.main === module) {
           }
           break;
         case "TOFFEE":
-          res += "\n" + (this._space(indent_level)) + "__toffee.lineno = " + obj[2];
-          res += "\n" + (this._space(indent_level)) + "__toffee.state = states.TOFFEE";
+          ind = indent_level;
+          res += "\n" + (this._space(ind)) + "__toffee.lineno = " + obj[2];
+          res += "\n" + (this._space(ind)) + "__toffee.state = states.TOFFEE";
+          res += "\n" + (this._space(ind)) + "__toffee.indent_baseline = " + indent_baseline;
+          res += "\n" + (this._space(ind)) + "__toffee.indent_level = " + indent_level;
           lines = obj[1].split("\n");
           for (i = _l = 0, _len3 = lines.length; _l < _len3; i = ++_l) {
             line = lines[i];
             if (!line.match(/#/)) {
               if (i) {
-                res += "\n" + (this._space(indent_level)) + "__toffee.lineno = " + (obj[2] + i);
+                res += "\n" + (this._space(ind)) + "__toffee.lineno = " + (obj[2] + i);
               }
               lbreak = i !== lines.length - 1 ? "\n" : "";
-              res += ("\n" + (this._space(indent_level)) + "__toffee.out.push ") + '"""' + this._escapeForStr(line + lbreak) + '"""';
+              res += ("\n" + (this._space(ind)) + "__toffee.out.push ") + '"""' + this._escapeForStr(line + lbreak) + '"""';
             } else {
-              res += ("\n" + (this._space(indent_level)) + "__toffee.out.push ") + '"""' + this._escapeForStr(lines.slice(i).join("\n")) + '"""';
+              res += ("\n" + (this._space(ind)) + "__toffee.out.push ") + '"""' + this._escapeForStr(lines.slice(i).join("\n")) + '"""';
               break;
             }
           }
-          res += "\n" + (this._space(indent_level)) + "__toffee.lineno = " + (obj[2] + (obj[1].split('\n').length - 1));
-          res += "\n" + (this._space(indent_level)) + "__toffee.state = states.COFFEE";
+          res += "\n" + (this._space(ind)) + "__toffee.lineno = " + (obj[2] + (obj[1].split('\n').length - 1));
+          res += "\n" + (this._space(ind)) + "__toffee.state = states.COFFEE";
           break;
         case "COFFEE":
           c = obj[1];
@@ -1071,6 +1083,9 @@ if (typeof module !== 'undefined' && require.main === module) {
           }
         }
       }
+      if (!res) {
+        res = coffee.length - 1;
+      }
       return res;
     };
 
@@ -1090,9 +1105,6 @@ if (typeof module !== 'undefined' && require.main === module) {
         res = 0;
       } else {
         lines = coffee.split("\n");
-        while (lines.length && lines[lines.length - 1].match(/^[ ]*$/)) {
-          lines.pop();
-        }
         if (lines.length < 1) {
           res = 0;
         } else {
