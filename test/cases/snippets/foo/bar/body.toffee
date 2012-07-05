@@ -1,0 +1,4 @@
+{# 
+  msg = msg or "Unknown message"
+  print msg
+#}

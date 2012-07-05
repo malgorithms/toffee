@@ -1,0 +1,7 @@
+{##
+
+  Make sure leading a trailing quotes don't mess with string printing.
+
+##}{#
+  -{:"PASSED":}
+#}

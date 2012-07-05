@@ -123,8 +123,8 @@ class view
         ind = indent_level# - indent_baseline
         res += "\n#{@_space ind}__toffee.lineno = #{obj[2]}"
         res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
-        res += "\n#{@_space ind}__toffee.indent_baseline = #{indent_baseline}"
-        res += "\n#{@_space ind}__toffee.indent_level = #{indent_level}"
+        # res += "\n#{@_space ind}__toffee.indent_baseline = #{indent_baseline}"
+        # res += "\n#{@_space ind}__toffee.indent_level = #{indent_level}"
 
         lines = obj[1].split "\n"
         for line, i in lines
@@ -132,9 +132,9 @@ class view
             if i
               res += "\n#{@_space ind}__toffee.lineno = #{obj[2]+i}"
             lbreak = if i isnt lines.length - 1 then "\n" else ""
-            res += "\n#{@_space ind}__toffee.out.push " + '"""' + @_escapeForStr(line + lbreak) + '"""'
+            res += "\n#{@_space ind}__toffee.out.push " + @_quoteStr(line + lbreak)
           else
-              res += "\n#{@_space ind}__toffee.out.push " + '"""' + @_escapeForStr(lines[(i)...].join "\n") + '"""'
+              res += "\n#{@_space ind}__toffee.out.push " + @_quoteStr(lines[(i)...].join "\n")
               break
 
         #res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
@@ -151,6 +151,26 @@ class view
         return ["",0]
 
     return [res, i_delta]
+
+  _quoteStr: (s) ->
+    ###
+    returns a triple-quoted string, dividing into single quoted
+    start and stops, if the string begins with double quotes, since
+    coffee doesn't want to let us escape those.
+    ###
+    lead = ""
+    follow = ""
+    while s.length and (s[0] is '"')
+      s = s[1...]
+      lead += '"'
+    while s.length and (s[-1...] is '"')
+      s = s[...-1]
+      follow += '"'
+    res = ''
+    if lead.length then res += "\'#{lead}\' + "
+    res += '"""' + @_escapeForStr(s) + '"""'
+    if follow.length then res += "+ \'#{follow}\'"
+    res
 
   _escapeForStr: (s) ->
     ###
@@ -173,14 +193,15 @@ class view
     # or null, if the region doesn't have any real code in it
     res = null
     lines = coffee.split "\n"
-    if lines.length isnt 0
-      for line in lines
-        if not line.match /^[ ]*$/
+    if lines.length
+      for line, i in lines
+        # if it has characters or it's the last chance, use it
+        if (not line.match /^[ ]*$/) or i is (lines.length - 1)
           res = line.match(/[ ]*/)[0].length
           break
-    if not res
-      res = coffee.length - 1
-    #console.log "====\n#{coffee}\n#{res}\n---"
+    if not res?
+      res = coffee.length
+    #console.log "====\n?#{coffee.replace /[ ]/g, '.'}?\n#{res}\n---"
     return res
 
   _getIndentationDelta: (coffee, baseline) ->

@@ -1,6 +1,6 @@
 # expose the render function
 eclass                = require('./lib/engine').engine
-e                     = new eclass { maxCacheAge: Infinity }
+e                     = new eclass { maxCacheAge: 2000 }
 exports.expressEngine = e 
 exports.render        = e.run
 

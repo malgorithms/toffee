@@ -1,0 +1,8 @@
+{# 
+  from = from or "Unknown sender" 
+  msg  = msg or "Unknown message."
+  print """
+    From: #{from}
+    #{snippet './bar/body.toffee', msg: msg}
+  """
+#}

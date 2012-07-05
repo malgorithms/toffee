@@ -119,6 +119,10 @@
   engine = (function() {
 
     function engine(options) {
+      this._fn_partial = __bind(this._fn_partial, this);
+
+      this._fn_snippet = __bind(this._fn_snippet, this);
+
       this._inlineInclude = __bind(this._inlineInclude, this);
 
       this.run = __bind(this.run, this);
@@ -134,15 +138,22 @@
           "options" contains the pub vars
           may also contain special items:
             __dir: path to look relative to
+            layout: path to a template expecting a body var (express 2.x style, but for use with express 3.x)
       */
 
-      var err, res, _ref;
+      var err, res, _ref, _ref1, _ref2, _ref3;
       _ref = this.runSync(filename, options), err = _ref[0], res = _ref[1];
       if (err && this.prettyPrintErrors) {
-        return cb(null, err);
-      } else {
-        return cb(err, res);
+        _ref1 = [null, err], err = _ref1[0], res = _ref1[1];
       }
+      if ((!err) && (options != null ? options.layout : void 0)) {
+        options.body = res;
+        _ref2 = this.runSync(options.layout, options), err = _ref2[0], res = _ref2[1];
+        if (err && this.prettyPrintErrors) {
+          _ref3 = [null, err], err = _ref3[0], res = _ref3[1];
+        }
+      }
+      return cb(err, res);
     };
 
     engine.prototype.runSync = function(filename, options) {
@@ -155,7 +166,7 @@
         _this = this;
       options = options || {};
       options.__dir = options.__dir || process.cwd();
-      if (filename.charAt(0) !== "/") {
+      if (filename[0] !== "/") {
         filename = "" + options.__dir + "/" + filename;
       }
       realpath = filename;
@@ -163,14 +174,17 @@
       if (Date.now() - this.lastCacheReset > this.maxCacheAge) {
         this._resetCache();
       }
-      v = this.viewCache[filename] || this._loadAndCache(filename, options);
+      v = this.viewCache[realpath] || this._loadAndCache(realpath, options);
       if (v) {
-        options.__parent = filename;
+        options.__parent = realpath;
         options.include = options.include || function(fname, lvars) {
           return _this._fn_include(fname, lvars, realpath, options);
         };
         options.partial = options.partial || function(fname, lvars) {
           return _this._fn_partial(fname, lvars, realpath, options);
+        };
+        options.snippet = options.snippet || function(fname, lvars) {
+          return _this._fn_snippet(fname, lvars, realpath, options);
         };
         options.print = options.print || function(txt) {
           return _this._fn_print(txt, options);
@@ -191,10 +205,16 @@
       options = local_vars || {};
       options.__dir = path.dirname(parent_realpath);
       options.__parent = parent_realpath;
-      for (k in parent_options) {
-        v = parent_options[k];
-        if ((k.slice(0, 2) !== "__") && !(local_keys[k] != null)) {
-          options[k] = v;
+      if (!options.__no_inheritance) {
+        for (k in parent_options) {
+          v = parent_options[k];
+          if (!(local_keys[k] != null)) {
+            if (k.slice(0, 2) !== "__") {
+              if (!(k === "print" || k === "partial" || k === "include" || k === "snippet")) {
+                options[k] = v;
+              }
+            }
+          }
         }
       }
       _ref = this.runSync(filename, options), err = _ref[0], res = _ref[1];
@@ -213,6 +233,12 @@
       } else {
         return res;
       }
+    };
+
+    engine.prototype._fn_snippet = function(fname, lvars, realpath, options) {
+      lvars = lvars != null ? lvars : {};
+      lvars.__no_inheritance = true;
+      return this._inlineInclude(fname, lvars, realpath, options);
     };
 
     engine.prototype._fn_partial = function(fname, lvars, realpath, options) {
@@ -1015,8 +1041,6 @@ if (typeof module !== 'undefined' && require.main === module) {
           ind = indent_level;
           res += "\n" + (this._space(ind)) + "__toffee.lineno = " + obj[2];
           res += "\n" + (this._space(ind)) + "__toffee.state = states.TOFFEE";
-          res += "\n" + (this._space(ind)) + "__toffee.indent_baseline = " + indent_baseline;
-          res += "\n" + (this._space(ind)) + "__toffee.indent_level = " + indent_level;
           lines = obj[1].split("\n");
           for (i = _l = 0, _len3 = lines.length; _l < _len3; i = ++_l) {
             line = lines[i];
@@ -1025,9 +1049,9 @@ if (typeof module !== 'undefined' && require.main === module) {
                 res += "\n" + (this._space(ind)) + "__toffee.lineno = " + (obj[2] + i);
               }
               lbreak = i !== lines.length - 1 ? "\n" : "";
-              res += ("\n" + (this._space(ind)) + "__toffee.out.push ") + '"""' + this._escapeForStr(line + lbreak) + '"""';
+              res += ("\n" + (this._space(ind)) + "__toffee.out.push ") + this._quoteStr(line + lbreak);
             } else {
-              res += ("\n" + (this._space(ind)) + "__toffee.out.push ") + '"""' + this._escapeForStr(lines.slice(i).join("\n")) + '"""';
+              res += ("\n" + (this._space(ind)) + "__toffee.out.push ") + this._quoteStr(lines.slice(i).join("\n"));
               break;
             }
           }
@@ -1044,6 +1068,35 @@ if (typeof module !== 'undefined' && require.main === module) {
           return ["", 0];
       }
       return [res, i_delta];
+    };
+
+    view.prototype._quoteStr = function(s) {
+      /*
+          returns a triple-quoted string, dividing into single quoted
+          start and stops, if the string begins with double quotes, since
+          coffee doesn't want to let us escape those.
+      */
+
+      var follow, lead, res;
+      lead = "";
+      follow = "";
+      while (s.length && (s[0] === '"')) {
+        s = s.slice(1);
+        lead += '"';
+      }
+      while (s.length && (s.slice(-1) === '"')) {
+        s = s.slice(0, -1);
+        follow += '"';
+      }
+      res = '';
+      if (lead.length) {
+        res += "\'" + lead + "\' + ";
+      }
+      res += '"""' + this._escapeForStr(s) + '"""';
+      if (follow.length) {
+        res += "+ \'" + follow + "\'";
+      }
+      return res;
     };
 
     view.prototype._escapeForStr = function(s) {
@@ -1071,20 +1124,20 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._getIndentationBaseline = function(coffee) {
-      var line, lines, res, _i, _len;
+      var i, line, lines, res, _i, _len;
       res = null;
       lines = coffee.split("\n");
-      if (lines.length !== 0) {
-        for (_i = 0, _len = lines.length; _i < _len; _i++) {
-          line = lines[_i];
-          if (!line.match(/^[ ]*$/)) {
+      if (lines.length) {
+        for (i = _i = 0, _len = lines.length; _i < _len; i = ++_i) {
+          line = lines[i];
+          if ((!line.match(/^[ ]*$/)) || i === (lines.length - 1)) {
             res = line.match(/[ ]*/)[0].length;
             break;
           }
         }
       }
-      if (!res) {
-        res = coffee.length - 1;
+      if (!(res != null)) {
+        res = coffee.length;
       }
       return res;
     };

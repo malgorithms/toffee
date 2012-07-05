@@ -5,7 +5,7 @@
   eclass = require('./lib/engine').engine;
 
   e = new eclass({
-    maxCacheAge: Infinity
+    maxCacheAge: 2000
   });
 
   exports.expressEngine = e;

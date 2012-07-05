@@ -1,0 +1,16 @@
+{#
+  print_it        = (msg) -> {:#{msg}:}
+
+  print_it_twice  = (msg) ->
+    -{:#{msg}:}
+    m = msg
+    -{:#{m}:}
+
+  echo_it         = (msg) ->
+    v = msg
+    v
+
+  print_it        "Pass"
+  print_it_twice  "Pass"
+  print echo_it   "Pass"
+#}

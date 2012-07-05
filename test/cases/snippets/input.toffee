@@ -1,0 +1,4 @@
+#{ partial  "./foo/message.toffee"}
+#{ snippet  "./foo/message.toffee"}
+#{ partial  "./foo/message.toffee", from: "Sam"}
+#{ snippet  "./foo/message.toffee", from: "Max"}

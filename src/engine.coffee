@@ -19,13 +19,25 @@ class engine
     "options" contains the pub vars
     may also contain special items:
       __dir: path to look relative to
+      layout: path to a template expecting a body var (express 2.x style, but for use with express 3.x)
     ###
+
     [err, res] = @runSync filename, options
+
+    # if we got an error but want to pretty-print by faking ok result
     if err and @prettyPrintErrors      
-      cb null, err
-    else
-      cb err, res
-      
+      [err, res] = [null, err]
+
+    # if we're using a layout, pub into that
+    if (not err) and options?.layout
+      options.body = res
+      [err, res] = @runSync options.layout, options
+      if err and @prettyPrintErrors
+        [err, res] = [null, err]
+
+    cb err, res
+
+
   runSync: (filename, options) ->
     ###
     returns [err, res];
@@ -33,16 +45,17 @@ class engine
     ###
     options       = options or {}
     options.__dir = options.__dir or process.cwd()
-    filename      = "#{options.__dir}/#{filename}" if filename.charAt(0) isnt "/"
+    filename      = "#{options.__dir}/#{filename}" if filename[0] isnt "/"
     realpath      = filename
     pwd           = path.dirname realpath
 
     @_resetCache() if Date.now() - @lastCacheReset > @maxCacheAge
-    v = @viewCache[filename] or @_loadAndCache filename, options
+    v = @viewCache[realpath] or @_loadAndCache realpath, options
     if v 
-      options.__parent = filename
+      options.__parent = realpath
       options.include = options.include or (fname, lvars) => @_fn_include fname, lvars, realpath, options
       options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
+      options.snippet = options.snippet or (fname, lvars) => @_fn_snippet fname, lvars, realpath, options
       options.print   = options.print   or (txt)          => @_fn_print   txt, options
       [err, res] = v.run options
       return [err, res]
@@ -57,8 +70,11 @@ class engine
     options.__parent = parent_realpath
 
     # we need to make a shallow copy of parent variables
-    for k,v of parent_options when (k[0...2] isnt "__") and not local_keys[k]?
-      options[k] = v
+    if not options.__no_inheritance
+      for k,v of parent_options when not local_keys[k]?
+        if k[0...2] isnt "__"
+          if not (k in ["print", "partial", "include", "snippet"])
+            options[k] = v
 
     [err, res] = @runSync filename, options
 
@@ -94,7 +110,12 @@ class engine
     else
       res
 
-  _fn_partial: (fname, lvars, realpath, options) ->
+  _fn_snippet: (fname, lvars, realpath, options) =>
+    lvars = if lvars? then lvars else {}
+    lvars.__no_inheritance = true
+    @_inlineInclude fname, lvars, realpath, options
+
+  _fn_partial: (fname, lvars, realpath, options) =>
     @_inlineInclude fname, lvars, realpath, options
 
   _fn_print: (txt, options) ->

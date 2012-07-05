@@ -3,7 +3,7 @@ fs = require 'fs'
 obj = 
   name:         "toffee"
   description:  """An Express 3.x and 2.x templating language based on CoffeeScript with slicker tokens and syntax. Built at OkCupid."""
-  version:      "0.0.18"
+  version:      "0.0.21"
   directories:  {"lib" : "./lib"}
   main:         "index.js"
   author:       "Chris Coyne <ccoyne77@gmail.com>"
