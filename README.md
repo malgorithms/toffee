@@ -6,7 +6,7 @@ and smart view caching.
 
 status
 ======
-Beta and in pretty good shape.
+July 19: Beta! And in very usable shape.
 
 examples
 ========
