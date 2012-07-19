@@ -42,22 +42,16 @@ as `<% end %>`. Compare:
 
 EJS
 ```
-<ul>
 <% for(var i=0; i<supplies.length; i++) {%>
    <li><%= supplies[i] %></li>
 <% } %>
-</ul>
 ```
 
 TOFFEE, so elegant.
 ```
-<ul>
-  {# 
-      for supply in supplies {:
-         <li>#{supply}</li>
-      :} 
-   #}
-</ul>
+{# 
+  for supply in supplies {:<li>#{supply}</li>:} 
+#}
 ```
 
 
