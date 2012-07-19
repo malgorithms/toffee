@@ -177,7 +177,7 @@ Yes.  In Express 2.0, Express is responsible for partials. In Express 3.0, Toffe
 works as you'd expect. 
 
 ```html
-<div>#{partial 'foo.toffee', {name: "Chris"}</div>
+<div>#{partial 'foo.toffee', name: "Chris"}</div>
 ```
 
 Or inside a region of CoffeeScript, you can print or capture the result of a partial.
