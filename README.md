@@ -54,9 +54,17 @@ TOFFEE, so elegant.
 #}
 ```
 
+Or, using the built-in print:
+```
+{# 
+  for supply in supplies 
+    print "<li>#{supply}</li>"
+#}
+```
 
-Nesting is both natural and healthy in Toffee. When you're in a `{: toffee :}` block, 
-feel free to create a nested '{# coffee #}` block, and indentation is inferred.
+
+Nesting is both natural and healthy. In a `{: toffee :}` block, 
+simply create another '{# coffee #}` block, and indentation is inferred.
 
 ```
 {#
