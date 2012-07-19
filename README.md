@@ -316,16 +316,7 @@ toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 
 known issues
 ===============
-1. currently `#{}` regions have to be on a single line. For example:
-```
-#{3 + 5}
-```
-...is ok. But not:
-```
-#{3
-+ 5}
-```
-...which will cause an error. This is most annoying with partials, since you might want to do this:
+1. currently `#{}` regions have to be on a single line. This is most annoying with partials (a.k.a includes), since you might want to do this:
 
 ```
 #{
