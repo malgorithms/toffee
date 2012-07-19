@@ -216,19 +216,19 @@ So it doesn't matter how you indent things, as long as it makes local sense insi
 are all identical:
 
 ```
-<p>{# if x == 0 {:Yay!:} else  {:Burned:} #}</p>
+<p>{# if x is 0 {:Yay!:} else  {:Burned:} #}</p>
 ```
 
 ```
 <p>{# 
-  if x == 0 {:Yay!:} else {:Burned:}
+  if x is 0 {:Yay!:} else {:Burned:}
 #}</p>
 ```
 
 ```
 <p>
 {# 
-             if x == 0 {:Yay!:}
+             if x is 0 {:Yay!:}
              else      {:Burned:}
 #}</p>
 ```
@@ -239,7 +239,7 @@ ERROR
 ```
 <p>
 {# 
-             if x == 0 {:Yay!:}
+             if x is 0 {:Yay!:}
                else      {:Burned:}
 #}</p>
 ```
@@ -249,12 +249,14 @@ As would this more subtle case:
 ERROR
 ```
 <p>
-{#   if x == 0 {:Yay!:}
+{#   if x is 0 {:Yay!:}
      else      {:Burned:}
 #}</p>
 ```
 
-In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different.
+In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different, which is a CoffeeScript error.
+
+
 
 
 Comments
