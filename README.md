@@ -1,24 +1,26 @@
 TOFFEE
 =========
-A templating language based on CoffeeScript with slicker tokens and automatic space sensing. 
-Compatible with Express 2.x, 3.x, and the browser. In Express 3.x, the Toffee engine handles partials 
-and view caching (with convenient time limits). 
+A templating language based on CoffeeScript with slick nesting, tokens, and automatic indentation.
+Compatible with Express 2.x, 3.x, and the browser. In Express 3.x, the Toffee engine handles partials/includes 
+and smart view caching.
 
 status
 ======
-Beta with a few bugs. Don't use unless you work at OkCupid 
-or don't mind changing syntax. At the bottom of this page you'll see a couple key language issues.
+Beta and in pretty good shape.
 
 examples
 ========
-Printing variables is easy. Just use CoffeeScript's #{} syntax:
+Printing variables is easy. If it fits on one line, use CoffeeScript's #{} syntax:
 ```
-<p>Hello, #{user.name}</p>
+<p>
+   Hey, #{user.name}. 
+   #{flirty_welcome_msg}
+</p>
 ```
 
-Which of course is very powerful, if you want to get crazy:
+Which of course is very powerful, even if you want to get crazy:
 ```
-You have #{(x for x in friends when x.g is "f").length} female friends.
+You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
 But real pleasure arises when switching between `coffee` mode and `toffee` mode:
@@ -46,21 +48,25 @@ EJS
 </ul>
 ```
 
-TOFFEE
+TOFFEE, so elegant.
 ```
 <ul>
-  {# for supply in supplies {:<li>#{supply}</li>:} #}
+  {# 
+      for supply in supplies {:
+         <li>#{supply}</li>
+      :} 
+   #}
 </ul>
 ```
 
 
-Nesting is a very important part of Toffee. When you're in a `{: toffee :}` block, 
+Nesting is both natural and healthy in Toffee. When you're in a `{: toffee :}` block, 
 feel free to create a nested '{# coffee #}` block, and indentation is inferred.
 
 ```
 {#
    for name, info of friends when info.age < 21 {:
-      #{name} would make a great designated driver.
+      You know, #{name} would make a great designated driver.
       {#
          info.cars.sort (a,b) -> b.speed - a.speed
          if info.cars.length {: And she drives a #{info.cars[0].model} :}
@@ -72,7 +78,8 @@ feel free to create a nested '{# coffee #}` block, and indentation is inferred.
 
 Switching to pub mode without indenting
 -----
-By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region. 
+By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
+probably because of a loop or conditional. 
 If you ever want to cut into toffee mode without indenting, use `-{: ... :}`. For example:
 
 ```
@@ -82,23 +89,52 @@ If you ever want to cut into toffee mode without indenting, use `-{: ... :}`. Fo
 #}
 ```
 
+The above is identical to 
+
+```
+{#
+   name = "Chris"
+   print name
+#}
+```
+
+
 Questions
 ========
 
 How does it compare to eco?
 --------------------------
-Eco is another CoffeeScript templating language. 
-The syntaxes are pretty different, so pick the one you prefer. Some examples:
+Eco is another CoffeeScript templating language and inspiration for Toffee.
+The syntaxes are pretty different, so pick the one you prefer.
+
+ECO
+```
+<% if @foo: %>
+  Bar
+<% end %>
+```
+
+TOFFEE
+```
+{# 
+  if @foo {: Bar :} 
+#}
+```
+
+Note that with Toffee's syntax, since brackets enclose regions not directives, it's likely
+your editor will let you collapse and expand sections of code. Also, if you click on one of the brackets in most
+editors, it will highlight the matching bracket.
+
+Toffee allows multiple lines of CoffeeScript without tagging them all. Compare:
 
 ECO
 ```
 <% if @projects.length: %>
   <% for project in @projects: %>
-    <a href="<%= project.url %>"><%= project.name %></a>
-    <p><%= project.description %></p>
+    <% if project.is_active: %>
+      <%= project.name %> | <%= project.description %>
+    <% end %>
   <% end %>
-<% else: %>
-  No projects
 <% end %>
 ```
 
@@ -106,11 +142,12 @@ TOFFEE
 ```
 {#
    if @projects.length
-    for project in @projects {:
-      <a href="#{project.url}">#{project.name}</a>
-      <p>#{project.description}</p>
-    :}
-   else {:No projects:}
+    for project in @projects
+      if project.is_active {:
+        <div>
+          #{project.name} | #{project.description}
+        </div>
+      :}
 #}
 ```
 
@@ -127,10 +164,57 @@ ECO
 <% end %>
 ```
 
-One nice feature that eco has is auto-escaping output. If you want to escape for HTML, URL's, or JS in Toffee, 
+Eco has a nice auto-escaping feature. If you want to escape for HTML, URL's, or JS in Toffee, 
 you can do that with a function of your choice.
 
-A note on indentation
+Does it find line numbers in errors?
+-----------------------------------
+Yes, it does a very good job of that. There are 3 possible places you can hit an error in Toffee: 
+ * in the language itself, say a parse error
+ * in the CoffeeScript, preventing it from compiling to JS
+ * runtime, in the final JS
+
+Stack traces are converted to lines in Toffee and show you where the problem is.
+
+Does it support partials?
+-------------------------
+Yes.  In Express 2.0, Express is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
+works as you'd expect. 
+
+```html
+<div>#{partial 'foo.toffee', {name: "Chris"}</div>
+```
+
+Or inside a region of CoffeeScript, you can print or capture the result of a partial.
+```html
+<div>
+{#
+   if session
+      print partial 'user_menu.toffee', info: session.info
+   else
+      print partial 'guest_menu.toffee'
+#}
+</div>
+```
+
+Like Express's `partial` function, Toffee's function passes websrv-published vars to the child template.
+For example, in the above code, "session" would also be available the user_menu.toffee file. If you don't want this to be available,
+in Express 3.0 you can use Toffee's `snippet` function, which sandboxes it:
+
+```
+{#
+   if session
+      print partial 'user.toffee', info: session.info # session will also be passed
+      print snippet 'user.toffee', info: session.info # session will not be passed
+#}
+```
+
+Another Express 3.0 improvement: Toffee compiles and caches templatess
+for bursts that you control. It's high performance without the need to restart your production webserver when
+you make a content change.
+
+
+But how does the indentation work?
 -----
 Toffee realigns all your coffeescript inside a `{# region #}` by normalizing the indentation of that region.
 So it doesn't matter how you indent things, as long as it makes local sense inside that region. For example, these
@@ -176,6 +260,7 @@ ERROR
 ```
 
 In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different.
+
 
 Comments
 -----
@@ -234,7 +319,7 @@ toffee = require 'toffee'
 toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 ```
 
-a couple issues
+known issues
 ===============
 1. currently `#{}` regions have to be on a single line. For example:
 ```
@@ -249,6 +334,22 @@ a couple issues
 
 2. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
 be useful for temporarily commenting off a region of a template.
+
+3. There's a case or two where line numbers aren't right.
+
+command-line
+============
+Soon I'll have browser compilation working. I'd like partials and everything to work before I release this. In the meantime, if you're
+curious to see the CoffeeScript that's compiled from a template:
+
+```
+toffee -c foo.toffee
+```
+
+Or to see it in JS:
+```
+toffee foo.toffee
+```
 
 contributing
 =============
@@ -275,5 +376,5 @@ todo
 - ...then add instructions on how to use it
 - escapeHTML, JS, etc. functions
 - continue to add to unit tests
-- better line numbers on errors
+- stack trace conversion improvement
 - support multi-line #{} statements or prevent users from entering them with parser error
