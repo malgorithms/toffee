@@ -26,15 +26,20 @@ You have #{(f for f in friends when f.gender is "f").length} female friends.
 
 But real pleasure arises when switching between `coffee` mode and `toffee` mode:
 ```
-{#
-   if projects.length
-    for project in projects {:
-      <div>
-        <a href="#{project.url}">#{project.name}</a>
-        <p>#{project.description}</p>
-      </div>
-    :}
-#}
+<div class="foobar">
+ <div class="whatever">
+  {#
+     if projects.length
+      for project in projects {:
+        <div>
+          #{project.title} |
+          #{project.description}
+          <a href="#{project.url}">Read more</a>
+        </div>
+      :}
+  #}
+ </div>
+</div>
 ```
 
 To enter coffee mode, use a block of this form: `{# ... #}`. Inside a region of coffee,
