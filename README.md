@@ -121,10 +121,6 @@ TOFFEE
 #}
 ```
 
-Note that with Toffee's syntax, since brackets enclose regions not directives, it's likely
-your editor will let you collapse and expand sections of code. Also, if you click on one of the brackets in most
-editors, it will highlight the matching bracket.
-
 Toffee allows multiple lines of CoffeeScript without tagging them all. Compare:
 
 ECO
@@ -148,6 +144,10 @@ TOFFEE
       :}
 #}
 ```
+
+Note that with Toffee's syntax, since brackets enclose regions not directives, your editor 
+will let you collapse and expand sections of code. And if you click on one of the brackets in most
+editors, it will highlight the matching bracket.
 
 Eco has a nice auto-escaping feature. If you want to escape for HTML, URL's, or JS in Toffee, 
 you can do that with a function of your choice.
