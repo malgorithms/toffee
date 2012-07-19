@@ -65,7 +65,7 @@ Or, using the built-in print:
 
 
 Nesting is both natural and advisable. In a `{: toffee :}` block, 
-simply create another '{# coffee #}` block, and indentation is inferred.
+simply create another `{# coffee #}` block, and indentation is inferred.
 
 ```
 {#
