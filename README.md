@@ -289,8 +289,8 @@ app.register '.toffee', toffee
 express 3.x options
 ===================
 
-Express's default error page is very hard to read, and Toffee is capable of highlighting error lines in your 
-source code. So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
+Express's default error page is great for stack traces but not so great for pretty-printing template errors.
+So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
 it fakes an okay result by returning some pretty HTML showing the error. If you don't like this - say you want to catch render errors - 
 you can turn it off.
 
@@ -320,12 +320,33 @@ known issues
 #{3
 + 5}
 ```
-...which will cause an error.
+...which will cause an error. This is most annoying with partials, since you might want to do this:
+
+```
+#{
+  partial "foo.toffee",
+    x: 10
+    y: 20
+}
+```
+
+Instead, either keep it on one line or switch to coffee mode and use print:
+```
+{#
+   print partial "foo.toffee",
+    x: 10
+    y: 20
+#}
+```
+or
+```
+#{partial "foo.toffee", {x:10, y:20}}
+```
 
 2. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
 be useful for temporarily commenting off a region of a template.
 
-3. There's a case or two where line numbers aren't right.
+3. There's a case where line numbers aren't right.
 
 command-line
 ============
