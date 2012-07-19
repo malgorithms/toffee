@@ -28,10 +28,11 @@ But real pleasure arises when switching between `coffee` mode and `toffee` mode:
 {#
    if @projects.length
     for project in @projects {:
-      <a href="#{project.url}">#{project.name}</a>
-      <p>#{project.description}</p>
+      <div>
+        <a href="#{project.url}">#{project.name}</a>
+        <p>#{project.description}</p>
+      </div>
     :}
-   else {:No projects:}
 #}
 ```
 
