@@ -76,7 +76,7 @@ simply create another `{# coffee #}` block, and indentation is inferred.
 {#
    for name, info of friends when info.age < 21 {:
       You know, #{name} would make a great designated driver.
-      And she only lives #{distance} miles away.
+      And she only lives #{info.distance} miles away.
       {#
          info.cars.sort (a,b) -> b.speed - a.speed
          if info.cars.length {: And wow, she drives a #{info.cars[0].model} :}
