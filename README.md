@@ -132,7 +132,7 @@ ECO
 <% if @projects.length: %>
   <% for project in @projects: %>
     <% if project.is_active: %>
-      <%= project.name %> | <%= project.description %>
+      <p><%= project.name %> | <%= project.description %></p>
     <% end %>
   <% end %>
 <% end %>
@@ -144,24 +144,9 @@ TOFFEE
    if @projects.length
     for project in @projects
       if project.is_active {:
-        <div>
-          #{project.name} | #{project.description}
-        </div>
+        <p>#{project.name} | #{project.description}</p>
       :}
 #}
-```
-
-Here's the nested example, from above, in eco.
-
-ECO
-```
-<% for name, info of friends when info.age < 21 : %>
-  <%= name %> would make a great designated driver.
-  <% info.cars.sort (a,b) -> b.speed - a.speed %>
-  <% if info.cars.length : %> And she drives a <%= info.cars[0].model %>
-  <% else: %> But she has no wheels
-  <% end %>
-<% end %>
 ```
 
 Eco has a nice auto-escaping feature. If you want to escape for HTML, URL's, or JS in Toffee, 
