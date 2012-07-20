@@ -8,12 +8,12 @@ task 'build', 'build the whole jam', (cb) ->
   files = fs.readdirSync 'src'
   files = ('src/' + file for file in files when file.match(/\.coffee$/))
   clearLibJs ->
-    buildParsers ->
+    buildParser ->
       runCoffee ['-c', '-o', 'lib/'].concat(files), ->
         runCoffee ['-c', 'index.coffee'], ->
-          stitchIt ->
-            console.log "Done building."
-            cb() if typeof cb is 'function'
+            stitchIt ->
+              console.log "Done building."
+              cb() if typeof cb is 'function'
 
 runCoffee = (args, cb) ->
   proc =  spawn 'coffee', args
@@ -37,19 +37,13 @@ clearLibJs = (cb) ->
   fs.unlinkSync f for f in files
   cb()
 
-buildParsers = (cb) ->
-  for lang in [
-    {f: "toffee.jison",        out: "toffee_lang"}
-    {f: "coffee_string.jison", out: "coffee_string_lang"}
-  ]
-    grammar   = fs.readFileSync "./src/#{lang.f}", 'utf8'
-    generator = new jison.Generator grammar
-    source    = generator.generate {
-      moduleType: 'commonjs'
-      moduleName: lang.out
-    }
-    fs.writeFileSync "./lib/#{lang.out}.js", source
+buildParser = (cb) ->
+  grammar   = fs.readFileSync './src/toffee.jison', 'utf8'
+  generator = new jison.Generator grammar
+  file_name = "toffee_lang.js"
+  source    = generator.generate {
+    moduleType: 'commonjs'
+    moduleName: 'toffee_lang'
+  }
+  fs.writeFileSync "./lib/#{file_name}", source
   cb()
-
-
-
