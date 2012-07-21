@@ -2,6 +2,7 @@ parser          = require('./toffee_lang').parser
 {errorHandler}  = require './errorHandler'
 {states}        = require './consts'
 lexer           = require './coffee-script/lexer'
+helpers         = require './helpers'
 vm              = require 'vm'
 try 
   coffee        = require "iced-coffee-script"
@@ -97,38 +98,15 @@ class view
 
   _interpolateToffee: (str) ->
     @lexer.tokenize '' # needed to call to initialize the lexer
-    parts = @lexer.interpolateString str
-    res = []
-    for p in parts
-      if p[0] is "NEOSTRING"
-        res.push p
-      else if p[0] is "TOKENS"
-        piece = ""
-        particles = []
-        indent = ""
-        for token in p[1]
-          if token[0] is "INDENT"
-            indent += " "
-            piece += "\n#{indent}"
-          else if token[0] is "OUTDENT"
-            indent = indent[1...]
-            piece += "\n#{indent}"
-          else 
-            piece = "#{piece} #{token[1]}"
-            particles.push token
-        res.push ["TOKENS", piece]#, particles]
-      else if p[0] is ""
-        continue
-      else
-        throw "Couldn't handle interpolation of '#{p[0]}'; str = '#{str}'"
-        process.exit 1
-    res
+    parts = helpers.interpolateString str
+    console.log "===v\n#{str}\n------\n#{JSON.stringify parts, null, ' '}\n====="
+    parts
 
   _rebuildInterpolatedString: (interp) ->
     res = ""
     for part in interp
       if part[0] is "TOKENS"
-        res += "\#{escape(#{part[1]})}"
+        res += "\#{escape(#{part[1].replace /^[\n \t]+/, ''})}"
       else
         res += @_escapeForStr part[1]
     console.log res

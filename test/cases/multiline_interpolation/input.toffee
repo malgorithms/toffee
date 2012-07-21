@@ -1,9 +1,10 @@
 #{
-    "Hello world"
+        "Hello, " +
+        "world"
 }
 <hr />
 #{
   partial "foo.toffee",
-    a: "Goodbye"
+    a: "Goodbye,"
     b: "world"
 }
