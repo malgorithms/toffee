@@ -1,0 +1,12 @@
+{#
+  x = '"Hello world"'
+  y = '<td>'
+  z = 'click&clack'
+#}#{x}
+#{y}
+#{z}
+{#
+  print "#{x}\n"
+  print "#{y}\n"
+  print "#{z}"
+#}

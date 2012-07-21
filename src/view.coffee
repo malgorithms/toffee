@@ -1,6 +1,7 @@
 parser          = require('./toffee_lang').parser
 {errorHandler}  = require './errorHandler'
 {states}        = require './consts'
+lexer           = require './coffee-script/lexer'
 vm              = require 'vm'
 try 
   coffee        = require "iced-coffee-script"
@@ -20,6 +21,7 @@ class view
     @javaScript   = null # these are all constructed as needed
     @scriptObj    = null # these are all constructed as needed 
     @error        = null # assigned via errorHandler module
+    @lexer        = new lexer.Lexer()
     @loadFromText txt
 
   loadFromText: (txt) ->
@@ -93,6 +95,45 @@ class view
       #console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
+  _interpolateToffee: (str) ->
+    @lexer.tokenize '' # needed to call to initialize the lexer
+    parts = @lexer.interpolateString str
+    res = []
+    for p in parts
+      if p[0] is "NEOSTRING"
+        res.push p
+      else if p[0] is "TOKENS"
+        piece = ""
+        particles = []
+        indent = ""
+        for token in p[1]
+          if token[0] is "INDENT"
+            indent += " "
+            piece += "\n#{indent}"
+          else if token[0] is "OUTDENT"
+            indent = indent[1...]
+            piece += "\n#{indent}"
+          else 
+            piece = "#{piece} #{token[1]}"
+            particles.push token
+        res.push ["TOKENS", piece]#, particles]
+      else if p[0] is ""
+        continue
+      else
+        throw "Couldn't handle interpolation of '#{p[0]}'; str = '#{str}'"
+        process.exit 1
+    res
+
+  _rebuildInterpolatedString: (interp) ->
+    res = ""
+    for part in interp
+      if part[0] is "TOKENS"
+        res += "\#{escape(#{part[1]})}"
+      else
+        res += @_escapeForStr part[1]
+    console.log res
+    res
+
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
     # returns [res, indent_baseline_delta]
     # indent_level    = # of spaces to add to each coffeescript section
@@ -123,10 +164,16 @@ class view
         ind = indent_level# - indent_baseline
         res += "\n#{@_space ind}__toffee.lineno = #{obj[2]}"
         res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
-        # res += "\n#{@_space ind}__toffee.indent_baseline = #{indent_baseline}"
-        # res += "\n#{@_space ind}__toffee.indent_level = #{indent_level}"
-
-        lines = obj[1].split "\n"
+        t_int = @_interpolateToffee obj[1]
+        r_str = @_rebuildInterpolatedString t_int 
+        #console.log "===="  
+        #console.log "#{obj[1]}"
+        #console.log "---"  
+        #console.log r_str
+        #console.log "====="   
+        #console.log JSON.stringify t_int, null, " "
+        #lines = obj[1].split "\n"
+        lines = r_str.split "\n"
         for line, i in lines
           if not line.match /#/
             if i
@@ -168,7 +215,8 @@ class view
       follow += '"'
     res = ''
     if lead.length then res += "\'#{lead}\' + "
-    res += '"""' + @_escapeForStr(s) + '"""'
+    #res += '"""' + @_escapeForStr(s) + '"""'
+    res += '"""' + s + '"""'
     if follow.length then res += "+ \'#{follow}\'"
     res
 
@@ -254,7 +302,12 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{tab}`with (locals) {`
 #{tab}__toffee.out = []
 #{tab}if not print?
-#{tab}#{tab}print = (txt) -> __toffee.out.push txt
+#{tab}#{tab}print = (txt) -> 
+#{tab}#{tab}#{tab}__toffee.out.push txt
+#{tab}#{tab}#{tab}''
+#{tab}if not escape?
+#{tab}#{tab}escape = (str) -> ("\#{str}").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+#{tab}#{tab}#{tab}
 #{tab}states = #{JSON.stringify states}
 """
     header
