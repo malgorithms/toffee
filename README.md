@@ -115,11 +115,14 @@ escaping
 ========
 By default, in toffee mode, `#{some_expression}` output is escaped for HTML.
 
+Exception:
+ * if your expression is a call to `partial` or `snippet` it won't be doubly-escaped.
+
 The available filters in toffee mode are accessed by *prefixing* your expression:
  * `#{foo}` : foo, escaped for HTML
  * `#{json|foo}` : foo, turned into a JSON object. Nice in a script tag.
  * `#{raw|foo}` : foo, printed in raw form. This is identical to 'print foo' in coffee mode.
- * `#{html|foo}` : foo, escaped for HTML. This is the same as default, only useful if you override the default or turn off escaping.
+ * `#{html|foo}` : foo, escaped for HTML. This is the same as default, only useful if you override the default, turn off escaping, or want to escape the results of a partial.
 
 Overriding the default:
  * If you pass a variable to your template called `escape`, this will be used as the default escape.
