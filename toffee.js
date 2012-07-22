@@ -7877,7 +7877,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._toCoffeeRecurse = function(obj, indent_level, indent_baseline) {
-      var c, chunk, delta, i, i_delta, ind, interp, item, lbreak, line, lineno, lines, part, res, s, t_int, temp_indent_level, zone_baseline, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
+      var c, chunk, delta, i, i_delta, ind, interp, item, lbreak, line, lineno, lines, part, res, s, t_int, temp_indent_level, zone_baseline, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6;
       res = "";
       i_delta = 0;
       switch (obj[0]) {
@@ -7921,7 +7921,9 @@ if (typeof module !== 'undefined' && require.main === module) {
             if (part[0] === "TOKENS") {
               res += this._printLineNo(lineno, ind);
               interp = part[1].replace(/^[\n \t]+/, '');
-              if (interp.slice(0, 5) === 'json|') {
+              if ((_ref6 = interp.slice(0, 7)) === 'snippet' || _ref6 === 'include' || _ref6 === 'partial') {
+                chunk = "\#{" + interp + "}";
+              } else if (interp.slice(0, 5) === 'json|') {
                 chunk = "\#{jsonEscape(" + interp.slice(5) + ")}";
               } else if (interp.slice(0, 4) === 'raw|') {
                 chunk = "\#{" + interp.slice(4) + "}";

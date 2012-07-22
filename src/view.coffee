@@ -133,7 +133,10 @@ class view
           if part[0] is "TOKENS"
             res    += @_printLineNo lineno, ind
             interp  = part[1].replace /^[\n \t]+/, ''
-            if interp[0...5] is 'json|'
+            if interp[0...7] in ['snippet','include','partial']
+              # no re-encoding output of these
+              chunk = "\#{#{interp}}"
+            else if interp[0...5] is 'json|'
               chunk = "\#{jsonEscape(#{interp[5..]})}"
             else if interp[0...4] is 'raw|'
               chunk = "\#{#{interp[4..]}}"

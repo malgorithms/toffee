@@ -1,5 +1,5 @@
-#{include "message.toffee", from: "Chris"}
-#{partial "message.toffee", from: "Max"}
+#{include "message.toffee", from: "Chris <ccoyne77@gmail>"}
+#{partial "message.toffee", from: "Max & Sam"}
 {#
   include "message.toffee",       from:   "Sam"
   print partial "message.toffee", from:   "Christian"

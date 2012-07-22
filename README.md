@@ -189,7 +189,7 @@ Stack traces are converted to lines in Toffee and show you where the problem is.
 
 Does it support partials?
 -------------------------
-Voila, yes.  In Express 2.0, Express is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
+Voila, yes.  In Express 2.0, Express itself is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
 works as you'd expect. 
 
 ```html
@@ -339,7 +339,7 @@ toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 
 Turning off auto-escaping for HTML
 ---------
-By default, Toffee escapes `#{}` output for HTML. YOu can turn this off in your engine with:
+By default, Toffee escapes `#{}` output for HTML. You can turn this off in your engine with:
 ```
 toffee = require 'toffee'
 toffee.expressEngine.autoEscape = false
