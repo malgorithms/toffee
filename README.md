@@ -156,7 +156,7 @@ How does it compare to eco?
 Eco is another CoffeeScript templating language and inspiration for Toffee.
 The syntaxes are pretty different, so pick the one you prefer.
 
-One big advantage Toffee of Toffee: multiple lines of CoffeeScript do not all need to be tagged. Compare:
+One big Toffee advantage: multiple lines of CoffeeScript do not all need to be tagged. Compare:
 
 ECO
 ```
@@ -191,12 +191,13 @@ Yes, Toffee does a very good job of that. There are 3 possible places you can hi
  * in the CoffeeScript, preventing it from compiling to JS
  * runtime, in the final JS
 
-Stack traces are converted to lines in Toffee and show you where the problem is. By default when Toffee hits an error it replies with some pretty-printed HTML showing you the problem. This can be overridden, as explained below in the Express 3.0 section.
-
+Stack traces are converted to lines in Toffee and show you where the problem is. 
+By default when Toffee hits an error it replies with some pretty-printed HTML showing you the problem. 
+This can be overridden, as explained below in the Express 3.0 section.
 
 Does it support partials? (a.k.a includes)
 -------------------------
-Voila, yes.  In Express 2.0, Express itself is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
+Yes.  In Express 2.0, Express itself is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
 works as you'd expect. 
 
 ```html
@@ -216,7 +217,7 @@ Inside a region of CoffeeScript, you can print or capture the result of a partia
 ```
 
 Like Express's `partial` function, Toffee's function passes all available vars to the child template.
-For example, in the above code, `session` would also be available the user_menu.toffee file. If you don't want this scoping, use Toffee's `snippet` function, which sandboxes it:
+For example, in the above code, `session` would also be available in the user_menu.toffee file. If you don't want this scoping, use Toffee's `snippet` function, which sandboxes it:
 
 ```
 {#
