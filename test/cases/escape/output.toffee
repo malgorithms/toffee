@@ -1,9 +1,24 @@
-&quot;Hello world&quot;
-&lt;td&gt;
-click&amp;clack
-"Hello world"
-<td>
-click&clack
-"Hello world"
-<td>
-click&clack
+<p>
+ default x = &quot;Hello world&quot;
+ default y = &lt;td&gt;
+ default z = click&amp;clack
+ default w = 1,2,[object Object]
+</p>
+<p>
+ raw x = "Hello world"
+ raw y = <td>
+ raw z = click&clack
+ raw w = 1,2,[object Object]
+</p>
+<script>
+  x = "\"Hello world\""
+  y = "<td>"
+  z = "click&clack"
+  w = [1,2,{"place":"The Dreadfort"}]
+</script>
+<p>
+ raw printed x = "Hello world"
+ raw printed y = <td>
+ raw printed z = click&clack
+ raw printed w = 1,2,[object Object]
+</p>

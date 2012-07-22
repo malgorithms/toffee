@@ -1,8 +1,7 @@
 {#
   say_hi = ->
     -{:hi:}
-#}
-1
+#}1
 2
 #{partial "child.toffee", say_hi: say_hi}
 3

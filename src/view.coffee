@@ -132,7 +132,15 @@ class view
         for part in t_int
           if part[0] is "TOKENS"
             res    += @_printLineNo lineno, ind
-            chunk   = "\#{escapeGrab(#{part[1].replace /^[\n \t]+/, ''})}"
+            interp  = part[1].replace /^[\n \t]+/, ''
+            if interp[0...5] is 'json|'
+              chunk = "\#{jsonEscape(#{interp[5..]})}"
+            else if interp[0...4] is 'raw|'
+              chunk = "\#{#{interp[4..]}}"
+            else if interp[0...5] is 'html|'
+              chunk = "\#{htmlEscape(#{interp[5..]})}" 
+            else
+              chunk = "\#{htmlEscape(#{interp})}" 
             res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
@@ -259,22 +267,12 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{___}#{___}#{___}__toffee.out.push txt
 #{___}#{___}#{___}''
 
-#{___}raw = (o) ->
-#{___}#{___}res = (""+o)
-#{___}#{___}if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']
+#{___}jsonEscape = (o) ->
+#{___}#{___}res = (""+JSON.stringify o)
 
-#{___}json = (o) ->
-#{___}#{___}res = (""+o)
-#{___}#{___}if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']
-
-#{___}escHtml = (o) ->
+#{___}htmlEscape = (o) ->
 #{___}#{___}res = (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-#{___}#{___}if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']
 
-#{___}escapeGrab = (o) ->
-#{___}#{___}if __toffee.noEscaping then return o
-#{___}#{___}if (Array.isArray o) and (o.length > 1) and (o[1] is '__esc_override') then return o[0]
-#{___}#{___}return escHtml(o)[0]
 #{___}states = #{JSON.stringify states}
 """
 

@@ -57,6 +57,7 @@ class engine
       options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
       options.snippet = options.snippet or (fname, lvars) => @_fn_snippet fname, lvars, realpath, options
       options.print   = options.print   or (txt)          => @_fn_print   txt, options
+      if not options.console? then options.console = log: console.log
       [err, res] = v.run options
       return [err, res]
     else
