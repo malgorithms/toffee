@@ -129,11 +129,17 @@ output will be unmolested:
 The functions mentioned above are also available to you in coffee mode.
 
 ```
-   foo = [1,2,3, {bar: "none"}]
-   foo_escaped = html foo
+<p>
+	Want to read some JSON?
+	{#
+	   foo = [1,2,3, {bar: "none"}]
+	   foo_as_json_as_html = html json foo
+	   print foo_as_json_as_html
+	#}
+</p>
 ```
 
-*Note* if you pass a variable to the template called `json`, `foo`, or `html`, toffee won't create these functions and crush your functions/vars. Instead, you can access them through their official titles, `__toffee.raw`, etc.
+*Note!*  if you pass a variable to the template called `json`, `raw`, or `html`, toffee won't create these helper functions, which would crush your own. Instead, you can access them through their official titles, `__toffee.raw`, etc.
 
 Overriding the default:
  * If you pass a variable to your template called `escape`, this will be used as the default escape. Everything inside `#{}` that isn't subject to an above-mentioned exception will go through your escape function.
@@ -150,21 +156,7 @@ How does it compare to eco?
 Eco is another CoffeeScript templating language and inspiration for Toffee.
 The syntaxes are pretty different, so pick the one you prefer.
 
-ECO
-```
-<div>
-	<% if @foo: %> Bar <% end %>
-</div>
-```
-
-TOFFEE
-```
-<div>
-	{# if @foo {: Bar :} #}
-</div>
-```
-
-Toffee allows multiple lines of CoffeeScript without tagging them all. Compare:
+One big advantage Toffee of Toffee: multiple lines of CoffeeScript do not all need to be tagged. Compare:
 
 ECO
 ```
@@ -188,18 +180,19 @@ TOFFEE
 #}
 ```
 
-Note that with Toffee's syntax, since brackets enclose regions not directives, your editor 
+With Toffee's syntax, brackets enclose regions not directives, so your editor 
 will let you collapse and expand sections of code. And if you click on one of the brackets in most
 editors, it will highlight the matching bracket.
 
 Does it find line numbers in errors?
 -----------------------------------
-Yes, it does a very good job of that. There are 3 possible places you can hit an error in Toffee: 
+Yes, Toffee does a very good job of that. There are 3 possible places you can hit an error in Toffee: 
  * in the language itself, say a parse error
  * in the CoffeeScript, preventing it from compiling to JS
  * runtime, in the final JS
 
-Stack traces are converted to lines in Toffee and show you where the problem is.
+Stack traces are converted to lines in Toffee and show you where the problem is. By default when Toffee hits an error it replies with some pretty-printed HTML showing you the problem. This can be overridden, as explained below in the Express 3.0 section.
+
 
 Does it support partials? (a.k.a includes)
 -------------------------
@@ -223,8 +216,7 @@ Inside a region of CoffeeScript, you can print or capture the result of a partia
 ```
 
 Like Express's `partial` function, Toffee's function passes all available vars to the child template.
-For example, in the above code, "session" would also be available the user_menu.toffee file. If you don't want this to be available,
-in Express 3.0 you can use Toffee's `snippet` function, which sandboxes it:
+For example, in the above code, `session` would also be available the user_menu.toffee file. If you don't want this scoping, use Toffee's `snippet` function, which sandboxes it:
 
 ```
 {#
@@ -234,7 +226,7 @@ in Express 3.0 you can use Toffee's `snippet` function, which sandboxes it:
 #}
 ```
 
-Another Express 3.0 improvement: Toffee compiles and caches templatess
+Another Toffee improvement for Express 3.0: Toffee compiles and caches templatess
 for bursts that you control. It's high performance without the need to restart your production webserver when
 you make a content change.
 
