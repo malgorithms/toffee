@@ -99,7 +99,8 @@ class view
       return "\n#{@_space ind}__toffee.lineno = #{n}"
 
   _snippetHasEscapeOverride: (str) ->
-    for token in ['snippet', 'include', 'partial', 'raw', 'html', 'json']
+    for token in ['snippet', 'include', 'partial', 'raw', 'html', 'json',
+      '__toffee.raw', '__toffee.html', '__toffee.json']
       if str[0...token.length] is token
         return true
     false

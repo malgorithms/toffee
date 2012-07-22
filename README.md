@@ -139,7 +139,7 @@ The functions mentioned above are also available to you in coffee mode.
 </p>
 ```
 
-*Note!*  if you pass a variable to the template called `json`, `raw`, or `html`, toffee won't create these helper functions, which would crush your own. Instead, you can access them through their official titles, `__toffee.raw`, etc.
+*Note!*  if you pass a variable to the template called `json`, `raw`, or `html`, toffee won't create these helper functions, which would be kind of dick.  In this case, you can access the escape functions through their official titles, `__toffee.raw`, etc.
 
 Overriding the default:
  * If you pass a variable to your template called `escape`, this will be used as the default escape. Everything inside `#{}` that isn't subject to an above-mentioned exception will go through your escape function.
@@ -234,7 +234,24 @@ you make a content change.
 But how does the indentation work?
 -----
 Toffee realigns all your coffeescript inside a `{# region #}` by normalizing the indentation of that region.
-So it doesn't matter how you indent things, as long as it makes local sense inside that region. For example, these
+So it doesn't matter how you indent things, as long as it makes local sense inside that region. 
+
+```
+<p>
+ {#
+   x = 100
+   if x > 1
+     for i in [0...x] {:
+       <br />#{i}
+       {#
+         if i is 33 {: (my favorite number) :}
+   	   #}
+     :}
+ #}
+</p>
+```
+
+For example, these
 are all identical:
 
 ```
