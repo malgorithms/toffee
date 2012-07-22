@@ -6,9 +6,9 @@ e = new engine(maxCacheAge: 10000)
 
 run_case_dir = (dir, cb) ->
   expected = fs.readFileSync "#{dir}/output.toffee", "utf8"
-  if path.existsSync "#{dir}/vars.json"
-    vars     = fs.readFileSync "#{dir}/vars.json", "utf8"
-    vars     = JSON.parse vars
+  if path.existsSync "#{dir}/vars.js"
+    vars     = fs.readFileSync "#{dir}/vars.js", "utf8"
+    vars     = eval "(#{vars})"
   else
     vars     = {}
   d = Date.now()

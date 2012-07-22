@@ -7928,7 +7928,7 @@ if (typeof module !== 'undefined' && require.main === module) {
               } else if (interp.slice(0, 5) === 'html|') {
                 chunk = "\#{htmlEscape(" + interp.slice(5) + ")}";
               } else {
-                chunk = "\#{htmlEscape(" + interp + ")}";
+                chunk = "\#{escape(" + interp + ")}";
               }
               res += "\n" + (this._space(ind)) + "__toffee.out.push " + (this._quoteStr(chunk));
               lineno += part[1].split("\n").length - 1;
@@ -8113,7 +8113,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     view.prototype._coffeeHeaders = function() {
       var ___;
       ___ = this._tabAsSpaces();
-      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) -> \n" + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + "''\n\n" + ___ + "jsonEscape = (o) ->\n" + ___ + ___ + "res = (\"\"+JSON.stringify o)\n\n" + ___ + "htmlEscape = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n\n" + ___ + "states = " + (JSON.stringify(states));
+      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) -> \n" + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + "''\n\n" + ___ + "jsonEscape = (o) ->\n" + ___ + ___ + "res = (\"\"+JSON.stringify o)\n\n" + ___ + "htmlEscape = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n\n" + ___ + "if not escape?\n" + ___ + ___ + "escape = (o) ->\n" + ___ + ___ + ___ + "if (not autoEscape?) or autoEscape\n" + ___ + ___ + ___ + ___ + "return htmlEscape o\n\n" + ___ + "states = " + (JSON.stringify(states));
     };
 
     view.prototype._coffeeFooters = function() {

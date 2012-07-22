@@ -140,7 +140,7 @@ class view
             else if interp[0...5] is 'html|'
               chunk = "\#{htmlEscape(#{interp[5..]})}" 
             else
-              chunk = "\#{htmlEscape(#{interp})}" 
+              chunk = "\#{escape(#{interp})}" 
             res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
@@ -272,6 +272,11 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 
 #{___}htmlEscape = (o) ->
 #{___}#{___}res = (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+#{___}if not escape?
+#{___}#{___}escape = (o) ->
+#{___}#{___}#{___}if (not autoEscape?) or autoEscape
+#{___}#{___}#{___}#{___}return htmlEscape o
 
 #{___}states = #{JSON.stringify states}
 """
