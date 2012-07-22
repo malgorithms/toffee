@@ -1,12 +1,12 @@
 {## Fail ##}
-Pass
+Pass 1
 {##
 
   Fail
   #{x}
 
 ##}
-Pass
+Pass 2
 {#
 
 	# print "Fail"	
@@ -17,5 +17,5 @@ Pass
 	###
 
 #}
-Pass
+Pass 3
 {## Fail ##}{## Fail ##}

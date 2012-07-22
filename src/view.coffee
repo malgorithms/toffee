@@ -1,8 +1,7 @@
-parser          = require('./toffee_lang').parser
+{parser}        = require './toffee_lang'
 {errorHandler}  = require './errorHandler'
 {states}        = require './consts'
-lexer           = require './coffee-script/lexer'
-helpers         = require './helpers'
+utils           = require './utils'
 vm              = require 'vm'
 try 
   coffee        = require "iced-coffee-script"
@@ -22,7 +21,6 @@ class view
     @javaScript   = null # these are all constructed as needed
     @scriptObj    = null # these are all constructed as needed 
     @error        = null # assigned via errorHandler module
-    @lexer        = new lexer.Lexer()
     @loadFromText txt
 
   loadFromText: (txt) ->
@@ -72,7 +70,6 @@ class view
       txt = @_toJavaScript()
       d = Date.now()
       @scriptObj = vm.createScript txt
-      #console.log "Compiled to ScriptObj in #{Date.now()-d}ms"
     @scriptObj
 
   _toJavaScript: ->
@@ -83,7 +80,6 @@ class view
         @javaScript = coffee.compile c, {bare: false}
       catch e
         @error = errorHandler.generateCompileToJsError @, e
-      #console.log "Compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
   _toCoffee: ->
@@ -93,24 +89,17 @@ class view
       res += @_toCoffeeRecurse(@codeObj, TAB_SPACES, 0)[0]
       res += @_coffeeFooters()
       @coffeeScript = res
-      #console.log "Compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
-  _interpolateToffee: (str) ->
-    @lexer.tokenize '' # needed to call to initialize the lexer
-    parts = helpers.interpolateString str
-    console.log "===v\n#{str}\n------\n#{JSON.stringify parts, null, ' '}\n====="
-    parts
-
-  _rebuildInterpolatedString: (interp) ->
-    res = ""
-    for part in interp
-      if part[0] is "TOKENS"
-        res += "\#{escape(#{part[1].replace /^[\n \t]+/, ''})}"
-      else
-        res += @_escapeForStr part[1]
-    console.log res
-    res
+  #_rebuildInterpolatedString: (interp) ->
+  #  res = ""
+  #  for part in interp
+  #    if part[0] is "TOKENS"
+  #      res += "\#{escape(#{part[1].replace /^[\n \t]+/, ''})}"
+  #    else
+  #      res += @_escapeForStr part[1]
+  #  console.log res
+  #  res
 
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
     # returns [res, indent_baseline_delta]
@@ -139,36 +128,28 @@ class view
           res += s
           temp_indent_level = indent_level + delta
       when "TOFFEE"
-        ind = indent_level# - indent_baseline
+        ind = indent_level
         res += "\n#{@_space ind}__toffee.lineno = #{obj[2]}"
         res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
-        t_int = @_interpolateToffee obj[1]
-        r_str = @_rebuildInterpolatedString t_int 
-        #console.log "===="  
-        #console.log "#{obj[1]}"
-        #console.log "---"  
-        #console.log r_str
-        #console.log "====="   
-        #console.log JSON.stringify t_int, null, " "
-        #lines = obj[1].split "\n"
-        lines = r_str.split "\n"
-        for line, i in lines
-          if not line.match /#/
-            if i
-              res += "\n#{@_space ind}__toffee.lineno = #{obj[2]+i}"
-            lbreak = if i isnt lines.length - 1 then "\n" else ""
-            res += "\n#{@_space ind}__toffee.out.push " + @_quoteStr(line + lbreak)
+        t_int = utils.interpolateString obj[1]
+        lineno = obj[2]
+        for part in t_int
+          res += "\n#{@_space ind}__toffee.lineno = #{lineno}"
+          if part[0] is "TOKENS"
+            chunk   = "\#{escape(#{part[1].replace /^[\n \t]+/, ''})}"
+            res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr chunk}"
+            lineno += part[1].split("\n").length - 1
           else
-              res += "\n#{@_space ind}__toffee.out.push " + @_quoteStr(lines[(i)...].join "\n")
-              break
-
-        #res += "\n#{@_space indent_level}__toffee.out.push " + '"""' + @_escapeForStr(obj[1]) + '"""'
+            lines = part[1].split "\n"
+            for line,i in lines
+              lbreak  = if i isnt lines.length - 1 then "\n" else ""
+              chunk   = @_escapeForStr "#{line}#{lbreak}"
+              res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr(chunk + lbreak)}"
+              lineno += 1
         res += "\n#{@_space ind}__toffee.lineno = #{obj[2] + (obj[1].split('\n').length-1)}"
         res += "\n#{@_space ind}__toffee.state = states.COFFEE"
       when "COFFEE"
-        #obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
-        #console.log "=====\n#{obj[1]}\n===="
-        c = obj[1]#c.replace /\t/g, @_tabAsSpaces()
+        c = obj[1]
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
         i_delta = @_getIndentationDelta c, indent_baseline
       else 
@@ -227,7 +208,6 @@ class view
           break
     if not res?
       res = coffee.length
-    #console.log "====\n?#{coffee.replace /[ ]/g, '.'}?\n#{res}\n---"
     return res
 
   _getIndentationDelta: (coffee, baseline) ->
@@ -242,9 +222,6 @@ class view
       res = 0
     else 
       lines = coffee.split "\n"
-      # if the last line has coffeescript in it, ignore it in the calculation
-      #if lines.length and not (lines[lines.length-1].match /^[ ]*$/)
-      #  lines.pop()
       if lines.length < 1
         res = 0
       else 
@@ -271,7 +248,7 @@ class view
 
   _coffeeHeaders: ->
     tab    = @_tabAsSpaces()
-    header = """
+    """
 domain                  = this
 domain.toffeeTemplates  = domain.toffeeTemplates or {}
 domain.toffeeTemplates["#{@identifier}"] = (locals) ->
@@ -288,11 +265,10 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{tab}#{tab}#{tab}
 #{tab}states = #{JSON.stringify states}
 """
-    header
 
   _coffeeFooters: ->
     tab    = @_tabAsSpaces()
-    footer = """\n
+    """\n
 #{tab}__toffee.res = __toffee.out.join ""
 #{tab}return __toffee.res
 #{tab}`} /* closing JS 'with' */ `
@@ -301,8 +277,6 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 if __toffee_run_input?
 #{tab}return domain.toffeeTemplates["#{@identifier}"] __toffee_run_input
 """
-    footer
-
 
 exports.view   = view
 
