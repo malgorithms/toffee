@@ -200,7 +200,7 @@ Voila, yes.  In Express 2.0, Express itself is responsible for partials. In Expr
 works as you'd expect. 
 
 ```html
-<div>#{partial 'foo.toffee', name: "Chris"}</div>
+<div>#{partial '../foo/bar.toffee', name: "Chris"}</div>
 ```
 
 Inside a region of CoffeeScript, you can print or capture the result of a partial.
