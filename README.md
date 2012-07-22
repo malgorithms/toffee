@@ -111,25 +111,36 @@ The above is identical to:
 
 Well, it's not exactly identical.  Let's talk about escaping.
 
-escaping
-========
-By default, in toffee mode, `#{some_expression}` output is escaped for HTML.
 
-Exception:
- * if your expression is a call to `partial` or `snippet` it won't be doubly-escaped.
+escaping: how it works
+==============
+In coffee mode, the `print` function lets you print the raw value of a variable.
 
-The available filters in toffee mode are accessed by *prefixing* your expression:
- * `#{foo}` : foo, escaped for HTML
- * `#{json|foo}` : foo, turned into a JSON object. Nice in a script tag.
- * `#{raw|foo}` : foo, printed in raw form. This is identical to 'print foo' in coffee mode.
- * `#{html|foo}` : foo, escaped for HTML. This is the same as default, only useful if you override the default, turn off escaping, or want to escape the results of a partial.
+However, for safety, in toffee mode, `#{some_expression}` output is escaped for HTML, with some desired exceptions.
+
+If certain functions are called leftmost in a `#{` token, their
+output will be unmolested:
+
+ * `#{json foo}`: this outputs foo as JSON.
+ * `#{raw foo}`: this outputs foo in raw text.
+ * `#{html foo}`: this outputs foo, escaped as HTML. It's the same as `#{foo}`, but it's available in case you (1) override the default escaping or (2) turn off auto-escaping (both explained below).
+ * `#{partial "foo.toffee"}` and `#{snippet "foo.toffee"}`: unescaped, since you don't want to escape your own templates
+
+The functions mentioned above are also available to you in coffee mode.
+
+```
+   foo = [1,2,3, {bar: "none"}]
+   foo_escaped = html foo
+```
+
+*Note* if you pass a variable to the template called `json`, `foo`, or `html`, toffee won't create these functions and crush your functions/vars. Instead, you can access them through their official titles, `__toffee.raw`, etc.
 
 Overriding the default:
- * If you pass a variable to your template called `escape`, this will be used as the default escape.
+ * If you pass a variable to your template called `escape`, this will be used as the default escape. Everything inside `#{}` that isn't subject to an above-mentioned exception will go through your escape function.
 
 Turning off autoescaping entirely:
  * If you set `autoEscape: false` when creating the engine, the default will be raw across your project. (See more on that below under Express 3.x settings.)
-
+ * Alternatively, you could pass the var `escape: (x) -> x` to turn off escaping for a given template.
 
 questions
 ========
@@ -141,16 +152,16 @@ The syntaxes are pretty different, so pick the one you prefer.
 
 ECO
 ```
-<% if @foo: %>
-  Bar
-<% end %>
+<div>
+	<% if @foo: %> Bar <% end %>
+</div>
 ```
 
 TOFFEE
 ```
-{# 
-  if @foo {: Bar :} 
-#}
+<div>
+	{# if @foo {: Bar :} #}
+</div>
 ```
 
 Toffee allows multiple lines of CoffeeScript without tagging them all. Compare:
@@ -190,7 +201,7 @@ Yes, it does a very good job of that. There are 3 possible places you can hit an
 
 Stack traces are converted to lines in Toffee and show you where the problem is.
 
-Does it support partials?
+Does it support partials? (a.k.a includes)
 -------------------------
 Voila, yes.  In Express 2.0, Express itself is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
 works as you'd expect. 
@@ -199,7 +210,7 @@ works as you'd expect.
 <div>#{partial 'foo.toffee', name: "Chris"}</div>
 ```
 
-Or inside a region of CoffeeScript, you can print or capture the result of a partial.
+Inside a region of CoffeeScript, you can print or capture the result of a partial.
 ```html
 <div>
 {#
@@ -211,7 +222,7 @@ Or inside a region of CoffeeScript, you can print or capture the result of a par
 </div>
 ```
 
-Like Express's `partial` function, Toffee's function passes websrv-published vars to the child template.
+Like Express's `partial` function, Toffee's function passes all available vars to the child template.
 For example, in the above code, "session" would also be available the user_menu.toffee file. If you don't want this to be available,
 in Express 3.0 you can use Toffee's `snippet` function, which sandboxes it:
 

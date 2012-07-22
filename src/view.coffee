@@ -98,6 +98,12 @@ class view
       @lastLineNo = n
       return "\n#{@_space ind}__toffee.lineno = #{n}"
 
+  _snippetHasEscapeOverride: (str) ->
+    for token in ['snippet', 'include', 'partial', 'raw', 'html', 'json']
+      if str[0...token.length] is token
+        return true
+    false
+
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
     # returns [res, indent_baseline_delta]
     # indent_level    = # of spaces to add to each coffeescript section
@@ -133,17 +139,10 @@ class view
           if part[0] is "TOKENS"
             res    += @_printLineNo lineno, ind
             interp  = part[1].replace /^[\n \t]+/, ''
-            if interp[0...7] in ['snippet','include','partial']
-              # no re-encoding output of these
+            if @_snippetHasEscapeOverride interp
               chunk = "\#{#{interp}}"
-            else if interp[0...5] is 'json|'
-              chunk = "\#{jsonEscape(#{interp[5..]})}"
-            else if interp[0...4] is 'raw|'
-              chunk = "\#{#{interp[4..]}}"
-            else if interp[0...5] is 'html|'
-              chunk = "\#{htmlEscape(#{interp[5..]})}" 
             else
-              chunk = "\#{escape(#{interp})}" 
+              chunk = "\#{escape(#{interp})}"
             res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
@@ -270,16 +269,22 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{___}#{___}#{___}__toffee.out.push txt
 #{___}#{___}#{___}''
 
-#{___}jsonEscape = (o) ->
+#{___}__toffee.json = (o) ->
 #{___}#{___}res = (""+JSON.stringify o)
 
-#{___}htmlEscape = (o) ->
+#{___}__toffee.html = (o) ->
 #{___}#{___}res = (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+#{___}__toffee.raw = (o) -> o
+
+#{___}if not raw? then raw   = __toffee.raw
+#{___}if not html? then html = __toffee.html
+#{___}if not json? then json = __toffee.json
 
 #{___}if not escape?
 #{___}#{___}escape = (o) ->
 #{___}#{___}#{___}if (not __toffee.autoEscape?) or __toffee.autoEscape
-#{___}#{___}#{___}#{___}return htmlEscape o
+#{___}#{___}#{___}#{___}return __toffee.html o
 
 #{___}states = #{JSON.stringify states}
 """
