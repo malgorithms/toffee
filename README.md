@@ -141,7 +141,7 @@ The functions mentioned above are also available to you in coffee mode.
 
 *Note!*  if you pass a variable to the template called `json`, `raw`, or `html`, toffee won't create these helper functions, which would be kind of dick.  In this case, you can access the escape functions through their official titles, `__toffee.raw`, etc.
 
-Overriding the default:
+Overriding the default `escape`:
  * If you pass a variable to your template called `escape`, this will be used as the default escape. Everything inside `#{}` that isn't subject to an above-mentioned exception will go through your escape function.
 
 Turning off autoescaping entirely:
