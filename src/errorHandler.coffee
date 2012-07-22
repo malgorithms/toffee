@@ -50,7 +50,7 @@ eh = exports.errorHandler =
     else
       res.toffee_line_range[1] = txt_lines.length
     res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
-    if res.toffee_line_range[0] is res.toffee_line_range[1]
+    if res.toffee_line_range[0] is res.toffee_line_range[1] - 1
       new_msg = "on line #{res.toffee_line_range[0]}"
     else
       new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
@@ -87,7 +87,7 @@ eh = exports.errorHandler =
     else
       res.toffee_line_range[1] = txt_lines.length
     res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
-    if res.toffee_line_range[0] is res.toffee_line_range[1]
+    if res.toffee_line_range[0] is res.toffee_line_range[1] - 1
       new_msg = "on line #{res.toffee_line_range[0]}"
     else
       new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"

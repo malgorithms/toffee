@@ -91,15 +91,12 @@ class view
       @coffeeScript = res
     @coffeeScript
 
-  #_rebuildInterpolatedString: (interp) ->
-  #  res = ""
-  #  for part in interp
-  #    if part[0] is "TOKENS"
-  #      res += "\#{escape(#{part[1].replace /^[\n \t]+/, ''})}"
-  #    else
-  #      res += @_escapeForStr part[1]
-  #  console.log res
-  #  res
+  _printLineNo: (n, ind) ->
+    if @lastLineNo? and (n is @lastLineNo)
+      return ""
+    else
+      @lastLineNo = n
+      return "\n#{@_space ind}__toffee.lineno = #{n}"
 
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
     # returns [res, indent_baseline_delta]
@@ -129,24 +126,25 @@ class view
           temp_indent_level = indent_level + delta
       when "TOFFEE"
         ind = indent_level
-        res += "\n#{@_space ind}__toffee.lineno = #{obj[2]}"
         res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
         t_int = utils.interpolateString obj[1]
         lineno = obj[2]
         for part in t_int
-          res += "\n#{@_space ind}__toffee.lineno = #{lineno}"
           if part[0] is "TOKENS"
-            chunk   = "\#{escape(#{part[1].replace /^[\n \t]+/, ''})}"
+            res    += @_printLineNo lineno, ind
+            chunk   = "\#{escapeGrab(#{part[1].replace /^[\n \t]+/, ''})}"
             res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
             lines = part[1].split "\n"
             for line,i in lines
+              res += @_printLineNo lineno, ind
               lbreak  = if i isnt lines.length - 1 then "\n" else ""
               chunk   = @_escapeForStr "#{line}#{lbreak}"
-              res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr(chunk + lbreak)}"
-              lineno += 1
-        res += "\n#{@_space ind}__toffee.lineno = #{obj[2] + (obj[1].split('\n').length-1)}"
+              if chunk.length
+                res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr(chunk + lbreak)}"
+              if i < lines.length - 1 then lineno++
+        res += @_printLineNo obj[2] + (obj[1].split('\n').length-1), ind
         res += "\n#{@_space ind}__toffee.state = states.COFFEE"
       when "COFFEE"
         c = obj[1]
@@ -174,7 +172,6 @@ class view
       follow += '"'
     res = ''
     if lead.length then res += "\'#{lead}\' + "
-    #res += '"""' + @_escapeForStr(s) + '"""'
     res += '"""' + s + '"""'
     if follow.length then res += "+ \'#{follow}\'"
     res
@@ -247,35 +244,50 @@ class view
   _tabAsSpaces: -> (" " for i in [0...TAB_SPACES]).join ""
 
   _coffeeHeaders: ->
-    tab    = @_tabAsSpaces()
+    ___  = @_tabAsSpaces()
     """
 domain                  = this
 domain.toffeeTemplates  = domain.toffeeTemplates or {}
 domain.toffeeTemplates["#{@identifier}"] = (locals) ->
-#{tab}domain                = this
-#{tab}locals.__toffee       = {}
-#{tab}`with (locals) {`
-#{tab}__toffee.out = []
-#{tab}if not print?
-#{tab}#{tab}print = (txt) -> 
-#{tab}#{tab}#{tab}__toffee.out.push txt
-#{tab}#{tab}#{tab}''
-#{tab}if not escape?
-#{tab}#{tab}escape = (str) -> ("\#{str}").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-#{tab}#{tab}#{tab}
-#{tab}states = #{JSON.stringify states}
+#{___}domain                = this
+#{___}locals.__toffee       = {}
+#{___}`with (locals) {`
+#{___}__toffee.out = []
+
+#{___}if not print?
+#{___}#{___}print = (txt) -> 
+#{___}#{___}#{___}__toffee.out.push txt
+#{___}#{___}#{___}''
+
+#{___}raw = (o) ->
+#{___}#{___}res = (""+o)
+#{___}#{___}if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']
+
+#{___}json = (o) ->
+#{___}#{___}res = (""+o)
+#{___}#{___}if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']
+
+#{___}escHtml = (o) ->
+#{___}#{___}res = (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+#{___}#{___}if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']
+
+#{___}escapeGrab = (o) ->
+#{___}#{___}if __toffee.noEscaping then return o
+#{___}#{___}if (Array.isArray o) and (o.length > 1) and (o[1] is '__esc_override') then return o[0]
+#{___}#{___}return escHtml(o)[0]
+#{___}states = #{JSON.stringify states}
 """
 
   _coffeeFooters: ->
-    tab    = @_tabAsSpaces()
+    ___    = @_tabAsSpaces()
     """\n
-#{tab}__toffee.res = __toffee.out.join ""
-#{tab}return __toffee.res
-#{tab}`} /* closing JS 'with' */ `
+#{___}__toffee.res = __toffee.out.join ""
+#{___}return __toffee.res
+#{___}`} /* closing JS 'with' */ `
 # sometimes we want to execute the whole thing in a sandbox
 # and just output results
 if __toffee_run_input?
-#{tab}return domain.toffeeTemplates["#{@identifier}"] __toffee_run_input
+#{___}return domain.toffeeTemplates["#{@identifier}"] __toffee_run_input
 """
 
 exports.view   = view

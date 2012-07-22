@@ -6,11 +6,11 @@ and smart view caching.
 
 status
 ======
-July 19: Beta! And in very usable shape.
+Beta! And in very usable shape.
 
 examples
 ========
-Printing variables is easy. If it fits on one line, use CoffeeScript's #{} syntax:
+Printing variables is easy. Just use CoffeeScript's #{} syntax:
 ```
 <p>
    Hey, #{user.name}. 
@@ -318,30 +318,7 @@ toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 
 known issues
 ===============
-1. currently `#{}` regions have to be on a single line. This is most annoying with partials (a.k.a includes), since you might want to do this:
-
-```
-#{
-  partial "foo.toffee",
-    x: 10
-    y: 20
-}
-```
-
-Instead, either keep it on one line or switch to coffee mode and use print:
-```
-{#
-   print partial "foo.toffee",
-    x: 10
-    y: 20
-#}
-```
-or
-```
-#{partial "foo.toffee", {x:10, y:20}}
-```
-
-2. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
+1. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
 be useful for temporarily commenting off a region of a template.
 
 3. There's a case where line numbers aren't right.
@@ -386,4 +363,3 @@ todo
 - escapeHTML, JS, etc. functions
 - continue to add to unit tests
 - stack trace conversion improvement
-- support multi-line #{} statements or prevent users from entering them with parser error

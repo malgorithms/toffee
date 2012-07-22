@@ -5,6 +5,9 @@
 #}#{x}
 #{y}
 #{z}
+#{raw x}
+#{raw y}
+#{raw z}
 {#
   print "#{x}\n"
   print "#{y}\n"

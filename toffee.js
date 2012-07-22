@@ -7132,7 +7132,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         res.toffee_line_range[1] = txt_lines.length;
       }
       res.offensive_lines = txt_lines.slice(res.toffee_line_range[0] - 1, res.toffee_line_range[1] - 1);
-      if (res.toffee_line_range[0] === res.toffee_line_range[1]) {
+      if (res.toffee_line_range[0] === res.toffee_line_range[1] - 1) {
         new_msg = "on line " + res.toffee_line_range[0];
       } else {
         new_msg = "between lines " + res.toffee_line_range[0] + " and " + res.toffee_line_range[1];
@@ -7179,7 +7179,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         res.toffee_line_range[1] = txt_lines.length;
       }
       res.offensive_lines = txt_lines.slice(res.toffee_line_range[0] - 1, res.toffee_line_range[1] - 1);
-      if (res.toffee_line_range[0] === res.toffee_line_range[1]) {
+      if (res.toffee_line_range[0] === res.toffee_line_range[1] - 1) {
         new_msg = "on line " + res.toffee_line_range[0];
       } else {
         new_msg = "between lines " + res.toffee_line_range[0] + " and " + res.toffee_line_range[1];
@@ -7862,6 +7862,15 @@ if (typeof module !== 'undefined' && require.main === module) {
       return this.coffeeScript;
     };
 
+    view.prototype._printLineNo = function(n, ind) {
+      if ((this.lastLineNo != null) && (n === this.lastLineNo)) {
+        return "";
+      } else {
+        this.lastLineNo = n;
+        return "\n" + (this._space(ind)) + "__toffee.lineno = " + n;
+      }
+    };
+
     view.prototype._toCoffeeRecurse = function(obj, indent_level, indent_baseline) {
       var c, chunk, delta, i, i_delta, ind, item, lbreak, line, lineno, lines, part, res, s, t_int, temp_indent_level, zone_baseline, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;
       res = "";
@@ -7899,29 +7908,33 @@ if (typeof module !== 'undefined' && require.main === module) {
           break;
         case "TOFFEE":
           ind = indent_level;
-          res += "\n" + (this._space(ind)) + "__toffee.lineno = " + obj[2];
           res += "\n" + (this._space(ind)) + "__toffee.state = states.TOFFEE";
           t_int = utils.interpolateString(obj[1]);
           lineno = obj[2];
           for (_l = 0, _len3 = t_int.length; _l < _len3; _l++) {
             part = t_int[_l];
-            res += "\n" + (this._space(ind)) + "__toffee.lineno = " + lineno;
             if (part[0] === "TOKENS") {
-              chunk = "\#{escape(" + (part[1].replace(/^[\n \t]+/, '')) + ")}";
+              res += this._printLineNo(lineno, ind);
+              chunk = "\#{escapeGrab(" + (part[1].replace(/^[\n \t]+/, '')) + ")}";
               res += "\n" + (this._space(ind)) + "__toffee.out.push " + (this._quoteStr(chunk));
               lineno += part[1].split("\n").length - 1;
             } else {
               lines = part[1].split("\n");
               for (i = _m = 0, _len4 = lines.length; _m < _len4; i = ++_m) {
                 line = lines[i];
+                res += this._printLineNo(lineno, ind);
                 lbreak = i !== lines.length - 1 ? "\n" : "";
                 chunk = this._escapeForStr("" + line + lbreak);
-                res += "\n" + (this._space(ind)) + "__toffee.out.push " + (this._quoteStr(chunk + lbreak));
-                lineno += 1;
+                if (chunk.length) {
+                  res += "\n" + (this._space(ind)) + "__toffee.out.push " + (this._quoteStr(chunk + lbreak));
+                }
+                if (i < lines.length - 1) {
+                  lineno++;
+                }
               }
             }
           }
-          res += "\n" + (this._space(ind)) + "__toffee.lineno = " + (obj[2] + (obj[1].split('\n').length - 1));
+          res += this._printLineNo(obj[2] + (obj[1].split('\n').length - 1), ind);
           res += "\n" + (this._space(ind)) + "__toffee.state = states.COFFEE";
           break;
         case "COFFEE":
@@ -8084,15 +8097,15 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._coffeeHeaders = function() {
-      var tab;
-      tab = this._tabAsSpaces();
-      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + tab + "domain                = this\n" + tab + "locals.__toffee       = {}\n" + tab + "`with (locals) {`\n" + tab + "__toffee.out = []\n" + tab + "if not print?\n" + tab + tab + "print = (txt) -> \n" + tab + tab + tab + "__toffee.out.push txt\n" + tab + tab + tab + "''\n" + tab + "if not escape?\n" + tab + tab + "escape = (str) -> (\"\#{str}\").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n" + tab + tab + tab + "\n" + tab + "states = " + (JSON.stringify(states));
+      var ___;
+      ___ = this._tabAsSpaces();
+      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) -> \n" + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + "''\n\n" + ___ + "raw = (o) ->\n" + ___ + ___ + "res = (\"\"+o)\n" + ___ + ___ + "if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']\n\n" + ___ + "json = (o) ->\n" + ___ + ___ + "res = (\"\"+o)\n" + ___ + ___ + "if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']\n\n" + ___ + "escHtml = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n" + ___ + ___ + "if __toffee.state is states.COFFEE then return res else return [res, '__esc_override']\n\n" + ___ + "escapeGrab = (o) ->\n" + ___ + ___ + "if __toffee.noEscaping then return o\n" + ___ + ___ + "if (Array.isArray o) and (o.length > 1) and (o[1] is '__esc_override') then return o[0]\n" + ___ + ___ + "return escHtml(o)[0]\n" + ___ + "states = " + (JSON.stringify(states));
     };
 
     view.prototype._coffeeFooters = function() {
-      var tab;
-      tab = this._tabAsSpaces();
-      return "\n\n" + tab + "__toffee.res = __toffee.out.join \"\"\n" + tab + "return __toffee.res\n" + tab + "`} /* closing JS 'with' */ `\n# sometimes we want to execute the whole thing in a sandbox\n# and just output results\nif __toffee_run_input?\n" + tab + "return domain.toffeeTemplates[\"" + this.identifier + "\"] __toffee_run_input";
+      var ___;
+      ___ = this._tabAsSpaces();
+      return "\n\n" + ___ + "__toffee.res = __toffee.out.join \"\"\n" + ___ + "return __toffee.res\n" + ___ + "`} /* closing JS 'with' */ `\n# sometimes we want to execute the whole thing in a sandbox\n# and just output results\nif __toffee_run_input?\n" + ___ + "return domain.toffeeTemplates[\"" + this.identifier + "\"] __toffee_run_input";
     };
 
     return view;
