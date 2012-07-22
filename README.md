@@ -86,7 +86,7 @@ simply create another `{# coffee #}` block, and indentation is inferred.
 #}
 ```
 
-Switching to pub mode without indenting
+Switching to toffee mode without indenting
 -----
 By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
 probably because of a loop or conditional. 
