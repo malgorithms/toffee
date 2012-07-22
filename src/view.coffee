@@ -275,7 +275,7 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 
 #{___}if not escape?
 #{___}#{___}escape = (o) ->
-#{___}#{___}#{___}if (not autoEscape?) or autoEscape
+#{___}#{___}#{___}if (not __toffee.autoEscape?) or __toffee.autoEscape
 #{___}#{___}#{___}#{___}return htmlEscape o
 
 #{___}states = #{JSON.stringify states}
