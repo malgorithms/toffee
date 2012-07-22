@@ -68,6 +68,7 @@ Or, using the built-in print:
 #}
 ```
 
+Note that `print` outputs the raw variable, as Coffee would, while `#{}` neatly escapes for HTML. This is all customizable. More on that below.
 
 Nesting is both natural and advisable. In a `{: toffee :}` block, 
 simply create another `{# coffee #}` block, and indentation is inferred.
@@ -94,22 +95,40 @@ If you ever want to cut into toffee mode without indenting, use `-{: ... :}`. Fo
 
 ```
 {#
-   name = "Chris"
-   -{:name:}
+   name = "Hans Gruber"
+   -{:You're a hell of a thief, #{name}:}
 #}
 ```
 
-The above is identical to 
+The above is identical to:
 
 ```
 {#
    name = "Chris"
-   print name
+   print "You're a hell of a thief, #{name}"
 #}
 ```
 
+Well, it's not exactly identical.  Let's talk about escaping.
 
-Questions
+escaping
+========
+By default, in toffee mode, `#{some_expression}` output is escaped for HTML.
+
+The available filters in toffee mode are accessed by *prefixing* your expression:
+ * `#{foo}` : foo, escaped for HTML
+ * `#{json|foo}` : foo, turned into a JSON object. Nice in a script tag.
+ * `#{raw|foo}` : foo, printed in raw form. This is identical to 'print foo' in coffee mode.
+ * `#{html|foo}` : foo, escaped for HTML. This is the same as default, only useful if you override the default or turn off escaping.
+
+Overriding the default:
+ * If you pass a variable to your template called `escape`, this will be used as the default escape.
+
+Turning off autoescaping entirely:
+ * If you set `autoEscape: false` when creating the engine, the default will be raw across your project. (See more on that below under Express 3.x settings.)
+
+
+questions
 ========
 
 How does it compare to eco?
@@ -159,9 +178,6 @@ Note that with Toffee's syntax, since brackets enclose regions not directives, y
 will let you collapse and expand sections of code. And if you click on one of the brackets in most
 editors, it will highlight the matching bracket.
 
-Eco has a nice auto-escaping feature. If you want to escape for HTML, URL's, or JS in Toffee, 
-you can do that with a function of your choice.
-
 Does it find line numbers in errors?
 -----------------------------------
 Yes, it does a very good job of that. There are 3 possible places you can hit an error in Toffee: 
@@ -173,7 +189,7 @@ Stack traces are converted to lines in Toffee and show you where the problem is.
 
 Does it support partials?
 -------------------------
-Yes.  In Express 2.0, Express is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
+Voila, yes.  In Express 2.0, Express is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
 works as you'd expect. 
 
 ```html
@@ -296,6 +312,9 @@ app.register '.toffee', toffee
 express 3.x options
 ===================
 
+Pretty-print errors
+-----
+
 Express's default error page is great for stack traces but not so great for pretty-printing template errors.
 So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
 it fakes an okay result by returning some pretty HTML showing the error. If you don't like this - say you want to catch render errors - 
@@ -306,7 +325,9 @@ toffee = require 'toffee'
 toffee.expressEngine.prettyPrintErrors = false
 ```
 
-Caching.  Toffee doesn't read from the disk every time you request a template. It compiles and caches for short periods (2 seconds, by default),
+Caching
+-----
+Toffee doesn't read from the disk every time you request a template. It compiles and caches for short periods (2 seconds, by default),
 to save IO and compile time. You can set this cache, in milliseconds, anywhere from 0 to Infinity. 
 
 You might consider different rules for production and development, although a short cache time performs well in both cases.
@@ -315,6 +336,15 @@ You might consider different rules for production and development, although a sh
 toffee = require 'toffee'
 toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 ```
+
+Turning off auto-escaping for HTML
+---------
+By default, Toffee escapes `#{}` output for HTML. YOu can turn this off in your engine with:
+```
+toffee = require 'toffee'
+toffee.expressEngine.autoEscape = false
+```
+
 
 known issues
 ===============
