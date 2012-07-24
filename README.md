@@ -107,7 +107,7 @@ The above is identical to:
 
 ```
 {#
-   name = "Chris"
+   name = "Hans Gruber"
    print "You're a hell of a thief, #{name}"
 #}
 ```
