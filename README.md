@@ -159,7 +159,7 @@ How does it compare to eco?
 Eco is another CoffeeScript templating language and inspiration for Toffee.
 The syntaxes are pretty different, so pick the one you prefer.
 
-One big Toffee advantage: multiple lines of CoffeeScript do not all need to be tagged. Compare:
+One big Toffee advantage: multiple lines of CoffeeScript just look like CoffeeScript. Compare:
 
 ECO
 ```
@@ -187,6 +187,10 @@ With Toffee's syntax, brackets enclose regions not directives, so your editor
 will let you collapse and expand sections of code. And if you click on one of the brackets in most
 editors, it will highlight the matching bracket.
 
+Does it cache templates?
+------------------------
+In Express 2.0, that's up to Express. When used in Express 3.0, Toffee asynchronously monitors known templates and recompiles them in the background when necessary. So you don't need to restart your production webserver whenever you edit a template.
+
 Does it find line numbers in errors?
 -----------------------------------
 Yes, Toffee does a very good job of that. There are 3 possible places you can hit an error in Toffee: 
@@ -200,7 +204,7 @@ This can be overridden, as explained below in the Express 3.0 section.
 
 Does it support partials? (a.k.a includes)
 -------------------------
-Yes.  In Express 2.0, Express itself is responsible for partials. In Express 3.0, Toffee defines the `partial` function, and it 
+Yes.  In Express 2.0, Express itself is responsible for including other files, and they call this system "partials." In Express 3.0, Toffee defines the `partial` function, and it 
 works as you'd expect. 
 
 ```html
@@ -234,29 +238,18 @@ Another Toffee improvement for Express 3.0: Toffee compiles and caches templates
 for bursts that you control. It's high performance without the need to restart your production webserver when
 you make a content change.
 
+Does it support `layout`?
+-------------------------
+Yes, this works in Express 3.0, emulating the Express 2.0 way. If you publish a file `foo.toffee` and pass a `layout` filename to it as a var, `foo.toffee` is rendered, and the results are put into
+a var called `body`. Then your layout is rendered, using all your vars plus the new `body` var.
 
-But how does the indentation work?
+
+How does the indentation work?
 -----
 Toffee realigns all your coffeescript inside a `{# region #}` by normalizing the indentation of that region.
 So it doesn't matter how you indent things, as long as it makes local sense inside that region. 
 
-```
-<p>
- {#
-   x = 100
-   if x > 1
-     for i in [0...x] {:
-       <br />#{i}
-       {#
-         if i is 33 {: (my favorite number) :}
-   	   #}
-     :}
- #}
-</p>
-```
-
-For example, these
-are all identical:
+For example, these are all identical:
 
 ```
 <p>{# if x is 0 {:Yay!:} else  {:Burned:} #}</p>
@@ -350,18 +343,6 @@ you can turn it off.
 ```
 toffee = require 'toffee'
 toffee.expressEngine.prettyPrintErrors = false
-```
-
-Caching
------
-Toffee doesn't read from the disk every time you request a template. It compiles and caches for short periods (2 seconds, by default),
-to save IO and compile time. You can set this cache, in milliseconds, anywhere from 0 to Infinity. 
-
-You might consider different rules for production and development, although a short cache time performs well in both cases.
-
-```
-toffee = require 'toffee'
-toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 ```
 
 Turning off auto-escaping for HTML

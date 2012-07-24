@@ -54,3 +54,4 @@ run_all_case_dirs (err, time, tests_run) ->
       total_tests += tests_run
       if countdown is 0
         console.log "SUCCESS for #{total_tests} hot tests in #{total_time}ms. #{total_time / total_tests}ms/test"
+  process.exit 0

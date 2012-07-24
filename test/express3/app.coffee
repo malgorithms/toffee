@@ -10,7 +10,7 @@ app = express()
 app.configure ->
 
   toffee.expressEngine.verbose      = true
-  toffee.expressEngine.maxCacheAge  = 10000
+  toffee.expressEngine.maxCacheAge  = 60000
 
   app.set 'port', process.env.PORT or 3033
   app.set 'views', __dirname + '/views'

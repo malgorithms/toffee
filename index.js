@@ -5,7 +5,8 @@
   eclass = require('./lib/engine').engine;
 
   e = new eclass({
-    maxCacheAge: 2000
+    verbose: false,
+    prettyPrintErrors: true
   });
 
   exports.expressEngine = e;

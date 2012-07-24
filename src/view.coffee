@@ -1,37 +1,54 @@
-{parser}        = require './toffee_lang'
-{errorHandler}  = require './errorHandler'
-{states}        = require './consts'
-utils           = require './utils'
-vm              = require 'vm'
+{parser}                    = require './toffee_lang'
+{errorHandler}              = require './errorHandler'
+{states, TAB_SPACES}        = require './consts'
+utils                       = require './utils'
+vm                          = require 'vm'
 try 
-  coffee        = require "iced-coffee-script"
+  coffee                    = require "iced-coffee-script"
 catch e
-  coffee        = require "coffee-script"
-
-TAB_SPACES = 2
+  coffee                    = require "coffee-script"
 
 class view
 
   constructor: (txt, options) ->
+    ###
+    important options:
+      cb: if this is set, compilation will happen async and cb will be executed when it's ready
+    ###
     options = options or {}
     @fileName     = (options.fileName or options.filename) or null
     @identifier   = options.indentifier or "pub"
     @verbose      = options.verbose or false
-    @codeObj      = null # these are all constructed as needed
+    @txt          = txt
+    @tokenObj     = null # these are all constructed as needed
     @coffeeScript = null # these are all constructed as needed
     @javaScript   = null # these are all constructed as needed
     @scriptObj    = null # these are all constructed as needed 
     @error        = null # assigned via errorHandler module
-    @loadFromText txt
+    if options.cb
+      @_prepAsync txt, =>
+        options.cb @
 
-  loadFromText: (txt) ->
-    @txt          = txt
-    @_cleanTabs @txt
-    try
-      @codeObj      = parser.parse txt
-      @_cleanTabs @codeObj
-    catch e
-      @error = errorHandler.generateParseError @, e
+  _prepAsync: (txt, cb) ->
+    ###
+    Only once it's fully compiled does it callback.
+    Defers via setTimeouts in each stage in the compile process
+    for CPU friendliness. This is a lot prettier with iced-coffee-script.
+    ###
+    @_log "Prepping #{if @fileName? then @fileName else 'unknown'} async."
+    @_toTokenObj()
+    v = @
+    setTimeout ->
+      v._toCoffee()
+      setTimeout ->
+        v._toJavaScript()
+        setTimeout ->
+          v._toScriptObj()
+          v._log "Done async prep of #{if v.fileName? then v.fileName else 'unknown'}. Calling back."
+          cb()
+        , 0
+      , 0
+    , 0
 
   _log: (o) ->
     if @verbose
@@ -73,6 +90,18 @@ class view
         
       return [err, res]
 
+  _toTokenObj: ->
+    ###
+    compiles Toffee to token array
+    ###
+    if not @tokenObj?
+      try
+        @tokenObj      = parser.parse @txt
+        @_cleanTabs @tokenObj
+      catch e
+        @error = errorHandler.generateParseError @, e
+    @tokenObj
+
   _toScriptObj: ->
     if not (@scriptObj? or @error?)
       txt = @_toJavaScript()
@@ -94,9 +123,10 @@ class view
 
   _toCoffee: ->
     if not @coffeeScript?
+      tobj = @_toTokenObj()
       d = Date.now()
       res =  @_coffeeHeaders()
-      res += @_toCoffeeRecurse(@codeObj, TAB_SPACES, 0)[0]
+      res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0)[0]
       res += @_coffeeFooters()
       @coffeeScript = res
       @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
@@ -110,8 +140,7 @@ class view
       return "\n#{@_space ind}__toffee.lineno = #{n}"
 
   _snippetHasEscapeOverride: (str) ->
-    for token in ['snippet', 'partial', 'raw', 'html', 'json',
-      '__toffee.raw', '__toffee.html', '__toffee.json']
+    for token in ['snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
       if str[0...token.length] is token
         return true
     false
