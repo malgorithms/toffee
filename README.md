@@ -19,7 +19,7 @@ Printing variables and including other files is easy. Just use CoffeeScript's #{
 </p>
 ```
 
-Which of course is very powerful, so be responsible.
+The `#{}` syntax is powerful, so be responsible.
 
 ```
 You have #{(f for f in friends when f.gender is "f").length} female friends.
