@@ -6,7 +6,7 @@ and smart view caching.
 
 status
 ======
-Beta and in pretty good shape.
+July 19: Beta! And in very usable shape.
 
 examples
 ========
@@ -18,65 +18,75 @@ Printing variables is easy. If it fits on one line, use CoffeeScript's #{} synta
 </p>
 ```
 
-Which of course is very powerful, even if you want to get crazy:
+Which of course is very powerful, so be responsible.
+
 ```
 You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
 But real pleasure arises when switching between `coffee` mode and `toffee` mode:
 ```
-{#
-   if @projects.length
-    for project in @projects {:
-      <a href="#{project.url}">#{project.name}</a>
-      <p>#{project.description}</p>
-    :}
-   else {:No projects:}
-#}
+<div class="foobar">
+ <div class="whatever">
+  {#
+     if projects.length
+      for project in projects {:
+        <div>
+          #{project.title} |
+          #{project.description}
+          <a href="#{project.url}">Read more</a>
+        </div>
+      :}
+  #}
+ </div>
+</div>
 ```
 
 To enter coffee mode, use a block of this form: `{# ... #}`. Inside a region of coffee,
 you can switch back to toffee with `{: ... :}`. This syntax is nestable and avoids a lot of large, ugly regions, such
-as `<% end %>`. Compare:
+as EJS's particularly nasty `<% } %>`. Compare:
 
-EJS
+EJS, verbose and weak.
 ```
-<ul>
 <% for(var i=0; i<supplies.length; i++) {%>
    <li><%= supplies[i] %></li>
 <% } %>
-</ul>
 ```
 
-TOFFEE, so elegant.
+TOFFEE, so elegant and proud.
 ```
-<ul>
-  {# 
-      for supply in supplies {:
-         <li>#{supply}</li>
-      :} 
-   #}
-</ul>
+{# 
+  for supply in supplies {:<li>#{supply}</li>:} 
+#}
+```
+
+Or, using the built-in print:
+```
+{# 
+  for supply in supplies 
+    print "<li>#{supply}</li>"
+#}
 ```
 
 
-Nesting is both natural and healthy in Toffee. When you're in a `{: toffee :}` block, 
-feel free to create a nested '{# coffee #}` block, and indentation is inferred.
+Nesting is both natural and advisable. In a `{: toffee :}` block, 
+simply create another `{# coffee #}` block, and indentation is inferred.
 
 ```
 {#
    for name, info of friends when info.age < 21 {:
       You know, #{name} would make a great designated driver.
+      And she only lives #{info.distance} miles away.
       {#
          info.cars.sort (a,b) -> b.speed - a.speed
-         if info.cars.length {: And she drives a #{info.cars[0].model} :}
-         else                {: But she has no wheels. :}
+         if info.cars.length {: And wow, she drives a #{info.cars[0].model} :}
+         else                {: But, alas, she has no wheels. :}
       #}      
    :}
 #}
 ```
 
-Switching to pub mode without indenting
+Switching to toffee mode without indenting
 -----
 By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
 probably because of a loop or conditional. 
@@ -121,10 +131,6 @@ TOFFEE
 #}
 ```
 
-Note that with Toffee's syntax, since brackets enclose regions not directives, it's likely
-your editor will let you collapse and expand sections of code. Also, if you click on one of the brackets in most
-editors, it will highlight the matching bracket.
-
 Toffee allows multiple lines of CoffeeScript without tagging them all. Compare:
 
 ECO
@@ -132,7 +138,7 @@ ECO
 <% if @projects.length: %>
   <% for project in @projects: %>
     <% if project.is_active: %>
-      <%= project.name %> | <%= project.description %>
+      <p><%= project.name %> | <%= project.description %></p>
     <% end %>
   <% end %>
 <% end %>
@@ -144,25 +150,14 @@ TOFFEE
    if @projects.length
     for project in @projects
       if project.is_active {:
-        <div>
-          #{project.name} | #{project.description}
-        </div>
+        <p>#{project.name} | #{project.description}</p>
       :}
 #}
 ```
 
-Here's the nested example, from above, in eco.
-
-ECO
-```
-<% for name, info of friends when info.age < 21 : %>
-  <%= name %> would make a great designated driver.
-  <% info.cars.sort (a,b) -> b.speed - a.speed %>
-  <% if info.cars.length : %> And she drives a <%= info.cars[0].model %>
-  <% else: %> But she has no wheels
-  <% end %>
-<% end %>
-```
+Note that with Toffee's syntax, since brackets enclose regions not directives, your editor 
+will let you collapse and expand sections of code. And if you click on one of the brackets in most
+editors, it will highlight the matching bracket.
 
 Eco has a nice auto-escaping feature. If you want to escape for HTML, URL's, or JS in Toffee, 
 you can do that with a function of your choice.
@@ -182,7 +177,7 @@ Yes.  In Express 2.0, Express is responsible for partials. In Express 3.0, Toffe
 works as you'd expect. 
 
 ```html
-<div>#{partial 'foo.toffee', {name: "Chris"}</div>
+<div>#{partial 'foo.toffee', name: "Chris"}</div>
 ```
 
 Or inside a region of CoffeeScript, you can print or capture the result of a partial.
@@ -221,19 +216,19 @@ So it doesn't matter how you indent things, as long as it makes local sense insi
 are all identical:
 
 ```
-<p>{# if x == 0 {:Yay!:} else  {:Burned:} #}</p>
+<p>{# if x is 0 {:Yay!:} else  {:Burned:} #}</p>
 ```
 
 ```
 <p>{# 
-  if x == 0 {:Yay!:} else {:Burned:}
+  if x is 0 {:Yay!:} else {:Burned:}
 #}</p>
 ```
 
 ```
 <p>
 {# 
-             if x == 0 {:Yay!:}
+             if x is 0 {:Yay!:}
              else      {:Burned:}
 #}</p>
 ```
@@ -244,7 +239,7 @@ ERROR
 ```
 <p>
 {# 
-             if x == 0 {:Yay!:}
+             if x is 0 {:Yay!:}
                else      {:Burned:}
 #}</p>
 ```
@@ -254,12 +249,14 @@ As would this more subtle case:
 ERROR
 ```
 <p>
-{#   if x == 0 {:Yay!:}
+{#   if x is 0 {:Yay!:}
      else      {:Burned:}
 #}</p>
 ```
 
-In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different.
+In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different, which is a CoffeeScript error.
+
+
 
 
 Comments
@@ -299,8 +296,8 @@ app.register '.toffee', toffee
 express 3.x options
 ===================
 
-Express's default error page is very hard to read, and Toffee is capable of highlighting error lines in your 
-source code. So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
+Express's default error page is great for stack traces but not so great for pretty-printing template errors.
+So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
 it fakes an okay result by returning some pretty HTML showing the error. If you don't like this - say you want to catch render errors - 
 you can turn it off.
 
@@ -321,21 +318,33 @@ toffee.expressEngine.maxCacheAge = Infinity # infinity milliseconds, that is.
 
 known issues
 ===============
-1. currently `#{}` regions have to be on a single line. For example:
+1. currently `#{}` regions have to be on a single line. This is most annoying with partials (a.k.a includes), since you might want to do this:
+
 ```
-#{3 + 5}
+#{
+  partial "foo.toffee",
+    x: 10
+    y: 20
+}
 ```
-...is ok. But not:
+
+Instead, either keep it on one line or switch to coffee mode and use print:
 ```
-#{3
-+ 5}
+{#
+   print partial "foo.toffee",
+    x: 10
+    y: 20
+#}
 ```
-...which will cause an error.
+or
+```
+#{partial "foo.toffee", {x:10, y:20}}
+```
 
 2. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
 be useful for temporarily commenting off a region of a template.
 
-3. There's a case or two where line numbers aren't right.
+3. There's a case where line numbers aren't right.
 
 command-line
 ============
