@@ -25,7 +25,8 @@ The `#{}` syntax is powerful, so be responsible.
 You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
-Happiness strictly increases when you enter `coffee mode` by enclosing some lines in `{# ... #}`
+Want to write a few lines of CoffeeScript in your template, perhaps define a function or sort some data?
+You can enter `coffee mode` by enclosing lines in `{# ... #}`
 
 ```
 <p>
