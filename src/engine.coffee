@@ -98,7 +98,11 @@ class engine
     @_inlineInclude fname, lvars, realpath, options
 
   _fn_print: (txt, options) ->
-    options.__toffee.out.push txt
+    if options.__toffee.state is states.COFFEE
+      options.__toffee.out.push txt
+      return ''
+    else
+      return txt
 
   _loadCacheAndMonitor: (filename, options) ->
     try

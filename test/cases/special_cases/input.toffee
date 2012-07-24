@@ -2,6 +2,15 @@
 
   Make sure leading a trailing quotes don't mess with string printing.
 
-##}{#
+##}
+{#
   -{:"PASSED":}
 #}
+{##
+
+  Make sure `print` inside toffee mode still works and is kept raw
+
+##}
+<p>
+  #{print "<a>#{'click & clack'}</a>"}
+</p>

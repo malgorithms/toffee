@@ -308,11 +308,11 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 
 #{___}if not print?
 #{___}#{___}print = (txt) ->
-#{___}#{___}#{___}if toffee.state is states.COFFEE
+#{___}#{___}#{___}if __toffee.state is states.COFFEE
 #{___}#{___}#{___}#{___}__toffee.out.push txt
 #{___}#{___}#{___}#{___}return ''
 #{___}#{___}#{___}else
-#{___}#{___}#{___}#{___}return txt
+#{___}#{___}#{___}#{___}return "\#{txt}x"
 
 #{___}__toffee.json = (o) ->
 #{___}#{___}res = (""+JSON.stringify o)
