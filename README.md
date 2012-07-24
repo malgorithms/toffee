@@ -25,7 +25,20 @@ The `#{}` syntax is powerful, so be responsible.
 You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
-But real pleasure arises when switching between `coffee` mode and `toffee` mode:
+But real pleasure arises when you enter `coffee mode` by enclosing some lines in `{# ... #}`
+
+```
+<p>
+  {#
+    r = Math.random()
+    s = Math.sqrt r1
+  #}
+  The squareroot of #{r} is #{s}.
+</p>
+```
+
+But happiness is strictly increasing when you use Toffee.  Inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`.
+
 ```
 <div class="foobar">
  <div class="whatever">
