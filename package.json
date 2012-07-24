@@ -1,7 +1,7 @@
 {
  "name": "toffee",
- "description": "An Express 3.x and 2.x templating language based on CoffeeScript with slicker tokens and syntax. Built at OkCupid.",
- "version": "0.0.21",
+ "description": "An Express 3.x and 2.x templating language based on CoffeeScript with slicker tokens and syntax. Built with love at OkCupid.",
+ "version": "0.0.22",
  "directories": {
   "lib": "./lib"
  },
@@ -9,7 +9,7 @@
  "author": "Chris Coyne <ccoyne77@gmail.com>",
  "bin": "./bin/toffee",
  "dependencies": {
-  "coffee-script": "1.3.3"
+  "coffee-script": "*"
  },
  "repository": {
   "type": "git",
