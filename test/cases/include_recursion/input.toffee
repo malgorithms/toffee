@@ -1,6 +1,5 @@
 {#
   if (countdown is 0) {:blastoff!:}
-  else 
-    print countdown + "..."
-    include "input.toffee", countdown: (countdown-1)
+  else
+    print "#{countdown}...#{partial 'input.toffee', countdown: (countdown-1)}"
 #}

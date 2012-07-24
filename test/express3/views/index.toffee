@@ -1,0 +1,4 @@
+<h1>Test Results</h1>
+#{partial "./subdir1/hello_world.toffee"}
+<hr />
+#{partial "./subdir2/goodbye_world.toffee"}

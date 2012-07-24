@@ -1,9 +1,7 @@
-#{include "message.toffee", from: "Chris <ccoyne77@gmail>"}
+#{partial "message.toffee", from: "Chris <ccoyne77@gmail>"}
 #{partial "message.toffee", from: "Max & Sam"}
 {#
-  include "message.toffee",       from:   "Sam"
   print partial "message.toffee", from:   "Christian"
-  partial "message.toffee",       from:   "The enemy"
-  -{:#{include "message.toffee",  from:   "Jennie"}:}
-  include "message.toffee",       sender: "The enemy"
+  -{:#{partial "message.toffee",  from:   "Jennie"}:}
+  print partial "message.toffee",       sender: "The enemy"
 #}

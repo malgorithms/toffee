@@ -10,6 +10,7 @@ class engine
   constructor: (options) ->
     options             = options or {}
     @maxCacheAge        = options.maxCacheAge or 2000
+    @verbose            = options.verbose     or false
     @prettyPrintErrors  = if options.prettyPrintErrors then options.prettyPrintErrors else true
     @viewCache          = {} # filename
     @lastCacheReset     = Date.now()
@@ -53,7 +54,6 @@ class engine
     v = @viewCache[realpath] or @_loadAndCache realpath, options
     if v 
       options.__parent = realpath
-      options.include = options.include or (fname, lvars) => @_fn_include fname, lvars, realpath, options
       options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
       options.snippet = options.snippet or (fname, lvars) => @_fn_snippet fname, lvars, realpath, options
       options.print   = options.print   or (txt)          => @_fn_print   txt, options
@@ -74,42 +74,15 @@ class engine
     if not options.__no_inheritance
       for k,v of parent_options when not local_keys[k]?
         if k[0...2] isnt "__"
-          if not (k in ["print", "partial", "include", "snippet"])
+          if not (k in ["print", "partial", "snippet"])
             options[k] = v
 
     [err, res] = @runSync filename, options
-
-    # now sync any changes back up to the parent
-    # TODO: make a decision if this is allowed. If not, 
-    # how do we protect objects from being modified?
-
-    # for k,v of options
-    #   console.log "Considering copy of #{k} back to parent."
-    #   if  k[0...2] isnt "__"
-    #     console.log " Not reserved."
-    #     if not local_keys[k]?
-    #       console.log " and not local. COPIED."
-    #       parent_options[k] = v
-    #     else
-    #       console.log " local. NOT COPIED."
-    #   else
-    #     console.log " reserved. NOT COPIED."
 
     if err
       return err
     else
       return res
-
-
-  _fn_include: (fname, lvars, realpath, options) ->
-    # include works differently depending on whether
-    # the user calls it inside coffeescript (it prints output)
-    # or calls it inside a #{} container (it returns output)
-    res = @_inlineInclude fname, lvars, realpath, options
-    if options.__toffee.state is states.COFFEE
-      @_fn_print res, options
-    else
-      res
 
   _fn_snippet: (fname, lvars, realpath, options) =>
     lvars = if lvars? then lvars else {}
