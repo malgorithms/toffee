@@ -32,7 +32,7 @@ You can enter `coffee mode` by enclosing lines in `{# ... #}`
 <p>
   {#
     r = Math.random()
-    s = Math.sqrt r1
+    s = Math.sqrt r
   #}
   The squareroot of #{r} is #{s}.
 </p>
