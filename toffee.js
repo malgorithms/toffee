@@ -7945,12 +7945,14 @@ if (typeof module !== 'undefined' && require.main === module) {
     };
 
     view.prototype._snippetHasEscapeOverride = function(str) {
-      var token, _i, _len, _ref1;
-      _ref1 = ['snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify'];
+      var token, _i, _len, _ref1, _ref2;
+      _ref1 = ['print', ' snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify'];
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
         token = _ref1[_i];
         if (str.slice(0, token.length) === token) {
-          return true;
+          if ((str.length > token.length) && ((_ref2 = str[token.length]) === ' ' || _ref2 === '\t' || _ref2 === '\n' || _ref2 === '(')) {
+            return true;
+          }
         }
       }
       return false;
@@ -8189,7 +8191,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     view.prototype._coffeeHeaders = function() {
       var ___;
       ___ = this._tabAsSpaces();
-      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) -> \n" + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + "''\n\n" + ___ + "__toffee.json = (o) ->\n" + ___ + ___ + "res = (\"\"+JSON.stringify o)\n\n" + ___ + "__toffee.html = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n\n" + ___ + "__toffee.raw = (o) -> o\n\n" + ___ + "if not raw? then raw   = __toffee.raw\n" + ___ + "if not html? then html = __toffee.html\n" + ___ + "if not json? then json = __toffee.json\n\n" + ___ + "if not escape?\n" + ___ + ___ + "escape = (o) ->\n" + ___ + ___ + ___ + "if (not __toffee.autoEscape?) or __toffee.autoEscape\n" + ___ + ___ + ___ + ___ + "return __toffee.html o\n\n" + ___ + "states = " + (JSON.stringify(states));
+      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) ->\n" + ___ + ___ + ___ + "if toffee.state is states.COFFEE\n" + ___ + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + ___ + "return ''\n" + ___ + ___ + ___ + "else\n" + ___ + ___ + ___ + ___ + "return txt\n\n" + ___ + "__toffee.json = (o) ->\n" + ___ + ___ + "res = (\"\"+JSON.stringify o)\n\n" + ___ + "__toffee.html = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n\n" + ___ + "__toffee.raw = (o) -> o\n\n" + ___ + "if not raw? then raw   = __toffee.raw\n" + ___ + "if not html? then html = __toffee.html\n" + ___ + "if not json? then json = __toffee.json\n\n" + ___ + "if not escape?\n" + ___ + ___ + "escape = (o) ->\n" + ___ + ___ + ___ + "if (not __toffee.autoEscape?) or __toffee.autoEscape\n" + ___ + ___ + ___ + ___ + "return __toffee.html o\n\n" + ___ + "states = " + (JSON.stringify(states));
     };
 
     view.prototype._coffeeFooters = function() {

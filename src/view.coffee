@@ -140,9 +140,10 @@ class view
       return "\n#{@_space ind}__toffee.lineno = #{n}"
 
   _snippetHasEscapeOverride: (str) ->
-    for token in ['snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
+    for token in ['print',' snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
       if str[0...token.length] is token
-        return true
+        if (str.length > token.length) and (str[token.length] in [' ','\t','\n','('])
+          return true
     false
 
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
@@ -306,9 +307,12 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{___}__toffee.out = []
 
 #{___}if not print?
-#{___}#{___}print = (txt) -> 
-#{___}#{___}#{___}__toffee.out.push txt
-#{___}#{___}#{___}''
+#{___}#{___}print = (txt) ->
+#{___}#{___}#{___}if toffee.state is states.COFFEE
+#{___}#{___}#{___}#{___}__toffee.out.push txt
+#{___}#{___}#{___}#{___}return ''
+#{___}#{___}#{___}else
+#{___}#{___}#{___}#{___}return txt
 
 #{___}__toffee.json = (o) ->
 #{___}#{___}res = (""+JSON.stringify o)
