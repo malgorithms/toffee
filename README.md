@@ -25,7 +25,7 @@ The `#{}` syntax is powerful, so be responsible.
 You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
-But real pleasure arises when you enter `coffee mode` by enclosing some lines in `{# ... #}`
+Happiness strictly increases when you enter `coffee mode` by enclosing some lines in `{# ... #}`
 
 ```
 <p>
@@ -37,7 +37,7 @@ But real pleasure arises when you enter `coffee mode` by enclosing some lines in
 </p>
 ```
 
-But happiness is strictly increasing when you use Toffee.  Inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`.
+Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`. It's endlessly nestable.
 
 ```
 <div class="foobar">
@@ -56,9 +56,8 @@ But happiness is strictly increasing when you use Toffee.  Inside `coffee mode`,
 </div>
 ```
 
-To enter coffee mode, use a block of this form: `{# ... #}`. Inside a region of coffee,
-you can switch back to toffee with `{: ... :}`. This syntax is nestable and avoids a lot of large, ugly regions, such
-as EJS's particularly nasty `<% } %>`. Compare:
+This syntax is nestable and avoids a lot of large, ugly regions, such
+as EJS's unsavory `<% } %>`. Compare:
 
 EJS, verbose and weak.
 ```
