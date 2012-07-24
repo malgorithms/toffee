@@ -1,0 +1,10 @@
+#{
+        "Hello, " +
+        "world"
+}
+<hr />
+#{
+  partial "foo.toffee",
+    a: "Goodbye#{','}"
+    b: "world"
+}

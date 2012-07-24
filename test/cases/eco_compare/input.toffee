@@ -10,4 +10,13 @@
       <p>#{project.description}</p>
     :}
   else {: No projects :}
+
+  friends = [
+    { gender: "f", name: "Jennie" }
+    { gender: "f", name: "Rachel" }
+    { gender: "m", name: "Petar" }
+    { gender: "f", name: "Marissa" }
+  ]
 #}
+
+You have #{(f for f in friends when f.gender is "f").length} female friends.

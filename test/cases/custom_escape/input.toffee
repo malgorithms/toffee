@@ -1,0 +1,31 @@
+{#
+  x = '"Hello world"'
+  y = '<td>'
+  z = 'click&clack'
+  w = [1, 2, {"place": "The Dreadfort"}]
+#}<p>
+ default x = #{x}
+ default y = #{y}
+ default z = #{z}
+ default w = #{w}
+</p>
+<p>
+ raw x = #{raw x}
+ raw y = #{raw y}
+ raw z = #{raw z}
+ raw w = #{raw w}
+</p>
+<script>
+  x = #{json x}
+  y = #{json y}
+  z = #{json z}
+  w = #{json w}
+</script>
+<p>
+{#
+  print " raw printed x = #{x}\n"
+  print " raw printed y = #{y}\n"
+  print " raw printed z = #{z}\n"
+  print " raw printed w = #{w}"
+#}
+</p>
