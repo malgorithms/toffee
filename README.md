@@ -24,7 +24,7 @@ The `#{}` syntax is powerful, so be responsible.
 You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
-Including other files is possible thanks to the function `partial`:
+Including other files is possible thanks to the function `partial`. This works in Express 3.0, too.
 
 ```
 <p>
@@ -32,8 +32,8 @@ Including other files is possible thanks to the function `partial`:
 </p>
 ```
 
-And great pleasure arises when you enter
-`coffee mode` by enclosing lines in `{# ... #}`. This allows you to write simple CoffeeScript in your template.
+But the greatest pleasure arises when you enter
+`coffee mode`. Note the `{# ... #}` region.
 
 ```
 <p>
@@ -41,7 +41,7 @@ And great pleasure arises when you enter
     ten_numbers = (Math.random() for i in [0...10])
     ten_numbers.sort (a,b) -> b - a
   #}
-  The largest number I picked was #{ten_numbers[0]}.
+  The largest number I can even think of is #{ten_numbers[0]}.
 </p>
 ```
 
@@ -64,8 +64,8 @@ Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ...
 </div>
 ```
 
-This syntax is nestable and avoids a lot of large, ugly regions, such
-as EJS's unsavory `<% } %>`. Compare:
+This bracket and nesting syntax avoids a lot of large, ugly regions, such
+as EJS's unsavory and unethical `<% } %>`. Compare:
 
 EJS, verbose and weak.
 ```
@@ -81,7 +81,7 @@ TOFFEE, so elegant and proud.
 #}
 ```
 
-Or, using the built-in print:
+Or, using the built-in `print`:
 ```
 {# 
   for supply in supplies 
@@ -89,11 +89,10 @@ Or, using the built-in print:
 #}
 ```
 
-These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode escapes for HTML. This escaping
+These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode safely escapes for HTML. This escaping
 is customizable. More on that below.
 
-Nesting is both natural and advisable. In a `{: toffee :}` block, 
-simply create another `{# coffee #}` block, and indentation is inferred.
+With nested code, indentation is inferred. 
 
 ```
 {#
