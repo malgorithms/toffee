@@ -84,7 +84,7 @@ class engine
     if not options.__no_inheritance
       for k,v of parent_options when not local_vars?[k]?
         if k[0...2] isnt "__"
-          if not (k in ["print", "partial", "snippet"])
+          if (k isnt "print") and (k isnt "partial") and (k isnt "snippet")
             options[k] = v
 
     [err, res] = @runSync filename, options
