@@ -32,16 +32,16 @@ Including other files is possible thanks to the function `partial`:
 </p>
 ```
 
-Want to write a few lines of CoffeeScript in your template, perhaps define a function or sort some data?
-You can enter `coffee mode` by enclosing lines in `{# ... #}`
+And great pleasure arises when you enter
+`coffee mode` by enclosing lines in `{# ... #}`. This allows you to write simple CoffeeScript in your template.
 
 ```
 <p>
   {#
-    r = Math.random()
-    s = Math.sqrt r
+    ten_numbers = (Math.random() for i in [0...10])
+    ten_numbers.sort (a,b) -> b - a
   #}
-  The squareroot of #{r} is #{s}.
+  The largest number I picked was #{ten_numbers[0]}.
 </p>
 ```
 
