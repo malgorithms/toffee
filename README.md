@@ -68,7 +68,8 @@ Or, using the built-in print:
 #}
 ```
 
-Note that `print` outputs the raw variable, as Coffee would, while `#{}` neatly escapes for HTML. This is all customizable. More on that below.
+These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode escapes for HTML. This escaping
+is customizable. More on that below.
 
 Nesting is both natural and advisable. In a `{: toffee :}` block, 
 simply create another `{# coffee #}` block, and indentation is inferred.
