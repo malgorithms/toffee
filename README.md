@@ -234,10 +234,6 @@ For example, in the above code, `session` would also be available in the user_me
 #}
 ```
 
-Another Toffee improvement for Express 3.0: Toffee compiles and caches templatess
-for bursts that you control. It's high performance without the need to restart your production webserver when
-you make a content change.
-
 Does it support `layout`?
 -------------------------
 Yes, this works in Express 3.0, emulating the Express 2.0 way. If you publish a file `foo.toffee` and pass a `layout` filename to it as a var, `foo.toffee` is rendered, and the results are put into
