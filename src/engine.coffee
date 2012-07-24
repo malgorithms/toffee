@@ -76,25 +76,19 @@ class engine
     return [err, res]
 
   _inlineInclude: (filename, local_vars, parent_realpath, parent_options) =>
-    local_keys       = {}
-    local_keys[k]    = true for k of local_vars
     options          = local_vars or {}
     options.__dir    = path.dirname parent_realpath
     options.__parent = parent_realpath
 
     # we need to make a shallow copy of parent variables
     if not options.__no_inheritance
-      for k,v of parent_options when not local_keys[k]?
+      for k,v of parent_options when not local_vars?[k]?
         if k[0...2] isnt "__"
           if not (k in ["print", "partial", "snippet"])
             options[k] = v
 
     [err, res] = @runSync filename, options
-
-    if err
-      return err
-    else
-      return res
+    return err or res
 
   _fn_snippet: (fname, lvars, realpath, options) =>
     lvars = if lvars? then lvars else {}

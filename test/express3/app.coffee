@@ -9,7 +9,7 @@ app = express()
 
 app.configure ->
 
-  #toffee.expressEngine.verbose      = true
+  toffee.expressEngine.verbose      = true
   toffee.expressEngine.maxCacheAge  = 10000
 
   app.set 'port', process.env.PORT or 3033
