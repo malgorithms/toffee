@@ -15,6 +15,13 @@ class engine
     @viewCache          = {} # filename
     @lastCacheReset     = Date.now()
 
+  _log: (o) ->
+    if @verbose
+      if (typeof o) in ["string","number","boolean"]
+        console.log "toffee: #{o}"
+      else
+        console.log "toffee: #{util.inspect o}"
+
   run: (filename, options, cb) =>
     ###
     "options" contains the pub vars
@@ -44,8 +51,11 @@ class engine
     returns [err, res];
     "options" the same as run() above
     ###
+    start_time = Date.now()
+
     options       = options or {}
     options.__dir = options.__dir or process.cwd()
+    filename      = filename[2..] if filename[0..1] is "./"
     filename      = "#{options.__dir}/#{filename}" if filename[0] isnt "/"
     realpath      = filename
     pwd           = path.dirname realpath
@@ -59,9 +69,11 @@ class engine
       options.print   = options.print   or (txt)          => @_fn_print   txt, options
       if not options.console? then options.console = log: console.log
       [err, res] = v.run options
-      return [err, res]
     else
-      return ["Couldn't load #{filename}", null]
+      [err, res] = ["Couldn't load #{filename}", null]
+
+    @_log "#{filename} run in #{Date.now() - start_time}ms"
+    return [err, res]
 
   _inlineInclude: (filename, local_vars, parent_realpath, parent_options) =>
     local_keys       = {}
@@ -101,7 +113,7 @@ class engine
     catch e
       txt = "Error: Could not read #{filename}"
       if options.__parent? then txt += " requested in #{options.__parent}"
-    v = new view txt, {fileName: filename}
+    v = new view txt, {fileName: filename, verbose: @verbose}
     @viewCache[filename] = v
     v
 

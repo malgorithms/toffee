@@ -6920,6 +6920,17 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.lastCacheReset = Date.now();
     }
 
+    engine.prototype._log = function(o) {
+      var _ref;
+      if (this.verbose) {
+        if ((_ref = typeof o) === "string" || _ref === "number" || _ref === "boolean") {
+          return console.log("toffee: " + o);
+        } else {
+          return console.log("toffee: " + (util.inspect(o)));
+        }
+      }
+    };
+
     engine.prototype.run = function(filename, options, cb) {
       /*
           "options" contains the pub vars
@@ -6949,10 +6960,14 @@ if (typeof module !== 'undefined' && require.main === module) {
           "options" the same as run() above
       */
 
-      var err, pwd, realpath, res, v, _ref,
+      var err, pwd, realpath, res, start_time, v, _ref, _ref1,
         _this = this;
+      start_time = Date.now();
       options = options || {};
       options.__dir = options.__dir || process.cwd();
+      if (filename.slice(0, 2) === "./") {
+        filename = filename.slice(2);
+      }
       if (filename[0] !== "/") {
         filename = "" + options.__dir + "/" + filename;
       }
@@ -6979,10 +6994,11 @@ if (typeof module !== 'undefined' && require.main === module) {
           };
         }
         _ref = v.run(options), err = _ref[0], res = _ref[1];
-        return [err, res];
       } else {
-        return ["Couldn't load " + filename, null];
+        _ref1 = ["Couldn't load " + filename, null], err = _ref1[0], res = _ref1[1];
       }
+      this._log("" + filename + " run in " + (Date.now() - start_time) + "ms");
+      return [err, res];
     };
 
     engine.prototype._inlineInclude = function(filename, local_vars, parent_realpath, parent_options) {
@@ -7039,7 +7055,8 @@ if (typeof module !== 'undefined' && require.main === module) {
         }
       }
       v = new view(txt, {
-        fileName: filename
+        fileName: filename,
+        verbose: this.verbose
       });
       this.viewCache[filename] = v;
       return v;
@@ -7692,6 +7709,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       options = options || {};
       this.fileName = (options.fileName || options.filename) || null;
       this.identifier = options.indentifier || "pub";
+      this.verbose = options.verbose || false;
       this.codeObj = null;
       this.coffeeScript = null;
       this.javaScript = null;
@@ -7708,6 +7726,17 @@ if (typeof module !== 'undefined' && require.main === module) {
         return this._cleanTabs(this.codeObj);
       } catch (e) {
         return this.error = errorHandler.generateParseError(this, e);
+      }
+    };
+
+    view.prototype._log = function(o) {
+      var _ref;
+      if (this.verbose) {
+        if ((_ref = typeof o) === "string" || _ref === "number" || _ref === "boolean") {
+          return console.log("toffee: " + o);
+        } else {
+          return console.log("toffee: " + (util.inspect(o)));
+        }
       }
     };
 
@@ -7765,6 +7794,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         txt = this._toJavaScript();
         d = Date.now();
         this.scriptObj = vm.createScript(txt);
+        this._log("" + this.fileName + " compiled to scriptObj in " + (Date.now() - d) + "ms");
       }
       return this.scriptObj;
     };
@@ -7781,6 +7811,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         } catch (e) {
           this.error = errorHandler.generateCompileToJsError(this, e);
         }
+        this._log("" + this.fileName + " compiled to JavaScript in " + (Date.now() - d) + "ms");
       }
       return this.javaScript;
     };
@@ -7793,6 +7824,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         res += this._toCoffeeRecurse(this.codeObj, TAB_SPACES, 0)[0];
         res += this._coffeeFooters();
         this.coffeeScript = res;
+        this._log("" + this.fileName + " compiled to CoffeeScript in " + (Date.now() - d) + "ms");
       }
       return this.coffeeScript;
     };

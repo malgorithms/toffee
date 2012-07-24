@@ -16,6 +16,7 @@ class view
     options = options or {}
     @fileName     = (options.fileName or options.filename) or null
     @identifier   = options.indentifier or "pub"
+    @verbose      = options.verbose or false
     @codeObj      = null # these are all constructed as needed
     @coffeeScript = null # these are all constructed as needed
     @javaScript   = null # these are all constructed as needed
@@ -31,6 +32,13 @@ class view
       @_cleanTabs @codeObj
     catch e
       @error = errorHandler.generateParseError @, e
+
+  _log: (o) ->
+    if @verbose
+      if (typeof o) in ["string","number","boolean"]
+        console.log "toffee: #{o}"
+      else
+        console.log "toffee: #{util.inspect o}"
 
   _cleanTabs: (obj) ->
     ###
@@ -70,6 +78,7 @@ class view
       txt = @_toJavaScript()
       d = Date.now()
       @scriptObj = vm.createScript txt
+      @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
     @scriptObj
 
   _toJavaScript: ->
@@ -80,6 +89,7 @@ class view
         @javaScript = coffee.compile c, {bare: false}
       catch e
         @error = errorHandler.generateCompileToJsError @, e
+      @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
   _toCoffee: ->
@@ -89,6 +99,7 @@ class view
       res += @_toCoffeeRecurse(@codeObj, TAB_SPACES, 0)[0]
       res += @_coffeeFooters()
       @coffeeScript = res
+      @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
   _printLineNo: (n, ind) ->
