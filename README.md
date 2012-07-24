@@ -10,11 +10,12 @@ Beta! And in very usable shape.
 
 examples
 ========
-Printing variables is easy. Just use CoffeeScript's #{} syntax:
+Printing variables and including other files is easy. Just use CoffeeScript's #{} syntax:
 ```
 <p>
    Hey, #{user.name}. 
    #{flirty_welcome_msg}
+   #{partial "some_other_file.toffee", {username: user.name}}
 </p>
 ```
 
