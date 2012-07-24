@@ -18,13 +18,35 @@ Printing variables is easy. Just use CoffeeScript's #{} syntax:
 </p>
 ```
 
-Which of course is very powerful, so be responsible.
+The `#{}` syntax is powerful, so be responsible.
 
 ```
 You have #{(f for f in friends when f.gender is "f").length} female friends.
 ```
 
-But real pleasure arises when switching between `coffee` mode and `toffee` mode:
+Including other files is possible thanks to the function `partial`. This works in Express 3.0, too.
+
+```
+<p>
+   #{partial "navigation.toffee", {username: user.name, age: 22} }
+</p>
+```
+
+But the greatest pleasure arises when you enter
+`coffee mode`. Note the `{# ... #}` region.
+
+```
+<p>
+  {#
+    ten_numbers = (Math.random() for i in [0...10])
+    ten_numbers.sort (a,b) -> b - a
+  #}
+  The largest number I can even think of is #{ten_numbers[0]}.
+</p>
+```
+
+Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`. It's endlessly nestable.
+
 ```
 <div class="foobar">
  <div class="whatever">
@@ -42,9 +64,8 @@ But real pleasure arises when switching between `coffee` mode and `toffee` mode:
 </div>
 ```
 
-To enter coffee mode, use a block of this form: `{# ... #}`. Inside a region of coffee,
-you can switch back to toffee with `{: ... :}`. This syntax is nestable and avoids a lot of large, ugly regions, such
-as EJS's particularly nasty `<% } %>`. Compare:
+This bracket and nesting syntax avoids a lot of large, ugly regions, such
+as EJS's unsavory and unethical `<% } %>`. Compare:
 
 EJS, verbose and weak.
 ```
@@ -60,7 +81,7 @@ TOFFEE, so elegant and proud.
 #}
 ```
 
-Or, using the built-in print:
+Or, using the built-in `print`:
 ```
 {# 
   for supply in supplies 
@@ -68,11 +89,10 @@ Or, using the built-in print:
 #}
 ```
 
-These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode escapes for HTML. This escaping
+These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode safely escapes for HTML. This escaping
 is customizable. More on that below.
 
-Nesting is both natural and advisable. In a `{: toffee :}` block, 
-simply create another `{# coffee #}` block, and indentation is inferred.
+With nested code, indentation is inferred. 
 
 ```
 {#
