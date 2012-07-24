@@ -11,10 +11,9 @@ task 'build', 'build the whole jam', (cb) ->
     buildParser ->
       runCoffee ['-c', '-o', 'lib/'].concat(files), ->
         runCoffee ['-c', 'index.coffee'], ->
-          runCoffee ['package.coffee'], ->
-            stitchIt ->
-              console.log "Done building."
-              cb() if typeof cb is 'function'
+          stitchIt ->
+            console.log "Done building."
+            cb() if typeof cb is 'function'
 
 runCoffee = (args, cb) ->
   proc =  spawn 'coffee', args
@@ -39,7 +38,7 @@ clearLibJs = (cb) ->
   cb()
 
 buildParser = (cb) ->
-  grammar   = fs.readFileSync './lang/toffee.jison', 'utf8'
+  grammar   = fs.readFileSync './src/toffee.jison', 'utf8'
   generator = new jison.Generator grammar
   file_name = "toffee_lang.js"
   source    = generator.generate {
