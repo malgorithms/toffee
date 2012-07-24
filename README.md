@@ -68,7 +68,8 @@ Or, using the built-in print:
 #}
 ```
 
-Note that `print` outputs the raw variable, as Coffee would, while `#{}` neatly escapes for HTML. This is all customizable. More on that below.
+These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode escapes for HTML. This escaping
+is customizable. More on that below.
 
 Nesting is both natural and advisable. In a `{: toffee :}` block, 
 simply create another `{# coffee #}` block, and indentation is inferred.
@@ -106,7 +107,7 @@ The above is identical to:
 
 ```
 {#
-   name = "Chris"
+   name = "Hans Gruber"
    print "You're a hell of a thief, #{name}"
 #}
 ```
@@ -233,10 +234,6 @@ For example, in the above code, `session` would also be available in the user_me
       print snippet 'user.toffee', info: session.info # session will not be passed
 #}
 ```
-
-Another Toffee improvement for Express 3.0: Toffee compiles and caches templatess
-for bursts that you control. It's high performance without the need to restart your production webserver when
-you make a content change.
 
 Does it support `layout`?
 -------------------------
