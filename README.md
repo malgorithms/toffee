@@ -27,7 +27,9 @@ You have #{(f for f in friends when f.gender is "f").length} female friends.
 Including other files is possible thanks to the function `partial`:
 
 ```
-   #{partial "some_other_file.toffee", {username: user.name, age: 22} }
+<p>
+   #{partial "navigation.toffee", {username: user.name, age: 22} }
+</p>
 ```
 
 Want to write a few lines of CoffeeScript in your template, perhaps define a function or sort some data?
