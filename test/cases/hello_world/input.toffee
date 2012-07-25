@@ -1,4 +1,2 @@
 #{greeting}, world.
-
-
-#{foo
+#{var x}

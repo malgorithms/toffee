@@ -48,27 +48,25 @@ class toffeeError
     }
 
     if @e?.message? then res.message = @e.message
-    if @e?.stack?   then res.stack   = @e.stack
     switch @errType
 
       when errorTypes.PARSER
-        line = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
-        res.line_range = [line, line + 1]
-        res.stack = []
+        line            = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
+        res.line_range  = [line, line + 1]
 
       when errorTypes.STR_INTERPOLATE
-        console.log "DEALING WITH STR_INT"
-        console.log util.inspect @e
-        lr = @e.relayed_line_range
-        res.line_range = [lr[0], lr[1]]
-        res.message = res.message.replace 'starting on line NaN', @_lineRangeToPhrase res.line_range
-        res.stack = []
+        res.line_range  = [@e.relayed_line_range[0], @e.relayed_line_range[1]]
+        res.message     = res.message.replace 'starting on line NaN', @_lineRangeToPhrase res.line_range
+        res.message     = res.message.replace 'missing }', 'unclosed `\#{}`'
 
       when errorTypes.COFFEE_COMPILE
-        todo = "TODO: THIS"
+        line            = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
+        res.line_range  = @_convertOffensiveLineToToffeeRange line
+        res.message     = res.message.replace /on line [0-9]+/, @_lineRangeToPhrase res.line_range
 
       when errorTypes.JS_RUNTIME
-        todo = "TODO: THIS"
+        if @e.stack
+          res.stack     = @e.stack
 
     res
 
@@ -77,10 +75,10 @@ class toffeeError
     returns a TEXT only blob explaining the error
     ###
     cerr = @getConvertedError()
-    if cerr.type is errorTypes.PARSER
-      header = "#{cerr.dir_name}/#{cerr.file}: #{cerr.message}"
-    else
+    if cerr.type is errorTypes.JS_RUNTIME
       header = cerr.message    
+    else
+      header = "#{cerr.dir_name}/#{cerr.file}: #{cerr.message}"
     res = """
     ---------------------
     ERROR
@@ -88,7 +86,7 @@ class toffeeError
     #{header}
     """
     if cerr.stack?.length
-      res += """
+      res += """\n
       STACK
       =====
       #{cerr.stack} 
@@ -105,10 +103,10 @@ class toffeeError
     ###
     cerr = @getConvertedError()
     res = ""
-    if cerr.type is errorTypes.PARSER
-      header = "#{cerr.dir_name}/<b>#{cerr.file}</b>: #{cerr.message}"
-    else
+    if cerr.type is errorTypes.JS_RUNTIME
       header = cerr.message
+    else
+      header = "#{cerr.dir_name}/<b style=\"background-color:#fde\">#{cerr.file}</b>: #{cerr.message}"
     res += """
       <div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;">
         \n<pre>#{header}</pre>
@@ -123,7 +121,7 @@ class toffeeError
       padding_len = 5 - ("#{i+1}").length
       padding     = ("&nbsp;" for j in [0...padding_len]).join ""
       if cerr.line_range[0] <= (i+1) < cerr.line_range[1]
-        extra = "<span style=\"background-color:#fee\">"
+        extra = "<span style=\"background-color:#fde\">"
       else
         extra = "<span>"
       res+= "#{extra}\n#{i+1}: #{padding} #{line}</span><br />"
@@ -134,7 +132,7 @@ class toffeeError
     res
 
   _lineRangeToPhrase: (lrange) ->
-    if lrange[0] is lrange[1] - 1
+    if lrange[0] >= lrange[1] - 1
       "on line #{lrange[0]}"
     else
       "between lines #{lrange[0]} and #{lrange[1] - 1}"
@@ -177,24 +175,6 @@ exports.toffeeError = toffeeError
 
 
 eh = exports.errorHandler = 
-
-  generateParseError: (view, e) ->
-    ###
-    e: the error caught when compiling
-    ###
-    msg = e.message
-    res = 
-      src_line:           0
-      toffee_line_range:  [0,1]
-      original_msg:       msg
-      converted_msg:      msg
-
-    search = msg.match /on line ([0-9]+)/
-    if not (search?.length >= 2) then return res
-    res.src_line = parseInt search[1]
-    res.toffee_line_range = [res.src_line, res.src_line]
-    if view.fileName then res.converted_msg = "#{view.fileName}: #{res.converted_msg}"
-    res
 
   generateRuntimeError: (view, e) ->
     ###
