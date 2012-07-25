@@ -9,8 +9,8 @@ app = express()
 
 app.configure ->
 
-  toffee.expressEngine.verbose      = true
-  toffee.expressEngine.maxCacheAge  = 60000
+  toffee.expressEngine.verbose           = true
+  toffee.expressEngine.prettyPrintErrors = true
 
   app.set 'port', process.env.PORT or 3033
   app.set 'views', __dirname + '/views'

@@ -9,8 +9,8 @@ class engine
 
   constructor: (options) ->
     options             = options or {}
-    @verbose            = options.verbose     or false
-    @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
+    @verbose            = options.verbose or false
+    @prettyPrintErrors  = options.prettyPrintErrors or false
     @viewCache          = {} # filename
 
   _log: (o) ->
@@ -111,8 +111,9 @@ class engine
       txt = "Error: Could not read #{filename}"
       if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
     view_options = 
-      fileName: filename
-      verbose:  @verbose
+      fileName:          filename
+      verbose:           @verbose
+      prettyPrintErrors: @prettyPrintErrors
     v = new view txt, view_options    
     @viewCache[filename] = v
     @_monitorForChanges filename, options
@@ -135,9 +136,10 @@ class engine
             txt = "Error: Could not read #{filename} after fs.watch() hit."
             if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
           view_options = 
-            fileName: filename
-            verbose:  @verbose
-            cb:       (v) =>
+            fileName:          filename
+            verbose:           @verbose
+            prettyPrintErrors: @prettyPrintErrors
+            cb: (v) =>
               @_log "#{filename} updated and ready"
               @viewCache[filename] = v
           v = new view txt, view_options

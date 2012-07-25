@@ -2,7 +2,10 @@
 fs       = require 'fs'
 path     = require 'path'
 
-e = new engine(maxCacheAge: 10000)
+e = new engine({
+  verbose:           false
+  prettyPrintErrors: false
+})
 
 run_case_dir = (dir, cb) ->
   expected = fs.readFileSync "#{dir}/output.toffee", "utf8"

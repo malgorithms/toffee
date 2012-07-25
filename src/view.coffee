@@ -81,12 +81,12 @@ class view
         delete sandbox.__toffee_run_input.__toffee
       catch e
         @error = new toffeeError @, errorTypes.RUNTIME, e
-        return [pp, null]
+
     if @error
       if @prettyPrintErrors
         return [null, @error.getPrettyPrint()]
       else
-        return [@error.getConvertedError(), null]
+        return [null, @error.getPrettyPrintText()]
     else
       return [null, res]
 
@@ -105,33 +105,36 @@ class view
     @tokenObj
 
   _toScriptObj: ->
-    if not (@scriptObj? or @error?)
+    if not @scriptObj?
       txt = @_toJavaScript()
-      d = Date.now()
-      @scriptObj = vm.createScript txt
-      @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
+      if not @error
+        d = Date.now()
+        @scriptObj = vm.createScript txt
+        @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
     @scriptObj
 
   _toJavaScript: ->
-    if not (@javaScript? or @error?)
+    if not @javaScript?
       c = @_toCoffee()
-      d = Date.now()
-      try
-        @javaScript = coffee.compile c, {bare: false}
-      catch e
-        @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
-      @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
+      if not @error
+        d = Date.now()
+        try
+          @javaScript = coffee.compile c, {bare: false}
+        catch e
+          @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
+        @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
   _toCoffee: ->
-    if not (@coffeeScript? or @error?)
+    if not @coffeeScript?
       tobj = @_toTokenObj()
-      d = Date.now()
-      res =  @_coffeeHeaders()
-      res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0)[0]
-      res += @_coffeeFooters()
-      @coffeeScript = res
-      @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
+      if not @error
+        d = Date.now()
+        res =  @_coffeeHeaders()
+        res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0)[0]
+        res += @_coffeeFooters()
+        @coffeeScript = res
+        @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
   _printLineNo: (n, ind) ->
