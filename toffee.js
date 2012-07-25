@@ -7069,7 +7069,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         _this = this;
       fsw = null;
       return fsw = fs.watch(filename, {
-        persistent: false
+        persistent: true
       }, function(change) {
         fsw.close();
         _this._log("Got an fs.watch hit on " + filename);
@@ -7127,7 +7127,6 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.view = view;
       this.e = e;
       this.toffeeSrc = view.txt;
-      console.log("Constructing " + err_type);
       switch (this.errType) {
         case errorTypes.PARSER:
           this.offensiveSrc = this.toffeeSrc;
@@ -7138,7 +7137,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         case errorTypes.COFFEE_COMPILE:
           this.offensiveSrc = this.view.coffeeScript;
           break;
-        case errorTypes.JS_RUNTIME:
+        case errorTypes.RUNTIME:
           this.offensiveSrc = this.view.javaScript;
       }
       this.toffeeSrcLines = this.toffeeSrc.split("\n");
@@ -7186,7 +7185,10 @@ if (typeof module !== 'undefined' && require.main === module) {
           res.line_range = this._convertOffensiveLineToToffeeRange(line);
           res.message = res.message.replace(/on line [0-9]+/, this._lineRangeToPhrase(res.line_range));
           break;
-        case errorTypes.JS_RUNTIME:
+        case errorTypes.RUNTIME:
+          console.log(",,,,,");
+          console.log(this.e.message);
+          console.log(this.e.stack);
           if (this.e.stack) {
             res.stack = this.e.stack;
           }

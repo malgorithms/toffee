@@ -14,12 +14,11 @@ class toffeeError
     @view           = view
     @e              = e
     @toffeeSrc      = view.txt
-    console.log "Constructing #{err_type}"
     switch @errType
       when errorTypes.PARSER          then @offensiveSrc = @toffeeSrc
       when errorTypes.STR_INTERPOLATE then @offensiveSrc = @toffeeSrc
       when errorTypes.COFFEE_COMPILE  then @offensiveSrc = @view.coffeeScript
-      when errorTypes.JS_RUNTIME      then @offensiveSrc = @view.javaScript
+      when errorTypes.RUNTIME         then @offensiveSrc = @view.javaScript
     @toffeeSrcLines    = @toffeeSrc.split    "\n"
     @offensiveSrcLines = @offensiveSrc.split "\n"
 
@@ -29,7 +28,7 @@ class toffeeError
     ### --------------------------------------
     returns a JS style error, but with some extras
     {
-      stack:      with converted line numbers
+      stack:      array of lines
       message:    error message
       line_range: line range in the toffee file
       filename:   filename, if available; or null
@@ -64,18 +63,40 @@ class toffeeError
         res.line_range  = @_convertOffensiveLineToToffeeRange line
         res.message     = res.message.replace /on line [0-9]+/, @_lineRangeToPhrase res.line_range
 
-      when errorTypes.JS_RUNTIME
+      when errorTypes.RUNTIME
+        console.log ",,,,,"
+        console.log @e.message
+        console.log @e.stack
         if @e.stack
-          res.stack     = @e.stack
+          res.stack     = @e.stack.split "\n"
+          @_convertRuntimeStackLines res
+
 
     res
+
+  _convertRuntimeStackLines: (converted_err)->
+    ###
+    a little more complicated, so extracted
+    ###
+    for line, i in converted_err.stack
+      m = line.match ///
+        Object.#{view.identifier}\ \(undefined\:([0-9]+):[0-9]+
+      ///
+      if m?.length >= 2
+        line = line.replace "undefined", converted_err.full_path
+
+    res = {
+
+    }
+
+
 
   getPrettyPrintText: ->
     ###
     returns a TEXT only blob explaining the error
     ###
     cerr = @getConvertedError()
-    if cerr.type is errorTypes.JS_RUNTIME
+    if cerr.type is errorTypes.RUNTIME
       header = cerr.message    
     else
       header = "#{cerr.dir_name}/#{cerr.file}: #{cerr.message}"
@@ -89,7 +110,7 @@ class toffeeError
       res += """\n
       STACK
       =====
-      #{cerr.stack} 
+      #{cerr.stack.join "\n"} 
     """
     res += """
     ---------------------
@@ -103,7 +124,7 @@ class toffeeError
     ###
     cerr = @getConvertedError()
     res = ""
-    if cerr.type is errorTypes.JS_RUNTIME
+    if cerr.type is errorTypes.RUNTIME
       header = cerr.message
     else
       header = "#{cerr.dir_name}/<b style=\"background-color:#fde\">#{cerr.file}</b>: #{cerr.message}"

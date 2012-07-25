@@ -1,2 +1,32 @@
 #{greeting}, world.
-#{var x}
+a
+
+
+
+
+
+
+
+
+#{foo + bar}
+
+
+
+
+
+
+
+{#
+  foo = ->
+    bar + car
+#}
+b
+c
+d
+e
+#{foo 100}
+f
+g
+h
+i
+j
