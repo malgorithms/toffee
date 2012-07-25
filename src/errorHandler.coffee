@@ -226,7 +226,6 @@ class toffeeError
       res[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
     if next_matches?.length
       res[1] = parseInt next_matches[0].match(/[0-9]+/)[0]
-    console.log "Input line: #{lineno}; output: #{res}"
     res
 
 
@@ -243,7 +242,6 @@ eh = exports.errorHandler =
     ###
     e: the error caught when running
     ###
-    console.log e
     src = view.javaScript
     msg = e.message
     stack = e.stack
