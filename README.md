@@ -415,6 +415,5 @@ todo
 ======
 - finish browser-side include and command-line compiler
 - ...then add instructions on how to use it
-- escapeHTML, JS, etc. functions
 - continue to add to unit tests
 - stack trace conversion improvement
