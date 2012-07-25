@@ -1,9 +1,11 @@
 path = require "path"
+util = require "util"
 
 errorTypes = exports.errorTypes =
-  PARSER:         0
-  COFFEE_COMPILE: 1
-  RUNTIME:        2
+  PARSER:           0
+  STR_INTERPOLATE:  1
+  COFFEE_COMPILE:   2
+  RUNTIME:          3
 
 class toffeeError
 
@@ -14,9 +16,10 @@ class toffeeError
     @toffeeSrc      = view.txt
     console.log "Constructing #{err_type}"
     switch @errType
-      when errorTypes.PARSER         then @offensiveSrc = @toffeeSrc
-      when errorTypes.COFFEE_COMPILE then @offensiveSrc = @view.coffeeScript
-      when errorTypes.JS_RUNTIME     then @offensiveSrc = @view.javaScript
+      when errorTypes.PARSER          then @offensiveSrc = @toffeeSrc
+      when errorTypes.STR_INTERPOLATE then @offensiveSrc = @toffeeSrc
+      when errorTypes.COFFEE_COMPILE  then @offensiveSrc = @view.coffeeScript
+      when errorTypes.JS_RUNTIME      then @offensiveSrc = @view.javaScript
     @toffeeSrcLines    = @toffeeSrc.split    "\n"
     @offensiveSrcLines = @offensiveSrc.split "\n"
 
@@ -52,7 +55,14 @@ class toffeeError
         line = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
         res.line_range = [line, line + 1]
         res.stack = []
-        #res.stack = res.stack[1...]
+
+      when errorTypes.STR_INTERPOLATE
+        console.log "DEALING WITH STR_INT"
+        console.log util.inspect @e
+        lr = @e.relayed_line_range
+        res.line_range = [lr[0], lr[1]]
+        res.message = res.message.replace 'starting on line NaN', @_lineRangeToPhrase res.line_range
+        res.stack = []
 
       when errorTypes.COFFEE_COMPILE
         todo = "TODO: THIS"

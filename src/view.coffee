@@ -131,9 +131,12 @@ class view
       if not @error
         d = Date.now()
         res =  @_coffeeHeaders()
-        res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0)[0]
-        res += @_coffeeFooters()
-        @coffeeScript = res
+        try
+          res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0)[0]
+          res += @_coffeeFooters()
+          @coffeeScript = res
+        catch e 
+          @error # already assigned inside _toCoffeeRecurse
         @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
 
@@ -180,8 +183,13 @@ class view
       when "TOFFEE"
         ind = indent_level
         res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
-        t_int = utils.interpolateString obj[1]
         lineno = obj[2]
+        try
+          t_int = utils.interpolateString obj[1]
+        catch e
+          e.relayed_line_range = [lineno, lineno + obj[1].split("\n").length]
+          @error = new toffeeError @, errorTypes.STR_INTERPOLATE, e
+          throw e
         for part in t_int
           if part[0] is "TOKENS"
             res    += @_printLineNo lineno, ind
