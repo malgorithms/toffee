@@ -1,12 +1,12 @@
-{parser}                    = require './toffee_lang'
-{errorHandler}              = require './errorHandler'
-{states, TAB_SPACES}        = require './consts'
-utils                       = require './utils'
-vm                          = require 'vm'
+{parser}                                = require './toffee_lang'
+{errorHandler,toffeeError,errorTypes}   = require './errorHandler'
+{states, TAB_SPACES}                    = require './consts'
+utils                                   = require './utils'
+vm                                      = require 'vm'
 try 
-  coffee                    = require "iced-coffee-script"
+  coffee                                = require "iced-coffee-script"
 catch e
-  coffee                    = require "coffee-script"
+  coffee                                = require "coffee-script"
 
 class view
 
@@ -16,15 +16,16 @@ class view
       cb: if this is set, compilation will happen async and cb will be executed when it's ready
     ###
     options = options or {}
-    @fileName     = (options.fileName or options.filename) or null
-    @identifier   = options.indentifier or "pub"
-    @verbose      = options.verbose or false
-    @txt          = txt
-    @tokenObj     = null # these are all constructed as needed
-    @coffeeScript = null # these are all constructed as needed
-    @javaScript   = null # these are all constructed as needed
-    @scriptObj    = null # these are all constructed as needed 
-    @error        = null # assigned via errorHandler module
+    @fileName           = options.fileName or options.filename or null
+    @identifier         = options.indentifier or "pub"
+    @verbose            = options.verbose or false
+    @prettyPrintErrors  = options.prettyPrintErrors or false
+    @txt                = txt
+    @tokenObj           = null # constructed as needed
+    @coffeeScript       = null # constructed as needed
+    @javaScript         = null # constructed as needed
+    @scriptObj          = null # constructed as needed 
+    @error              = null # if err, instance of toffeeError class
     if options.cb
       @_prepAsync txt, =>
         options.cb @
@@ -71,24 +72,23 @@ class view
     returns [err, str]
     ###
     script = @_toScriptObj()
-    err = null
-    if @error
-      console.log @error.converted_msg
-      return [errorHandler.prettyPrintError @, null]
-    else 
+    res    = null
+    if not @error
       try
-        sandbox =
-          __toffee_run_input: options
+        sandbox = { __toffee_run_input: options }
         script.runInNewContext sandbox
         res = sandbox.__toffee_run_input.__toffee.res
         delete sandbox.__toffee_run_input.__toffee
       catch e
-        @error = errorHandler.generateRuntimeError @, e
-        console.log @error.converted_msg
-        pp = errorHandler.prettyPrintError @
+        @error = new toffeeError @, errorTypes.RUNTIME, e
         return [pp, null]
-        
-      return [err, res]
+    if @error
+      if @prettyPrintErrors
+        return [null, @error.getPrettyPrint()]
+      else
+        return [@error.getConvertedError(), null]
+    else
+      return [null, res]
 
   _toTokenObj: ->
     ###
@@ -97,10 +97,11 @@ class view
     if not @tokenObj?
       try
         @tokenObj      = parser.parse @txt
-        @_cleanTabs @tokenObj
       catch e
-        console.log e
-        @error = errorHandler.generateParseError @, e
+        @error = new toffeeError @, errorTypes.PARSER, e
+      if not @error?
+        @_cleanTabs @tokenObj
+
     @tokenObj
 
   _toScriptObj: ->
@@ -112,18 +113,18 @@ class view
     @scriptObj
 
   _toJavaScript: ->
-    if not @javaScript?
+    if not (@javaScript? or @error?)
       c = @_toCoffee()
       d = Date.now()
       try
         @javaScript = coffee.compile c, {bare: false}
       catch e
-        @error = errorHandler.generateCompileToJsError @, e
+        @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
       @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
   _toCoffee: ->
-    if not @coffeeScript?
+    if not (@coffeeScript? or @error?)
       tobj = @_toTokenObj()
       d = Date.now()
       res =  @_coffeeHeaders()

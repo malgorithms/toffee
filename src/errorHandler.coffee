@@ -1,10 +1,10 @@
 
 errorTypes = exports.errorTypes =
-  TOFFEE_COMPILE: 0
+  PARSER:         0
   COFFEE_COMPILE: 1
   JS_RUNTIME:     2
 
-class error
+class toffeeError
 
   constructor: (view, err_type, e) ->
     @errType        = err_type
@@ -12,26 +12,26 @@ class error
     @e              = e
     @toffeeSrc      = view.txt
     switch @errType
-      when errorTypes.TOFFEE_COMPILE then @offensiveSrc = @toffeeSrc
+      when errorTypes.PARSER then @offensiveSrc = @toffeeSrc
       when errorTypes.COFFEE_COMPILE then @offensiveSrc = @view.coffeeScript
       when errorTypes.JS_RUNTIME     then @offensiveSrc = @view.javaScript
     @toffeeSrcLines    = @toffeeSrc.split    "\n"
     @offensiveSrcLines = @offensiveSrc.split "\n"
 
   getConvertedError: ->
-    ###
+    ### --------------------------------------
     returns a JS style error: 
     {
       stack:    with converted line numbers
       message:  error message 
     }
+    ------------------------------------------
     ###
-
     res = {stack: [], message: ""}
     if (typeof @e) is "object" then res[k] = v for k,v of @e
     switch @errType
 
-      when errorTypes.TOFFEE_COMPILE
+      when errorTypes.PARSER
         offensive_lineno = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
         lrange = @_convertOffensiveLineToToffeeRange offensive_lineno
         res.message = "Toffee compiler error #{@_lineRangeToPhrase lrange}: #{res.message}"
@@ -44,7 +44,7 @@ class error
 
     res
 
-  getPrettyPrintError: ->
+  getPrettyPrint: ->
     ###
     returns an HTML blob explaining the error 
     with lines highlighted
@@ -87,9 +87,11 @@ class error
     res
 
 
+exports.toffeeError = toffeeError
 
 
-exports.toffeeError = error
+# -----------------------------------------------------------------------------
+
 
 
 eh = exports.errorHandler = 
