@@ -99,6 +99,7 @@ class view
         @tokenObj      = parser.parse @txt
         @_cleanTabs @tokenObj
       catch e
+        console.log e
         @error = errorHandler.generateParseError @, e
     @tokenObj
 

@@ -26,21 +26,22 @@ class error
       message:  error message 
     }
     ###
+
     res = {stack: [], message: ""}
-    if (typeof @e) is "object"
-      res[k] = v for k,v of @e
+    if (typeof @e) is "object" then res[k] = v for k,v of @e
     switch @errType
+
       when errorTypes.TOFFEE_COMPILE
         offensive_lineno = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
-        res.message = "[COMPILE] #{view.fileName}: #{res.message}"
+        lrange = @_convertOffensiveLineToToffeeRange offensive_lineno
+        res.message = "Toffee compiler error #{@_lineRangeToPhrase lrange}: #{res.message}"
 
       when errorTypes.COFFEE_COMPILE
+        todo = "TODO: THIS"
 
       when errorTypes.JS_RUNTIME
+        todo = "TODO: THIS"
 
-    if @errType in [errorTypes.TOFFEE_COMPILE, errorTypes.COFFEE_COMPILE]
-    else
-      res.message = "[RUNTIME] #{res.message}"
     res
 
   getPrettyPrintError: ->
@@ -49,6 +50,12 @@ class error
     with lines highlighted
     ###
     return "ERROR!"
+
+  _lineRangeToPhrase: (lrange) ->
+    if lrange[0] is lrange[1] - 1
+      "on line #{lrange[0]}"
+    else
+      "between lines #{lrnage[0]} and #{lrange[1] - 1}"
 
   _extractOffensiveLineNo: (msg, rxx) ->
     m = msg.match rxx
@@ -63,6 +70,10 @@ class error
     ###
     ol            = @offensiveSrcLines
     tl            = @toffeeSrcLines
+
+    if (not lineno?) or isNaN lineno
+      return [1,t1.length]
+
     prev          = ol[0...lineno].join "\n"
     next          = ol[lineno...].join  "\n"
     prev_matches  = prev.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g

@@ -3,7 +3,6 @@
   y = '<td>'
   z = 'click&clack'
   w = [1, 2, {"place": "The Dreadfort"}]
-  w.push w
 #}<p>
  default x = #{x}
  default y = #{y}
