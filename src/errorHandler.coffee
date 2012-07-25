@@ -71,25 +71,46 @@ class toffeeError
           res.stack     = @e.stack.split "\n"
           @_convertRuntimeStackLines res
 
-
     res
 
   _convertRuntimeStackLines: (converted_err)->
     ###
-    a little more complicated, so extracted
+    a little more complicated, so extracted. Returns an array
+    of dictionaries where there's extra info on each line in the stack.
     ###
-    for line, i in converted_err.stack
-      m = line.match ///
-        Object.#{view.identifier}\ \(undefined\:([0-9]+):[0-9]+
-      ///
+    hit_pub_yet  = false # beyond this the stack isn't so important
+    stack        = converted_err.stack
+    for line, i in stack
+
+      rxx_pub = /// Object[\.]#{@view.identifier}[\s]\(undefined\:([0-9]+)\:[0-9]+ ///
+      m           = line.match rxx_pub
+      in_src_file = false
+      lrange      = [null, null]
+      at_pub_call = false
       if m?.length >= 2
-        line = line.replace "undefined", converted_err.full_path
+        line          = line.replace "undefined", converted_err.full_path
+        lineno        = @_extractOffensiveLineNo line, /([0-9]+)\:[0-9]+/
+        lrange        = @_convertOffensiveLineToToffeeRange lineno
+        line          = line.replace /\:[0-9]+\:[0-9]+/, ""
+        hit_pub_yet   = true
+        in_src_file   = true
+        at_pub_call   = true
 
-    res = {
+      rxx_inline = /// at[\s]undefined\:([0-9]+)\:[0-9]+ ///
+      m = line.match rxx_inline
+      if m?.length >= 2
+        line        = line.replace "undefined", converted_err.full_path
+        lineno      = @_extractOffensiveLineNo line, /([0-9]+)\:[0-9]+/
+        lrange      = @_convertOffensiveLineToToffeeRange lineno
+        line        = line.replace /\:[0-9]+\:[0-9]+/, ""
+        in_src_file = true
 
-    }
-
-
+      stack[i] =
+        line:           line
+        above_pub_call: not hit_pub_yet
+        at_pub_call:    at_pub_call
+        in_src_file:    in_src_file
+        line_range:     lrange
 
   getPrettyPrintText: ->
     ###
@@ -101,7 +122,6 @@ class toffeeError
     else
       header = "#{cerr.dir_name}/#{cerr.file}: #{cerr.message}"
     res = """
-    ---------------------
     ERROR
     =====
     #{header}
@@ -109,12 +129,21 @@ class toffeeError
     if cerr.stack?.length
       res += """\n
       STACK
-      =====
-      #{cerr.stack.join "\n"} 
-    """
-    res += """
-    ---------------------
-    """
+      =====\n
+      """
+      count = 0
+      for item,i in cerr.stack
+        if i is 0
+          res += "#{count++} #{item.line}"
+        else if item.in_src_file and (item.above_pub_call or item.at_pub_call)
+          res += "#{count++} [#{@_lineRangeToPhrase item.line_range}] #{cerr.dir_name}/#{cerr.file}"
+        else if item.in_src_file
+          continue
+        else
+          res += "#{count++}#{item.line}"
+        if i < cerr.stack.length - 1
+          res += "\n"
+    res += """\n"""
     res
 
   getPrettyPrint: ->
@@ -173,7 +202,7 @@ class toffeeError
     tl            = @toffeeSrcLines
 
     if (not lineno?) or isNaN lineno
-      return [1,t1.length]
+      return [1,tl.length]
 
     prev          = ol[0...lineno].join "\n"
     next          = ol[lineno...].join  "\n"
@@ -183,8 +212,9 @@ class toffeeError
 
     if prev_matches?.length
       res[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
-    if after_matches?.length
+    if next_matches?.length
       res[1] = parseInt next_matches[0].match(/[0-9]+/)[0]
+    console.log "Input line: #{lineno}; output: #{res}"
     res
 
 

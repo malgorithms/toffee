@@ -7148,7 +7148,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       /* --------------------------------------
       returns a JS style error, but with some extras
       {
-        stack:      with converted line numbers
+        stack:      array of lines
         message:    error message
         line_range: line range in the toffee file
         filename:   filename, if available; or null
@@ -7190,10 +7190,57 @@ if (typeof module !== 'undefined' && require.main === module) {
           console.log(this.e.message);
           console.log(this.e.stack);
           if (this.e.stack) {
-            res.stack = this.e.stack;
+            res.stack = this.e.stack.split("\n");
+            this._convertRuntimeStackLines(res);
           }
       }
       return res;
+    };
+
+    toffeeError.prototype._convertRuntimeStackLines = function(converted_err) {
+      /*
+          a little more complicated, so extracted. Returns an array
+          of dictionaries where there's extra info on each line in the stack.
+      */
+
+      var at_pub_call, hit_pub_yet, i, in_src_file, line, lineno, lrange, m, rxx_inline, rxx_pub, stack, _i, _len, _results;
+      hit_pub_yet = false;
+      stack = converted_err.stack;
+      _results = [];
+      for (i = _i = 0, _len = stack.length; _i < _len; i = ++_i) {
+        line = stack[i];
+        rxx_pub = RegExp("Object[\\.]" + this.view.identifier + "[\\s]\\(undefined\\:([0-9]+)\\:[0-9]+");
+        m = line.match(rxx_pub);
+        in_src_file = false;
+        lrange = [null, null];
+        at_pub_call = false;
+        if ((m != null ? m.length : void 0) >= 2) {
+          line = line.replace("undefined", converted_err.full_path);
+          lineno = this._extractOffensiveLineNo(line, /([0-9]+)\:[0-9]+/);
+          lrange = this._convertOffensiveLineToToffeeRange(lineno);
+          line = line.replace(/\:[0-9]+\:[0-9]+/, "");
+          hit_pub_yet = true;
+          in_src_file = true;
+          at_pub_call = true;
+        }
+        rxx_inline = /at[\s]undefined\:([0-9]+)\:[0-9]+/;
+        m = line.match(rxx_inline);
+        if ((m != null ? m.length : void 0) >= 2) {
+          line = line.replace("undefined", converted_err.full_path);
+          lineno = this._extractOffensiveLineNo(line, /([0-9]+)\:[0-9]+/);
+          lrange = this._convertOffensiveLineToToffeeRange(lineno);
+          line = line.replace(/\:[0-9]+\:[0-9]+/, "");
+          in_src_file = true;
+        }
+        _results.push(stack[i] = {
+          line: line,
+          above_pub_call: !hit_pub_yet,
+          at_pub_call: at_pub_call,
+          in_src_file: in_src_file,
+          line_range: lrange
+        });
+      }
+      return _results;
     };
 
     toffeeError.prototype.getPrettyPrintText = function() {
@@ -7201,18 +7248,35 @@ if (typeof module !== 'undefined' && require.main === module) {
           returns a TEXT only blob explaining the error
       */
 
-      var cerr, header, res, _ref;
+      var cerr, count, header, i, item, res, _i, _len, _ref, _ref1;
       cerr = this.getConvertedError();
-      if (cerr.type === errorTypes.JS_RUNTIME) {
+      if (cerr.type === errorTypes.RUNTIME) {
         header = cerr.message;
       } else {
         header = "" + cerr.dir_name + "/" + cerr.file + ": " + cerr.message;
       }
-      res = "---------------------\nERROR\n=====\n" + header;
+      res = "ERROR\n=====\n" + header;
       if ((_ref = cerr.stack) != null ? _ref.length : void 0) {
-        res += "\n\nSTACK\n=====\n" + cerr.stack + " ";
+        res += "\n\nSTACK\n=====\n";
+        count = 0;
+        _ref1 = cerr.stack;
+        for (i = _i = 0, _len = _ref1.length; _i < _len; i = ++_i) {
+          item = _ref1[i];
+          if (i === 0) {
+            res += "" + (count++) + " " + item.line;
+          } else if (item.in_src_file && (item.above_pub_call || item.at_pub_call)) {
+            res += "" + (count++) + " [" + (this._lineRangeToPhrase(item.line_range)) + "] " + cerr.dir_name + "/" + cerr.file;
+          } else if (item.in_src_file) {
+            continue;
+          } else {
+            res += "" + (count++) + item.line;
+          }
+          if (i < cerr.stack.length - 1) {
+            res += "\n";
+          }
+        }
       }
-      res += "---------------------";
+      res += "\n";
       return res;
     };
 
@@ -7225,7 +7289,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       var cerr, extra, header, i, j, line, padding, padding_len, res, _i, _ref, _ref1, _ref2;
       cerr = this.getConvertedError();
       res = "";
-      if (cerr.type === errorTypes.JS_RUNTIME) {
+      if (cerr.type === errorTypes.RUNTIME) {
         header = cerr.message;
       } else {
         header = "" + cerr.dir_name + "/<b style=\"background-color:#fde\">" + cerr.file + "</b>: " + cerr.message;
@@ -7284,7 +7348,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       ol = this.offensiveSrcLines;
       tl = this.toffeeSrcLines;
       if ((!(lineno != null)) || isNaN(lineno)) {
-        return [1, t1.length];
+        return [1, tl.length];
       }
       prev = ol.slice(0, lineno).join("\n");
       next = ol.slice(lineno).join("\n");
@@ -7294,9 +7358,10 @@ if (typeof module !== 'undefined' && require.main === module) {
       if (prev_matches != null ? prev_matches.length : void 0) {
         res[0] = parseInt(prev_matches[prev_matches.length - 1].match(/[0-9]+/)[0]);
       }
-      if (typeof after_matches !== "undefined" && after_matches !== null ? after_matches.length : void 0) {
+      if (next_matches != null ? next_matches.length : void 0) {
         res[1] = parseInt(next_matches[0].match(/[0-9]+/)[0]);
       }
+      console.log("Input line: " + lineno + "; output: " + res);
       return res;
     };
 
