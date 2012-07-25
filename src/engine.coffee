@@ -10,7 +10,7 @@ class engine
   constructor: (options) ->
     options             = options or {}
     @verbose            = options.verbose or false
-    @prettyPrintErrors  = options.prettyPrintErrors or false
+    @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @viewCache          = {} # filename
 
   _log: (o) ->

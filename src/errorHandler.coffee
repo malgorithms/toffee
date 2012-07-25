@@ -64,13 +64,9 @@ class toffeeError
         res.message     = res.message.replace /on line [0-9]+/, @_lineRangeToPhrase res.line_range
 
       when errorTypes.RUNTIME
-        console.log ",,,,,"
-        console.log @e.message
-        console.log @e.stack
         if @e.stack
           res.stack     = @e.stack.split "\n"
           @_convertRuntimeStackLines res
-
     res
 
   _convertRuntimeStackLines: (converted_err)->
@@ -111,6 +107,9 @@ class toffeeError
         at_pub_call:    at_pub_call
         in_src_file:    in_src_file
         line_range:     lrange
+
+      if stack[i].line_range[0] and not converted_err.line_range[0]
+        converted_err.line_range = stack[i].line_range
 
   getPrettyPrintText: ->
     ###
@@ -153,7 +152,7 @@ class toffeeError
     ###
     cerr = @getConvertedError()
     res = ""
-    if cerr.type is errorTypes.RUNTIME
+    if cerr.type is 234432#errorTypes.RUNTIME
       header = cerr.message
     else
       header = "#{cerr.dir_name}/<b style=\"background-color:#fde\">#{cerr.file}</b>: #{cerr.message}"
@@ -163,6 +162,19 @@ class toffeeError
         \n<hr />
         \n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">        
     """
+    if cerr.stack?.length
+      res += "<div style=\"border:1px solid #000;background-color:#eee;\">"
+      count = 0
+      for item,i in cerr.stack
+        if i is 0
+          res += "<div style=\"color:#333;\">#{count++} #{item.line}</div>"
+        else if item.in_src_file and (item.above_pub_call or item.at_pub_call)
+          res += "<div style=\"color:#000;\">#{count++} [#{@_lineRangeToPhrase item.line_range}] #{cerr.dir_name}/#{cerr.file}</div>"
+        else if item.in_src_file
+          continue
+        else
+          res += "<div style=\"color:#999;\">#{count++}#{item.line}</div>"
+      res += "</div>"
 
     for i in [(cerr.line_range[0]-3)...(cerr.line_range[1]+1)]
       if (i < 0) or i > @toffeeSrcLines.length - 1

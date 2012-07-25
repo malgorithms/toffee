@@ -19,7 +19,7 @@ class view
     @fileName           = options.fileName or options.filename or null
     @identifier         = options.indentifier or "pub"
     @verbose            = options.verbose or false
-    @prettyPrintErrors  = options.prettyPrintErrors or false
+    @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @txt                = txt
     @tokenObj           = null # constructed as needed
     @coffeeScript       = null # constructed as needed
