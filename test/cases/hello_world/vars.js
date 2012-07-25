@@ -1,4 +1,3 @@
 {
-	"greeting": "Hello",
-	"fn" : function(x) { return (y + z); }
+	"greeting": "Hello"
 }
