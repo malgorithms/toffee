@@ -7068,7 +7068,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         _this = this;
       fsw = null;
       return fsw = fs.watch(filename, {
-        persistent: false
+        persistent: true
       }, function(change) {
         fsw.close();
         _this._log("Got an fs.watch hit on " + filename);

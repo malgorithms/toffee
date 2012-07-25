@@ -125,7 +125,7 @@ class engine
     is dropped in its place.
     ###
     fsw = null
-    fsw = fs.watch filename, {persistent: false}, (change) =>
+    fsw = fs.watch filename, {persistent: true}, (change) =>
       fsw.close()
       @_log "Got an fs.watch hit on #{filename}"
       fs.readFile filename, 'utf8', (err, txt) =>
