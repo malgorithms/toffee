@@ -119,9 +119,17 @@ class engine
     v
 
   _monitorForChanges: (filename, options) ->
-    fs.watch filename, {persistent: true}, (fswatcher) =>
+    ###
+    we must continuously unwatch/rewatch because some editors/systems invoke a "rename"
+    event and we'll end up following the wrong, old 'file' as a new one
+    is dropped in its place.
+    ###
+    fsw = null
+    fsw = fs.watch filename, {persistent: false}, (change) =>
+      fsw.close()
       @_log "Got an fs.watch hit on #{filename}"
       fs.readFile filename, 'utf8', (err, txt) =>
+        @_monitorForChanges filename, options
         if txt isnt @viewCache[filename].txt
           if err
             txt = "Error: Could not read #{filename} after fs.watch() hit."
