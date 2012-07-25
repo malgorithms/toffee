@@ -315,7 +315,11 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{___}#{___}#{___}#{___}return "\#{txt}x"
 
 #{___}__toffee.json = (o) ->
-#{___}#{___}res = (""+JSON.stringify o)
+#{___}#{___}try
+#{___}#{___}#{___}json = JSON.stringify o
+#{___}#{___}catch e 
+#{___}#{___}#{___}throw {stack:[], message: "JSONify error (\#{e.message}) on line \#{__toffee.lineno}", toffee_line_base: __toffee.lineno }
+#{___}#{___}res = "" + json
 
 #{___}__toffee.html = (o) ->
 #{___}#{___}res = (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -329,6 +333,8 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{___}if not escape?
 #{___}#{___}escape = (o) ->
 #{___}#{___}#{___}if (not __toffee.autoEscape?) or __toffee.autoEscape
+#{___}#{___}#{___}#{___}if o? and (typeof o) is "object"
+#{___}#{___}#{___}#{___}#{___}return __toffee.json o
 #{___}#{___}#{___}#{___}return __toffee.html o
 
 #{___}states = #{JSON.stringify states}

@@ -2,7 +2,7 @@
  default x = &quot;Hello world&quot;
  default y = &lt;td&gt;
  default z = click&amp;clack
- default w = 1,2,[object Object]
+ default w = [1,2,{"place":"The Dreadfort"}]
 </p>
 <p>
  raw x = "Hello world"

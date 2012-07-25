@@ -1,4 +1,86 @@
 
+errorTypes = exports.errorTypes =
+  TOFFEE_COMPILE: 0
+  COFFEE_COMPILE: 1
+  JS_RUNTIME:     2
+
+class error
+
+  constructor: (view, err_type, e) ->
+    @errType        = err_type
+    @view           = view
+    @e              = e
+    @toffeeSrc      = view.txt
+    switch @errType
+      when errorTypes.TOFFEE_COMPILE then @offensiveSrc = @toffeeSrc
+      when errorTypes.COFFEE_COMPILE then @offensiveSrc = @view.coffeeScript
+      when errorTypes.JS_RUNTIME     then @offensiveSrc = @view.javaScript
+    @toffeeSrcLines    = @toffeeSrc.split    "\n"
+    @offensiveSrcLines = @offensiveSrc.split "\n"
+
+  getConvertedError: ->
+    ###
+    returns a JS style error: 
+    {
+      stack:    with converted line numbers
+      message:  error message 
+    }
+    ###
+    res = {stack: [], message: ""}
+    if (typeof @e) is "object"
+      res[k] = v for k,v of @e
+    switch @errType
+      when errorTypes.TOFFEE_COMPILE
+        offensive_lineno = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
+        res.message = "[COMPILE] #{view.fileName}: #{res.message}"
+
+      when errorTypes.COFFEE_COMPILE
+
+      when errorTypes.JS_RUNTIME
+
+    if @errType in [errorTypes.TOFFEE_COMPILE, errorTypes.COFFEE_COMPILE]
+    else
+      res.message = "[RUNTIME] #{res.message}"
+    res
+
+  getPrettyPrintError: ->
+    ###
+    returns an HTML blob explaining the error 
+    with lines highlighted
+    ###
+    return "ERROR!"
+
+  _extractOffensiveLineNo: (msg, rxx) ->
+    m = msg.match rxx
+    if not (m?.length >= 2) then return null
+    return parseInt m[1]
+
+  _convertOffensiveLineToToffeeRange: (lineno) ->
+    ###
+      Given the error line in a converted file, hunts for surrounding
+      __toffee.lineno calls and returns a pair array with the error position
+      range in the original toffee file.
+    ###
+    ol            = @offensiveSrcLines
+    tl            = @toffeeSrcLines
+    prev          = ol[0...lineno].join "\n"
+    next          = ol[lineno...].join  "\n"
+    prev_matches  = prev.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    next_matches  = next.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    res           = [1,tl.length]
+
+    if prev_matches?.length
+      res[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
+    if after_matches?.length
+      res[1] = parseInt next_matches[0].match(/[0-9]+/)[0]
+    res
+
+
+
+
+exports.toffeeError = error
+
+
 eh = exports.errorHandler = 
 
   generateParseError: (view, e) ->
@@ -21,8 +103,9 @@ eh = exports.errorHandler =
 
   generateRuntimeError: (view, e) ->
     ###
-    e: the error caught when compiling
+    e: the error caught when running
     ###
+    console.log e
     src = view.javaScript
     msg = e.message
     stack = e.stack
@@ -32,6 +115,7 @@ eh = exports.errorHandler =
       toffee_line_range: [0,1]
       original_msg: msg
       converted_msg: msg
+
     search = stack.match /pub\ \(undefined\:([0-9]+):[0-9]+/
     if not (search?.length >= 2) then return res
     res.src_line = search[1]
@@ -58,6 +142,7 @@ eh = exports.errorHandler =
     if view.fileName then res.converted_msg = "#{view.fileName}: #{res.converted_msg}"
     res
 
+
   generateCompileToJsError: (view, e) ->
     ###
     e: the error caught when compiling
@@ -70,29 +155,16 @@ eh = exports.errorHandler =
       original_msg: msg
       converted_msg: msg
     search = msg.match /on line ([0-9]+)/
-    if not (search?.length >= 2) then return res
-    res.src_line = search[1]
-    src_lines = src.split '\n'
-    txt_lines = view.txt.split '\n'
-    before = src_lines[0...res.src_line].join "\n"
-    after  = src_lines[res.src_line...].join  "\n"
-    prev_matches  = before.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    after_matches = after.match  /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    if prev_matches?.length
-      res.toffee_line_range[0] = parseInt prev_matches[prev_matches.length-1].match(/[0-9]+/)[0]
-    else
-      res.toffee_line_range[0] = 1
-    if after_matches?.length
-      res.toffee_line_range[1] = parseInt after_matches[0].match(/[0-9]+/)[0]
-    else
-      res.toffee_line_range[1] = txt_lines.length
-    res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
-    if res.toffee_line_range[0] is res.toffee_line_range[1] - 1
-      new_msg = "on line #{res.toffee_line_range[0]}"
-    else
-      new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
-    res.converted_msg = res.original_msg.replace "on line #{res.src_line}", new_msg
-    if view.fileName then res.converted_msg = "#{view.fileName}: #{res.converted_msg}"
+    if search?.length >= 2
+      res.src_line = search[1]
+      res.toffee_line_range = @_convertSrcLineToToffeeRange view.coffeeScript, res.src_line
+      res.offensive_lines = txt_lines[(res.toffee_line_range[0]-1)...(res.toffee_line_range[1]-1)]
+      if res.toffee_line_range[0] is res.toffee_line_range[1] - 1
+        new_msg = "on line #{res.toffee_line_range[0]}"
+      else
+        new_msg = "between lines #{res.toffee_line_range[0]} and #{res.toffee_line_range[1]}"
+      res.converted_msg = res.original_msg.replace "on line #{res.src_line}", new_msg
+      if view.fileName then res.converted_msg = "#{view.fileName}: #{res.converted_msg}"
     res
 
   prettyPrintError: (view) ->
