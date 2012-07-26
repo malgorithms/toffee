@@ -7294,7 +7294,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       if (cerr.type === 234432) {
         header = cerr.message;
       } else {
-        header = "" + cerr.dir_name + "/<b style=\"background-color:#fde\">" + cerr.file + "</b>: " + cerr.message;
+        header = "" + cerr.dir_name + "/<span style=\"background-color:#fde\"><b>" + cerr.file + "</b>: " + cerr.message + "</span>";
       }
       res += "<div style=\"border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;\">\n  \n<pre>" + header + "</pre>\n  \n<hr />\n  \n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">        ";
       if ((_ref = cerr.stack) != null ? _ref.length : void 0) {
@@ -7381,7 +7381,6 @@ if (typeof module !== 'undefined' && require.main === module) {
       if (next_matches != null ? next_matches.length : void 0) {
         res[1] = parseInt(next_matches[0].match(/[0-9]+/)[0]);
       }
-      console.log("Input line: " + lineno + "; output: " + res);
       return res;
     };
 
@@ -7398,7 +7397,6 @@ if (typeof module !== 'undefined' && require.main === module) {
       */
 
       var after, after_matches, before, msg, new_msg, prev_matches, res, search, src, src_lines, stack, txt_lines;
-      console.log(e);
       src = view.javaScript;
       msg = e.message;
       stack = e.stack;

@@ -155,7 +155,7 @@ class toffeeError
     if cerr.type is 234432#errorTypes.RUNTIME
       header = cerr.message
     else
-      header = "#{cerr.dir_name}/<b style=\"background-color:#fde\">#{cerr.file}</b>: #{cerr.message}"
+      header = "#{cerr.dir_name}/<span style=\"background-color:#fde\"><b>#{cerr.file}</b>: #{cerr.message}</span>"
     res += """
       <div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;">
         \n<pre>#{header}</pre>
