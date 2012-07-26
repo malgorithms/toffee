@@ -21,7 +21,9 @@ Printing variables is easy. Just use CoffeeScript's #{} syntax:
 The `#{}` syntax is powerful, so be responsible.
 
 ```
-You have #{(f for f in friends when f.gender is "f").length} female friends.
+<p>
+  You have #{(f for f in friends when f.gender is "f").length} female friends.
+</p>
 ```
 
 Including other files is possible thanks to the function `partial`. This works in Express 3.0, too.
