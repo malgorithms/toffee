@@ -12,8 +12,8 @@
 </p>
 <script>
   x = "\"Hello world\""
-  y = "<td>"
-  z = "click&clack"
+  y = "\u003Ctd\u003E"
+  z = "click\u0026clack"
   w = [1,2,{"place":"The Dreadfort"}]
 </script>
 <p>
@@ -24,8 +24,8 @@
 </p>
 <p>
  json printed x = "\"Hello world\""
- json printed y = "<td>"
- json printed z = "click&clack"
+ json printed y = "\u003Ctd\u003E"
+ json printed z = "click\u0026clack"
  json printed w = [1,2,{"place":"The Dreadfort"}]
 </p>
 <p>
