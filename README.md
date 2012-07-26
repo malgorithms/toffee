@@ -21,7 +21,9 @@ Printing variables is easy. Just use CoffeeScript's #{} syntax:
 The `#{}` syntax is powerful, so be responsible.
 
 ```
-You have #{(f for f in friends when f.gender is "f").length} female friends.
+<p>
+  You have #{(f for f in friends when f.gender is "f").length} female friends.
+</p>
 ```
 
 Including other files is possible thanks to the function `partial`. This works in Express 3.0, too.
@@ -137,23 +139,46 @@ Well, it's not exactly identical.  Let's talk about escaping.
 
 escaping: how it works
 ==============
-In coffee mode, the `print` function lets you print the raw value of a variable.
+In your CoffeeScript, the `print` function lets you print the raw value of a variable:
 
-However, for safety, in toffee mode, `#{some_expression}` output is escaped for HTML, with some desired exceptions.
+```
+{#
+  danger_code = "<script>alert('Eat a bag.');</script>"
+  print danger_code
+#}
+```
 
-If certain functions are called leftmost in a `#{` token, their
-output will be unmolested:
+But in toffee mode, `#{some_expression}` output is escaped intelligently by default:
+
+```
+<!-- escapes the HTML -->
+<p>#{danger_code}</p>
+```
+
+You can control the escaping, but here are the defaults: 
+
+ * if it's a string or scalar, it is escaped for HTML safety.
+ * it's an array or object, it is converted to JSON.
+
+escaping overrides
+----------------
+
+You can bypass the above rules.
 
  * `#{json foo}`: this outputs foo as JSON.
  * `#{raw foo}`: this outputs foo in raw text.
- * `#{html foo}`: this outputs foo, escaped as HTML. It's the same as `#{foo}`, but it's available in case you (1) override the default escaping or (2) turn off auto-escaping (both explained below).
+ * `#{html foo}`: this outputs foo, escaped as HTML. For a scalar, it's the same as `#{foo}`, but it's available in case you 
+(1) override the default escaping or (2) turn off auto-escaping (both explained below).
  * `#{partial "foo.toffee"}` and `#{snippet "foo.toffee"}`: unescaped, since you don't want to escape your own templates
 
-The functions mentioned above are also available to you in coffee mode.
+When any of the functions mentioned above are leftmost in a `#{}` token in toffee mode, their output is left untouched by the 
+built in escape function.
+
+These functions are also available to you in coffee mode.
 
 ```
 <p>
-	Want to read some JSON?
+	Want to read some JSON, human?
 	{#
 	   foo = [1,2,3, {bar: "none"}]
 	   foo_as_json_as_html = html json foo
