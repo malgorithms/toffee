@@ -1,8 +1,14 @@
 {#
+  #
+  # let's test some recursion.
+  #
+  # ----------------------------
+
   if not countdown? then countdown = 32   
   if countdown is 0
     print partial "foo/goodbye.toffee"
-  else {: 
-    #{countdown}...#{partial './goodbye_world.toffee', {countdown: countdown - 1}} 
+  else {:
+    #{countdown}<br /> #{partial './goodbye_world.toffee', {countdown: countdown - 1}} 
   :}
+
 #}    

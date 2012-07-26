@@ -1,8 +1,4 @@
 <h1>Test Results</h1>
-{#
-  x = [1,2,3]
-  x.push x
-#}
-#{partial "./subdir1/hello_world.toffee", shit: (fake_thing) -> JSON.stringify x  }
+#{partial "./subdir1/hello_world.toffee", rows:10, cols:10 }
 <hr />
 #{partial "./subdir2/goodbye_world.toffee"} 
