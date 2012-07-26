@@ -8,6 +8,8 @@
  default y = #{y}
  default z = #{z}
  default w = #{w}
+ default r = #{r}
+ default w.foo = #{w.foo}
 </p>
 <p>
  raw x = #{raw x}

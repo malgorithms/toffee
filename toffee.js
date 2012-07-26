@@ -8115,7 +8115,7 @@ if (typeof module !== 'undefined' && require.main === module) {
           returns [err, str]
       */
 
-      var res, sandbox, script;
+      var pair, res, sandbox, script;
       script = this._toScriptObj();
       res = null;
       if (!this.error) {
@@ -8132,13 +8132,17 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
       if (this.error) {
         if (this.prettyPrintErrors) {
-          return [null, this.error.getPrettyPrint()];
+          pair = [null, this.error.getPrettyPrint()];
         } else {
-          return [null, this.error.getPrettyPrintText()];
+          pair = [null, this.error.getPrettyPrintText()];
+        }
+        if (this.error.errType === errorTypes.RUNTIME) {
+          this.error = null;
         }
       } else {
-        return [null, res];
+        pair = [null, res];
       }
+      return pair;
     };
 
     view.prototype._toTokenObj = function() {
@@ -8233,6 +8237,16 @@ if (typeof module !== 'undefined' && require.main === module) {
       return false;
     };
 
+    view.prototype._snippetIsSoloToken = function(str) {
+      /*
+          if the inside is something like #{ foo } not #{ foo.bar } or other complex thing.
+      */
+      if (str.match(/^[$A-Za-z_\x7f-\uffff][$\w\x7f-\uffff]*$/)) {
+        return true;
+      }
+      return false;
+    };
+
     view.prototype._toCoffeeRecurse = function(obj, indent_level, indent_baseline) {
       var c, chunk, delta, i, i_delta, ind, interp, item, lbreak, line, lineno, lines, part, res, s, t_int, temp_indent_level, zone_baseline, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;
       res = "";
@@ -8283,8 +8297,10 @@ if (typeof module !== 'undefined' && require.main === module) {
             part = t_int[_l];
             if (part[0] === "TOKENS") {
               res += this._printLineNo(lineno, ind);
-              interp = part[1].replace(/^[\n \t]+/, '');
-              if (this._snippetHasEscapeOverride(interp)) {
+              interp = part[1].replace(/(^[\n \t]+)|([\n \t]+)$/g, '');
+              if (this._snippetIsSoloToken(interp)) {
+                chunk = "\#{if " + interp + "? then escape " + interp + " else ''}";
+              } else if (this._snippetHasEscapeOverride(interp)) {
                 chunk = "\#{" + interp + "}";
               } else {
                 chunk = "\#{escape(" + interp + ")}";
@@ -8472,7 +8488,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     view.prototype._coffeeHeaders = function() {
       var ___;
       ___ = this._tabAsSpaces();
-      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) ->\n" + ___ + ___ + ___ + "if __toffee.state is states.COFFEE\n" + ___ + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + ___ + "return ''\n" + ___ + ___ + ___ + "else\n" + ___ + ___ + ___ + ___ + "return \"\#{txt}x\"\n\n" + ___ + "__toffee.json = (o) ->\n" + ___ + ___ + "try\n" + ___ + ___ + ___ + "json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')\n" + ___ + ___ + "catch e\n" + ___ + ___ + ___ + "throw {stack:[], message: \"JSONify error (\#{e.message}) on line \#{__toffee.lineno}\", toffee_line_base: __toffee.lineno }\n" + ___ + ___ + "res = \"\" + json\n\n" + ___ + "__toffee.html = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n\n" + ___ + "__toffee.raw = (o) -> o\n\n" + ___ + "if not raw? then raw   = __toffee.raw\n" + ___ + "if not html? then html = __toffee.html\n" + ___ + "if not json? then json = __toffee.json\n\n" + ___ + "if not escape?\n" + ___ + ___ + "escape = (o) ->\n" + ___ + ___ + ___ + "if (not __toffee.autoEscape?) or __toffee.autoEscape\n" + ___ + ___ + ___ + ___ + "if o? and (typeof o) is \"object\"\n" + ___ + ___ + ___ + ___ + ___ + "return __toffee.json o\n" + ___ + ___ + ___ + ___ + "return __toffee.html o\n\n" + ___ + "states = " + (JSON.stringify(states));
+      return "domain                  = this\ndomain.toffeeTemplates  = domain.toffeeTemplates or {}\ndomain.toffeeTemplates[\"" + this.identifier + "\"] = (locals) ->\n" + ___ + "domain                = this\n" + ___ + "locals.__toffee       = {}\n" + ___ + "`with (locals) {`\n" + ___ + "__toffee.out = []\n\n" + ___ + "if not print?\n" + ___ + ___ + "print = (txt) ->\n" + ___ + ___ + ___ + "if __toffee.state is states.COFFEE\n" + ___ + ___ + ___ + ___ + "__toffee.out.push txt\n" + ___ + ___ + ___ + ___ + "return ''\n" + ___ + ___ + ___ + "else\n" + ___ + ___ + ___ + ___ + "return \"\#{txt}x\"\n\n" + ___ + "__toffee.json = (o) ->\n" + ___ + ___ + "try\n" + ___ + ___ + ___ + "json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')\n" + ___ + ___ + "catch e\n" + ___ + ___ + ___ + "throw {stack:[], message: \"JSONify error (\#{e.message}) on line \#{__toffee.lineno}\", toffee_line_base: __toffee.lineno }\n" + ___ + ___ + "res = \"\" + json\n\n" + ___ + "__toffee.html = (o) ->\n" + ___ + ___ + "res = (\"\"+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')\n\n" + ___ + "__toffee.raw = (o) -> o\n\n" + ___ + "if not raw? then raw   = __toffee.raw\n" + ___ + "if not html? then html = __toffee.html\n" + ___ + "if not json? then json = __toffee.json\n\n" + ___ + "if not escape?\n" + ___ + ___ + "escape = (o) ->\n" + ___ + ___ + ___ + "if (not __toffee.autoEscape?) or __toffee.autoEscape\n" + ___ + ___ + ___ + ___ + "if o is undefined then return ''\n" + ___ + ___ + ___ + ___ + "if o? and (typeof o) is \"object\" then return __toffee.json o\n" + ___ + ___ + ___ + ___ + "return __toffee.html o\n" + ___ + ___ + ___ + "return o\n\n" + ___ + "states = " + (JSON.stringify(states));
     };
 
     view.prototype._coffeeFooters = function() {

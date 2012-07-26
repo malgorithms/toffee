@@ -3,6 +3,8 @@
  default y = &lt;td&gt;
  default z = click&amp;clack
  default w = [1,2,{"place":"The Dreadfort"}]
+ default r = 
+ default w.foo = 
 </p>
 <p>
  raw x = "Hello world"

@@ -84,11 +84,15 @@ class view
 
     if @error
       if @prettyPrintErrors
-        return [null, @error.getPrettyPrint()]
+        pair = [null, @error.getPrettyPrint()]
       else
-        return [null, @error.getPrettyPrintText()]
+        pair = [null, @error.getPrettyPrintText()]
+      if @error.errType is errorTypes.RUNTIME
+        # don't hold onto runtime errors after value returned.
+        @error = null
     else
-      return [null, res]
+      pair = [null, res]
+    return pair
 
   _toTokenObj: ->
     ###
@@ -154,6 +158,20 @@ class view
           return true
     false
 
+  _snippetIsSoloToken: (str) ->
+    ###
+    if the inside is something like #{ foo } not #{ foo.bar } or other complex thing.
+    ###
+    if str.match ///
+      ^
+      [$A-Za-z_\x7f-\uffff]
+      [$\w\x7f-\uffff]*
+      $
+    ///
+      return true
+    return false
+
+
   _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
     # returns [res, indent_baseline_delta]
     # indent_level    = # of spaces to add to each coffeescript section
@@ -193,8 +211,10 @@ class view
         for part in t_int
           if part[0] is "TOKENS"
             res    += @_printLineNo lineno, ind
-            interp  = part[1].replace /^[\n \t]+/, ''
-            if @_snippetHasEscapeOverride interp
+            interp  = part[1].replace /(^[\n \t]+)|([\n \t]+)$/g, ''
+            if @_snippetIsSoloToken interp
+              chunk = "\#{if #{interp}? then escape #{interp} else ''}"
+            else if @_snippetHasEscapeOverride interp
               chunk = "\#{#{interp}}"
             else
               chunk = "\#{escape(#{interp})}"
@@ -346,9 +366,10 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 #{___}if not escape?
 #{___}#{___}escape = (o) ->
 #{___}#{___}#{___}if (not __toffee.autoEscape?) or __toffee.autoEscape
-#{___}#{___}#{___}#{___}if o? and (typeof o) is "object"
-#{___}#{___}#{___}#{___}#{___}return __toffee.json o
+#{___}#{___}#{___}#{___}if o is undefined then return ''
+#{___}#{___}#{___}#{___}if o? and (typeof o) is "object" then return __toffee.json o
 #{___}#{___}#{___}#{___}return __toffee.html o
+#{___}#{___}#{___}return o
 
 #{___}states = #{JSON.stringify states}
 """
