@@ -329,7 +329,7 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 
 #{___}__toffee.json = (o) ->
 #{___}#{___}try
-#{___}#{___}#{___}json = JSON.stringify(o).replace('<','\\\\u003C').replace('>','\\\\u003E').replace('&','\\\\u0026')
+#{___}#{___}#{___}json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
 #{___}#{___}catch e
 #{___}#{___}#{___}throw {stack:[], message: "JSONify error (\#{e.message}) on line \#{__toffee.lineno}", toffee_line_base: __toffee.lineno }
 #{___}#{___}res = "" + json
