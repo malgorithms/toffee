@@ -1,7 +1,7 @@
 TOFFEE
 =========
-A templating language based on CoffeeScript with slick nesting, tokens, and automatic indentation.
-Compatible with Express 2.x, 3.x, and the browser. In Express 3.x, the Toffee engine handles partials/includes 
+A templating language based on the simplicity and beauty of CoffeeScript.
+Compatible with node (including Express 2.x, 3.x) and, very soon, the browser. In Express 3.x, the Toffee engine handles partials/includes 
 and smart view caching.
 
 status
