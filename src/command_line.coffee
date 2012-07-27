@@ -3,10 +3,14 @@ fs         = require 'fs'
 {view}     = require '../lib/view'
 program    = require 'commander'
 
+# -----------------------------------------------------------------------------
+
 getVersionNumber = ->
   p = fs.readFileSync "#{__dirname}/../package.json", "utf8"
   o = JSON.parse p
   o.version
+
+# -----------------------------------------------------------------------------
 
 program.on '--help', ->
   console.log "
@@ -22,7 +26,8 @@ program.on '--help', ->
 \n
 \n    <script src=\"views.js\"></script>
 \n    <script>
-\n       document.write(toffee.render(\"views/layout.toffee\", {username: \"Hans Gruber\"}));
+\n       var pubvars   = { name: \"Hans Gruber\", criminal: true };
+\n       var some_html = toffee.render (\"views/layout.toffee\", pubvars);
 \n    </script>
 \n 
   "
@@ -31,6 +36,9 @@ program.version(getVersionNumber())
   .option('-o, --output',     'output file')
   .option('-p, --print',      'print output to stdout')
   .parse process.argv
+
+# -----------------------------------------------------------------------------
+
 
 
 
