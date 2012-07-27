@@ -6,7 +6,7 @@ and smart view caching.
 
 status
 ======
-Beta! And in very usable shape.
+Beta! And usable! If you hit any snags, let me know and I'll act fast.
 
 examples
 ========
