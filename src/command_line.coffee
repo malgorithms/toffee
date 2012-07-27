@@ -59,7 +59,13 @@ run = exports.run = ->
     console.log "Unexpected input. toffee --help for examples"
     process.exit 1
   else
-    recurseRun program.args[0], program.args[0]
+    try
+      start_path = fs.realpathSync program.args[0]
+    catch e
+      console.log "Input file/path not found. toffee --help for examples"
+      process.exit 1
+    start_path = path.normalize start_path
+    recurseRun start_path, start_path
 
 # -----------------------------------------------------------------------------
 
