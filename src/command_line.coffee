@@ -1,5 +1,4 @@
 fs         = require 'fs'
-{engine}   = require '../lib/engine'
 {view}     = require '../lib/view'
 program    = require 'commander'
 
@@ -39,11 +38,19 @@ program.version(getVersionNumber())
 
 # -----------------------------------------------------------------------------
 
+recurseRun = (path) ->
+  stat = fs.statSync path
+  console.log stat
 
+run = exports.run = ->
+  console.log program.args
+  #recurseRun path
 
+# -----------------------------------------------------------------------------
 
-#exports.run = ->
-#  e = new engine()
+if require.main is module
+  run()
+
 #  args = process.argv.slice 2
 #  if args.length is 2
 #    coffee = true
