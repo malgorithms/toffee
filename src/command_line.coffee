@@ -55,7 +55,6 @@ compile = (start_path, path) ->
 # -----------------------------------------------------------------------------
 
 recurseRun = (start_path, curr_path, out_text) ->
-  console.log out_text[0...1000]
   stats = fs.statSync curr_path
   if stats.isDirectory()
     files = fs.readdirSync curr_path
@@ -90,18 +89,3 @@ run = exports.run = ->
 
 if require.main is module
   run()
-
-#  args = process.argv.slice 2
-#  if args.length is 2
-#    coffee = true
-#    if args[0] isnt "-c"
-#      printUsage()
-#  else if args.length isnt 1
-#    printUsage()
-#  fname = args[-1..][0]
-#  source = fs.readFileSync fname, "utf8"
-#  v = new view source, {fileName: fname}
-#  if coffee
-#    console.log v._toCoffee()
-#  else
-#    console.log v._toJavaScript()

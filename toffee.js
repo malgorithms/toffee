@@ -6878,7 +6878,6 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   recurseRun = function(start_path, curr_path, out_text) {
     var file, files, stats, sub_path, sub_stats, _i, _len;
-    console.log(out_text.slice(0, 1000));
     stats = fs.statSync(curr_path);
     if (stats.isDirectory()) {
       files = fs.readdirSync(curr_path);
