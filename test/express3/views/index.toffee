@@ -1,4 +1,12 @@
-<h1>Test Results</h1>
-#{partial "./subdir1/hello_world.toffee", rows:10, cols:10 }
-<hr />
-#{partial "./subdir2/goodbye_world.toffee"} 
+<html>
+  <head>
+    <title>Toffee Test</title>
+    <script type="text/javascript" src="/javascripts/test_cases.js"></script>
+  </head>
+  <body>
+    <h1>Test Results</h1>
+    #{partial "./subdir1/hello_world.toffee", rows:10, cols:10 }
+    <hr />
+    #{partial "./subdir2/goodbye_world.toffee"} 
+  </body>
+</html>

@@ -35,24 +35,42 @@ program.on '--help', ->
 program.version(getVersionNumber())
   .option('-o, --output',     'output file')
   .option('-p, --print',      'print output to stdout')
+  .option('-c, --coffee',     'output to CoffeeScript (not JS)')
   .parse process.argv
 
 # -----------------------------------------------------------------------------
 
-recurseRun = (start_path, curr_path) ->
+compile = (start_path, path) ->
+  ###
+  e.g., if start_path is /foo/bar
+  and   path is /foo/bar/car/thing.toffee
+  this compiles it specifically as
+    {identifier}/car/thing
+  where identifier is "bar" if nothing passed from cmd line
+  ###
+  source = fs.readFileSync path, 'utf8'
+  v = new view source, {fileName: path}
+  return v._toJavaScript()
+
+# -----------------------------------------------------------------------------
+
+recurseRun = (start_path, curr_path, out_text) ->
+  console.log out_text[0...1000]
   stats = fs.statSync curr_path
   if stats.isDirectory()
     files = fs.readdirSync curr_path
     for file in files
       sub_path = path.normalize "#{curr_path}/#{file}"
       if file.match /\.toffee$/
-        recurseRun start_path, sub_path
+        out_text = recurseRun start_path, sub_path, out_text
       else if not (file in ['.','..'])
         sub_stats = fs.statSync sub_path
         if sub_stats.isDirectory()
-          recurseRun start_path, sub_path
+          out_text = recurseRun start_path, sub_path, out_text
   else
-    console.log "Visiting #{curr_path}"
+    out_text += compile start_path, curr_path
+
+  return out_text
 
 run = exports.run = ->
   if program.args.length isnt 1
@@ -65,7 +83,8 @@ run = exports.run = ->
       console.log "Input file/path not found. toffee --help for examples"
       process.exit 1
     start_path = path.normalize start_path
-    recurseRun start_path, start_path
+    out_text = recurseRun start_path, start_path, ""    
+    console.log out_text
 
 # -----------------------------------------------------------------------------
 
