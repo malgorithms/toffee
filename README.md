@@ -50,13 +50,13 @@ But the greatest pleasure arises when you enter
 Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`. It's endlessly nestable.
 
 ```html
-<div class="foobar">
- <div class="whatever">
+<div class="wrapper">
+ <div class="projects">
   {#
      if projects.length
       for project in projects {:
-        <div>
-          <a href="#{project.url}">Read more</a>
+        <div class="project">
+          <a href="#{project.url}">#{project.name}</a>
         </div>
       :}
   #}
