@@ -11,16 +11,16 @@ Beta! And usable! If you hit any snags, let me know and I'll act fast.
 examples
 ========
 Printing variables is easy. Just use CoffeeScript's #{} syntax:
-```
-<p>
+```html
+<div class="welcome">
    Hey, #{user.name}. 
    #{flirty_welcome_msg}
-</p>
+</div>
 ```
 
 The `#{}` syntax is powerful, so be responsible.
 
-```
+```html
 <p>
   You have #{(f for f in friends when f.gender is "f").length} female friends.
 </p>
@@ -28,7 +28,7 @@ The `#{}` syntax is powerful, so be responsible.
 
 Including other files is possible thanks to the function `partial`. This works in Express 3.0, too.
 
-```
+```html
 <p>
    #{partial "navigation.toffee", {username: user.name, age: 22} }
 </p>
@@ -37,7 +37,7 @@ Including other files is possible thanks to the function `partial`. This works i
 But the greatest pleasure arises when you enter
 `coffee mode`. Note the `{# ... #}` region.
 
-```
+```html
 <p>
   {#
     ten_numbers = (Math.random() for i in [0...10])
@@ -49,16 +49,14 @@ But the greatest pleasure arises when you enter
 
 Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`. It's endlessly nestable.
 
-```
-<div class="foobar">
- <div class="whatever">
+```html
+<div class="wrapper">
+ <div class="projects">
   {#
      if projects.length
       for project in projects {:
-        <div>
-          #{project.title} |
-          #{project.description}
-          <a href="#{project.url}">Read more</a>
+        <div class="project">
+          <a href="#{project.url}">#{project.name}</a>
         </div>
       :}
   #}
@@ -77,14 +75,14 @@ EJS, verbose and weak.
 ```
 
 TOFFEE, so elegant and proud.
-```
+```html
 {# 
   for supply in supplies {:<li>#{supply}</li>:} 
 #}
 ```
 
 Or, using the built-in `print`:
-```
+```html
 {# 
   for supply in supplies 
     print "<li>#{supply}</li>"
@@ -96,16 +94,16 @@ is customizable. More on that below.
 
 With nested code, indentation is inferred. 
 
-```
+```html
 {#
-   for name, info of friends when info.age < 21 {:
+   for name, profile of friends when profile.is_responsible {:
       <p>
         You know, #{name} would make a great designated driver.
-        And she only lives #{info.distance} miles away.
+        And she only lives #{profile.distance}km away.
         {#
-           info.cars.sort (a,b) -> b.speed - a.speed
-           if info.cars.length {: And wow, she drives a #{info.cars[0].model} :}
-           else                {: But, alas, she has no wheels. :}
+           profile.cars.sort (a,b) -> b.speed - a.speed
+           if profile.cars.length {: And wow, she drives a #{profile.cars[0].model} :}
+           else                   {: But, alas, she has no wheels. :}
         #}
       </p>
    :}
@@ -150,7 +148,7 @@ In your CoffeeScript, the `print` function lets you print the raw value of a var
 
 But in toffee mode, `#{some_expression}` output is escaped intelligently by default:
 
-```
+```html
 <!-- escapes the HTML -->
 <p>#{danger_code}</p>
 ```
@@ -176,7 +174,7 @@ built in escape function.
 
 These functions are also available to you in coffee mode.
 
-```
+```html
 <p>
 	Want to read some JSON, human?
 	{#
@@ -219,7 +217,7 @@ ECO
 ```
 
 TOFFEE
-```
+```html
 {#
    if @projects.length
     for project in @projects
@@ -293,17 +291,17 @@ So it doesn't matter how you indent things, as long as it makes local sense insi
 
 For example, these are all identical:
 
-```
+```html
 <p>{# if x is 0 {:Yay!:} else  {:Burned:} #}</p>
 ```
 
-```
+```html
 <p>{# 
   if x is 0 {:Yay!:} else {:Burned:}
 #}</p>
 ```
 
-```
+```html
 <p>
 {# 
              if x is 0 {:Yay!:}
@@ -314,7 +312,7 @@ For example, these are all identical:
 However, this would cause an error:
 
 ERROR
-```
+```html
 <p>
 {# 
              if x is 0 {:Yay!:}
@@ -325,7 +323,7 @@ ERROR
 As would this more subtle case:
 
 ERROR
-```
+```html
 <p>
 {#   if x is 0 {:Yay!:}
      else      {:Burned:}
