@@ -20,27 +20,26 @@ if not toffee.templates   then toffee.templates = {}
 
 toffee.states = #{JSON.stringify states}
 
-toffee.print = (locals, o) ->
+toffee.__print = (locals, o) ->
   if locals.__toffee.state is toffee.states.COFFEE
     locals.__toffee.out.push o
     return ''
   else
     return "\#{o}"
 
-toffee.json = (locals, o) ->
+toffee.__json = (locals, o) ->
   try
     json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
   catch e
     throw {stack:[], message: "JSONify error (\#{e.message}) on line \#{locals.__toffee.lineno}", toffee_line_base: locals.__toffee.lineno }
   "" + json
 
-toffee.raw = (locals, o) -> o
+toffee.__raw = (locals, o) -> o
 
-toffee.html = (locals, o) ->
+toffee.__html = (locals, o) ->
   (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-toffee.escape = (locals, o) ->
-  console.log locals
+toffee.__escape = (locals, o) ->
   if (not locals.__toffee.autoEscape?) or locals.__toffee.autoEscape
     if o is undefined then return ''
     if o? and (typeof o) is "object" then return locals.json o
@@ -384,11 +383,17 @@ toffee.templates["#{@bundlePath}"].pub = (locals) ->
 #{___}localsPointer = locals
 #{___}locals.__toffee       = {}
 
-#{___}if not locals.print?   then locals.print    = (o) -> toffee.print   localsPointer, o
-#{___}if not locals.json?    then locals.json     = (o) -> toffee.json    localsPointer, o
-#{___}if not locals.raw?     then locals.raw      = (o) -> toffee.raw     localsPointer, o
-#{___}if not locals.html?    then locals.html     = (o) -> toffee.html    localsPointer, o
-#{___}if not locals.escape?  then locals.escape   = (o) -> toffee.escape  localsPointer, o
+#{___}if not locals.print?   then locals.print    = (o) -> toffee.__print   localsPointer, o
+#{___}if not locals.json?    then locals.json     = (o) -> toffee.__json    localsPointer, o
+#{___}if not locals.raw?     then locals.raw      = (o) -> toffee.__raw     localsPointer, o
+#{___}if not locals.html?    then locals.html     = (o) -> toffee.__html    localsPointer, o
+#{___}if not locals.escape?  then locals.escape   = (o) -> toffee.__escape  localsPointer, o
+
+#{___}locals.__toffee.print  = locals.print
+#{___}locals.__toffee.json   = locals.json
+#{___}locals.__toffee.raw    = locals.raw
+#{___}locals.__toffee.html   = locals.html
+#{___}locals.__toffee.escape = locals.escape
 
 #{___}`with (locals) {`
 #{___}__toffee.out = []
