@@ -8,6 +8,51 @@ try
 catch e
   coffee                                = require "coffee-script"
 
+
+getCommonHeaders = ->
+  ###
+  each view will use this, or if they're bundled together,
+  it'll only be used once  
+  ###
+  """
+if not toffee?            then toffee = {}
+if not toffee.templates   then toffee.templates = {}
+
+toffee.states = #{JSON.stringify states}
+
+toffee.print = (locals, o) ->
+  if locals.__toffee.state is toffee.states.COFFEE
+    locals.__toffee.out.push o
+    return ''
+  else
+    return "\#{o}"
+
+toffee.json = (locals, o) ->
+  try
+    json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
+  catch e
+    throw {stack:[], message: "JSONify error (\#{e.message}) on line \#{locals.__toffee.lineno}", toffee_line_base: locals.__toffee.lineno }
+  "" + json
+
+toffee.raw = (locals, o) -> o
+
+toffee.html = (locals, o) ->
+  (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+toffee.escape = (locals, o) ->
+  console.log locals
+  if (not locals.__toffee.autoEscape?) or locals.__toffee.autoEscape
+    if o is undefined then return ''
+    if o? and (typeof o) is "object" then return locals.json o
+    return locals.html o
+  return o
+
+"""
+
+getCommonHeadersJs = ->
+  ch = getCommonHeaders()
+  coffee.compile ch, {bare: true}
+
 class view
 
   constructor: (txt, options) ->
@@ -16,9 +61,10 @@ class view
       cb: if this is set, compilation will happen async and cb will be executed when it's ready
     ###
     options = options or {}
-    @fileName           = options.fileName or options.filename or null
-    @identifier         = options.indentifier or "pub"
-    @verbose            = options.verbose or false
+    @fileName           = options.fileName    or options.filename or null
+    @bundlePath         = options.bundlePath  or "/" # if to be included inside a bundle, this is the path inside it.
+    @browserMode        = options.browserMode or false
+    @verbose            = options.verbose     or false
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @txt                = txt
     @tokenObj           = null # constructed as needed
@@ -186,12 +232,12 @@ class view
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "TOFFEE_ZONE"
-        res += "\n#{@_space indent_level}__toffee.state  = states.TOFFEE"
+        res += "\n#{@_space indent_level}__toffee.state  = toffee.states.TOFFEE"
         for item in obj[1]
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "COFFEE_ZONE"
-        res += "\n#{@_space indent_level}__toffee.state = states.COFFEE"
+        res += "\n#{@_space indent_level}__toffee.state = toffee.states.COFFEE"
         zone_baseline   = @_getZoneBaseline obj[1]
         temp_indent_level = indent_level
         for item in obj[1]
@@ -200,7 +246,7 @@ class view
           temp_indent_level = indent_level + delta
       when "TOFFEE"
         ind = indent_level
-        res += "\n#{@_space ind}__toffee.state = states.TOFFEE"
+        res += "\n#{@_space ind}__toffee.state = toffee.states.TOFFEE"
         lineno = obj[2]
         try
           t_int = utils.interpolateString obj[1]
@@ -230,7 +276,7 @@ class view
                 res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr(chunk + lbreak)}"
               if i < lines.length - 1 then lineno++
         res += @_printLineNo obj[2] + (obj[1].split('\n').length-1), ind
-        res += "\n#{@_space ind}__toffee.state = states.COFFEE"
+        res += "\n#{@_space ind}__toffee.state = toffee.states.COFFEE"
       when "COFFEE"
         c = obj[1]
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
@@ -330,48 +376,22 @@ class view
 
   _coffeeHeaders: ->
     ___  = @_tabAsSpaces()
+
     """
-domain                  = this
-domain.toffeeTemplates  = domain.toffeeTemplates or {}
-domain.toffeeTemplates["#{@identifier}"] = (locals) ->
-#{___}domain                = this
+#{if not @browserMode then getCommonHeaders() else ''}
+toffee.templates["#{@bundlePath}"]     = {}
+toffee.templates["#{@bundlePath}"].pub = (locals) ->
+#{___}localsPointer = locals
 #{___}locals.__toffee       = {}
+
+#{___}if not locals.print?   then locals.print    = (o) -> toffee.print   localsPointer, o
+#{___}if not locals.json?    then locals.json     = (o) -> toffee.json    localsPointer, o
+#{___}if not locals.raw?     then locals.raw      = (o) -> toffee.raw     localsPointer, o
+#{___}if not locals.html?    then locals.html     = (o) -> toffee.html    localsPointer, o
+#{___}if not locals.escape?  then locals.escape   = (o) -> toffee.escape  localsPointer, o
+
 #{___}`with (locals) {`
 #{___}__toffee.out = []
-
-#{___}if not print?
-#{___}#{___}print = (txt) ->
-#{___}#{___}#{___}if __toffee.state is states.COFFEE
-#{___}#{___}#{___}#{___}__toffee.out.push txt
-#{___}#{___}#{___}#{___}return ''
-#{___}#{___}#{___}else
-#{___}#{___}#{___}#{___}return "\#{txt}x"
-
-#{___}__toffee.json = (o) ->
-#{___}#{___}try
-#{___}#{___}#{___}json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
-#{___}#{___}catch e
-#{___}#{___}#{___}throw {stack:[], message: "JSONify error (\#{e.message}) on line \#{__toffee.lineno}", toffee_line_base: __toffee.lineno }
-#{___}#{___}res = "" + json
-
-#{___}__toffee.html = (o) ->
-#{___}#{___}res = (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-
-#{___}__toffee.raw = (o) -> o
-
-#{___}if not raw? then raw   = __toffee.raw
-#{___}if not html? then html = __toffee.html
-#{___}if not json? then json = __toffee.json
-
-#{___}if not escape?
-#{___}#{___}escape = (o) ->
-#{___}#{___}#{___}if (not __toffee.autoEscape?) or __toffee.autoEscape
-#{___}#{___}#{___}#{___}if o is undefined then return ''
-#{___}#{___}#{___}#{___}if o? and (typeof o) is "object" then return __toffee.json o
-#{___}#{___}#{___}#{___}return __toffee.html o
-#{___}#{___}#{___}return o
-
-#{___}states = #{JSON.stringify states}
 """
 
   _coffeeFooters: ->
@@ -383,10 +403,12 @@ domain.toffeeTemplates["#{@identifier}"] = (locals) ->
 # sometimes we want to execute the whole thing in a sandbox
 # and just output results
 if __toffee_run_input?
-#{___}return domain.toffeeTemplates["#{@identifier}"] __toffee_run_input
+#{___}return toffee.templates["#{@bundlePath}"].pub __toffee_run_input
 """
 
-exports.view   = view
+exports.view                = view
+exports.getCommonHeaders    = getCommonHeaders
+exports.getCommonHeadersJs  = getCommonHeadersJs
 
 # express 2.x support
 exports.expressCompile = (txt, options) ->

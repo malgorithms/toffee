@@ -1,58 +1,82 @@
+var toffee;
+
+if (!toffee) toffee = {};
+
+if (!toffee.templates) toffee.templates = {};
+
+toffee.print = function(__toffee, txt) {
+  if (__toffee.state === states.COFFEE) {
+    __toffee.out.push(txt);
+    return '';
+  } else {
+    return "" + txt + "x";
+  }
+};
+
+toffee.json = function(__toffee, o) {
+  var json;
+  try {
+    json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
+  } catch (e) {
+    throw {
+      stack: [],
+      message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
+      toffee_line_base: __toffee.lineno
+    };
+  }
+  return "" + json;
+};
+
+toffee.raw = function(__toffee, o) {
+  return o;
+};
+
+toffee.html = function(__toffee, o) {
+  return ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+};
+
+toffee.escape = function(__toffee, o) {
+  if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
+    if (o === void 0) return '';
+    if ((o != null) && (typeof o) === "object") return __toffee.json(o);
+    return __toffee.html(o);
+  }
+  return o;
+};
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/big_file/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var count, escape, html, i, json, print, raw, states, _i;
-    domain = this;
+  toffee.templates["/big_file/input.toffee"].pub = function(locals) {
+    var count, escape, html, i, json, print, raw, states, _i, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -4958,65 +4982,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/big_file/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/big_file/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/big_file/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5034,65 +5037,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/big_file/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/comments/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/comments/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5133,65 +5115,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/comments/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/comments/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/comments/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5220,65 +5181,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/comments/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/custom_escape/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states, w, x, y, z;
-    domain = this;
+  toffee.templates["/custom_escape/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, w, x, y, z, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5377,65 +5317,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/custom_escape/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/custom_escape/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/custom_escape/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5499,65 +5418,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/custom_escape/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/eco_compare/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, f, friends, html, json, print, project, raw, states, _i, _len, _ref;
-    domain = this;
+  toffee.templates["/eco_compare/input.toffee"].pub = function(locals) {
+    var escape, f, friends, html, json, print, project, raw, states, _i, _len, _ref, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5643,65 +5541,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/eco_compare/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/eco_compare/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/eco_compare/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5735,65 +5612,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/eco_compare/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/escape/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states, w, x, y, z;
-    domain = this;
+  toffee.templates["/escape/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, w, x, y, z, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -5928,65 +5784,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/escape/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/escape/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/escape/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6078,65 +5913,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/escape/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/hello_world/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/hello_world/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6155,65 +5969,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/hello_world/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/hello_world/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/hello_world/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6231,65 +6024,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/hello_world/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/hello_world/temp.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/hello_world/temp.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6320,65 +6092,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/hello_world/temp.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_order/child.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_order/child.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6405,65 +6156,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_order/child.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_order/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, say_hi, states;
-    domain = this;
+  toffee.templates["/include_order/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, say_hi, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6500,65 +6230,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_order/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_order/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_order/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6588,65 +6297,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_order/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_recursion/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_recursion/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6671,65 +6359,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_recursion/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_recursion/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_recursion/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6747,65 +6414,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_recursion/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_techniques/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_techniques/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6846,65 +6492,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_techniques/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_techniques/message.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, from, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_techniques/message.toffee"].pub = function(locals) {
+    var escape, from, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -6929,65 +6554,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_techniques/message.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/include_techniques/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/include_techniques/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7028,65 +6632,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/include_techniques/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/indent_attack/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, i, json, print, raw, states, x, _i;
-    domain = this;
+  toffee.templates["/indent_attack/input.toffee"].pub = function(locals) {
+    var escape, html, i, json, print, raw, states, x, _i, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7296,65 +6879,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/indent_attack/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/indent_attack/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/indent_attack/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7400,65 +6962,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/indent_attack/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/junk/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states, supplies, supply, _i, _len;
-    domain = this;
+  toffee.templates["/junk/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, supplies, supply, _i, _len, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7494,65 +7035,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/junk/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/junk/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/junk/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7574,65 +7094,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/junk/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/lambda_fns/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var echo_it, escape, html, json, print, print_it, print_it_twice, raw, states;
-    domain = this;
+  toffee.templates["/lambda_fns/input.toffee"].pub = function(locals) {
+    var echo_it, escape, html, json, print, print_it, print_it_twice, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7675,65 +7174,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/lambda_fns/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/lambda_fns/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/lambda_fns/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7751,65 +7229,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/lambda_fns/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/multiline_interpolation/foo.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/multiline_interpolation/foo.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7829,65 +7286,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/multiline_interpolation/foo.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/multiline_interpolation/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/multiline_interpolation/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7915,65 +7351,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/multiline_interpolation/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/multiline_interpolation/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/multiline_interpolation/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -7995,65 +7410,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/multiline_interpolation/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/plaintext/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/plaintext/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8071,65 +7465,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/plaintext/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/plaintext/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/plaintext/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8147,65 +7520,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/plaintext/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/snippets/foo/bar/body.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, msg, print, raw, states;
-    domain = this;
+  toffee.templates["/snippets/foo/bar/body.toffee"].pub = function(locals) {
+    var escape, html, json, msg, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8222,65 +7574,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/snippets/foo/bar/body.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/snippets/foo/message.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, from, html, json, msg, print, raw, states;
-    domain = this;
+  toffee.templates["/snippets/foo/message.toffee"].pub = function(locals) {
+    var escape, from, html, json, msg, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8300,65 +7631,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/snippets/foo/message.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/snippets/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/snippets/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8389,65 +7699,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/snippets/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/snippets/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/snippets/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8479,65 +7768,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/snippets/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/special_cases/input.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/special_cases/input.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8579,65 +7847,44 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/special_cases/input.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);
 (function() {
-  var domain;
 
-  domain = this;
+  toffee.templates["/special_cases/output.toffee"] = {};
 
-  domain.toffeeTemplates = domain.toffeeTemplates || {};
-
-  domain.toffeeTemplates["pub"] = function(locals) {
-    var escape, html, json, print, raw, states;
-    domain = this;
+  toffee.templates["/special_cases/output.toffee"].pub = function(locals) {
+    var escape, html, json, print, raw, states, _toffeePtr;
+    _toffeePtr = toffee;
     locals.__toffee = {};
     with (locals) {;
 
     __toffee.out = [];
     if (!(typeof print !== "undefined" && print !== null)) {
-      print = function(txt) {
-        if (__toffee.state === states.COFFEE) {
-          __toffee.out.push(txt);
-          return '';
-        } else {
-          return "" + txt + "x";
-        }
+      print = function(o) {
+        return _toffeePtr.print(__toffee, o);
       };
     }
-    __toffee.json = function(o) {
-      var json, res;
-      try {
-        json = JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
-      } catch (e) {
-        throw {
-          stack: [],
-          message: "JSONify error (" + e.message + ") on line " + __toffee.lineno,
-          toffee_line_base: __toffee.lineno
-        };
-      }
-      return res = "" + json;
-    };
-    __toffee.html = function(o) {
-      var res;
-      return res = ("" + o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    };
-    __toffee.raw = function(o) {
-      return o;
-    };
-    if (!(typeof raw !== "undefined" && raw !== null)) raw = __toffee.raw;
-    if (!(typeof html !== "undefined" && html !== null)) html = __toffee.html;
-    if (!(typeof json !== "undefined" && json !== null)) json = __toffee.json;
+    if (!(typeof json !== "undefined" && json !== null)) {
+      json = function(o) {
+        return _toffeePtr.json(__toffee, o);
+      };
+    }
+    if (!(typeof raw !== "undefined" && raw !== null)) {
+      raw = function(o) {
+        return _toffeePtr.raw(__toffee, o);
+      };
+    }
+    if (!(typeof html !== "undefined" && html !== null)) {
+      html = function(o) {
+        return _toffeePtr.html(__toffee, o);
+      };
+    }
     if (!(typeof escape !== "undefined" && escape !== null)) {
       escape = function(o) {
-        if ((!(__toffee.autoEscape != null)) || __toffee.autoEscape) {
-          if (o === void 0) return '';
-          if ((o != null) && (typeof o) === "object") return __toffee.json(o);
-          return __toffee.html(o);
-        }
-        return o;
+        return _toffeePtr.escape(__toffee, o);
       };
     }
     states = {
@@ -8665,7 +7912,7 @@
   };
 
   if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
-    return domain.toffeeTemplates["pub"](__toffee_run_input);
+    return toffee.templates["/special_cases/output.toffee"].pub(__toffee_run_input);
   }
 
 }).call(this);

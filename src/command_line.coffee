@@ -1,7 +1,7 @@
-fs         = require 'fs'
-path       = require 'path'
-{view}     = require '../lib/view'
-program    = require 'commander'
+fs                              = require 'fs'
+path                            = require 'path'
+{view, getCommonHeadersJs}      = require '../lib/view'
+program                         = require 'commander'
 
 # -----------------------------------------------------------------------------
 
@@ -44,12 +44,12 @@ compile = (start_path, path) ->
   ###
   e.g., if start_path is /foo/bar
   and   path is /foo/bar/car/thing.toffee
-  this compiles it specifically as
-    {identifier}/car/thing
-  where identifier is "bar" if nothing passed from cmd line
   ###
   source = fs.readFileSync path, 'utf8'
-  v = new view source, {fileName: path}
+  v = new view source,
+    fileName:     path
+    bundlePath:   path[start_path.length...]
+    browserMode:  true
   return v._toJavaScript()
 
 # -----------------------------------------------------------------------------
@@ -83,6 +83,7 @@ run = exports.run = ->
       process.exit 1
     start_path = path.normalize start_path
     out_text = recurseRun start_path, start_path, ""    
+    out_text = getCommonHeadersJs() + out_text
     console.log out_text
 
 # -----------------------------------------------------------------------------

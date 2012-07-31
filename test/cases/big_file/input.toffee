@@ -1,41 +1,11 @@
 {#
   count = 0
-  for i in [0...5] {:#{
+  for i in [0...2] {:#{
     count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
+    }...#{count++}...#{count++}...#{count++}...#{count++
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...{#
       count += 1
@@ -47,151 +17,8 @@
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
     }...{#
       count += 1
       print "#{count}..."
-    #}#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...{#
-      count += 1
-      print "#{count}..."
-    #}#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...{#
-      count += 1
-      print "#{count}..."
-    #}#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...:}
+    #}:}
 #}
