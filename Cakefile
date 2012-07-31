@@ -1,7 +1,7 @@
 {spawn, exec} = require 'child_process'
 fs            = require 'fs'
 jison         = require 'jison'
-stitch        = require 'stitch'
+path          = require 'path'
 
 task 'build', 'build the whole jam', (cb) ->  
   console.log "Building"
@@ -41,9 +41,50 @@ buildParser = (cb) ->
   cb()
 
 generateExpressTest = (cb) ->
+
+  # generate the JS file bundling all the tests
+
   proc = spawn 'coffee', ['./src/command_line.coffee', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
   proc.on 'exit', (status) ->
     process.exit(1) if status isnt 0
     cb() if typeof cb is 'function'
+
+  # generate an index page that tests them all
+
+  test_page = """
+  <html>
+    <head>
+      <title>Test Toffee in the browser</title>
+      <script type="text/javascript" src="/javascripts/test_cases.js"></script>
+      <style>
+        .test_case {font-size:9px; font-family:courier new;}
+        .server_output, .script_output, .expected_output {padding:10px;float:left;width:300px;border:1px solid #eee;}
+      </style>
+    </head>
+    <body>
+  """
+
+  case_dirs = fs.readdirSync "./test/cases/"
+
+  for dir in case_dirs
+    if dir isnt "custom_escape" # a special case since this isn't actually JSON
+      if path.existsSync "./test/cases/#{dir}/vars.js"
+        vars     = "," + fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
+      else
+        vars     = ""
+      test_page += """
+        <div class="test_case">
+          <div class="server_output">\#{partial '../../cases/#{dir}/input.toffee' #{vars}}</div>
+          <div class="script_output"></div>
+          <div class="expected_output"></div>
+          <div style="clear:both;"></div>
+        </div>
+      """
+
+  test_page += """
+    </body>
+  </html>
+  """
+  fs.writeFileSync "./test/express3/views/index.toffee", test_page, "utf8"

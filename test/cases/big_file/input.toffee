@@ -1,24 +1,24 @@
 {#
   count = 0
   for i in [0...2] {:#{
-    count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
+    count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
     }...{#
       count += 1
-      print "#{count}..."
-    #}#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
-    }...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++}...#{count++
+      print " #{count}..."
+    #} #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
+    }... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++}... #{count++
     }...{#
       count += 1
-      print "#{count}..."
+      print " #{count}..."
     #}:}
 #}

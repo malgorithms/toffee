@@ -1,12 +1,99 @@
 <html>
   <head>
-    <title>Toffee Test</title>
+    <title>Test Toffee in the browser</title>
     <script type="text/javascript" src="/javascripts/test_cases.js"></script>
+    <style>
+      .test_case {font-size:9px; font-family:courier new;}
+      .server_output, .script_output, .expected_output {padding:10px;float:left;width:300px;border:1px solid #eee;}
+    </style>
   </head>
-  <body>
-    <h1>Test Results</h1>
-    #{partial "./subdir1/hello_world.toffee", rows:10, cols:10 }
-    <hr />
-    #{partial "./subdir2/goodbye_world.toffee"} 
-  </body>
+  <body><div class="test_case">
+  <div class="server_output">#{partial '../../cases/big_file/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/comments/input.toffee' ,{
+	"greeting": "Hello"
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/eco_compare/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/escape/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/hello_world/input.toffee' ,{
+	"greeting": "Hello"
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/include_order/input.toffee' ,{
+	"greeting": "Hello"
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/include_recursion/input.toffee' ,{
+	"countdown" : 10
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/include_techniques/input.toffee' ,{
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/indent_attack/input.toffee' ,{
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/junk/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/lambda_fns/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/multiline_interpolation/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/plaintext/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/snippets/input.toffee' ,{
+	"from": "Preloaded sender",
+	"msg" : "Preloaded message."
+}}</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div><div class="test_case">
+  <div class="server_output">#{partial '../../cases/special_cases/input.toffee' }</div>
+  <div class="script_output"></div>
+  <div class="expected_output"></div>
+  <div style="clear:both;"></div>
+</div>  </body>
 </html>
