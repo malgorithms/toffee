@@ -11,9 +11,9 @@ task 'build', 'build the whole jam', (cb) ->
     buildParser ->
       runCoffee ['-c', '-o', 'lib/'].concat(files), ->
         runCoffee ['-c', 'index.coffee'], ->
-          stitchIt ->
-            console.log "Done building."
-            cb() if typeof cb is 'function'
+          #stitchIt ->
+          console.log "Done building."
+          cb() if typeof cb is 'function'
 
 runCoffee = (args, cb) ->
   proc =  spawn 'coffee', args
@@ -23,13 +23,13 @@ runCoffee = (args, cb) ->
     process.exit(1) if status != 0
     cb() if typeof cb is 'function'
 
-stitchIt = (cb) ->
-  s = stitch.createPackage { paths: ['lib'] }
-  s.compile (err, source) ->
-    fs.writeFile 'toffee.js', source, (err) ->
-      if err then throw err
-      console.log "Stitched."
-      cb()
+#stitchIt = (cb) ->
+#  s = stitch.createPackage { paths: ['lib'] }
+#  s.compile (err, source) ->
+#    fs.writeFile 'toffee.js', source, (err) ->
+#      if err then throw err
+#      console.log "Stitched."
+#      cb()
 
 clearLibJs = (cb) ->
   files = fs.readdirSync 'lib'
