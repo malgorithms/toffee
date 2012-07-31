@@ -12,7 +12,7 @@ examples
 ========
 Printing variables is easy. Just use CoffeeScript's #{} syntax:
 ```html
-<div class="so_classy">
+<div class="welcome">
    Hey, #{user.name}. 
    #{flirty_welcome_msg}
 </div>
