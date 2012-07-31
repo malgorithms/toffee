@@ -33,7 +33,7 @@ program.on '--help', ->
   "
 
 program.version(getVersionNumber())
-  .option('-o, --output',     'output file')
+  .option('-o, --output [path]',     'output file')
   .option('-p, --print',      'print output to stdout')
   .option('-c, --coffee',     'output to CoffeeScript (not JS)')
   .parse process.argv
@@ -72,8 +72,10 @@ recurseRun = (start_path, curr_path, out_text) ->
   return out_text
 
 run = exports.run = ->
+
   if program.args.length isnt 1
     console.log "Unexpected input. toffee --help for examples"
+    console.log program.args
     process.exit 1
   else
     try
@@ -84,7 +86,16 @@ run = exports.run = ->
     start_path = path.normalize start_path
     out_text = recurseRun start_path, start_path, ""    
     out_text = getCommonHeadersJs() + out_text
-    console.log out_text
+    if program.print
+      console.log out_text
+    if program.output
+      try 
+        console.log "Writing #{program.output}"
+        fs.writeFileSync program.output, out_text, "utf8"
+      catch e
+        console.log e
+        process.exit 1
+
 
 # -----------------------------------------------------------------------------
 

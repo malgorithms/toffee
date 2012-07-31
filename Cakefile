@@ -11,25 +11,17 @@ task 'build', 'build the whole jam', (cb) ->
     buildParser ->
       runCoffee ['-c', '-o', 'lib/'].concat(files), ->
         runCoffee ['-c', 'index.coffee'], ->
-          #stitchIt ->
-          console.log "Done building."
-          cb() if typeof cb is 'function'
+          generateExpressTest ->
+            console.log "Done building."
+            cb() if typeof cb is 'function'
 
 runCoffee = (args, cb) ->
   proc =  spawn 'coffee', args
   console.log args
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.on        'exit', (status) ->
-    process.exit(1) if status != 0
+    process.exit(1) if status isnt 0
     cb() if typeof cb is 'function'
-
-#stitchIt = (cb) ->
-#  s = stitch.createPackage { paths: ['lib'] }
-#  s.compile (err, source) ->
-#    fs.writeFile 'toffee.js', source, (err) ->
-#      if err then throw err
-#      console.log "Stitched."
-#      cb()
 
 clearLibJs = (cb) ->
   files = fs.readdirSync 'lib'
@@ -47,3 +39,11 @@ buildParser = (cb) ->
   }
   fs.writeFileSync "./lib/#{file_name}", source
   cb()
+
+generateExpressTest = (cb) ->
+  proc = spawn 'coffee', ['./src/command_line.coffee', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
+  proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
+  proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
+  proc.on 'exit', (status) ->
+    process.exit(1) if status isnt 0
+    cb() if typeof cb is 'function'
