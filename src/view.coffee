@@ -26,11 +26,8 @@ if not toffee.templates   then toffee.templates = {}
 toffee.states = #{JSON.stringify states}
 
 toffee.__json = (locals, o) ->
-  try
-    json = JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
-  catch e
-    throw {stack:[], message: "JSONify error (\#{e.message}) on line \#{locals.__toffee.lineno}", toffee_line_base: locals.__toffee.lineno }
-  "" + json
+  if not o? then return "null"
+  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
 
 toffee.__raw = (locals, o) -> o
 
