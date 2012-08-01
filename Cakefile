@@ -70,14 +70,14 @@ generateExpressTest = (cb) ->
 
   case_dirs = fs.readdirSync "./test/cases/"
 
-  for dir in case_dirs
+  for dir,i in case_dirs
     if dir isnt "custom_escape" # a special case since this isn't actually JSON
       expected_output = fs.readFileSync "./test/cases/#{dir}/output.toffee", "utf8"
       if path.existsSync "./test/cases/#{dir}/vars.js"
         vars     = fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
       else
         vars     = "{}"
-      rid = Math.floor 100000 * Math.random()
+      rid = i
       test_page += """
         \n\n\n<!-- ************ #{dir} -->
         <tr class="test_case">
