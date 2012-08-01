@@ -4,3 +4,8 @@
 <p>
   <a>click & clack</a>
 </p>
+
+A backslash is a \
+<script>
+ var passed = "\"passed\"";
+</script>

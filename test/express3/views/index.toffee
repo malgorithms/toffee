@@ -3,97 +3,454 @@
     <title>Test Toffee in the browser</title>
     <script type="text/javascript" src="/javascripts/test_cases.js"></script>
     <style>
-      .test_case {font-size:9px; font-family:courier new;}
+      .test_case {font-size:10px; font-family:courier new;}
       .server_output, .script_output, .expected_output {padding:10px;float:left;width:300px;border:1px solid #eee;}
     </style>
   </head>
-  <body><div class="test_case">
-  <div class="server_output">#{partial '../../cases/big_file/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <body>
+
+
+<!-- ************ big_file -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/big_file/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output">0... 1... 2... 3... 4... 5... 6... 7... 8... 9... 10... 11... 12... 13... 14... 15... 16... 17... 18... 19... 20... 21... 22... 23... 24... 25... 26... 27... 28... 29... 30... 31... 32... 33... 34... 35... 36... 37... 38... 39... 40... 41... 42... 43... 44... 45... 46... 47... 48... 49... 50... 51... 52... 53... 54... 55... 56... 57... 58... 59... 60... 61... 62... 63... 64... 65... 66... 67... 68... 70... 70... 71... 72... 73... 74... 75... 76... 77... 78... 79... 80... 81... 82... 83... 84... 85... 86... 87... 88... 89... 90... 91... 92... 93... 94... 95... 96... 97... 98... 99... 100... 101... 102... 103... 104... 105... 106... 107... 108... 109... 110... 111... 112... 113... 114... 115... 116... 117... 118... 119... 120... 121... 122... 123... 124... 125... 126... 127... 128... 129... 130... 131... 132... 133... 134... 135... 136... 137... 138... 139... 140... 141... 142... 143... 144... 145... 146... 147... 148... 149... 150... 151... 152... 153... 154... 155... 156... 157... 158... 159... 160... 162...162... 163... 164... 165... 166... 167... 168... 169... 170... 171... 172... 173... 174... 175... 176... 177... 178... 179... 180... 181... 182... 183... 184... 185... 186... 187... 188... 189... 190... 191... 192... 193... 194... 195... 196... 197... 198... 199... 200... 201... 202... 203... 204... 205... 206... 207... 208... 209... 210... 211... 212... 213... 214... 215... 216... 217... 218... 219... 220... 221... 222... 223... 224... 225... 226... 227... 228... 229... 230... 232... 232... 233... 234... 235... 236... 237... 238... 239... 240... 241... 242... 243... 244... 245... 246... 247... 248... 249... 250... 251... 252... 253... 254... 255... 256... 257... 258... 259... 260... 261... 262... 263... 264... 265... 266... 267... 268... 269... 270... 271... 272... 273... 274... 275... 276... 277... 278... 279... 280... 281... 282... 283... 284... 285... 286... 287... 288... 289... 290... 291... 292... 293... 294... 295... 296... 297... 298... 299... 300... 301... 302... 303... 304... 305... 306... 307... 308... 309... 310... 311... 312... 313... 314... 315... 316... 317... 318... 319... 320... 321... 322... 324...</div>
+  <!-- -->
+  <div class="script_output" id="77410">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/comments/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/big_file/input.toffee"].pub({});
+  document.getElementById("77410").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ comments -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/comments/input.toffee', {
 	"greeting": "Hello"
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output">
+Pass 1
+
+Pass 2
+
+Pass 3
+</div>
+  <!-- -->
+  <div class="script_output" id="9672">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/eco_compare/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/comments/input.toffee"].pub({
+	"greeting": "Hello"
+});
+  document.getElementById("9672").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ eco_compare -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/eco_compare/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output">
+      <a href="http://localhost:3000">okcupid</a>
+      <p>A site for singles</p>
+    
+      <a href="http://localhost:3001">tallygram</a>
+      <p>A site for anyone</p>
+    
+
+You have 3 female friends.</div>
+  <!-- -->
+  <div class="script_output" id="91350">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/escape/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/eco_compare/input.toffee"].pub({});
+  document.getElementById("91350").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ escape -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/escape/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output"><p>
+ default x = &quot;Hello world&quot;
+ default y = &lt;td&gt;
+ default z = click&amp;clack
+ default w = [1,2,{"place":"The Dreadfort"}]
+ default r = 
+ default w.foo = 
+</p>
+<p>
+ raw x = "Hello world"
+ raw y = <td>
+ raw z = click&clack
+ raw w = 1,2,[object Object]
+</p>
+<script>
+  x = "\"Hello world\""
+  y = "\u003Ctd\u003E"
+  z = "click\u0026clack"
+  w = [1,2,{"place":"The Dreadfort"}]
+</script>
+<p>
+ raw printed x = "Hello world"
+ raw printed y = <td>
+ raw printed z = click&clack
+ raw printed w = 1,2,[object Object]
+</p>
+<p>
+ json printed x = "\"Hello world\""
+ json printed y = "\u003Ctd\u003E"
+ json printed z = "click\u0026clack"
+ json printed w = [1,2,{"place":"The Dreadfort"}]
+</p>
+<p>
+ html printed longhand x = &quot;Hello world&quot;
+ html printed longhand y = &lt;td&gt;
+ html printed longhand z = click&amp;clack
+ html printed longhand w = 1,2,[object Object]
+</p></div>
+  <!-- -->
+  <div class="script_output" id="6691">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/hello_world/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/escape/input.toffee"].pub({});
+  document.getElementById("6691").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ hello_world -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/hello_world/input.toffee', {
 	"greeting": "Hello"
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output">Hello, world.</div>
+  <!-- -->
+  <div class="script_output" id="33968">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/include_order/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/hello_world/input.toffee"].pub({
+	"greeting": "Hello"
+});
+  document.getElementById("33968").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ include_order -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/include_order/input.toffee', {
 	"greeting": "Hello"
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output">1
+2
+hia
+
+b
+3
+4</div>
+  <!-- -->
+  <div class="script_output" id="3913">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/include_recursion/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/include_order/input.toffee"].pub({
+	"greeting": "Hello"
+});
+  document.getElementById("3913").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ include_recursion -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/include_recursion/input.toffee', {
 	"countdown" : 10
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output">10...9...8...7...6...5...4...3...2...1...blastoff!</div>
+  <!-- -->
+  <div class="script_output" id="9289">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/include_techniques/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/include_recursion/input.toffee"].pub({
+	"countdown" : 10
+});
+  document.getElementById("9289").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ include_techniques -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/include_techniques/input.toffee', {
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output">From: Chris &lt;ccoyne77@gmail&gt; 
+Msg:  Hello, world
+
+From: Max &amp; Sam 
+Msg:  Hello, world
+
+From: Christian 
+Msg:  Hello, world
+From: Jennie 
+Msg:  Hello, world
+From: Unknown 
+Msg:  Hello, world
+</div>
+  <!-- -->
+  <div class="script_output" id="21169">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/indent_attack/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/include_techniques/input.toffee"].pub({
+});
+  document.getElementById("21169").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ indent_attack -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/indent_attack/input.toffee', {
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output"><hr />
+    Pass1Pass2
+<hr />
+
+Pass3Pass4
+<hr />
+
+Pass5Pass6
+
+Pass7Pass8
+
+...passed with flying colors.
+<p>
+ <br />0<br />1<br />2<br />3 (my favorite number) <br />4<br />5<br />6<br />7<br />8<br />9
+</p></div>
+  <!-- -->
+  <div class="script_output" id="14921">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/junk/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/indent_attack/input.toffee"].pub({
+});
+  document.getElementById("14921").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ junk -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/junk/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output"><ul>
+  <li>broom</li><li>mop</li><li>vacuum</li>
+</ul></div>
+  <!-- -->
+  <div class="script_output" id="39867">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/lambda_fns/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/junk/input.toffee"].pub({});
+  document.getElementById("39867").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ lambda_fns -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/lambda_fns/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output">PassPassPassPass</div>
+  <!-- -->
+  <div class="script_output" id="34357">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/multiline_interpolation/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/lambda_fns/input.toffee"].pub({});
+  document.getElementById("34357").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ multiline_interpolation -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/multiline_interpolation/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output">Hello, world
+<hr />
+Goodbye, world</div>
+  <!-- -->
+  <div class="script_output" id="85904">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/plaintext/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/multiline_interpolation/input.toffee"].pub({});
+  document.getElementById("85904").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ plaintext -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/plaintext/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output">Hi there.</div>
+  <!-- -->
+  <div class="script_output" id="8311">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/snippets/input.toffee' ,{
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/plaintext/input.toffee"].pub({});
+  document.getElementById("8311").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ snippets -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/snippets/input.toffee', {
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 }}</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+  <!-- -->
+  <div class="expected_output">From: Preloaded sender
+Preloaded message.
+From: Unknown sender
+Unknown message.
+From: Sam
+Preloaded message.
+From: Max
+Unknown message.</div>
+  <!-- -->
+  <div class="script_output" id="57485">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div><div class="test_case">
-  <div class="server_output">#{partial '../../cases/special_cases/input.toffee' }</div>
-  <div class="script_output"></div>
-  <div class="expected_output"></div>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/snippets/input.toffee"].pub({
+	"from": "Preloaded sender",
+	"msg" : "Preloaded message."
+});
+  document.getElementById("57485").innerHTML = script_res;
+</script>
+
+
+
+
+
+
+<!-- ************ special_cases -->
+<div class="test_case">
+  <div class="server_output">#{partial '../../cases/special_cases/input.toffee', {}}</div>
+  <!-- -->
+  <div class="expected_output">
+"PASSED"
+
+<p>
+  <a>click & clack</a>
+</p>
+
+A backslash is a \
+<script>
+ var passed = "\"passed\"";
+</script></div>
+  <!-- -->
+  <div class="script_output" id="88743">
+  </div>
+  <!-- -->
   <div style="clear:both;"></div>
-</div>  </body>
+</div>
+<script type="text/javascript">
+  var script_res = toffee.templates["/special_cases/input.toffee"].pub({});
+  document.getElementById("88743").innerHTML = script_res;
+</script>
+
+
+
+  </body>
 </html>

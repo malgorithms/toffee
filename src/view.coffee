@@ -46,6 +46,56 @@ toffee.__escape = (locals, o) ->
     return locals.html o
   return o
 
+toffee.__normalize = (path) ->
+  if (not path?) or path is "/"
+    return path
+  else 
+    parts = path.split "/"
+    np = []
+    # make sure path always starts with '/'
+    if parts[0]
+      np.push ''
+    for part in parts
+      if part is ".."
+        if np.length > 1
+          np.pop()
+        else
+          np.push part
+      else
+        if part isnt "."
+          np.push part
+    path = np.join "/"
+    if not path then path = "/"
+    return path
+
+toffee.__partial = (parent_tmpl, parent_locals, path, vars) ->
+  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
+  console.log "Partial called: \#{path}"
+  return toffee.__inlineInclude path, vars, parent_locals
+
+toffee.__snippet = (parent_tmpl, parent_locals, path, vars) ->
+  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
+  console.log "Snippet called: \#{path}"
+  vars = if vars? then vars else {}
+  vars.__toffee = vars.__toffee or {}
+  vars.__toffee.noInheritance = true
+  return toffee.__inlineInclude path, vars, parent_locals
+
+toffee.__inlineInclude = (path, locals, parent_locals) ->
+  options                 = locals or {}
+  options.__toffee        = options.__toffee or {}
+
+  # we need to make a shallow copy of parent variables
+  if not options.__toffee.noInheritance
+    for k,v of parent_locals when not locals?[k]?
+      if not (k in ["print", "partial", "snippet", "layout", "__toffee"])
+        options[k] = v
+
+  if not toffee.templates[path]
+    return "Could not fund \#{path}"
+  else
+    return toffee.templates[path].pub options
+
 """
 
 getCommonHeadersJs = ->
@@ -194,7 +244,7 @@ class view
       return ""
     else
       @lastLineNo = n
-      return "\n#{@_space ind}__toffee.lineno = #{n}"
+      return "\n#{@_space ind}_ln #{n}"
 
   _snippetHasEscapeOverride: (str) ->
     for token in ['print',' snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
@@ -231,12 +281,12 @@ class view
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "TOFFEE_ZONE"
-        res += "\n#{@_space indent_level}__toffee.state  = toffee.states.TOFFEE"
+        res += "\n#{@_space indent_level}_ts #{states.TOFFEE}"
         for item in obj[1]
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
           res += s
       when "COFFEE_ZONE"
-        res += "\n#{@_space indent_level}__toffee.state = toffee.states.COFFEE"
+        res += "\n#{@_space indent_level}_ts #{states.COFFEE}"
         zone_baseline   = @_getZoneBaseline obj[1]
         temp_indent_level = indent_level
         for item in obj[1]
@@ -245,7 +295,7 @@ class view
           temp_indent_level = indent_level + delta
       when "TOFFEE"
         ind = indent_level
-        res += "\n#{@_space ind}__toffee.state = toffee.states.TOFFEE"
+        res += "\n#{@_space ind}_ts #{states.TOFFEE}"
         lineno = obj[2]
         try
           t_int = utils.interpolateString obj[1]
@@ -263,7 +313,7 @@ class view
               chunk = "\#{#{interp}}"
             else
               chunk = "\#{escape(#{interp})}"
-            res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr chunk}"
+            res    += "\n#{@_space ind}_to #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
             lines = part[1].split "\n"
@@ -272,10 +322,10 @@ class view
               lbreak  = if i isnt lines.length - 1 then "\n" else ""
               chunk   = @_escapeForStr "#{line}#{lbreak}"
               if chunk.length
-                res    += "\n#{@_space ind}__toffee.out.push #{@_quoteStr(chunk + lbreak)}"
+                res    += "\n#{@_space ind}_to #{@_quoteStr(chunk + lbreak)}"
               if i < lines.length - 1 then lineno++
         res += @_printLineNo obj[2] + (obj[1].split('\n').length-1), ind
-        res += "\n#{@_space ind}__toffee.state = toffee.states.COFFEE"
+        res += "\n#{@_space ind}_ts #{states.COFFEE}"
       when "COFFEE"
         c = obj[1]
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
@@ -311,6 +361,7 @@ class view
     escapes a string so it can make it into coffeescript
     triple quotes without losing whitespace, etc.
     ###
+    s = s.replace /\\/g, '\\\\'
     s = s.replace /\n/g, '\\n'
     s = s.replace /\t/g, '\\t'
     s
@@ -378,22 +429,32 @@ class view
 
     """
 #{if not @browserMode then getCommonHeaders() else ''}
-toffee.templates["#{@bundlePath}"]     = {}
-toffee.templates["#{@bundlePath}"].pub = (locals) ->
-#{___}localsPointer = locals
-#{___}locals.__toffee       = {}
+tmpl = toffee.templates["#{@bundlePath}"]  =
+  bundlePath: "#{@bundlePath}"
+tmpl.pub = (locals) ->
+#{___}_l = locals
+#{___}_t = _l.__toffee       = { out: []}
+#{___}_to = (x) -> locals.__toffee.out.push x
+#{___}_ln = (x) -> locals.__toffee.lineno = x
+#{___}_ts = (x) -> locals.__toffee.state  = x
 
-#{___}if not locals.print?   then locals.print    = (o) -> toffee.__print   localsPointer, o
-#{___}if not locals.json?    then locals.json     = (o) -> toffee.__json    localsPointer, o
-#{___}if not locals.raw?     then locals.raw      = (o) -> toffee.__raw     localsPointer, o
-#{___}if not locals.html?    then locals.html     = (o) -> toffee.__html    localsPointer, o
-#{___}if not locals.escape?  then locals.escape   = (o) -> toffee.__escape  localsPointer, o
 
-#{___}locals.__toffee.print  = locals.print
-#{___}locals.__toffee.json   = locals.json
-#{___}locals.__toffee.raw    = locals.raw
-#{___}locals.__toffee.html   = locals.html
-#{___}locals.__toffee.escape = locals.escape
+#{___}if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
+#{___}if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
+#{___}if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
+#{___}if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
+#{___}if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
+#{___}if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["#{@bundlePath}"], _l, path, vars
+#{___}if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["#{@bundlePath}"], _l, path, vars
+
+
+#{___}_t.print   = _l.print
+#{___}_t.json    = _l.json
+#{___}_t.raw     = _l.raw
+#{___}_t.html    = _l.html
+#{___}_t.escape  = _l.escape
+#{___}_t.partial = _l.partial
+#{___}_t.snippet = _l.snippet
 
 #{___}`with (locals) {`
 #{___}__toffee.out = []
@@ -408,7 +469,7 @@ toffee.templates["#{@bundlePath}"].pub = (locals) ->
 # sometimes we want to execute the whole thing in a sandbox
 # and just output results
 if __toffee_run_input?
-#{___}return toffee.templates["#{@bundlePath}"].pub __toffee_run_input
+#{___}return tmpl.pub __toffee_run_input
 """
 
 exports.view                = view

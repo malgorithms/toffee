@@ -59,7 +59,7 @@ generateExpressTest = (cb) ->
       <title>Test Toffee in the browser</title>
       <script type="text/javascript" src="/javascripts/test_cases.js"></script>
       <style>
-        .test_case {font-size:9px; font-family:courier new;}
+        .test_case {font-size:10px; font-family:courier new;}
         .server_output, .script_output, .expected_output {padding:10px;float:left;width:300px;border:1px solid #eee;}
       </style>
     </head>
@@ -70,17 +70,29 @@ generateExpressTest = (cb) ->
 
   for dir in case_dirs
     if dir isnt "custom_escape" # a special case since this isn't actually JSON
+      expected_output = fs.readFileSync "./test/cases/#{dir}/output.toffee", "utf8"
       if path.existsSync "./test/cases/#{dir}/vars.js"
-        vars     = "," + fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
+        vars     = fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
       else
-        vars     = ""
+        vars     = "{}"
+      rid = Math.floor 100000 * Math.random()
       test_page += """
+        \n\n\n<!-- ************ #{dir} -->
         <div class="test_case">
-          <div class="server_output">\#{partial '../../cases/#{dir}/input.toffee' #{vars}}</div>
-          <div class="script_output"></div>
-          <div class="expected_output"></div>
+          <div class="server_output">\#{partial '../../cases/#{dir}/input.toffee', #{vars}}</div>
+          <!-- -->
+          <div class="expected_output">#{expected_output}</div>
+          <!-- -->
+          <div class="script_output" id="#{rid}">
+          </div>
+          <!-- -->
           <div style="clear:both;"></div>
         </div>
+        <script type="text/javascript">
+          var script_res = toffee.templates["/#{dir}/input.toffee"].pub(#{vars});
+          document.getElementById("#{rid}").innerHTML = script_res;
+        </script>
+        \n\n\n
       """
 
   test_page += """

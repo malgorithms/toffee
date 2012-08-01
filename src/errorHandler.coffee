@@ -218,8 +218,8 @@ class toffeeError
 
     prev          = ol[0...lineno].join "\n"
     next          = ol[lineno...].join  "\n"
-    prev_matches  = prev.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
-    next_matches  = next.match /__toffee.lineno[ ]*=[ ]*([0-9]+)/g
+    prev_matches  = prev.match /_ln[ ]*([0-9]+)/g
+    next_matches  = next.match /_ln[ ]*([0-9]+)/g
     res           = [1,tl.length]
 
     if prev_matches?.length

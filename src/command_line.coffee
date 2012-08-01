@@ -89,7 +89,7 @@ run = exports.run = ->
     if program.print
       console.log out_text
     if program.output
-      try 
+      try
         console.log "Writing #{program.output}"
         fs.writeFileSync program.output, out_text, "utf8"
       catch e

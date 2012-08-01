@@ -14,3 +14,12 @@
 <p>
   #{print "<a>#{'click & clack'}</a>"}
 </p>
+{##
+
+  Make backslashes in text are handled ok.
+
+##}
+A backslash is a \
+<script>
+ var passed = "\"passed\"";
+</script>
