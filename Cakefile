@@ -44,7 +44,7 @@ generateExpressTest = (cb) ->
 
   # generate the JS file bundling all the tests
 
-  proc = spawn 'coffee', ['./src/command_line.coffee', './test/cases', '-m', '-o', './test/express3/public/javascripts/test_cases.js']
+  proc = spawn 'coffee', ['./src/command_line.coffee', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
   proc.on 'exit', (status) ->
