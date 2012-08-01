@@ -1,16 +1,20 @@
 TOFFEE
 =========
-A templating language based on the simplicity and beauty of CoffeeScript.
-Compatible with node (including Express 2.x, 3.x) and, very soon, the browser. In Express 3.x, the Toffee engine handles partials/includes 
-and smart view caching.
+*Toffee* is a templating language developed at OkCupid, based on the simplicity and beauty of CoffeeScript.
+ * it works with nodeJS (including Express 2.x and 3.x)
+ * it works in the browser, too!
+ * it does not require that you use CoffeeScript elsewhere in your project.
 
-status
-======
-Beta! And usable! If you hit any snags, let me know and I'll act fast.
+Table of Contents
+=================
+   * [1. Language Basics](#section_1)
+   * [2. Notes on Escaping](#section_2)
+   * [3. Common Questions](#section_3)
+   * [4. Installation & Usage](#section_4)
 
-examples
-========
-Printing variables is easy. Just use CoffeeScript's #{} syntax:
+## <a name="section_1"></a> 1. Language Basics
+
+Printing variables in Toffee is easy. Just use CoffeeScript's #{} syntax:
 ```html
 <div class="welcome">
    Hey, #{user.name}. 
@@ -26,7 +30,7 @@ The `#{}` syntax is powerful, so be responsible.
 </p>
 ```
 
-Including other files is possible thanks to the function `partial`. This works in Express 3.0, too.
+Including other files is possible thanks to the function `partial`. This in both Express and the browser.
 
 ```html
 <p>
@@ -110,8 +114,8 @@ With nested code, indentation is inferred.
 #}
 ```
 
-Switching to toffee mode without indenting
------
+### Switching to toffee mode without indenting
+
 By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
 probably because of a loop or conditional. 
 If you ever want to cut into toffee mode without indenting, use `-{: ... :}`. For example:
@@ -135,8 +139,8 @@ The above is identical to:
 Well, it's not exactly identical.  Let's talk about escaping.
 
 
-escaping: how it works
-==============
+## <a name="section_2"></a> 2. Escaping
+
 In your CoffeeScript, the `print` function lets you print the raw value of a variable:
 
 ```
@@ -158,8 +162,7 @@ You can control the escaping, but here are the defaults:
  * if it's a string or scalar, it is escaped for HTML safety.
  * it's an array or object, it is converted to JSON.
 
-escaping overrides
-----------------
+### Custom Escaping
 
 You can bypass the above rules.
 
@@ -195,11 +198,10 @@ Turning off autoescaping entirely:
  * If you set `autoEscape: false` when creating the engine, the default will be raw across your project. (See more on that below under Express 3.x settings.)
  * Alternatively, you could pass the var `escape: (x) -> x` to turn off escaping for a given template.
 
-questions
-========
+## <a name="section_3"></a> 3. Common Questions
 
-How does it compare to eco?
---------------------------
+#### How does it compare to eco?
+
 Eco is another CoffeeScript templating language and inspiration for Toffee.
 The syntaxes are pretty different, so pick the one you prefer.
 
@@ -231,12 +233,12 @@ With Toffee's syntax, brackets enclose regions not directives, so your editor
 will let you collapse and expand sections of code. And if you click on one of the brackets in most
 editors, it will highlight the matching bracket.
 
-Does it cache templates?
-------------------------
+#### Does it cache templates?
+
 In Express 2.0, that's up to Express. When used in Express 3.0, Toffee asynchronously monitors known templates and recompiles them in the background when necessary. So you don't need to restart your production webserver whenever you edit a template.
 
-Does it find line numbers in errors?
------------------------------------
+#### Does it find line numbers in errors?
+
 Yes, Toffee does a very good job of that. There are 3 possible places you can hit an error in Toffee: 
  * in the language itself, say a parse error
  * in the CoffeeScript, preventing it from compiling to JS
@@ -246,10 +248,10 @@ Stack traces are converted to lines in Toffee and show you where the problem is.
 By default when Toffee hits an error it replies with some pretty-printed HTML showing you the problem. 
 This can be overridden, as explained below in the Express 3.0 section.
 
-Does it support partials? (a.k.a includes)
--------------------------
-Yes.  In Express 2.0, Express itself is responsible for including other files, and they call this system "partials." In Express 3.0, Toffee defines the `partial` function, and it 
-works as you'd expect. 
+### Does it support partials? (a.k.a includes)
+
+Yes.  In Express 2.0, Express itself is responsible for including other files, and they call this system "partials." In Express 3.0 and in the browser, 
+Toffee defines the `partial` function, and it works as you'd expect. 
 
 ```html
 <div>#{partial '../foo/bar.toffee', name: "Chris"}</div>
@@ -278,14 +280,14 @@ For example, in the above code, `session` would also be available in the user_me
 #}
 ```
 
-Does it support `layout`?
--------------------------
+#### Does it support `layout`?
+
 Yes, this works in Express 3.0, emulating the Express 2.0 way. If you publish a file `foo.toffee` and pass a `layout` filename to it as a var, `foo.toffee` is rendered, and the results are put into
 a var called `body`. Then your layout is rendered, using all your vars plus the new `body` var.
 
 
-How does the indentation work?
------
+#### How does the indentation work?
+
 Toffee realigns all your coffeescript inside a `{# region #}` by normalizing the indentation of that region.
 So it doesn't matter how you indent things, as long as it makes local sense inside that region. 
 
@@ -333,21 +335,8 @@ ERROR
 In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different, which is a CoffeeScript error.
 
 
+## <a name="section_4"></a> 4 Installation & Usage
 
-
-Comments
------
-Inside a region of coffee, you can use coffee's `#` or `###` syntax to comment. 
-Inside toffee mode, you can comment with `{## ... ##}`.
-
-```
-{## This isn't output ##}
-But this is.
-```
-
-
-installation & usage
-===========
 ```
 npm install -g toffee
 ```
