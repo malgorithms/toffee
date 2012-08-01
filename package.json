@@ -10,8 +10,7 @@
  "bin": "./bin/toffee",
  "dependencies": {
  	"coffee-script": "*",
- 	"commander": "*",
- 	"uglify-js": "*"
+ 	"commander": "*"
  },
  "repository": {
   "type": "git",

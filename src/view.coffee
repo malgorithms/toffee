@@ -9,14 +9,8 @@ catch e
   coffee                                = require "coffee-script"
 
 minimizeJs = (js) ->
-  #return js
-  jsp = require("uglify-js").parser
-  pro = require("uglify-js").uglify
-  ast = jsp.parse js
-  #ast = pro.ast_mangle ast
-  ast = pro.ast_squeeze ast
-  return pro.gen_code ast
-
+  # uglify doesn't seem to be working right; #TODO: This
+  js
 
 getCommonHeaders = (include_bundle_headers) ->
   ###

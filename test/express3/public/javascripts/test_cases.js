@@ -109,41 +109,4095 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   }
 };
 
-(function(){var tmpl;tmpl=toffee.templates["/big_file/input.toffee"]={bundlePath:"/big_file/input.toffee"},tmpl.pub=function(locals){var count,i,_i,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/big_file/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/big_file/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals){__toffee.out=[],_ts(1),_ts(2),count=0;for(i=_i=0;_i<2;i=++_i)_ts(1),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("..."),_ts(2),_ts(2),count+=1,print(" "+count+"..."),_ts(1),_to(" "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("... "),_to(""+escape(count++)),_to("..."),_ts(2),_ts(2),count+=1,print(" "+count+"...");return __toffee.res=__toffee.out.join(""),__toffee.res}};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/big_file/output.toffee"]={bundlePath:"/big_file/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/big_file/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/big_file/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("0... 1... 2... 3... 4... 5... 6... 7... 8... 9... 10... 11... 12... 13... 14... 15... 16... 17... 18... 19... 20... 21... 22... 23... 24... 25... 26... 27... 28... 29... 30... 31... 32... 33... 34... 35... 36... 37... 38... 39... 40... 41... 42... 43... 44... 45... 46... 47... 48... 49... 50... 51... 52... 53... 54... 55... 56... 57... 58... 59... 60... 61... 62... 63... 64... 65... 66... 67... 68... 70... 70... 71... 72... 73... 74... 75... 76... 77... 78... 79... 80... 81... 82... 83... 84... 85... 86... 87... 88... 89... 90... 91... 92... 93... 94... 95... 96... 97... 98... 99... 100... 101... 102... 103... 104... 105... 106... 107... 108... 109... 110... 111... 112... 113... 114... 115... 116... 117... 118... 119... 120... 121... 122... 123... 124... 125... 126... 127... 128... 129... 130... 131... 132... 133... 134... 135... 136... 137... 138... 139... 140... 141... 142... 143... 144... 145... 146... 147... 148... 149... 150... 151... 152... 153... 154... 155... 156... 157... 158... 159... 160... 162...162... 163... 164... 165... 166... 167... 168... 169... 170... 171... 172... 173... 174... 175... 176... 177... 178... 179... 180... 181... 182... 183... 184... 185... 186... 187... 188... 189... 190... 191... 192... 193... 194... 195... 196... 197... 198... 199... 200... 201... 202... 203... 204... 205... 206... 207... 208... 209... 210... 211... 212... 213... 214... 215... 216... 217... 218... 219... 220... 221... 222... 223... 224... 225... 226... 227... 228... 229... 230... 232... 232... 233... 234... 235... 236... 237... 238... 239... 240... 241... 242... 243... 244... 245... 246... 247... 248... 249... 250... 251... 252... 253... 254... 255... 256... 257... 258... 259... 260... 261... 262... 263... 264... 265... 266... 267... 268... 269... 270... 271... 272... 273... 274... 275... 276... 277... 278... 279... 280... 281... 282... 283... 284... 285... 286... 287... 288... 289... 290... 291... 292... 293... 294... 295... 296... 297... 298... 299... 300... 301... 302... 303... 304... 305... 306... 307... 308... 309... 310... 311... 312... 313... 314... 315... 316... 317... 318... 319... 320... 321... 322... 324..."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/comments/input.toffee"]={bundlePath:"/comments/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/comments/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/comments/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("\n"),_to("Pass 1\n"),_ts(2),_ts(1),_to("\n"),_to("Pass 2\n"),_ts(2),_ts(2),_ts(1),_to("\n"),_to("Pass 3\n"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/comments/output.toffee"]={bundlePath:"/comments/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/comments/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/comments/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("\n"),_to("Pass 1\n"),_to("\n"),_to("Pass 2\n"),_to("\n"),_to("Pass 3\n"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/custom_escape/input.toffee"]={bundlePath:"/custom_escape/input.toffee"},tmpl.pub=function(locals){var w,x,y,z,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/custom_escape/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/custom_escape/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),x='"Hello world"',y="<td>",z="click&clack",w=[1,2,{place:"The Dreadfort"}],_ts(1),_to("<p>\n"),_to(" default x = "),_to(""+(x!=null?escape(x):"")),_to("\n"),_to(" default y = "),_to(""+(y!=null?escape(y):"")),_to("\n"),_to(" default z = "),_to(""+(z!=null?escape(z):"")),_to("\n"),_to(" default w = "),_to(""+(w!=null?escape(w):"")),_to("\n"),_to("</p>\n"),_to("<p>\n"),_to(" raw x = "),_to(""+raw(x)),_to("\n"),_to(" raw y = "),_to(""+raw(y)),_to("\n"),_to(" raw z = "),_to(""+raw(z)),_to("\n"),_to(" raw w = "),_to(""+raw(w)),_to("\n"),_to("</p>\n"),_to("<script>\n"),_to("  x = "),_to(""+json(x)),_to("\n"),_to("  y = "),_to(""+json(y)),_to("\n"),_to("  z = "),_to(""+json(z)),_to("\n"),_to("  w = "),_to(""+json(w)),_to("\n"),_to("</script>\n"),_to("<p>\n"),_ts(2),_ts(2),print(" raw printed x = "+x+"\n"),print(" raw printed y = "+y+"\n"),print(" raw printed z = "+z+"\n"),print(" raw printed w = "+w),_ts(1),_to("\n"),_to("</p>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/custom_escape/output.toffee"]={bundlePath:"/custom_escape/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/custom_escape/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/custom_escape/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("<p>\n"),_to(' default x = ["Hello world"]\n'),_to(" default y = [<td>]\n"),_to(" default z = [click&clack]\n"),_to(" default w = [1,2,[object Object]]\n"),_to("</p>\n"),_to("<p>\n"),_to(' raw x = "Hello world"\n'),_to(" raw y = <td>\n"),_to(" raw z = click&clack\n"),_to(" raw w = 1,2,[object Object]\n"),_to("</p>\n"),_to("<script>\n"),_to('  x = "\\"Hello world\\""\n'),_to('  y = "\\u003Ctd\\u003E"\n'),_to('  z = "click\\u0026clack"\n'),_to('  w = [1,2,{"place":"The Dreadfort"}]\n'),_to("</script>\n"),_to("<p>\n"),_to(' raw printed x = "Hello world"\n'),_to(" raw printed y = <td>\n"),_to(" raw printed z = click&clack\n"),_to(" raw printed w = 1,2,[object Object]\n"),_to("</p>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/eco_compare/input.toffee"]={bundlePath:"/eco_compare/input.toffee"},tmpl.pub=function(locals){var f,friends,project,_i,_l,_len,_ln,_ref,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/eco_compare/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/eco_compare/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals){__toffee.out=[],_ts(1),_ts(2),this.projects=[{url:"http://localhost:3000",name:"okcupid",description:"A site for singles"},{url:"http://localhost:3001",name:"tallygram",description:"A site for anyone"}];if(this.projects.length){_ref=this.projects;for(_i=0,_len=_ref.length;_i<_len;_i++)project=_ref[_i],_ts(1),_to("\n"),_to('      <a href="'),_to(""+escape(project.url)),_to('">'),_to(""+escape(project.name)),_to("</a>\n"),_to("      <p>"),_to(""+escape(project.description)),_to("</p>\n"),_to("    "),_ts(2)}else _ts(1),_to(" No projects "),_ts(2);return friends=[{gender:"f",name:"Jennie"},{gender:"f",name:"Rachel"},{gender:"m",name:"Petar"},{gender:"f",name:"Marissa"}],_ts(1),_to("\n"),_to("\n"),_to("You have "),_to(""+escape(function(){var _j,_len1,_results;_results=[];for(_j=0,_len1=friends.length;_j<_len1;_j++)f=friends[_j],f.gender==="f"&&_results.push(f);return _results}().length)),_to(" female friends."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res}};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/eco_compare/output.toffee"]={bundlePath:"/eco_compare/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/eco_compare/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/eco_compare/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("\n"),_to('      <a href="http://localhost:3000">okcupid</a>\n'),_to("      <p>A site for singles</p>\n"),_to("    \n"),_to('      <a href="http://localhost:3001">tallygram</a>\n'),_to("      <p>A site for anyone</p>\n"),_to("    \n"),_to("\n"),_to("You have 3 female friends."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/escape/input.toffee"]={bundlePath:"/escape/input.toffee"},tmpl.pub=function(locals){var w,x,y,z,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/escape/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/escape/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),x='"Hello world"',y="<hr />",z="click&clack",w=[1,2,{place:"The Dreadfort"}],_ts(1),_to("<p>\n"),_to(" default x = "),_to(""+(x!=null?escape(x):"")),_to("\n"),_to(" default y = "),_to(""+(y!=null?escape(y):"")),_to("\n"),_to(" default z = "),_to(""+(z!=null?escape(z):"")),_to("\n"),_to(" default w = "),_to(""+(w!=null?escape(w):"")),_to("\n"),_to(" default r = "),_to(""+(typeof r!="undefined"&&r!==null?escape(r):"")),_to("\n"),_to(" default w.foo = "),_to(""+escape(w.foo)),_to("\n"),_to("</p>\n"),_to("<p>\n"),_to(" raw x = "),_to(""+raw(x)),_to("\n"),_to(" raw y = "),_to(""+raw(y)),_to("\n"),_to(" raw z = "),_to(""+raw(z)),_to("\n"),_to(" raw w = "),_to(""+raw(w)),_to("\n"),_to("</p>\n"),_to("<script>\n"),_to("  x = "),_to(""+json(x)),_to("\n"),_to("  y = "),_to(""+json(y)),_to("\n"),_to("  z = "),_to(""+json(z)),_to("\n"),_to("  w = "),_to(""+json(w)),_to("\n"),_to("</script>\n"),_to("<p>\n"),_ts(2),_ts(2),print(" raw printed x = "+x+"\n"),print(" raw printed y = "+y+"\n"),print(" raw printed z = "+z+"\n"),print(" raw printed w = "+w),_ts(1),_to("\n"),_to("</p>\n"),_to("<p>\n"),_ts(2),_ts(2),print(" json printed x = "+raw(raw(raw(raw(json(x)))))+"\n"),print(" json printed y = "+raw(raw(raw(raw(json(y)))))+"\n"),print(" json printed z = "+raw(raw(raw(raw(json(z)))))+"\n"),print(" json printed w = "+raw(raw(raw(raw(json(w)))))),_ts(1),_to("\n"),_to("</p>\n"),_to("<p>\n"),_ts(2),_ts(2),print(" html printed longhand x = "+__toffee.html(x)+"\n"),print(" html printed longhand y = "+__toffee.html(y)+"\n"),print(" html printed longhand z = "+__toffee.html(z)+"\n"),print(" html printed longhand w = "+__toffee.html(w)),_ts(1),_to("\n"),_to("</p>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/escape/output.toffee"]={bundlePath:"/escape/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/escape/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/escape/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("<p>\n"),_to(" default x = &quot;Hello world&quot;\n"),_to(" default y = &lt;hr /&gt;\n"),_to(" default z = click&amp;clack\n"),_to(' default w = [1,2,{"place":"The Dreadfort"}]\n'),_to(" default r = \n"),_to(" default w.foo = \n"),_to("</p>\n"),_to("<p>\n"),_to(' raw x = "Hello world"\n'),_to(" raw y = <hr />\n"),_to(" raw z = click&clack\n"),_to(" raw w = 1,2,[object Object]\n"),_to("</p>\n"),_to("<script>\n"),_to('  x = "\\"Hello world\\""\n'),_to('  y = "\\u003Chr /\\u003E"\n'),_to('  z = "click\\u0026clack"\n'),_to('  w = [1,2,{"place":"The Dreadfort"}]\n'),_to("</script>\n"),_to("<p>\n"),_to(' raw printed x = "Hello world"\n'),_to(" raw printed y = <hr />\n"),_to(" raw printed z = click&clack\n"),_to(" raw printed w = 1,2,[object Object]\n"),_to("</p>\n"),_to("<p>\n"),_to(' json printed x = "\\"Hello world\\""\n'),_to(' json printed y = "\\u003Chr /\\u003E"\n'),_to(' json printed z = "click\\u0026clack"\n'),_to(' json printed w = [1,2,{"place":"The Dreadfort"}]\n'),_to("</p>\n"),_to("<p>\n"),_to(" html printed longhand x = &quot;Hello world&quot;\n"),_to(" html printed longhand y = &lt;hr /&gt;\n"),_to(" html printed longhand z = click&amp;clack\n"),_to(" html printed longhand w = 1,2,[object Object]\n"),_to("</p>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/hello_world/input.toffee"]={bundlePath:"/hello_world/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/hello_world/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/hello_world/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to(""+(typeof greeting!="undefined"&&greeting!==null?escape(greeting):"")),_to(", world."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/hello_world/output.toffee"]={bundlePath:"/hello_world/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/hello_world/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/hello_world/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("Hello, world."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/hello_world/temp.toffee"]={bundlePath:"/hello_world/temp.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/hello_world/temp.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/hello_world/temp.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("a\n"),_to("b\n"),_to("c\n"),_to(""+escape(passed_fn(100))),_to("\n"),_to("d\n"),_to("e\n"),_to("f"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_order/child.toffee"]={bundlePath:"/include_order/child.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_order/child.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_order/child.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("a\n"),_ts(2),_ts(2),say_hi(),_ts(1),_to("\n"),_to("b"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_order/input.toffee"]={bundlePath:"/include_order/input.toffee"},tmpl.pub=function(locals){var say_hi,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_order/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_order/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),say_hi=function(){return _ts(1),_ts(1),_to("hi"),_ts(2)},_ts(1),_to("1\n"),_to("2\n"),_to(""+partial("child.toffee",{say_hi:say_hi})),_to("\n"),_to("3\n"),_to("4"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_order/output.toffee"]={bundlePath:"/include_order/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_order/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_order/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("1\n"),_to("2\n"),_to("hia\n"),_to("\n"),_to("b\n"),_to("3\n"),_to("4"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_recursion/input.toffee"]={bundlePath:"/include_recursion/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_recursion/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_recursion/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),countdown===0?(_ts(1),_to("blastoff!"),_ts(2)):print(""+countdown+"..."+partial("input.toffee",{countdown:countdown-1})),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_recursion/output.toffee"]={bundlePath:"/include_recursion/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_recursion/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_recursion/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("10...9...8...7...6...5...4...3...2...1...blastoff!"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_techniques/input.toffee"]={bundlePath:"/include_techniques/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_techniques/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_techniques/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to(""+partial("message.toffee",{from:"Chris <ccoyne77@gmail>"})),_to("\n"),_to(""+partial("message.toffee",{from:"Max & Sam"})),_to("\n"),_ts(2),_ts(2),print(partial("message.toffee",{from:"Christian"})),_ts(1),_ts(1),_to(""+partial("message.toffee",{from:"Jennie"})),_ts(2),print(partial("message.toffee",{sender:"The enemy"})),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_techniques/message.toffee"]={bundlePath:"/include_techniques/message.toffee"},tmpl.pub=function(locals){var from,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_techniques/message.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_techniques/message.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),from=from||"Unknown",_ts(1),_to("From: "),_to(""+(from!=null?escape(from):"")),_to(" \n"),_to("Msg:  Hello, world\n"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/include_techniques/output.toffee"]={bundlePath:"/include_techniques/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/include_techniques/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/include_techniques/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("From: Chris &lt;ccoyne77@gmail&gt; \n"),_to("Msg:  Hello, world\n"),_to("\n"),_to("From: Max &amp; Sam \n"),_to("Msg:  Hello, world\n"),_to("\n"),_to("From: Christian \n"),_to("Msg:  Hello, world\n"),_to("From: Jennie \n"),_to("Msg:  Hello, world\n"),_to("From: Unknown \n"),_to("Msg:  Hello, world\n"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/indent_attack/input.toffee"]={bundlePath:"/indent_attack/input.toffee"},tmpl.pub=function(locals){var i,x,_i,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/indent_attack/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/indent_attack/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals){__toffee.out=[],_ts(1),_ts(1),_to("<hr />\n"),_to("    "),_ts(2),_ts(2),_ts(1),_to("Pass1"),_ts(2),_ts(1),_to("Pass2"),_ts(2),_ts(1),_to("\n"),_to("<hr />\n"),_to("\n"),_ts(2),_ts(2),_ts(1),_to("Pass3"),_ts(2),_ts(1),_to("Pass4"),_ts(2),_ts(1),_to("\n"),_to("<hr />\n"),_to("\n"),_ts(2),_ts(2),_ts(1),_to("Pass5"),_ts(2),_ts(1),_to("Pass6"),_ts(2),_ts(1),_to("\n"),_to("\n"),_ts(2),_ts(2),print("Pass7"),_ts(1),_ts(1),_to("Pass8"),_ts(2),_ts(1),_to("\n"),_to("\n"),_ts(2),_ts(2),_ts(1),_ts(1),_to("...passed with flying colors."),_ts(2),_ts(1),_to("\n"),_to("<p>\n"),_to(" "),_ts(2),_ts(2),x=10;if(x>1)for(i=_i=0;0<=x?_i<x:_i>x;i=0<=x?++_i:--_i)_ts(1),_to("<br />"),_to(""+(i!=null?escape(i):"")),_ts(2),_ts(2),i===3&&(_ts(1),_to(" (my favorite number) "),_ts(2));return _ts(1),_to("\n"),_to("</p>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res}};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/indent_attack/output.toffee"]={bundlePath:"/indent_attack/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/indent_attack/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/indent_attack/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("<hr />\n"),_to("    Pass1Pass2\n"),_to("<hr />\n"),_to("\n"),_to("Pass3Pass4\n"),_to("<hr />\n"),_to("\n"),_to("Pass5Pass6\n"),_to("\n"),_to("Pass7Pass8\n"),_to("\n"),_to("...passed with flying colors.\n"),_to("<p>\n"),_to(" <br />0<br />1<br />2<br />3 (my favorite number) <br />4<br />5<br />6<br />7<br />8<br />9\n"),_to("</p>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/junk/input.toffee"]={bundlePath:"/junk/input.toffee"},tmpl.pub=function(locals){var supplies,supply,_i,_l,_len,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/junk/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/junk/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals){__toffee.out=[],_ts(1),_ts(2),supplies=["broom","mop","vacuum"],_ts(1),_to("<ul>\n"),_to("  "),_ts(2),_ts(2);for(_i=0,_len=supplies.length;_i<_len;_i++)supply=supplies[_i],_ts(1),_to("<li>"),_to(""+(supply!=null?escape(supply):"")),_to("</li>"),_ts(2);return _ts(1),_to("\n"),_to("</ul>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res}};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/junk/output.toffee"]={bundlePath:"/junk/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/junk/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/junk/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("<ul>\n"),_to("  <li>broom</li><li>mop</li><li>vacuum</li>\n"),_to("</ul>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/lambda_fns/input.toffee"]={bundlePath:"/lambda_fns/input.toffee"},tmpl.pub=function(locals){var echo_it,print_it,print_it_twice,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/lambda_fns/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/lambda_fns/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),print_it=function(msg){return _ts(1),_to(""+(msg!=null?escape(msg):"")),_ts(2)},print_it_twice=function(msg){var m;return _ts(1),_ts(1),_to(""+(msg!=null?escape(msg):"")),_ts(2),m=msg,_ts(1),_ts(1),_to(""+(m!=null?escape(m):"")),_ts(2)},echo_it=function(msg){var v;return v=msg,v},print_it("Pass"),print_it_twice("Pass"),print(echo_it("Pass")),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/lambda_fns/output.toffee"]={bundlePath:"/lambda_fns/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/lambda_fns/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/lambda_fns/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("PassPassPassPass"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/multiline_interpolation/foo.toffee"]={bundlePath:"/multiline_interpolation/foo.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/multiline_interpolation/foo.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/multiline_interpolation/foo.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to(""+(typeof a!="undefined"&&a!==null?escape(a):"")),_to(" "),_to(""+(typeof b!="undefined"&&b!==null?escape(b):"")),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/multiline_interpolation/input.toffee"]={bundlePath:"/multiline_interpolation/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/multiline_interpolation/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/multiline_interpolation/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to(""+escape("Hello, world")),_to("\n"),_to("<hr />\n"),_to(""+partial("foo.toffee",{a:"Goodbye,",b:"world"})),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/multiline_interpolation/output.toffee"]={bundlePath:"/multiline_interpolation/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/multiline_interpolation/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/multiline_interpolation/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("Hello, world\n"),_to("<hr />\n"),_to("Goodbye, world"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/plaintext/input.toffee"]={bundlePath:"/plaintext/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/plaintext/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/plaintext/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("Hi there."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/plaintext/output.toffee"]={bundlePath:"/plaintext/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/plaintext/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/plaintext/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("Hi there."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/snippets/foo/bar/body.toffee"]={bundlePath:"/snippets/foo/bar/body.toffee"},tmpl.pub=function(locals){var msg,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/snippets/foo/bar/body.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/snippets/foo/bar/body.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),msg=msg||"Unknown message",print(msg),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/snippets/foo/message.toffee"]={bundlePath:"/snippets/foo/message.toffee"},tmpl.pub=function(locals){var from,msg,_l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/snippets/foo/message.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/snippets/foo/message.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(2),from=from||"Unknown sender",msg=msg||"Unknown message.",print("From: "+from+"\n"+snippet("./bar/body.toffee",{msg:msg})),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/snippets/input.toffee"]={bundlePath:"/snippets/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/snippets/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/snippets/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to(""+partial("./foo/message.toffee")),_to("\n"),_to(""+escape(snippet("./foo/message.toffee"))),_to("\n"),_to(""+partial("./foo/message.toffee",{from:"Sam"})),_to("\n"),_to(""+escape(snippet("./foo/message.toffee",{from:"Max"}))),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/snippets/output.toffee"]={bundlePath:"/snippets/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/snippets/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/snippets/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("From: Preloaded sender\n"),_to("Preloaded message.\n"),_to("From: Unknown sender\n"),_to("Unknown message.\n"),_to("From: Sam\n"),_to("Preloaded message.\n"),_to("From: Max\n"),_to("Unknown message."),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/special_cases/input.toffee"]={bundlePath:"/special_cases/input.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/special_cases/input.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/special_cases/input.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("\n"),_ts(2),_ts(2),_ts(1),_ts(1),_to('"PASSED"'),_ts(2),_ts(1),_to("\n"),_ts(2),_ts(1),_to("\n"),_to("<p>\n"),_to("  "),_to(""+print("<a>click & clack</a>")),_to("\n"),_to("</p>\n"),_ts(2),_ts(1),_to("\n"),_to("A backslash is a \\\n"),_to("<script>\n"),_to(' var passed = "\\"passed\\"";\n'),_to("</script>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
-(function(){var tmpl;tmpl=toffee.templates["/special_cases/output.toffee"]={bundlePath:"/special_cases/output.toffee"},tmpl.pub=function(locals){var _l,_ln,_t,_to,_ts;_l=locals,_t=_l.__toffee={out:[]},_to=function(x){return locals.__toffee.out.push(x)},_ln=function(x){return locals.__toffee.lineno=x},_ts=function(x){return locals.__toffee.state=x},_l.print==null&&(_l.print=function(o){return toffee.__print(_l,o)}),_l.json==null&&(_l.json=function(o){return toffee.__json(_l,o)}),_l.raw==null&&(_l.raw=function(o){return toffee.__raw(_l,o)}),_l.html==null&&(_l.html=function(o){return toffee.__html(_l,o)}),_l.escape==null&&(_l.escape=function(o){return toffee.__escape(_l,o)}),_l.partial==null&&(_l.partial=function(path,vars){return toffee.__partial(toffee.templates["/special_cases/output.toffee"],_l,path,vars)}),_l.snippet==null&&(_l.snippet=function(path,vars){return toffee.__snippet(toffee.templates["/special_cases/output.toffee"],_l,path,vars)}),_t.print=_l.print,_t.json=_l.json,_t.raw=_l.raw,_t.html=_l.html,_t.escape=_l.escape,_t.partial=_l.partial,_t.snippet=_l.snippet;with(locals)return __toffee.out=[],_ts(1),_ts(1),_to("\n"),_to('"PASSED"\n'),_to("\n"),_to("<p>\n"),_to("  <a>click & clack</a>\n"),_to("</p>\n"),_to("\n"),_to("A backslash is a \\\n"),_to("<script>\n"),_to(' var passed = "\\"passed\\"";\n'),_to("</script>"),_ts(2),__toffee.res=__toffee.out.join(""),__toffee.res};if(typeof __toffee_run_input!="undefined"&&__toffee_run_input!==null)return tmpl.pub(__toffee_run_input)}).call(this)
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/big_file/input.toffee"] = {
+    bundlePath: "/big_file/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var count, i, _i, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/big_file/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/big_file/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    count = 0;
+    for (i = _i = 0; _i < 2; i = ++_i) {
+      _ts(1);
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("...");
+      _ts(2);
+      _ts(2);
+      count += 1;
+      print(" " + count + "...");
+      _ts(1);
+      _to(" ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("... ");
+      _to("" + (escape(count++)));
+      _to("...");
+      _ts(2);
+      _ts(2);
+      count += 1;
+      print(" " + count + "...");
+    }
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/big_file/output.toffee"] = {
+    bundlePath: "/big_file/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/big_file/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/big_file/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("0... 1... 2... 3... 4... 5... 6... 7... 8... 9... 10... 11... 12... 13... 14... 15... 16... 17... 18... 19... 20... 21... 22... 23... 24... 25... 26... 27... 28... 29... 30... 31... 32... 33... 34... 35... 36... 37... 38... 39... 40... 41... 42... 43... 44... 45... 46... 47... 48... 49... 50... 51... 52... 53... 54... 55... 56... 57... 58... 59... 60... 61... 62... 63... 64... 65... 66... 67... 68... 70... 70... 71... 72... 73... 74... 75... 76... 77... 78... 79... 80... 81... 82... 83... 84... 85... 86... 87... 88... 89... 90... 91... 92... 93... 94... 95... 96... 97... 98... 99... 100... 101... 102... 103... 104... 105... 106... 107... 108... 109... 110... 111... 112... 113... 114... 115... 116... 117... 118... 119... 120... 121... 122... 123... 124... 125... 126... 127... 128... 129... 130... 131... 132... 133... 134... 135... 136... 137... 138... 139... 140... 141... 142... 143... 144... 145... 146... 147... 148... 149... 150... 151... 152... 153... 154... 155... 156... 157... 158... 159... 160... 162...162... 163... 164... 165... 166... 167... 168... 169... 170... 171... 172... 173... 174... 175... 176... 177... 178... 179... 180... 181... 182... 183... 184... 185... 186... 187... 188... 189... 190... 191... 192... 193... 194... 195... 196... 197... 198... 199... 200... 201... 202... 203... 204... 205... 206... 207... 208... 209... 210... 211... 212... 213... 214... 215... 216... 217... 218... 219... 220... 221... 222... 223... 224... 225... 226... 227... 228... 229... 230... 232... 232... 233... 234... 235... 236... 237... 238... 239... 240... 241... 242... 243... 244... 245... 246... 247... 248... 249... 250... 251... 252... 253... 254... 255... 256... 257... 258... 259... 260... 261... 262... 263... 264... 265... 266... 267... 268... 269... 270... 271... 272... 273... 274... 275... 276... 277... 278... 279... 280... 281... 282... 283... 284... 285... 286... 287... 288... 289... 290... 291... 292... 293... 294... 295... 296... 297... 298... 299... 300... 301... 302... 303... 304... 305... 306... 307... 308... 309... 310... 311... 312... 313... 314... 315... 316... 317... 318... 319... 320... 321... 322... 324...");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/comments/input.toffee"] = {
+    bundlePath: "/comments/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/comments/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/comments/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("\n");
+    _to("Pass 1\n");
+    _ts(2);
+    _ts(1);
+    _to("\n");
+    _to("Pass 2\n");
+    _ts(2);
+    _ts(2);
+    /*
+      print "FAIL FAIL FAIL"  
+      #{ foo }
+    */
+
+    _ts(1);
+    _to("\n");
+    _to("Pass 3\n");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/comments/output.toffee"] = {
+    bundlePath: "/comments/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/comments/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/comments/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("\n");
+    _to("Pass 1\n");
+    _to("\n");
+    _to("Pass 2\n");
+    _to("\n");
+    _to("Pass 3\n");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/custom_escape/input.toffee"] = {
+    bundlePath: "/custom_escape/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var w, x, y, z, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/custom_escape/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/custom_escape/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    x = '"Hello world"';
+    y = '<td>';
+    z = 'click&clack';
+    w = [
+      1, 2, {
+        "place": "The Dreadfort"
+      }
+    ];
+    _ts(1);
+    _to("<p>\n");
+    _to(" default x = ");
+    _to("" + (x != null ? escape(x) : ''));
+    _to("\n");
+    _to(" default y = ");
+    _to("" + (y != null ? escape(y) : ''));
+    _to("\n");
+    _to(" default z = ");
+    _to("" + (z != null ? escape(z) : ''));
+    _to("\n");
+    _to(" default w = ");
+    _to("" + (w != null ? escape(w) : ''));
+    _to("\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _to(" raw x = ");
+    _to("" + (raw(x)));
+    _to("\n");
+    _to(" raw y = ");
+    _to("" + (raw(y)));
+    _to("\n");
+    _to(" raw z = ");
+    _to("" + (raw(z)));
+    _to("\n");
+    _to(" raw w = ");
+    _to("" + (raw(w)));
+    _to("\n");
+    _to("</p>\n");
+    _to("<script>\n");
+    _to("  x = ");
+    _to("" + (json(x)));
+    _to("\n");
+    _to("  y = ");
+    _to("" + (json(y)));
+    _to("\n");
+    _to("  z = ");
+    _to("" + (json(z)));
+    _to("\n");
+    _to("  w = ");
+    _to("" + (json(w)));
+    _to("\n");
+    _to("</script>\n");
+    _to("<p>\n");
+    _ts(2);
+    _ts(2);
+    print(" raw printed x = " + x + "\n");
+    print(" raw printed y = " + y + "\n");
+    print(" raw printed z = " + z + "\n");
+    print(" raw printed w = " + w);
+    _ts(1);
+    _to("\n");
+    _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/custom_escape/output.toffee"] = {
+    bundlePath: "/custom_escape/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/custom_escape/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/custom_escape/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("<p>\n");
+    _to(" default x = [\"Hello world\"]\n");
+    _to(" default y = [<td>]\n");
+    _to(" default z = [click&clack]\n");
+    _to(" default w = [1,2,[object Object]]\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _to(" raw x = \"Hello world\"\n");
+    _to(" raw y = <td>\n");
+    _to(" raw z = click&clack\n");
+    _to(" raw w = 1,2,[object Object]\n");
+    _to("</p>\n");
+    _to("<script>\n");
+    _to("  x = \"\\\"Hello world\\\"\"\n");
+    _to("  y = \"\\u003Ctd\\u003E\"\n");
+    _to("  z = \"click\\u0026clack\"\n");
+    _to("  w = [1,2,{\"place\":\"The Dreadfort\"}]\n");
+    _to("</script>\n");
+    _to("<p>\n");
+    _to(" raw printed x = \"Hello world\"\n");
+    _to(" raw printed y = <td>\n");
+    _to(" raw printed z = click&clack\n");
+    _to(" raw printed w = 1,2,[object Object]\n");
+    _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/eco_compare/input.toffee"] = {
+    bundlePath: "/eco_compare/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var f, friends, project, _i, _l, _len, _ln, _ref, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/eco_compare/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/eco_compare/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    this.projects = [
+      {
+        url: "http://localhost:3000",
+        name: "okcupid",
+        description: "A site for singles"
+      }, {
+        url: "http://localhost:3001",
+        name: "tallygram",
+        description: "A site for anyone"
+      }
+    ];
+    if (this.projects.length) {
+      _ref = this.projects;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        project = _ref[_i];
+        _ts(1);
+        _to("\n");
+        _to("      <a href=" + '"');
+        _to("" + (escape(project.url)));
+        _to('"' + ">");
+        _to("" + (escape(project.name)));
+        _to("</a>\n");
+        _to("      <p>");
+        _to("" + (escape(project.description)));
+        _to("</p>\n");
+        _to("    ");
+        _ts(2);
+      }
+    } else {
+      _ts(1);
+      _to(" No projects ");
+      _ts(2);
+    }
+    friends = [
+      {
+        gender: "f",
+        name: "Jennie"
+      }, {
+        gender: "f",
+        name: "Rachel"
+      }, {
+        gender: "m",
+        name: "Petar"
+      }, {
+        gender: "f",
+        name: "Marissa"
+      }
+    ];
+    _ts(1);
+    _to("\n");
+    _to("\n");
+    _to("You have ");
+    _to("" + (escape(((function() {
+      var _j, _len1, _results;
+      _results = [];
+      for (_j = 0, _len1 = friends.length; _j < _len1; _j++) {
+        f = friends[_j];
+        if (f.gender === "f") _results.push(f);
+      }
+      return _results;
+    })()).length)));
+    _to(" female friends.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/eco_compare/output.toffee"] = {
+    bundlePath: "/eco_compare/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/eco_compare/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/eco_compare/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("\n");
+    _to("      <a href=\"http://localhost:3000\">okcupid</a>\n");
+    _to("      <p>A site for singles</p>\n");
+    _to("    \n");
+    _to("      <a href=\"http://localhost:3001\">tallygram</a>\n");
+    _to("      <p>A site for anyone</p>\n");
+    _to("    \n");
+    _to("\n");
+    _to("You have 3 female friends.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/escape/input.toffee"] = {
+    bundlePath: "/escape/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var w, x, y, z, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/escape/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/escape/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    x = '"Hello world"';
+    y = '<hr />';
+    z = 'click&clack';
+    w = [
+      1, 2, {
+        "place": "The Dreadfort"
+      }
+    ];
+    _ts(1);
+    _to("<p>\n");
+    _to(" default x = ");
+    _to("" + (x != null ? escape(x) : ''));
+    _to("\n");
+    _to(" default y = ");
+    _to("" + (y != null ? escape(y) : ''));
+    _to("\n");
+    _to(" default z = ");
+    _to("" + (z != null ? escape(z) : ''));
+    _to("\n");
+    _to(" default w = ");
+    _to("" + (w != null ? escape(w) : ''));
+    _to("\n");
+    _to(" default r = ");
+    _to("" + (typeof r !== "undefined" && r !== null ? escape(r) : ''));
+    _to("\n");
+    _to(" default w.foo = ");
+    _to("" + (escape(w.foo)));
+    _to("\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _to(" raw x = ");
+    _to("" + (raw(x)));
+    _to("\n");
+    _to(" raw y = ");
+    _to("" + (raw(y)));
+    _to("\n");
+    _to(" raw z = ");
+    _to("" + (raw(z)));
+    _to("\n");
+    _to(" raw w = ");
+    _to("" + (raw(w)));
+    _to("\n");
+    _to("</p>\n");
+    _to("<script>\n");
+    _to("  x = ");
+    _to("" + (json(x)));
+    _to("\n");
+    _to("  y = ");
+    _to("" + (json(y)));
+    _to("\n");
+    _to("  z = ");
+    _to("" + (json(z)));
+    _to("\n");
+    _to("  w = ");
+    _to("" + (json(w)));
+    _to("\n");
+    _to("</script>\n");
+    _to("<p>\n");
+    _ts(2);
+    _ts(2);
+    print(" raw printed x = " + x + "\n");
+    print(" raw printed y = " + y + "\n");
+    print(" raw printed z = " + z + "\n");
+    print(" raw printed w = " + w);
+    _ts(1);
+    _to("\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _ts(2);
+    _ts(2);
+    print(" json printed x = " + (raw(raw(raw(raw(json(x)))))) + "\n");
+    print(" json printed y = " + (raw(raw(raw(raw(json(y)))))) + "\n");
+    print(" json printed z = " + (raw(raw(raw(raw(json(z)))))) + "\n");
+    print(" json printed w = " + (raw(raw(raw(raw(json(w)))))));
+    _ts(1);
+    _to("\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _ts(2);
+    _ts(2);
+    print(" html printed longhand x = " + (__toffee.html(x)) + "\n");
+    print(" html printed longhand y = " + (__toffee.html(y)) + "\n");
+    print(" html printed longhand z = " + (__toffee.html(z)) + "\n");
+    print(" html printed longhand w = " + (__toffee.html(w)));
+    _ts(1);
+    _to("\n");
+    _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/escape/output.toffee"] = {
+    bundlePath: "/escape/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/escape/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/escape/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("<p>\n");
+    _to(" default x = &quot;Hello world&quot;\n");
+    _to(" default y = &lt;hr /&gt;\n");
+    _to(" default z = click&amp;clack\n");
+    _to(" default w = [1,2,{\"place\":\"The Dreadfort\"}]\n");
+    _to(" default r = \n");
+    _to(" default w.foo = \n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _to(" raw x = \"Hello world\"\n");
+    _to(" raw y = <hr />\n");
+    _to(" raw z = click&clack\n");
+    _to(" raw w = 1,2,[object Object]\n");
+    _to("</p>\n");
+    _to("<script>\n");
+    _to("  x = \"\\\"Hello world\\\"\"\n");
+    _to("  y = \"\\u003Chr /\\u003E\"\n");
+    _to("  z = \"click\\u0026clack\"\n");
+    _to("  w = [1,2,{\"place\":\"The Dreadfort\"}]\n");
+    _to("</script>\n");
+    _to("<p>\n");
+    _to(" raw printed x = \"Hello world\"\n");
+    _to(" raw printed y = <hr />\n");
+    _to(" raw printed z = click&clack\n");
+    _to(" raw printed w = 1,2,[object Object]\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _to(" json printed x = \"\\\"Hello world\\\"\"\n");
+    _to(" json printed y = \"\\u003Chr /\\u003E\"\n");
+    _to(" json printed z = \"click\\u0026clack\"\n");
+    _to(" json printed w = [1,2,{\"place\":\"The Dreadfort\"}]\n");
+    _to("</p>\n");
+    _to("<p>\n");
+    _to(" html printed longhand x = &quot;Hello world&quot;\n");
+    _to(" html printed longhand y = &lt;hr /&gt;\n");
+    _to(" html printed longhand z = click&amp;clack\n");
+    _to(" html printed longhand w = 1,2,[object Object]\n");
+    _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/hello_world/input.toffee"] = {
+    bundlePath: "/hello_world/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/hello_world/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/hello_world/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("" + (typeof greeting !== "undefined" && greeting !== null ? escape(greeting) : ''));
+    _to(", world.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/hello_world/output.toffee"] = {
+    bundlePath: "/hello_world/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/hello_world/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/hello_world/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("Hello, world.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/hello_world/temp.toffee"] = {
+    bundlePath: "/hello_world/temp.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/hello_world/temp.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/hello_world/temp.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("a\n");
+    _to("b\n");
+    _to("c\n");
+    _to("" + (escape(passed_fn(100))));
+    _to("\n");
+    _to("d\n");
+    _to("e\n");
+    _to("f");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_order/child.toffee"] = {
+    bundlePath: "/include_order/child.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_order/child.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_order/child.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("a\n");
+    _ts(2);
+    _ts(2);
+    say_hi();
+    _ts(1);
+    _to("\n");
+    _to("b");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_order/input.toffee"] = {
+    bundlePath: "/include_order/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var say_hi, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_order/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_order/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    say_hi = function() {
+      _ts(1);
+      _ts(1);
+      _to("hi");
+      return _ts(2);
+    };
+    _ts(1);
+    _to("1\n");
+    _to("2\n");
+    _to("" + (partial("child.toffee", {
+      say_hi: say_hi
+    })));
+    _to("\n");
+    _to("3\n");
+    _to("4");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_order/output.toffee"] = {
+    bundlePath: "/include_order/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_order/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_order/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("1\n");
+    _to("2\n");
+    _to("hia\n");
+    _to("\n");
+    _to("b\n");
+    _to("3\n");
+    _to("4");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_recursion/input.toffee"] = {
+    bundlePath: "/include_recursion/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_recursion/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_recursion/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    if (countdown === 0) {
+      _ts(1);
+      _to("blastoff!");
+      _ts(2);
+    } else {
+      print("" + countdown + "..." + (partial('input.toffee', {
+        countdown: countdown - 1
+      })));
+    }
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_recursion/output.toffee"] = {
+    bundlePath: "/include_recursion/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_recursion/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_recursion/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("10...9...8...7...6...5...4...3...2...1...blastoff!");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_techniques/input.toffee"] = {
+    bundlePath: "/include_techniques/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_techniques/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_techniques/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("" + (partial("message.toffee", {
+      from: "Chris <ccoyne77@gmail>"
+    })));
+    _to("\n");
+    _to("" + (partial("message.toffee", {
+      from: "Max & Sam"
+    })));
+    _to("\n");
+    _ts(2);
+    _ts(2);
+    print(partial("message.toffee", {
+      from: "Christian"
+    }));
+    _ts(1);
+    _ts(1);
+    _to("" + (partial("message.toffee", {
+      from: "Jennie"
+    })));
+    _ts(2);
+    print(partial("message.toffee", {
+      sender: "The enemy"
+    }));
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_techniques/message.toffee"] = {
+    bundlePath: "/include_techniques/message.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var from, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_techniques/message.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_techniques/message.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    from = from || "Unknown";
+    _ts(1);
+    _to("From: ");
+    _to("" + (from != null ? escape(from) : ''));
+    _to(" \n");
+    _to("Msg:  Hello, world\n");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/include_techniques/output.toffee"] = {
+    bundlePath: "/include_techniques/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/include_techniques/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/include_techniques/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("From: Chris &lt;ccoyne77@gmail&gt; \n");
+    _to("Msg:  Hello, world\n");
+    _to("\n");
+    _to("From: Max &amp; Sam \n");
+    _to("Msg:  Hello, world\n");
+    _to("\n");
+    _to("From: Christian \n");
+    _to("Msg:  Hello, world\n");
+    _to("From: Jennie \n");
+    _to("Msg:  Hello, world\n");
+    _to("From: Unknown \n");
+    _to("Msg:  Hello, world\n");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/indent_attack/input.toffee"] = {
+    bundlePath: "/indent_attack/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var i, x, _i, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/indent_attack/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/indent_attack/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("<hr />\n");
+    _to("    ");
+    _ts(2);
+    _ts(2);
+    if (1 === 1) {
+      if (2 === 2) {
+        if (3 === 3) {
+          _ts(1);
+          _to("Pass1");
+          _ts(2);
+        }
+      }
+    }
+    if (1 === 1) {
+      if (2 === 3) {
+        if (3 === 3) {
+          _ts(1);
+          _to("Fail");
+          _ts(2);
+        } else {
+          _ts(1);
+          _to("Fail");
+          _ts(2);
+        }
+      } else {
+        if (2 === 2) {
+          if (3 === 3) {
+            _ts(1);
+            _to("Pass2");
+            _ts(2);
+          }
+        }
+      }
+    }
+    _ts(1);
+    _to("\n");
+    _to("<hr />\n");
+    _to("\n");
+    _ts(2);
+    _ts(2);
+    if (1 === 1) {
+      if (2 === 2) {
+        if (3 === 3) {
+          _ts(1);
+          _to("Pass3");
+          _ts(2);
+        }
+      }
+    }
+    if (1 === 1) {
+      if (2 === 3) {
+        if (3 === 3) {
+          _ts(1);
+          _to("Fail");
+          _ts(2);
+        } else {
+          _ts(1);
+          _to("Fail");
+          _ts(2);
+        }
+      } else {
+        if (2 === 2) {
+          if (3 === 3) {
+            _ts(1);
+            _to("Pass4");
+            _ts(2);
+          }
+        }
+      }
+    }
+    _ts(1);
+    _to("\n");
+    _to("<hr />\n");
+    _to("\n");
+    _ts(2);
+    _ts(2);
+    if (10 === 10) {
+      if (20 === 20) {
+        if (30 === 30) {
+          _ts(1);
+          _to("Pass5");
+          _ts(2);
+        }
+      }
+    }
+    if (10 === 10) {
+      if (20 === 30) {
+        if (30 === 30) {
+          _ts(1);
+          _to("Fail");
+          _ts(2);
+        } else {
+          _ts(1);
+          _to("Fail");
+          _ts(2);
+        }
+      } else {
+        if (20 === 20) {
+          if (30 === 30) {
+            _ts(1);
+            _to("Pass6");
+            _ts(2);
+          }
+        }
+      }
+    }
+    _ts(1);
+    _to("\n");
+    _to("\n");
+    _ts(2);
+    _ts(2);
+    if (99 === 99) {
+      print('Pass7');
+    } else {
+      print('Fail');
+      _ts(1);
+      _to("Fail8");
+      _ts(2);
+    }
+    _ts(1);
+    _ts(1);
+    _to("Pass8");
+    _ts(2);
+    _ts(1);
+    _to("\n");
+    _to("\n");
+    _ts(2);
+    _ts(2);
+    _ts(1);
+    _ts(1);
+    _to("...passed with flying colors.");
+    _ts(2);
+    _ts(1);
+    _to("\n");
+    _to("<p>\n");
+    _to(" ");
+    _ts(2);
+    _ts(2);
+    x = 10;
+    if (x > 1) {
+      for (i = _i = 0; 0 <= x ? _i < x : _i > x; i = 0 <= x ? ++_i : --_i) {
+        _ts(1);
+        _to("<br />");
+        _to("" + (i != null ? escape(i) : ''));
+        _ts(2);
+        _ts(2);
+        if (i === 3) {
+          _ts(1);
+          _to(" (my favorite number) ");
+          _ts(2);
+        }
+      }
+    }
+    _ts(1);
+    _to("\n");
+    _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/indent_attack/output.toffee"] = {
+    bundlePath: "/indent_attack/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/indent_attack/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/indent_attack/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("<hr />\n");
+    _to("    Pass1Pass2\n");
+    _to("<hr />\n");
+    _to("\n");
+    _to("Pass3Pass4\n");
+    _to("<hr />\n");
+    _to("\n");
+    _to("Pass5Pass6\n");
+    _to("\n");
+    _to("Pass7Pass8\n");
+    _to("\n");
+    _to("...passed with flying colors.\n");
+    _to("<p>\n");
+    _to(" <br />0<br />1<br />2<br />3 (my favorite number) <br />4<br />5<br />6<br />7<br />8<br />9\n");
+    _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/junk/input.toffee"] = {
+    bundlePath: "/junk/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var supplies, supply, _i, _l, _len, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/junk/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/junk/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    supplies = ["broom", "mop", "vacuum"];
+    _ts(1);
+    _to("<ul>\n");
+    _to("  ");
+    _ts(2);
+    _ts(2);
+    for (_i = 0, _len = supplies.length; _i < _len; _i++) {
+      supply = supplies[_i];
+      _ts(1);
+      _to("<li>");
+      _to("" + (supply != null ? escape(supply) : ''));
+      _to("</li>");
+      _ts(2);
+    }
+    _ts(1);
+    _to("\n");
+    _to("</ul>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/junk/output.toffee"] = {
+    bundlePath: "/junk/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/junk/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/junk/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("<ul>\n");
+    _to("  <li>broom</li><li>mop</li><li>vacuum</li>\n");
+    _to("</ul>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/lambda_fns/input.toffee"] = {
+    bundlePath: "/lambda_fns/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var echo_it, print_it, print_it_twice, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/lambda_fns/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/lambda_fns/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    print_it = function(msg) {
+      _ts(1);
+      _to("" + (msg != null ? escape(msg) : ''));
+      return _ts(2);
+    };
+    print_it_twice = function(msg) {
+      var m;
+      _ts(1);
+      _ts(1);
+      _to("" + (msg != null ? escape(msg) : ''));
+      _ts(2);
+      m = msg;
+      _ts(1);
+      _ts(1);
+      _to("" + (m != null ? escape(m) : ''));
+      return _ts(2);
+    };
+    echo_it = function(msg) {
+      var v;
+      v = msg;
+      return v;
+    };
+    print_it("Pass");
+    print_it_twice("Pass");
+    print(echo_it("Pass"));
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/lambda_fns/output.toffee"] = {
+    bundlePath: "/lambda_fns/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/lambda_fns/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/lambda_fns/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("PassPassPassPass");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/multiline_interpolation/foo.toffee"] = {
+    bundlePath: "/multiline_interpolation/foo.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/multiline_interpolation/foo.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/multiline_interpolation/foo.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("" + (typeof a !== "undefined" && a !== null ? escape(a) : ''));
+    _to(" ");
+    _to("" + (typeof b !== "undefined" && b !== null ? escape(b) : ''));
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/multiline_interpolation/input.toffee"] = {
+    bundlePath: "/multiline_interpolation/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/multiline_interpolation/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/multiline_interpolation/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("" + (escape("Hello, " + "world")));
+    _to("\n");
+    _to("<hr />\n");
+    _to("" + (partial("foo.toffee", {
+      a: "Goodbye" + ',',
+      b: "world"
+    })));
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/multiline_interpolation/output.toffee"] = {
+    bundlePath: "/multiline_interpolation/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/multiline_interpolation/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/multiline_interpolation/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("Hello, world\n");
+    _to("<hr />\n");
+    _to("Goodbye, world");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/plaintext/input.toffee"] = {
+    bundlePath: "/plaintext/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/plaintext/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/plaintext/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("Hi there.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/plaintext/output.toffee"] = {
+    bundlePath: "/plaintext/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/plaintext/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/plaintext/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("Hi there.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/snippets/foo/bar/body.toffee"] = {
+    bundlePath: "/snippets/foo/bar/body.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var msg, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/snippets/foo/bar/body.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/snippets/foo/bar/body.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    msg = msg || "Unknown message";
+    print(msg);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/snippets/foo/message.toffee"] = {
+    bundlePath: "/snippets/foo/message.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var from, msg, _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/snippets/foo/message.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/snippets/foo/message.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    from = from || "Unknown sender";
+    msg = msg || "Unknown message.";
+    print("From: " + from + "\n" + (snippet('./bar/body.toffee', {
+      msg: msg
+    })));
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/snippets/input.toffee"] = {
+    bundlePath: "/snippets/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/snippets/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/snippets/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("" + (partial("./foo/message.toffee")));
+    _to("\n");
+    _to("" + (escape(snippet("./foo/message.toffee"))));
+    _to("\n");
+    _to("" + (partial("./foo/message.toffee", {
+      from: "Sam"
+    })));
+    _to("\n");
+    _to("" + (escape(snippet("./foo/message.toffee", {
+      from: "Max"
+    }))));
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/snippets/output.toffee"] = {
+    bundlePath: "/snippets/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/snippets/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/snippets/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("From: Preloaded sender\n");
+    _to("Preloaded message.\n");
+    _to("From: Unknown sender\n");
+    _to("Unknown message.\n");
+    _to("From: Sam\n");
+    _to("Preloaded message.\n");
+    _to("From: Max\n");
+    _to("Unknown message.");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/special_cases/input.toffee"] = {
+    bundlePath: "/special_cases/input.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/special_cases/input.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/special_cases/input.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("\n");
+    _ts(2);
+    _ts(2);
+    _ts(1);
+    _ts(1);
+    _to('"' + "PASSED" + '"');
+    _ts(2);
+    _ts(1);
+    _to("\n");
+    _ts(2);
+    _ts(1);
+    _to("\n");
+    _to("<p>\n");
+    _to("  ");
+    _to("" + (print("<a>" + 'click & clack' + "</a>")));
+    _to("\n");
+    _to("</p>\n");
+    _ts(2);
+    _ts(1);
+    _to("\n");
+    _to("A backslash is a \\\n");
+    _to("<script>\n");
+    _to(" var passed = \"\\\"passed\\\"\";\n");
+    _to("</script>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/special_cases/output.toffee"] = {
+    bundlePath: "/special_cases/output.toffee"
+  };
+
+  tmpl.pub = function(locals) {
+    var _l, _ln, _t, _to, _ts;
+    _l = locals;
+    _t = _l.__toffee = {
+      out: []
+    };
+    _to = function(x) {
+      return locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return locals.__toffee.state = x;
+    };
+    if (!(_l.print != null)) {
+      _l.print = function(o) {
+        return toffee.__print(_l, o);
+      };
+    }
+    if (!(_l.json != null)) {
+      _l.json = function(o) {
+        return toffee.__json(_l, o);
+      };
+    }
+    if (!(_l.raw != null)) {
+      _l.raw = function(o) {
+        return toffee.__raw(_l, o);
+      };
+    }
+    if (!(_l.html != null)) {
+      _l.html = function(o) {
+        return toffee.__html(_l, o);
+      };
+    }
+    if (!(_l.escape != null)) {
+      _l.escape = function(o) {
+        return toffee.__escape(_l, o);
+      };
+    }
+    if (!(_l.partial != null)) {
+      _l.partial = function(path, vars) {
+        return toffee.__partial(toffee.templates["/special_cases/output.toffee"], _l, path, vars);
+      };
+    }
+    if (!(_l.snippet != null)) {
+      _l.snippet = function(path, vars) {
+        return toffee.__snippet(toffee.templates["/special_cases/output.toffee"], _l, path, vars);
+      };
+    }
+    _t.print = _l.print;
+    _t.json = _l.json;
+    _t.raw = _l.raw;
+    _t.html = _l.html;
+    _t.escape = _l.escape;
+    _t.partial = _l.partial;
+    _t.snippet = _l.snippet;
+    with (locals) {;
+
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _to("\n");
+    _to('"' + "PASSED\"\n");
+    _to("\n");
+    _to("<p>\n");
+    _to("  <a>click & clack</a>\n");
+    _to("</p>\n");
+    _to("\n");
+    _to("A backslash is a \\\n");
+    _to("<script>\n");
+    _to(" var passed = \"\\\"passed\\\"\";\n");
+    _to("</script>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    return __toffee.res;
+    return } /* closing JS 'with' */ ;
+  };
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
