@@ -8,24 +8,28 @@ try
 catch e
   coffee                                = require "coffee-script"
 
+minimizeJs = (js) ->
+  #return js
+  jsp = require("uglify-js").parser
+  pro = require("uglify-js").uglify
+  ast = jsp.parse js
+  #ast = pro.ast_mangle ast
+  ast = pro.ast_squeeze ast
+  return pro.gen_code ast
 
-getCommonHeaders = ->
+
+getCommonHeaders = (include_bundle_headers) ->
   ###
   each view will use this, or if they're bundled together,
-  it'll only be used once  
+  it'll only be used once.
+
+  include_bundle_headers: includes some functions needed for browser use
   ###
   """
 if not toffee?            then toffee = {}
 if not toffee.templates   then toffee.templates = {}
 
 toffee.states = #{JSON.stringify states}
-
-toffee.__print = (locals, o) ->
-  if locals.__toffee.state is toffee.states.COFFEE
-    locals.__toffee.out.push o
-    return ''
-  else
-    return "\#{o}"
 
 toffee.__json = (locals, o) ->
   try
@@ -45,6 +49,23 @@ toffee.__escape = (locals, o) ->
     if o? and (typeof o) is "object" then return locals.json o
     return locals.html o
   return o
+
+#{if include_bundle_headers then getBundleHeaders() else ""}
+"""
+
+getBundleHeaders = ->
+  ###
+  header stuff 
+  only needed when compiling to a JS file
+  ###
+  """
+
+toffee.__print = (locals, o) ->
+  if locals.__toffee.state is toffee.states.COFFEE
+    locals.__toffee.out.push o
+    return ''
+  else
+    return "\#{o}"
 
 toffee.__normalize = (path) ->
   if (not path?) or path is "/"
@@ -70,12 +91,10 @@ toffee.__normalize = (path) ->
 
 toffee.__partial = (parent_tmpl, parent_locals, path, vars) ->
   path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
-  console.log "Partial called: \#{path}"
   return toffee.__inlineInclude path, vars, parent_locals
 
 toffee.__snippet = (parent_tmpl, parent_locals, path, vars) ->
   path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
-  console.log "Snippet called: \#{path}"
   vars = if vars? then vars else {}
   vars.__toffee = vars.__toffee or {}
   vars.__toffee.noInheritance = true
@@ -92,15 +111,17 @@ toffee.__inlineInclude = (path, locals, parent_locals) ->
         options[k] = v
 
   if not toffee.templates[path]
-    return "Could not fund \#{path}"
+    return "Inline toffee include: Could not find \#{path}"
   else
     return toffee.templates[path].pub options
 
 """
 
-getCommonHeadersJs = ->
-  ch = getCommonHeaders()
-  coffee.compile ch, {bare: true}
+getCommonHeadersJs = (include_bundle_headers, minimize)->
+  ch = getCommonHeaders include_bundle_headers
+  js = coffee.compile ch, {bare: true}
+  if minimize then js = minimizeJs js
+  js
 
 class view
 
@@ -113,6 +134,7 @@ class view
     @fileName           = options.fileName    or options.filename or null
     @bundlePath         = options.bundlePath  or "/" # if to be included inside a bundle, this is the path inside it.
     @browserMode        = options.browserMode or false
+    @minimize           = options.minimize    or false # excludes line numbers from coffee ; uses uglify.JS
     @verbose            = options.verbose     or false
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @txt                = txt
@@ -221,6 +243,9 @@ class view
           @javaScript = coffee.compile c, {bare: false}
         catch e
           @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
+        if @minimize and not @error
+          d2 = Date.now()
+          @javaScript = minimizeJs @javaScript
         @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
@@ -240,7 +265,7 @@ class view
     @coffeeScript
 
   _printLineNo: (n, ind) ->
-    if @lastLineNo? and (n is @lastLineNo)
+    if @minimize or (@lastLineNo? and (n is @lastLineNo))
       return ""
     else
       @lastLineNo = n
@@ -428,7 +453,7 @@ class view
     ___  = @_tabAsSpaces()
 
     """
-#{if not @browserMode then getCommonHeaders() else ''}
+#{if @browserMode then '' else getCommonHeaders(false)}
 tmpl = toffee.templates["#{@bundlePath}"]  =
   bundlePath: "#{@bundlePath}"
 tmpl.pub = (locals) ->
@@ -438,7 +463,6 @@ tmpl.pub = (locals) ->
 #{___}_ln = (x) -> locals.__toffee.lineno = x
 #{___}_ts = (x) -> locals.__toffee.state  = x
 
-
 #{___}if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
 #{___}if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
 #{___}if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
@@ -446,7 +470,6 @@ tmpl.pub = (locals) ->
 #{___}if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
 #{___}if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["#{@bundlePath}"], _l, path, vars
 #{___}if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["#{@bundlePath}"], _l, path, vars
-
 
 #{___}_t.print   = _l.print
 #{___}_t.json    = _l.json

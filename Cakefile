@@ -44,7 +44,7 @@ generateExpressTest = (cb) ->
 
   # generate the JS file bundling all the tests
 
-  proc = spawn 'coffee', ['./src/command_line.coffee', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
+  proc = spawn 'coffee', ['./src/command_line.coffee', './test/cases', '-m', '-o', './test/express3/public/javascripts/test_cases.js']
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
   proc.on 'exit', (status) ->
@@ -60,10 +60,12 @@ generateExpressTest = (cb) ->
       <script type="text/javascript" src="/javascripts/test_cases.js"></script>
       <style>
         .test_case {font-size:10px; font-family:courier new;}
-        .server_output, .script_output, .expected_output {padding:10px;float:left;width:300px;border:1px solid #eee;}
+        .test_cell, .server_output, .script_output, .expected_output {padding:10px;border:1px solid #eee;}
       </style>
     </head>
     <body>
+      <table>
+        <tr><th>FILE</th><th>EXPECTED OUTPUT</th><th>SERVER RENDER</th><th>BROWSER RENDER</th></tr>
   """
 
   case_dirs = fs.readdirSync "./test/cases/"
@@ -78,16 +80,15 @@ generateExpressTest = (cb) ->
       rid = Math.floor 100000 * Math.random()
       test_page += """
         \n\n\n<!-- ************ #{dir} -->
-        <div class="test_case">
-          <div class="server_output">\#{partial '../../cases/#{dir}/input.toffee', #{vars}}</div>
+        <tr class="test_case">
+          <td class="test_cell">#{dir}</td>
+          <td class="server_output">\#{partial '../../cases/#{dir}/input.toffee', #{vars}}</td>
           <!-- -->
-          <div class="expected_output">#{expected_output}</div>
+          <td class="expected_output">#{expected_output}</td>
           <!-- -->
-          <div class="script_output" id="#{rid}">
-          </div>
+          <td class="script_output" id="#{rid}"></td>
           <!-- -->
-          <div style="clear:both;"></div>
-        </div>
+        </tr>
         <script type="text/javascript">
           var script_res = toffee.templates["/#{dir}/input.toffee"].pub(#{vars});
           document.getElementById("#{rid}").innerHTML = script_res;
@@ -96,6 +97,7 @@ generateExpressTest = (cb) ->
       """
 
   test_page += """
+    </table>
     </body>
   </html>
   """

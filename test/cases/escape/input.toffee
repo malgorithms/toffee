@@ -1,6 +1,6 @@
 {#
   x = '"Hello world"'
-  y = '<td>'
+  y = '<hr />'
   z = 'click&clack'
   w = [1, 2, {"place": "The Dreadfort"}]
 #}<p>
