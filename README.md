@@ -30,7 +30,7 @@ The `#{}` syntax is powerful, so be responsible.
 </p>
 ```
 
-Including other files is possible thanks to the function `partial`. This in Express (both versions) and in the browser.
+Including other files is possible thanks to the function `partial`. This in both Express and the browser.
 
 ```html
 <p>
