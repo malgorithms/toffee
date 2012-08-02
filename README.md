@@ -385,31 +385,26 @@ toffee.expressEngine.autoEscape = false
 
 known issues
 ===============
-1. comments in `{## ##}` cannot contain other toffee code. Hope to have this fixed soon, as these tokens should
-be useful for temporarily commenting off a region of a template.
-
-3. There's a case where line numbers aren't right.
+1. command line stdout not done yet.
 
 command-line
 ============
-Soon I'll have browser compilation working. I'd like partials and everything to work before I release this. In the meantime, if you're
-curious to see the CoffeeScript that's compiled from a template:
+You can compile an entire project of .toffee files easily.
 
 ```
-toffee -c foo.toffee
+toffee --help
 ```
 
-Or to see it in JS:
-```
-toffee foo.toffee
-```
+This will display some examples and instructions for including a template bundle in your frontend.
 
-contributing
-=============
-I'm likely to accept good pull requests.
+contributing & asking for fixes.
+=================
+If you have a problem with Toffee let me know, and I'll fix it ASAP.
+
+Also, I'm likely to accept good pull requests.
 
 If you'd like to edit code for this project, note that you should always edit the `.coffee` files,
-as the `.js` files as generated automatically by building.
+as the `.js` files are generated automatically by building.
 
 To build
 ```
@@ -425,7 +420,8 @@ I'm also very interested in someone building a Sublime/Textmate package for Toff
 
 todo
 ======
-- finish browser-side include and command-line compiler
-- ...then add instructions on how to use it
 - continue to add to unit tests
-- stack trace conversion improvement
+- finish a few command line options
+  - stdout
+  - coffee output isntead of js, if requested
+  - file-by-file output with root dir as param
