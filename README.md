@@ -107,7 +107,6 @@ With nested code, indentation of your CoffeeScript is magically maintained.
         You know, #{name} would make a great designated driver.
         And she only lives #{profile.distance}km away.
         {#
-           profile.cars.sort (a,b) -> b.speed - a.speed
            if profile.cars.length {: And wow, she drives a #{profile.cars[0].model} :}
            else                   {: But, alas, she has no wheels. :}
         #}
