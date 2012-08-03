@@ -30,7 +30,7 @@ The `#{}` syntax is powerful, so be responsible.
 </p>
 ```
 
-Including other files is possible thanks to the function `partial`. This in both Express and the browser.
+Including other files is possible thanks to the function `partial`. This works in both Express and the browser.
 
 ```html
 <p>
@@ -39,7 +39,7 @@ Including other files is possible thanks to the function `partial`. This in both
 ```
 
 But the greatest pleasure arises when you enter
-`coffee mode`. Note the `{# ... #}` region.
+`coffee mode`. Note the `{# ... #}` region, where you can write multiple lines of CoffeeScript.
 
 ```html
 <p>
@@ -51,7 +51,7 @@ But the greatest pleasure arises when you enter
 </p>
 ```
 
-Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`. It's endlessly nestable.
+Against all odds, inside `coffee mode`, you can switch back to `toffee mode` with `{: ... :}`. It's endlessly nestable.
 
 ```html
 <div class="wrapper">
@@ -69,7 +69,9 @@ Further, inside `coffee mode`, you can switch back to `toffee mode` with `{: ...
 ```
 
 This bracket and nesting syntax avoids a lot of large, ugly regions, such
-as EJS's unsavory and unethical `<% } %>`. Compare:
+as EJS's unethical `<% } %>`. It's been wrong for thousands of years
+to have control markers surrounded by other control
+markers, and it is still wrong.  Witness:
 
 EJS, verbose and weak.
 ```
@@ -85,7 +87,7 @@ TOFFEE, so elegant and proud.
 #}
 ```
 
-Or, using the built-in `print`:
+Or, using Toffee's `print`:
 ```html
 {# 
   for supply in supplies 
@@ -96,7 +98,7 @@ Or, using the built-in `print`:
 These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode safely escapes for HTML. This escaping
 is customizable. More on that below.
 
-With nested code, indentation is inferred. 
+With nested code, indentation of your CoffeeScript is magically maintained.
 
 ```html
 {#
@@ -236,7 +238,7 @@ ECO
 TOFFEE
 ```html
 {#
-   if @projects.length
+   if projects.length
     for project in @projects
       if project.is_active {:
         <p>#{project.name} | #{project.description}</p>
