@@ -17,5 +17,16 @@ Pass 2
 	###
 
 #}
-Pass 3
-{## Fail ##}{## Fail ##}
+Pass 3{## Fail ##}{## Fail ##}
+{##
+      Fail
+      #{"Fail"}
+      {#
+        for x in [1...100] {:
+          #{"Fail"}
+          {#
+            print "Fail"
+          #}
+        :}
+      #}
+##}

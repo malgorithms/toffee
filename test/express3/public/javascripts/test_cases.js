@@ -708,7 +708,10 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ln(19);
     _to("\n");
     _ln(20);
-    _to("Pass 3\n");
+    _to("Pass 3");
+    _ts(2);
+    _ts(1);
+    _to("\n");
     _ln(21);
     _ts(2);
     __toffee.res = __toffee.out.join("");

@@ -28,6 +28,7 @@ starter
     toffee_zone EOF                                 { $$ = ["TOFFEE_ZONE", $1]; return $$;}
   ;
 
+
 toffee_zone 
   :
     toffee_code                                     { $$ = [$1]; }
@@ -36,16 +37,32 @@ toffee_zone
   |
     flip_to_coffee toffee_zone                      { $$ = $2; $2.splice(0,0,$1); }
   |
-    toffee_code flip_to_toffeecomment toffee_zone   { $$ = $3; $3.splice(0,0,$1); }
+    toffee_code flip_to_toffee_comment toffee_zone   { $$ = $3; $3.splice(0,0,$1); }
   |
-    flip_to_toffeecomment toffee_zone               { $$ = $2;  }
+    flip_to_toffee_comment toffee_zone               { $$ = $2;  }
   |
                                                     { $$ = []; }
   ;
 
-flip_to_toffeecomment
+flip_to_toffee_comment
   :
-  START_TOFFEE_COMMENT code END_TOFFEE_COMMENT  {}
+  START_TOFFEE_COMMENT toffee_commented_region END_TOFFEE_COMMENT  {}
+  ;
+
+toffee_commented_region
+  : 
+    toffee_commented_region START_INDENTED_TOFFEE 
+  |
+    toffee_commented_region START_COFFEE 
+  |
+    toffee_commented_region END_COFFEE 
+  | 
+    toffee_commented_region START_TOFFEE 
+  |
+    toffee_commented_region END_TOFFEE 
+  |
+    toffee_commented_region CODE 
+  |
   ;
 
 flip_to_coffee
