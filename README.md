@@ -114,6 +114,21 @@ With nested code, indentation is inferred.
 #}
 ```
 
+### Commenting out a block of code
+
+In toffee mode, you can comment out a region with `{##` and `##}`.
+
+```html
+<div>
+ I don't want to output this anymore...
+ {##
+     <p>An ode to Ruby on Rails</p>
+     <p>#{partial 'ode.toffee'}</p>
+ ##}
+</div>
+```
+
+
 ### Switching to toffee mode without indenting
 
 By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
