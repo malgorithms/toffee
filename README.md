@@ -12,7 +12,7 @@ Table of Contents
    * [3. Common Questions](#section_3)
    * [4. Installation & Usage](#section_4)
 
-## <a name="section_1"></a> 1. Language Basics
+## <a name="section_1"></a> Language Basics
 
 Printing variables in Toffee is easy. Just use CoffeeScript's #{} syntax:
 ```html
@@ -155,7 +155,7 @@ The above is identical to:
 Well, it's not exactly identical.  Let's talk about escaping.
 
 
-## <a name="section_2"></a> 2. Escaping
+## <a name="section_2"></a>Escaping
 
 In your CoffeeScript, the `print` function lets you print the raw value of a variable:
 
@@ -214,7 +214,7 @@ Turning off autoescaping entirely:
  * If you set `autoEscape: false` when creating the engine, the default will be raw across your project. (See more on that below under Express 3.x settings.)
  * Alternatively, you could pass the var `escape: (x) -> x` to turn off escaping for a given template.
 
-## <a name="section_3"></a> 3. Common Questions
+## <a name="section_3"></a>Common Questions
 
 #### How does it compare to eco?
 
@@ -351,7 +351,7 @@ ERROR
 In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different, which is a CoffeeScript error.
 
 
-## <a name="section_4"></a> 4 Installation & Usage
+## <a name="section_4"></a>Installation & Usage
 
 ```
 npm install -g toffee
@@ -408,6 +408,7 @@ command-line
 You can compile an entire project of .toffee files easily.
 
 ```
+npm install -g toffee   (if you haven't yet)
 toffee --help
 ```
 
@@ -432,12 +433,3 @@ To make sure you didn't break something
 > coffee tests/run_cases.coffee
 ```
 
-I'm also very interested in someone building a Sublime/Textmate package for Toffee.
-
-todo
-======
-- continue to add to unit tests
-- finish a few command line options
-  - stdout
-  - coffee output isntead of js, if requested
-  - file-by-file output with root dir as param
