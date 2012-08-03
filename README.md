@@ -26,7 +26,7 @@ The `#{}` syntax is powerful, so be responsible.
 
 ```html
 <p>
-  You have #{(f for f in friends when f.gender is "f").length} female friends.
+  You have #{(limb for limb in limbs when limb.hasHand()).length} arms worth keeping.
 </p>
 ```
 
