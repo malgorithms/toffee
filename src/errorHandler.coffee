@@ -116,10 +116,7 @@ class toffeeError
     returns a TEXT only blob explaining the error
     ###
     cerr = @getConvertedError()
-    if cerr.type is errorTypes.RUNTIME
-      header = cerr.message    
-    else
-      header = "#{cerr.dir_name}/#{cerr.file}: #{cerr.message}"
+    header = "#{cerr.dir_name}/#{cerr.file}: #{cerr.message}"
     res = """
     ERROR
     =====
@@ -152,10 +149,7 @@ class toffeeError
     ###
     cerr = @getConvertedError()
     res = ""
-    if cerr.type is 234432#errorTypes.RUNTIME
-      header = cerr.message
-    else
-      header = "#{cerr.dir_name}/<span style=\"background-color:#fde\"><b>#{cerr.file}</b>: #{cerr.message}</span>"
+    header = "#{cerr.dir_name}/<span style=\"background-color:#fde\"><b>#{cerr.file}</b>: #{_ppEscape cerr.message}</span>"
     res += """
       <div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;">
         \n<pre>#{header}</pre>
@@ -182,7 +176,7 @@ class toffeeError
       line = _ppEscape @toffeeSrcLines[i] 
       padding_len = 5 - ("#{i+1}").length
       padding     = ("&nbsp;" for j in [0...padding_len]).join ""
-      if cerr.line_range[0] <= (i+1) < cerr.line_range[1]
+      if (cerr.line_range[0] - 1) <= (i) < cerr.line_range[1]
         extra = "<span style=\"background-color:#fde\">"
       else
         extra = "<span>"
@@ -194,10 +188,10 @@ class toffeeError
     res
 
   _lineRangeToPhrase: (lrange) ->
-    if lrange[0] >= lrange[1] - 1
+    if lrange[0] is lrange[1]
       "on line #{lrange[0]}"
     else
-      "between lines #{lrange[0]} and #{lrange[1] - 1}"
+      "between lines #{lrange[0]} and #{lrange[1]}"
 
   _extractOffensiveLineNo: (msg, rxx) ->
     m = msg.match rxx
@@ -218,8 +212,8 @@ class toffeeError
 
     prev          = ol[0...lineno].join "\n"
     next          = ol[lineno...].join  "\n"
-    prev_matches  = prev.match /_ln[ ]*\([ ]*([0-9]+)/g
-    next_matches  = next.match /_ln[ ]*\([ ]*([0-9]+)/g
+    prev_matches  = prev.match /_ln[ ]*\(?[ ]*([0-9]+)/g
+    next_matches  = next.match /_ln[ ]*\(?[ ]*([0-9]+)/g
     res           = [1,tl.length]
 
     if prev_matches?.length
