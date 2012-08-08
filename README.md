@@ -187,8 +187,7 @@ putting it on a new line and indenting one level. So the following three conditi
 #}
 ```
 
-(The third one has extra whitespace around the "yay."
-
+The third example has extra whitespace around the "yay," but otherwise the three are logically identical.
 
 ### One gotcha with indenting
 
@@ -213,8 +212,15 @@ GOOD
 #}
 ```
 
+However, with a single line of CoffeeScript, feel free to keep it all on one line:
 
-## Commenting out a block of code
+GOOD
+```
+<div>{# foo = "bar" #}</div>
+```
+
+
+## Commenting out a block of toffee
 
 In toffee mode, you can comment out a region with `{##` and `##}`.
 
