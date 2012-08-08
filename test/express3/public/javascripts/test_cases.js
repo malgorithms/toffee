@@ -175,6 +175,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     count = 0;
     for (i = _i = 0; _i < 2; i = ++_i) {
       _ts(1);
+      _ts(1);
       _ln(3);
       _to("" + (escape(count++)));
       _ln(4);
@@ -1197,6 +1198,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         project = _ref[_i];
         _ts(1);
+        _ts(1);
         _ln(8);
         _to("\n");
         _ln(9);
@@ -1214,6 +1216,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
         _ts(2);
       }
     } else {
+      _ts(1);
       _ts(1);
       _ln(12);
       _to(" No projects ");
@@ -2342,6 +2345,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts(2);
     if (countdown === 0) {
       _ts(1);
+      _ts(1);
       _ln(2);
       _to("blastoff!");
       _ts(2);
@@ -2754,7 +2758,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(locals) {
-    var i, x, _i, _l, _ln, _t, _to, _ts;
+    var i, square, x, _i, _j, _l, _ln, _t, _to, _ts;
     _l = locals;
     _t = _l.__toffee = {
       out: []
@@ -2825,6 +2829,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       if (2 === 2) {
         if (3 === 3) {
           _ts(1);
+          _ts(1);
           _ln(5);
           _to("Pass1");
           _ts(2);
@@ -2835,10 +2840,12 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       if (2 === 3) {
         if (3 === 3) {
           _ts(1);
+          _ts(1);
           _ln(9);
           _to("Fail");
           _ts(2);
         } else {
+          _ts(1);
           _ts(1);
           _ln(11);
           _to("Fail");
@@ -2847,6 +2854,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       } else {
         if (2 === 2) {
           if (3 === 3) {
+            _ts(1);
             _ts(1);
             _ln(14);
             _to("Pass2");
@@ -2869,6 +2877,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       if (2 === 2) {
         if (3 === 3) {
           _ts(1);
+          _ts(1);
           _ln(21);
           _to("Pass3");
           _ts(2);
@@ -2879,10 +2888,12 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       if (2 === 3) {
         if (3 === 3) {
           _ts(1);
+          _ts(1);
           _ln(25);
           _to("Fail");
           _ts(2);
         } else {
+          _ts(1);
           _ts(1);
           _ln(27);
           _to("Fail");
@@ -2891,6 +2902,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       } else {
         if (2 === 2) {
           if (3 === 3) {
+            _ts(1);
             _ts(1);
             _ln(30);
             _to("Pass4");
@@ -2913,6 +2925,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       if (20 === 20) {
         if (30 === 30) {
           _ts(1);
+          _ts(1);
           _ln(37);
           _to("Pass5");
           _ts(2);
@@ -2923,10 +2936,12 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       if (20 === 30) {
         if (30 === 30) {
           _ts(1);
+          _ts(1);
           _ln(41);
           _to("Fail");
           _ts(2);
         } else {
+          _ts(1);
           _ts(1);
           _ln(43);
           _to("Fail");
@@ -2935,6 +2950,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       } else {
         if (20 === 20) {
           if (30 === 30) {
+            _ts(1);
             _ts(1);
             _ln(46);
             _to("Pass6");
@@ -2955,6 +2971,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
       print('Pass7');
     } else {
       print('Fail');
+      _ts(1);
       _ts(1);
       _ln(54);
       _to("Fail8");
@@ -2979,35 +2996,65 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _to("...passed with flying colors.");
     _ts(2);
     _ts(1);
-    _ln(61);
+    _ln(82);
     _to("\n");
-    _ln(62);
+    _ln(83);
     _to("<p>\n");
-    _ln(63);
+    _ln(84);
     _to(" ");
     _ts(2);
     _ts(2);
-    x = 10;
+    x = 20;
     if (x > 1) {
-      for (i = _i = 0; 0 <= x ? _i < x : _i > x; i = 0 <= x ? ++_i : --_i) {
+      for (i = _i = 12; 12 <= x ? _i < x : _i > x; i = 12 <= x ? ++_i : --_i) {
+        square = 16;
         _ts(1);
-        _ln(67);
-        _to("<br />");
+        _ts(1);
+        _ln(89);
+        _to("Pass");
         _to("" + (i != null ? escape(i) : ''));
         _ts(2);
         _ts(2);
-        if (i === 3) {
+        if (i === square) {
           _ts(1);
-          _ln(68);
-          _to(" (my favorite number) ");
+          _ts(1);
+          _ln(90);
+          _to("(a perfect square)");
           _ts(2);
         }
       }
     }
     _ts(1);
-    _ln(70);
+    _ln(92);
     _to("\n");
-    _ln(71);
+    _ln(93);
+    _to("      ");
+    _ts(2);
+    _ts(2);
+    x = 20;
+    if (x > 1) {
+      for (i = _j = 12; 12 <= x ? _j < x : _j > x; i = 12 <= x ? ++_j : --_j) {
+        square = 16;
+      }
+      _ts(1);
+      _ts(1);
+      _ln(98);
+      _to("Pass");
+      _to("" + (i != null ? escape(i) : ''));
+      _ts(2);
+      _ts(2);
+      if (i === square) {
+        _ts(1);
+        _ts(1);
+        _ln(99);
+        _to("(a perfect square)");
+        _ts(2);
+      }
+    }
+    _ts(1);
+    _ln(101);
+    _to("\n");
+    _ln(102);
     _to("</p>");
     _ts(2);
     __toffee.res = __toffee.out.join("");
@@ -3117,8 +3164,10 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ln(13);
     _to("<p>\n");
     _ln(14);
-    _to(" <br />0<br />1<br />2<br />3 (my favorite number) <br />4<br />5<br />6<br />7<br />8<br />9\n");
+    _to(" Pass12Pass13Pass14Pass15Pass16(a perfect square)Pass17Pass18Pass19\n");
     _ln(15);
+    _to("      Pass20\n");
+    _ln(16);
     _to("</p>");
     _ts(2);
     __toffee.res = __toffee.out.join("");
@@ -3211,6 +3260,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts(2);
     for (_i = 0, _len = supplies.length; _i < _len; _i++) {
       supply = supplies[_i];
+      _ts(1);
       _ts(1);
       _to("<li>");
       _to("" + (supply != null ? escape(supply) : ''));
@@ -3390,6 +3440,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts(1);
     _ts(2);
     print_it = function(msg) {
+      _ts(1);
       _ts(1);
       _ln(2);
       _to("" + (msg != null ? escape(msg) : ''));

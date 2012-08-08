@@ -170,7 +170,7 @@ class view
     ###
     replaces tabs with spaces in their coffee regions
     ###
-    if obj[0] in ["INDENTED_TOFFEE_ZONE", "TOFFEE_ZONE", "COFFEE_ZONE"]
+    if obj[0] in ["TOFFEE_ZONE", "COFFEE_ZONE"]
       @_cleanTabs item for item in obj[1]
     else if obj[0] is "COFFEE"
       obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
@@ -247,7 +247,7 @@ class view
         d = Date.now()
         res =  @_coffeeHeaders()
         try
-          res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0)[0]
+          res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0, {})[0]
           res += @_coffeeFooters()
           @coffeeScript = res
         catch e 
@@ -283,7 +283,7 @@ class view
     return false
 
 
-  _toCoffeeRecurse: (obj, indent_level, indent_baseline) ->
+  _toCoffeeRecurse: (obj, indent_level, indent_baseline, state_carry) ->
     # returns [res, indent_baseline_delta]
     # indent_level    = # of spaces to add to each coffeescript section
     # indent_baseline = # of chars to strip from each line inside {# #} 
@@ -291,22 +291,19 @@ class view
     res = ""
     i_delta = 0
     switch obj[0]
-      when "INDENTED_TOFFEE_ZONE"
-        indent_level += TAB_SPACES
-        for item in obj[1]
-          [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
-          res += s
       when "TOFFEE_ZONE"
+        if state_carry.last_coffee_ends_with_newline is false
+          indent_level += TAB_SPACES
         res += "\n#{@_space indent_level}_ts #{states.TOFFEE}"
         for item in obj[1]
-          [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline
+          [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline, state_carry
           res += s
       when "COFFEE_ZONE"
         res += "\n#{@_space indent_level}_ts #{states.COFFEE}"
         zone_baseline   = @_getZoneBaseline obj[1]
         temp_indent_level = indent_level
         for item in obj[1]
-          [s, delta] = @_toCoffeeRecurse item, temp_indent_level, zone_baseline
+          [s, delta] = @_toCoffeeRecurse item, temp_indent_level, zone_baseline, state_carry
           res += s
           temp_indent_level = indent_level + delta
       when "TOFFEE"
@@ -346,6 +343,7 @@ class view
         c = obj[1]
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
         i_delta = @_getIndentationDelta c, indent_baseline
+        state_carry.last_coffee_ends_with_newline = @_doesEndWithNewline c
       else 
         throw "Bad parsing. #{obj} not handled."
         return ["",0]
@@ -371,6 +369,13 @@ class view
     res += '"""' + s + '"""'
     if follow.length then res += "+ \'#{follow}\'"
     res
+
+  _doesEndWithNewline: (s) ->
+    parts = s.split "\n"
+    if (parts.length > 1) and parts[parts.length - 1].match /^[\t ]*$/
+      return true
+    else
+      return false
 
   _escapeForStr: (s) ->
     ###

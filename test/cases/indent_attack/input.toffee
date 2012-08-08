@@ -51,21 +51,52 @@
     print 'Pass7'
   else
     print 'Fail'
-  {:Fail8:}
-  -{:Pass8:}
+    {:Fail8:}
+  {:Pass8:}
 #}
 
 {#
 
-      -{:...passed with flying colors.:}
+      {:...passed with flying colors.:}
+#}{##
+{#
+  if true and 10 is 10
+    {:
+      Pass9
+    :}
+    print "Pass10"
+    if 11 is 12
+      print "Fail"
+    if 12 is 13 {:
+      Fail
+    :}
+    else 
+      {:
+        Pass11
+      :}
+  else if 11 is 12
+  {:
+    Fail
+  :}
 #}
+##}
 <p>
  {#
-   x = 10
+   x = 20
    if x > 1
-     for i in [0...x] 
-       {:<br />#{i}{#
-         if i is 3 {: (my favorite number) :}
+     for i in [12...x] 
+       square = 16
+       {:Pass#{i}{#
+         if i is square {:(a perfect square):}
        #}:}
  #}
+      {#
+         x = 20
+         if x > 1
+           for i in [12...x] 
+             square = 16
+           {:Pass#{i}{#
+             if i is square {:(a perfect square):}
+           #}:}
+      #}
 </p>

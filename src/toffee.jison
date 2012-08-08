@@ -10,10 +10,9 @@
 "{##"                     return 'START_TOFFEE_COMMENT';
 "##}"                     return 'END_TOFFEE_COMMENT';
 ":}"                      return 'END_TOFFEE';
-"{:"                      return 'START_INDENTED_TOFFEE';
+"{:"                      return 'START_TOFFEE';
 "{#"                      return 'START_COFFEE';
 "#}"                      return 'END_COFFEE';
-[\-][\t\r\n ]*"{:"        return 'START_TOFFEE';
 [^{}#\\:\-]+|[\\{}#:\-]   return 'CODE';
 <<EOF>>                   return 'EOF';
 
@@ -31,17 +30,17 @@ starter
 
 toffee_zone 
   :
-    toffee_code                                     { $$ = [$1]; }
+    toffee_code                                      { $$ = [$1]; }
   |
-    toffee_code flip_to_coffee toffee_zone          { $$ = $3; $3.splice(0,0,$1,$2); }
+    toffee_code flip_to_coffee toffee_zone           { $$ = $3; $3.splice(0,0,$1,$2); }
   |
-    flip_to_coffee toffee_zone                      { $$ = $2; $2.splice(0,0,$1); }
+    flip_to_coffee toffee_zone                       { $$ = $2; $2.splice(0,0,$1); }
   |
     toffee_code flip_to_toffee_comment toffee_zone   { $$ = $3; $3.splice(0,0,$1); }
   |
     flip_to_toffee_comment toffee_zone               { $$ = $2;  }
   |
-                                                    { $$ = []; }
+                                                     { $$ = []; }
   ;
 
 flip_to_toffee_comment
@@ -51,8 +50,6 @@ flip_to_toffee_comment
 
 toffee_commented_region
   : 
-    toffee_commented_region START_INDENTED_TOFFEE 
-  |
     toffee_commented_region START_COFFEE 
   |
     toffee_commented_region END_COFFEE 
@@ -84,8 +81,6 @@ coffee_zone
 flip_to_toffee
   :
     START_TOFFEE toffee_zone END_TOFFEE            { $$ = ["TOFFEE_ZONE", $2]; }
-  |
-    START_INDENTED_TOFFEE toffee_zone END_TOFFEE   { $$ = ["INDENTED_TOFFEE_ZONE", $2]; }
   ;
 
 

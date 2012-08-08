@@ -2,6 +2,6 @@
 #{partial "message.toffee", from: "Max & Sam"}
 {#
   print partial "message.toffee", from:   "Christian"
-  -{:#{partial "message.toffee",  from:   "Jennie"}:}
-  print partial "message.toffee",       sender: "The enemy"
+  {:#{  partial "message.toffee", from:   "Jennie"}:}
+  print partial "message.toffee", sender: "The enemy"
 #}

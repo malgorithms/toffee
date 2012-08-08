@@ -2,9 +2,9 @@
   print_it        = (msg) -> {:#{msg}:}
 
   print_it_twice  = (msg) ->
-    -{:#{msg}:}
+    {:#{msg}:}
     m = msg
-    -{:#{m}:}
+    {:#{m}:}
 
   echo_it         = (msg) ->
     v = msg

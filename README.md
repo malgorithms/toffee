@@ -130,7 +130,9 @@ In toffee mode, you can comment out a region with `{##` and `##}`.
 ```
 
 
-### Switching to toffee mode without indenting
+### Toffee is smart about indenting.
+
+You can indent your `{# #}` region however, you want, and 
 
 By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
 probably because of a loop or conditional. 
