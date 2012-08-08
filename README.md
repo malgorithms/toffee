@@ -115,7 +115,106 @@ With nested code, indentation of your CoffeeScript is magically maintained.
 #}
 ```
 
-### Commenting out a block of code
+### By now, you probably have questions about indenting
+
+Since CoffeeScript is sensitive to indenting, so is Toffee.
+
+But...Toffee is smart about inferring indenting. When you want to create a coffee block, you can indent it however
+you like, and all that matters is that the internal, relative indenting is correct. For example, these
+are identical:
+
+```html
+<p>
+	{#
+	      if user.is_awesome {:
+	        YAY!
+	      :}	      
+	#}
+</p>
+<p>
+{#
+if user.is_awesome {:
+  YAY!
+:}
+#}
+</p>
+```
+
+In other words, feel free to pick whatever indentation baseline you want when entering a region of Coffee.
+
+Note that where you put your toffee mode tokens (`{:`) is important, as the following illustrates:
+
+```html
+<p>
+ {#
+    if x is true
+      if y is true
+        if z is true
+      {: 
+      	x is true! I don't know anything about y or z, though. 
+      :}
+ #}
+</p>
+```
+
+As the above shows, the simple way to think of a `{: ... :}` 
+region is as a single line of CoffeeScript indented to wherever you put the opening `{`.
+
+
+
+One syntactic convenience: if you start a `{:` on the same line as some preceeding CoffeeScript, it's 
+treated the same as
+putting it on a new line and indenting one level. So the following three conditionals are the same:
+
+```html
+{#
+  if x is true
+    {:yay:}
+#}
+```
+
+```html
+{#
+  if x is true {:yay:}
+#}
+```
+
+```html
+{#
+  if x is true {:
+    yay
+  :}
+#}
+```
+
+(The third one has extra whitespace around the "yay."
+
+
+### One gotcha with indenting
+
+
+
+THIS IS AN ERROR
+```html
+{# if x is 0 {:Yay!:}
+   else      {:Burned:}
+#}
+```
+
+Note that the indentations before the 'if' and the 'else' are technically different,
+as the `if` has only 1 space before it, and the `else` has 2. If you're writing 
+multiple lines of CoffeeScript, it's better style to separate these lines anyway:
+
+GOOD
+```html
+{# 
+   if x is 0 {:Yay!:}
+   else      {:Burned:}
+#}
+```
+
+
+## Commenting out a block of code
 
 In toffee mode, you can comment out a region with `{##` and `##}`.
 
@@ -128,33 +227,6 @@ In toffee mode, you can comment out a region with `{##` and `##}`.
  ##}
 </div>
 ```
-
-
-### Toffee is smart about indenting.
-
-You can indent your `{# #}` region however, you want, and 
-
-By default, when you enter `{: ... :}`, the Toffee compiler assumes you're entering an indented region, 
-probably because of a loop or conditional. 
-If you ever want to cut into toffee mode without indenting, use `-{: ... :}`. For example:
-
-```
-{#
-   name = "Hans Gruber"
-   -{:You're a hell of a thief, #{name}:}
-#}
-```
-
-The above is identical to:
-
-```
-{#
-   name = "Hans Gruber"
-   print "You're a hell of a thief, #{name}"
-#}
-```
-
-Well, it's not exactly identical.  Let's talk about escaping.
 
 
 ## <a name="section_2"></a>Escaping
@@ -302,55 +374,6 @@ For example, in the above code, `session` would also be available in the user_me
 
 Yes, this works in Express 3.0, emulating the Express 2.0 way. If you publish a file `foo.toffee` and pass a `layout` filename to it as a var, `foo.toffee` is rendered, and the results are put into
 a var called `body`. Then your layout is rendered, using all your vars plus the new `body` var.
-
-
-#### How does the indentation work?
-
-Toffee realigns all your coffeescript inside a `{# region #}` by normalizing the indentation of that region.
-So it doesn't matter how you indent things, as long as it makes local sense inside that region. 
-
-For example, these are all identical:
-
-```html
-<p>{# if x is 0 {:Yay!:} else  {:Burned:} #}</p>
-```
-
-```html
-<p>{# 
-  if x is 0 {:Yay!:} else {:Burned:}
-#}</p>
-```
-
-```html
-<p>
-{# 
-             if x is 0 {:Yay!:}
-             else      {:Burned:}
-#}</p>
-```
-
-However, this would cause an error:
-
-ERROR
-```html
-<p>
-{# 
-             if x is 0 {:Yay!:}
-               else      {:Burned:}
-#}</p>
-```
-
-As would this more subtle case:
-
-ERROR
-```html
-<p>
-{#   if x is 0 {:Yay!:}
-     else      {:Burned:}
-#}</p>
-```
-
-In the above 2 cases, note that the leading whitespaces before the `if` and `else` are different, which is a CoffeeScript error.
 
 
 ## <a name="section_4"></a>Installation & Usage
