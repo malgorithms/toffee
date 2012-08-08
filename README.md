@@ -119,9 +119,9 @@ With nested code, indentation of your CoffeeScript is magically maintained.
 
 Since CoffeeScript is sensitive to indenting, so is Toffee.
 
-But...Toffee is smart about inferring indenting. When you want to create a coffee block, you can indent it however
-you like, and all that matters is that the internal, relative indenting is correct. For example, these
-are identical:
+But...Toffee doesn't care where you start your CoffeeScript. When you want to create a coffee block, 
+you can indent it however you like, and all that matters is that the internal, 
+relative indenting is correct. For example, these are identical:
 
 ```html
 <p>
@@ -140,7 +140,7 @@ if user.is_awesome {:
 </p>
 ```
 
-In other words, feel free to pick whatever indentation baseline you want when entering a region of Coffee.
+In other words, feel free to pick whatever indentation baseline you want when entering a region of CoffeeScript.
 
 Note that where you put your toffee mode tokens (`{:`) is important, as the following illustrates:
 
@@ -163,8 +163,8 @@ region is as a single line of CoffeeScript indented to wherever you put the open
 
 
 One syntactic convenience: if you start a `{:` on the same line as some preceeding CoffeeScript, it's 
-treated the same as
-putting it on a new line and indenting one level. So the following three conditionals are the same:
+treated the same as putting it on a new line and indenting one level.
+So the following three conditionals are the same:
 
 ```html
 {#
@@ -201,8 +201,7 @@ THIS IS AN ERROR
 ```
 
 Note that the indentations before the 'if' and the 'else' are technically different,
-as the `if` has only 1 space before it, and the `else` has 2. If you're writing 
-multiple lines of CoffeeScript, it's better style to separate these lines anyway:
+as the `if` has only 1 space before it, and the `else` has 2. This is better style anyway:
 
 GOOD
 ```html
@@ -212,7 +211,7 @@ GOOD
 #}
 ```
 
-However, with a single line of CoffeeScript, feel free to keep it all on one line:
+With a single line of CoffeeScript, feel free to keep it all on one line:
 
 GOOD
 ```
