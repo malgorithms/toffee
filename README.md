@@ -150,17 +150,27 @@ Note that where you put your toffee mode tokens (`{:`) is important, as the foll
     if x is true
       if y is true
         if z is true
+          w = true
       {: 
-      	x is true! I don't know anything about y or z, though. 
+      	x is true! Dunno anything about y or z, though. 
       :}
  #}
 </p>
 ```
 
-As the above shows, the simple way to think of a `{: ... :}` 
-region is as a single line of CoffeeScript indented to wherever you put the opening `{`.
+Why? Because this is roughly the same as saying:
 
-
+```html
+<p>
+ {#
+    if x is true
+      if y is true
+        if z is true
+          w = true
+      print "\n       x is true! Dunno anything about y or z, though.\n     "
+ #}
+</p>
+```
 
 One syntactic convenience: if you start a `{:` on the same line as some preceeding CoffeeScript, it's 
 treated the same as putting it on a new line and indenting one level.
