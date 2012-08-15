@@ -452,12 +452,12 @@ class view
 #{if @browserMode then '' else getCommonHeaders(false)}
 tmpl = toffee.templates["#{@bundlePath}"]  =
   bundlePath: "#{@bundlePath}"
-tmpl.pub = (locals) ->
-#{___}_l = locals
+tmpl.pub = (__locals) ->
+#{___}_l = __locals
 #{___}_t = _l.__toffee       = { out: []}
-#{___}_to = (x) -> locals.__toffee.out.push x
-#{___}_ln = (x) -> locals.__toffee.lineno = x
-#{___}_ts = (x) -> locals.__toffee.state  = x
+#{___}_to = (x) -> __locals.__toffee.out.push x
+#{___}_ln = (x) -> __locals.__toffee.lineno = x
+#{___}_ts = (x) -> __locals.__toffee.state  = x
 
 #{___}if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
 #{___}if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
@@ -475,7 +475,7 @@ tmpl.pub = (locals) ->
 #{___}_t.partial = _l.partial
 #{___}_t.snippet = _l.snippet
 
-#{___}`with (locals) {`
+#{___}`with (__locals) {`
 #{___}__toffee.out = []
 """
 

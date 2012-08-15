@@ -110,20 +110,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/big_file/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var count, i, _i, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -167,7 +167,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -541,20 +541,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/big_file/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -598,7 +598,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -624,20 +624,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/comments/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -681,7 +681,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -733,20 +733,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/comments/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -790,7 +790,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -827,20 +827,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/custom_escape/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var w, x, y, z, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -884,7 +884,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -991,20 +991,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/custom_escape/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1048,7 +1048,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1120,20 +1120,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/eco_compare/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var f, friends, project, _i, _l, _len, _ln, _ref, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1177,7 +1177,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1273,20 +1273,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/eco_compare/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1330,7 +1330,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1372,20 +1372,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/escape/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var w, x, y, z, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1429,7 +1429,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1572,20 +1572,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/escape/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1629,7 +1629,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1729,20 +1729,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/hello_world/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1786,7 +1786,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1813,20 +1813,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/hello_world/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1870,7 +1870,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1896,20 +1896,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/hello_world/temp.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -1953,7 +1953,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -1992,20 +1992,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_order/child.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2049,7 +2049,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2084,20 +2084,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_order/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var say_hi, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2141,7 +2141,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2186,20 +2186,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_order/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2243,7 +2243,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2281,20 +2281,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_recursion/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2338,7 +2338,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2372,20 +2372,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_recursion/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2429,7 +2429,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2455,20 +2455,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_techniques/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2512,7 +2512,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2561,20 +2561,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_techniques/message.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var from, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2618,7 +2618,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2651,20 +2651,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/include_techniques/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2708,7 +2708,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -2757,20 +2757,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/indent_attack/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var i, square, x, _i, _j, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -2814,7 +2814,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3075,20 +3075,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/indent_attack/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3132,7 +3132,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3188,20 +3188,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/junk/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var supplies, supply, _i, _l, _len, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3245,7 +3245,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3290,20 +3290,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/junk/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3347,7 +3347,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3377,20 +3377,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/lambda_fns/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var echo_it, print_it, print_it_twice, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3434,7 +3434,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3486,20 +3486,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/lambda_fns/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3543,7 +3543,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3569,20 +3569,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/multiline_interpolation/foo.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3626,7 +3626,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3654,20 +3654,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/multiline_interpolation/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3711,7 +3711,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3747,20 +3747,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/multiline_interpolation/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3804,7 +3804,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3834,20 +3834,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/plaintext/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3891,7 +3891,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -3917,20 +3917,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/plaintext/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -3974,7 +3974,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -4000,20 +4000,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/snippets/foo/bar/body.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var msg, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -4057,7 +4057,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -4082,20 +4082,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/snippets/foo/message.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var from, msg, _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -4139,7 +4139,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -4167,20 +4167,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/snippets/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -4224,7 +4224,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -4263,20 +4263,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/snippets/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -4320,7 +4320,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -4360,20 +4360,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/special_cases/input.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -4417,7 +4417,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
@@ -4480,20 +4480,20 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     bundlePath: "/special_cases/output.toffee"
   };
 
-  tmpl.pub = function(locals) {
+  tmpl.pub = function(__locals) {
     var _l, _ln, _t, _to, _ts;
-    _l = locals;
+    _l = __locals;
     _t = _l.__toffee = {
       out: []
     };
     _to = function(x) {
-      return locals.__toffee.out.push(x);
+      return __locals.__toffee.out.push(x);
     };
     _ln = function(x) {
-      return locals.__toffee.lineno = x;
+      return __locals.__toffee.lineno = x;
     };
     _ts = function(x) {
-      return locals.__toffee.state = x;
+      return __locals.__toffee.state = x;
     };
     if (!(_l.print != null)) {
       _l.print = function(o) {
@@ -4537,7 +4537,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _t.escape = _l.escape;
     _t.partial = _l.partial;
     _t.snippet = _l.snippet;
-    with (locals) {;
+    with (__locals) {;
 
     __toffee.out = [];
     _ts(1);
