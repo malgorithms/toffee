@@ -10,7 +10,8 @@ Table of Contents
    * [1. Language Basics](#section_1)
    * [2. Notes on Escaping](#section_2)
    * [3. Common Questions](#section_3)
-   * [4. Installation & Usage](#section_4)
+   * [4. NodeJS Installation & Usage](#section_4)
+   * [5. Browser Usage](#section_5)
 
 ## <a name="section_1"></a> Language Basics
 
@@ -414,8 +415,7 @@ toffee      = require 'toffee'
 app.register '.toffee', toffee
 ```
 
-express 3.x options
-===================
+## express 3.x options
 
 Pretty-print errors
 -----
@@ -438,21 +438,12 @@ toffee = require 'toffee'
 toffee.expressEngine.autoEscape = false
 ```
 
+## <a name="section_5"></a>Browser Usage! (Compiling your .toffee files)
 
-known issues
-===============
-1. command line stdout not done yet.
+You can compile an entire project of .toffee files easily into a .js file. Even partials work with the same path-based syntax.
 
-command-line
-============
-You can compile an entire project of .toffee files easily.
+Please see [Browser Usage](https://github.com/malgorithms/toffee/wiki) in the wiki, as the `toffee` command line program has a lot of options.
 
-```
-npm install -g toffee   (if you haven't yet)
-toffee --help
-```
-
-This will display some examples and instructions for including a template bundle in your frontend.
 
 contributing & asking for fixes.
 =================
