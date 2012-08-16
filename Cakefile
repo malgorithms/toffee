@@ -82,16 +82,23 @@ generateExpressTest = (cb) ->
         \n\n\n<!-- ************ #{dir} -->
         <tr class="test_case">
           <td class="test_cell">#{dir}</td>
-          <td class="server_output">\#{partial '../../cases/#{dir}/input.toffee', #{vars}}</td>
+          <td class="expected_output" id="expected_#{rid}">#{expected_output}</td>
           <!-- -->
-          <td class="expected_output">#{expected_output}</td>
+          <td class="server_output" id="server_#{rid}">\#{partial '../../cases/#{dir}/input.toffee', #{vars}}</td>
           <!-- -->
-          <td class="script_output" id="#{rid}"></td>
+          <td class="script_output" id="browser_#{rid}"></td>
           <!-- -->
         </tr>
         <script type="text/javascript">
+          var gbid = function(x) {return document.getElementById(x); }
           var script_res = toffee.templates["/#{dir}/input.toffee"].pub(#{vars});
-          document.getElementById("#{rid}").innerHTML = script_res;
+          gbid("browser_#{rid}").innerHTML = script_res;
+          if (gbid("browser_#{rid}").innerHTML == gbid("expected_#{rid}").innerHTML) { 
+            gbid("browser_#{rid}").style.backgroundColor="#dfe";
+          }
+          else {
+            gbid("browser_#{rid}").style.backgroundColor="#fcc";
+          }
         </script>
         \n\n\n
       """

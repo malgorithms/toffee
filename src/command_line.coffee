@@ -91,7 +91,7 @@ run = exports.run = ->
       console.log "Input file/path not found. toffee --help for examples"
       process.exit 1
     start_path = path.normalize start_path
-    out_text = """#{getCommonHeadersJs true, true}\n;\n#{recurseRun start_path, start_path, ''}"""    
+    out_text = """#{getCommonHeadersJs true, true}\n#{recurseRun start_path, start_path, ''}"""    
     if program.print
       console.log out_text
     if program.output

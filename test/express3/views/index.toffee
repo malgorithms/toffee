@@ -15,16 +15,23 @@
 <!-- ************ big_file -->
 <tr class="test_case">
   <td class="test_cell">big_file</td>
-  <td class="server_output">#{partial '../../cases/big_file/input.toffee', {}}</td>
+  <td class="expected_output" id="expected_0">0... 1... 2... 3... 4... 5... 6... 7... 8... 9... 10... 11... 12... 13... 14... 15... 16... 17... 18... 19... 20... 21... 22... 23... 24... 25... 26... 27... 28... 29... 30... 31... 32... 33... 34... 35... 36... 37... 38... 39... 40... 41... 42... 43... 44... 45... 46... 47... 48... 49... 50... 51... 52... 53... 54... 55... 56... 57... 58... 59... 60... 61... 62... 63... 64... 65... 66... 67... 68... 70... 70... 71... 72... 73... 74... 75... 76... 77... 78... 79... 80... 81... 82... 83... 84... 85... 86... 87... 88... 89... 90... 91... 92... 93... 94... 95... 96... 97... 98... 99... 100... 101... 102... 103... 104... 105... 106... 107... 108... 109... 110... 111... 112... 113... 114... 115... 116... 117... 118... 119... 120... 121... 122... 123... 124... 125... 126... 127... 128... 129... 130... 131... 132... 133... 134... 135... 136... 137... 138... 139... 140... 141... 142... 143... 144... 145... 146... 147... 148... 149... 150... 151... 152... 153... 154... 155... 156... 157... 158... 159... 160... 162...162... 163... 164... 165... 166... 167... 168... 169... 170... 171... 172... 173... 174... 175... 176... 177... 178... 179... 180... 181... 182... 183... 184... 185... 186... 187... 188... 189... 190... 191... 192... 193... 194... 195... 196... 197... 198... 199... 200... 201... 202... 203... 204... 205... 206... 207... 208... 209... 210... 211... 212... 213... 214... 215... 216... 217... 218... 219... 220... 221... 222... 223... 224... 225... 226... 227... 228... 229... 230... 232... 232... 233... 234... 235... 236... 237... 238... 239... 240... 241... 242... 243... 244... 245... 246... 247... 248... 249... 250... 251... 252... 253... 254... 255... 256... 257... 258... 259... 260... 261... 262... 263... 264... 265... 266... 267... 268... 269... 270... 271... 272... 273... 274... 275... 276... 277... 278... 279... 280... 281... 282... 283... 284... 285... 286... 287... 288... 289... 290... 291... 292... 293... 294... 295... 296... 297... 298... 299... 300... 301... 302... 303... 304... 305... 306... 307... 308... 309... 310... 311... 312... 313... 314... 315... 316... 317... 318... 319... 320... 321... 322... 324...</td>
   <!-- -->
-  <td class="expected_output">0... 1... 2... 3... 4... 5... 6... 7... 8... 9... 10... 11... 12... 13... 14... 15... 16... 17... 18... 19... 20... 21... 22... 23... 24... 25... 26... 27... 28... 29... 30... 31... 32... 33... 34... 35... 36... 37... 38... 39... 40... 41... 42... 43... 44... 45... 46... 47... 48... 49... 50... 51... 52... 53... 54... 55... 56... 57... 58... 59... 60... 61... 62... 63... 64... 65... 66... 67... 68... 70... 70... 71... 72... 73... 74... 75... 76... 77... 78... 79... 80... 81... 82... 83... 84... 85... 86... 87... 88... 89... 90... 91... 92... 93... 94... 95... 96... 97... 98... 99... 100... 101... 102... 103... 104... 105... 106... 107... 108... 109... 110... 111... 112... 113... 114... 115... 116... 117... 118... 119... 120... 121... 122... 123... 124... 125... 126... 127... 128... 129... 130... 131... 132... 133... 134... 135... 136... 137... 138... 139... 140... 141... 142... 143... 144... 145... 146... 147... 148... 149... 150... 151... 152... 153... 154... 155... 156... 157... 158... 159... 160... 162...162... 163... 164... 165... 166... 167... 168... 169... 170... 171... 172... 173... 174... 175... 176... 177... 178... 179... 180... 181... 182... 183... 184... 185... 186... 187... 188... 189... 190... 191... 192... 193... 194... 195... 196... 197... 198... 199... 200... 201... 202... 203... 204... 205... 206... 207... 208... 209... 210... 211... 212... 213... 214... 215... 216... 217... 218... 219... 220... 221... 222... 223... 224... 225... 226... 227... 228... 229... 230... 232... 232... 233... 234... 235... 236... 237... 238... 239... 240... 241... 242... 243... 244... 245... 246... 247... 248... 249... 250... 251... 252... 253... 254... 255... 256... 257... 258... 259... 260... 261... 262... 263... 264... 265... 266... 267... 268... 269... 270... 271... 272... 273... 274... 275... 276... 277... 278... 279... 280... 281... 282... 283... 284... 285... 286... 287... 288... 289... 290... 291... 292... 293... 294... 295... 296... 297... 298... 299... 300... 301... 302... 303... 304... 305... 306... 307... 308... 309... 310... 311... 312... 313... 314... 315... 316... 317... 318... 319... 320... 321... 322... 324...</td>
+  <td class="server_output" id="server_0">#{partial '../../cases/big_file/input.toffee', {}}</td>
   <!-- -->
-  <td class="script_output" id="0"></td>
+  <td class="script_output" id="browser_0"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/big_file/input.toffee"].pub({});
-  document.getElementById("0").innerHTML = script_res;
+  gbid("browser_0").innerHTML = script_res;
+  if (gbid("browser_0").innerHTML == gbid("expected_0").innerHTML) { 
+    gbid("browser_0").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_0").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -35,11 +42,7 @@
 <!-- ************ comments -->
 <tr class="test_case">
   <td class="test_cell">comments</td>
-  <td class="server_output">#{partial '../../cases/comments/input.toffee', {
-	"greeting": "Hello"
-}}</td>
-  <!-- -->
-  <td class="expected_output">
+  <td class="expected_output" id="expected_1">
 Pass 1
 
 Pass 2
@@ -47,14 +50,25 @@ Pass 2
 Pass 3
 </td>
   <!-- -->
-  <td class="script_output" id="1"></td>
+  <td class="server_output" id="server_1">#{partial '../../cases/comments/input.toffee', {
+	"greeting": "Hello"
+}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_1"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/comments/input.toffee"].pub({
 	"greeting": "Hello"
 });
-  document.getElementById("1").innerHTML = script_res;
+  gbid("browser_1").innerHTML = script_res;
+  if (gbid("browser_1").innerHTML == gbid("expected_1").innerHTML) { 
+    gbid("browser_1").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_1").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -65,9 +79,7 @@ Pass 3
 <!-- ************ eco_compare -->
 <tr class="test_case">
   <td class="test_cell">eco_compare</td>
-  <td class="server_output">#{partial '../../cases/eco_compare/input.toffee', {}}</td>
-  <!-- -->
-  <td class="expected_output">
+  <td class="expected_output" id="expected_3">
       <a href="http://localhost:3000">okcupid</a>
       <p>A site for singles</p>
     
@@ -77,12 +89,21 @@ Pass 3
 
 You have 3 female friends.</td>
   <!-- -->
-  <td class="script_output" id="3"></td>
+  <td class="server_output" id="server_3">#{partial '../../cases/eco_compare/input.toffee', {}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_3"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/eco_compare/input.toffee"].pub({});
-  document.getElementById("3").innerHTML = script_res;
+  gbid("browser_3").innerHTML = script_res;
+  if (gbid("browser_3").innerHTML == gbid("expected_3").innerHTML) { 
+    gbid("browser_3").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_3").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -93,9 +114,7 @@ You have 3 female friends.</td>
 <!-- ************ escape -->
 <tr class="test_case">
   <td class="test_cell">escape</td>
-  <td class="server_output">#{partial '../../cases/escape/input.toffee', {}}</td>
-  <!-- -->
-  <td class="expected_output"><p>
+  <td class="expected_output" id="expected_4"><p>
  default x = &quot;Hello world&quot;
  default y = &lt;hr /&gt;
  default z = click&amp;clack
@@ -134,12 +153,21 @@ You have 3 female friends.</td>
  html printed longhand w = 1,2,[object Object]
 </p></td>
   <!-- -->
-  <td class="script_output" id="4"></td>
+  <td class="server_output" id="server_4">#{partial '../../cases/escape/input.toffee', {}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_4"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/escape/input.toffee"].pub({});
-  document.getElementById("4").innerHTML = script_res;
+  gbid("browser_4").innerHTML = script_res;
+  if (gbid("browser_4").innerHTML == gbid("expected_4").innerHTML) { 
+    gbid("browser_4").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_4").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -150,20 +178,27 @@ You have 3 female friends.</td>
 <!-- ************ hello_world -->
 <tr class="test_case">
   <td class="test_cell">hello_world</td>
-  <td class="server_output">#{partial '../../cases/hello_world/input.toffee', {
+  <td class="expected_output" id="expected_5">Hello, world.</td>
+  <!-- -->
+  <td class="server_output" id="server_5">#{partial '../../cases/hello_world/input.toffee', {
 	"greeting": "Hello"
 }}</td>
   <!-- -->
-  <td class="expected_output">Hello, world.</td>
-  <!-- -->
-  <td class="script_output" id="5"></td>
+  <td class="script_output" id="browser_5"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/hello_world/input.toffee"].pub({
 	"greeting": "Hello"
 });
-  document.getElementById("5").innerHTML = script_res;
+  gbid("browser_5").innerHTML = script_res;
+  if (gbid("browser_5").innerHTML == gbid("expected_5").innerHTML) { 
+    gbid("browser_5").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_5").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -174,11 +209,7 @@ You have 3 female friends.</td>
 <!-- ************ include_order -->
 <tr class="test_case">
   <td class="test_cell">include_order</td>
-  <td class="server_output">#{partial '../../cases/include_order/input.toffee', {
-	"greeting": "Hello"
-}}</td>
-  <!-- -->
-  <td class="expected_output">1
+  <td class="expected_output" id="expected_6">1
 2
 hia
 
@@ -186,14 +217,25 @@ b
 3
 4</td>
   <!-- -->
-  <td class="script_output" id="6"></td>
+  <td class="server_output" id="server_6">#{partial '../../cases/include_order/input.toffee', {
+	"greeting": "Hello"
+}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_6"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/include_order/input.toffee"].pub({
 	"greeting": "Hello"
 });
-  document.getElementById("6").innerHTML = script_res;
+  gbid("browser_6").innerHTML = script_res;
+  if (gbid("browser_6").innerHTML == gbid("expected_6").innerHTML) { 
+    gbid("browser_6").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_6").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -204,20 +246,27 @@ b
 <!-- ************ include_recursion -->
 <tr class="test_case">
   <td class="test_cell">include_recursion</td>
-  <td class="server_output">#{partial '../../cases/include_recursion/input.toffee', {
+  <td class="expected_output" id="expected_7">10...9...8...7...6...5...4...3...2...1...blastoff!</td>
+  <!-- -->
+  <td class="server_output" id="server_7">#{partial '../../cases/include_recursion/input.toffee', {
 	"countdown" : 10
 }}</td>
   <!-- -->
-  <td class="expected_output">10...9...8...7...6...5...4...3...2...1...blastoff!</td>
-  <!-- -->
-  <td class="script_output" id="7"></td>
+  <td class="script_output" id="browser_7"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/include_recursion/input.toffee"].pub({
 	"countdown" : 10
 });
-  document.getElementById("7").innerHTML = script_res;
+  gbid("browser_7").innerHTML = script_res;
+  if (gbid("browser_7").innerHTML == gbid("expected_7").innerHTML) { 
+    gbid("browser_7").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_7").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -228,10 +277,7 @@ b
 <!-- ************ include_techniques -->
 <tr class="test_case">
   <td class="test_cell">include_techniques</td>
-  <td class="server_output">#{partial '../../cases/include_techniques/input.toffee', {
-}}</td>
-  <!-- -->
-  <td class="expected_output">From: Chris &lt;ccoyne77@gmail&gt; 
+  <td class="expected_output" id="expected_8">From: Chris &lt;ccoyne77@gmail&gt; 
 Msg:  Hello, world
 
 From: Max &amp; Sam 
@@ -245,13 +291,23 @@ From: Unknown
 Msg:  Hello, world
 </td>
   <!-- -->
-  <td class="script_output" id="8"></td>
+  <td class="server_output" id="server_8">#{partial '../../cases/include_techniques/input.toffee', {
+}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_8"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/include_techniques/input.toffee"].pub({
 });
-  document.getElementById("8").innerHTML = script_res;
+  gbid("browser_8").innerHTML = script_res;
+  if (gbid("browser_8").innerHTML == gbid("expected_8").innerHTML) { 
+    gbid("browser_8").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_8").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -262,10 +318,7 @@ Msg:  Hello, world
 <!-- ************ indent_attack -->
 <tr class="test_case">
   <td class="test_cell">indent_attack</td>
-  <td class="server_output">#{partial '../../cases/indent_attack/input.toffee', {
-}}</td>
-  <!-- -->
-  <td class="expected_output"><hr />
+  <td class="expected_output" id="expected_9"><hr />
     Pass1Pass2
 <hr />
 
@@ -282,13 +335,23 @@ Pass7Pass8
       Pass20
 </p></td>
   <!-- -->
-  <td class="script_output" id="9"></td>
+  <td class="server_output" id="server_9">#{partial '../../cases/indent_attack/input.toffee', {
+}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_9"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/indent_attack/input.toffee"].pub({
 });
-  document.getElementById("9").innerHTML = script_res;
+  gbid("browser_9").innerHTML = script_res;
+  if (gbid("browser_9").innerHTML == gbid("expected_9").innerHTML) { 
+    gbid("browser_9").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_9").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -299,18 +362,25 @@ Pass7Pass8
 <!-- ************ junk -->
 <tr class="test_case">
   <td class="test_cell">junk</td>
-  <td class="server_output">#{partial '../../cases/junk/input.toffee', {}}</td>
-  <!-- -->
-  <td class="expected_output"><ul>
+  <td class="expected_output" id="expected_10"><ul>
   <li>broom</li><li>mop</li><li>vacuum</li>
 </ul></td>
   <!-- -->
-  <td class="script_output" id="10"></td>
+  <td class="server_output" id="server_10">#{partial '../../cases/junk/input.toffee', {}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_10"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/junk/input.toffee"].pub({});
-  document.getElementById("10").innerHTML = script_res;
+  gbid("browser_10").innerHTML = script_res;
+  if (gbid("browser_10").innerHTML == gbid("expected_10").innerHTML) { 
+    gbid("browser_10").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_10").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -321,16 +391,23 @@ Pass7Pass8
 <!-- ************ lambda_fns -->
 <tr class="test_case">
   <td class="test_cell">lambda_fns</td>
-  <td class="server_output">#{partial '../../cases/lambda_fns/input.toffee', {}}</td>
+  <td class="expected_output" id="expected_11">PassPassPassPass</td>
   <!-- -->
-  <td class="expected_output">PassPassPassPass</td>
+  <td class="server_output" id="server_11">#{partial '../../cases/lambda_fns/input.toffee', {}}</td>
   <!-- -->
-  <td class="script_output" id="11"></td>
+  <td class="script_output" id="browser_11"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/lambda_fns/input.toffee"].pub({});
-  document.getElementById("11").innerHTML = script_res;
+  gbid("browser_11").innerHTML = script_res;
+  if (gbid("browser_11").innerHTML == gbid("expected_11").innerHTML) { 
+    gbid("browser_11").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_11").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -341,18 +418,25 @@ Pass7Pass8
 <!-- ************ multiline_interpolation -->
 <tr class="test_case">
   <td class="test_cell">multiline_interpolation</td>
-  <td class="server_output">#{partial '../../cases/multiline_interpolation/input.toffee', {}}</td>
-  <!-- -->
-  <td class="expected_output">Hello, world
+  <td class="expected_output" id="expected_12">Hello, world
 <hr />
 Goodbye, world</td>
   <!-- -->
-  <td class="script_output" id="12"></td>
+  <td class="server_output" id="server_12">#{partial '../../cases/multiline_interpolation/input.toffee', {}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_12"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/multiline_interpolation/input.toffee"].pub({});
-  document.getElementById("12").innerHTML = script_res;
+  gbid("browser_12").innerHTML = script_res;
+  if (gbid("browser_12").innerHTML == gbid("expected_12").innerHTML) { 
+    gbid("browser_12").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_12").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -363,16 +447,23 @@ Goodbye, world</td>
 <!-- ************ plaintext -->
 <tr class="test_case">
   <td class="test_cell">plaintext</td>
-  <td class="server_output">#{partial '../../cases/plaintext/input.toffee', {}}</td>
+  <td class="expected_output" id="expected_13">Hi there.</td>
   <!-- -->
-  <td class="expected_output">Hi there.</td>
+  <td class="server_output" id="server_13">#{partial '../../cases/plaintext/input.toffee', {}}</td>
   <!-- -->
-  <td class="script_output" id="13"></td>
+  <td class="script_output" id="browser_13"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/plaintext/input.toffee"].pub({});
-  document.getElementById("13").innerHTML = script_res;
+  gbid("browser_13").innerHTML = script_res;
+  if (gbid("browser_13").innerHTML == gbid("expected_13").innerHTML) { 
+    gbid("browser_13").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_13").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -383,12 +474,7 @@ Goodbye, world</td>
 <!-- ************ snippets -->
 <tr class="test_case">
   <td class="test_cell">snippets</td>
-  <td class="server_output">#{partial '../../cases/snippets/input.toffee', {
-	"from": "Preloaded sender",
-	"msg" : "Preloaded message."
-}}</td>
-  <!-- -->
-  <td class="expected_output">From: Preloaded sender
+  <td class="expected_output" id="expected_14">From: Preloaded sender
 Preloaded message.
 From: Unknown sender
 Unknown message.
@@ -397,15 +483,27 @@ Preloaded message.
 From: Max
 Unknown message.</td>
   <!-- -->
-  <td class="script_output" id="14"></td>
+  <td class="server_output" id="server_14">#{partial '../../cases/snippets/input.toffee', {
+	"from": "Preloaded sender",
+	"msg" : "Preloaded message."
+}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_14"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/snippets/input.toffee"].pub({
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 });
-  document.getElementById("14").innerHTML = script_res;
+  gbid("browser_14").innerHTML = script_res;
+  if (gbid("browser_14").innerHTML == gbid("expected_14").innerHTML) { 
+    gbid("browser_14").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_14").style.backgroundColor="#fcc";
+  }
 </script>
 
 
@@ -416,9 +514,7 @@ Unknown message.</td>
 <!-- ************ special_cases -->
 <tr class="test_case">
   <td class="test_cell">special_cases</td>
-  <td class="server_output">#{partial '../../cases/special_cases/input.toffee', {}}</td>
-  <!-- -->
-  <td class="expected_output">
+  <td class="expected_output" id="expected_15">
 "PASSED"
 
 <p>
@@ -430,12 +526,21 @@ A backslash is a \
  var passed = "\"passed\"";
 </script></td>
   <!-- -->
-  <td class="script_output" id="15"></td>
+  <td class="server_output" id="server_15">#{partial '../../cases/special_cases/input.toffee', {}}</td>
+  <!-- -->
+  <td class="script_output" id="browser_15"></td>
   <!-- -->
 </tr>
 <script type="text/javascript">
+  var gbid = function(x) {return document.getElementById(x); }
   var script_res = toffee.templates["/special_cases/input.toffee"].pub({});
-  document.getElementById("15").innerHTML = script_res;
+  gbid("browser_15").innerHTML = script_res;
+  if (gbid("browser_15").innerHTML == gbid("expected_15").innerHTML) { 
+    gbid("browser_15").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("browser_15").style.backgroundColor="#fcc";
+  }
 </script>
 
 
