@@ -47,12 +47,17 @@ compile = (start_path, path) ->
   and   path is /foo/bar/car/thing.toffee
   ###
   source = fs.readFileSync path, 'utf8'
+  bundle_path = path[start_path.length...]
   v = new view source,
     fileName:     path
-    bundlePath:   path[start_path.length...]
+    bundlePath:   bundle_path
     browserMode:  true
     minimize:     program.minimize? and program.minimize
-  return v._toJavaScript()
+  js = v._toJavaScript()
+  if v.error
+    process.stderr.write v.error.getPrettyPrintText()
+    process.exit 1
+  js
 
 # -----------------------------------------------------------------------------
 
