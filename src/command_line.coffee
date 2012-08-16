@@ -74,7 +74,7 @@ recurseRun = (start_path, curr_path, out_text) ->
         if sub_stats.isDirectory()
           out_text = recurseRun start_path, sub_path, out_text
   else
-    out_text += "\n" + compile start_path, curr_path
+    out_text += "\n;\n" + compile start_path, curr_path
 
   return out_text
 
@@ -91,7 +91,7 @@ run = exports.run = ->
       console.log "Input file/path not found. toffee --help for examples"
       process.exit 1
     start_path = path.normalize start_path
-    out_text = """#{getCommonHeadersJs true, false}#{recurseRun start_path, start_path, ''}"""    
+    out_text = """#{getCommonHeadersJs true, true}\n;\n#{recurseRun start_path, start_path, ''}"""    
     if program.print
       console.log out_text
     if program.output

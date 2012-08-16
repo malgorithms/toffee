@@ -8,8 +8,20 @@ try
 catch e
   coffee                                = require "coffee-script"
 
+
 minimizeJs = (js) ->
   # uglify doesn't seem to be working right; #TODO: This
+  try
+    jsp     = require("uglify-js").parser
+    pro     = require("uglify-js").uglify
+    ast     = jsp.parse js, true # parse code and get the initial AST
+    #ast     = pro.ast_mangle ast              # get a new AST with mangled names
+    #ast     = pro.ast_squeeze ast             # get an AST with compression optimizations
+    js = pro.gen_code ast
+  catch e
+    console.log js
+    console.log e
+    process.exit 1
   js
 
 getCommonHeaders = (include_bundle_headers) ->
@@ -41,7 +53,7 @@ toffee.__escape = (locals, o) ->
     return locals.html o
   return o
 
-toffee.__augmentLocals = (locals) ->
+toffee.__augmentLocals = (locals, bundle_path) ->
   _l = locals
   _t = _l.__toffee = { out: []}
   if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
@@ -49,8 +61,8 @@ toffee.__augmentLocals = (locals) ->
   if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
   if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
   if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
-  if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["#{@bundlePath}"], _l, path, vars
-  if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["#{@bundlePath}"], _l, path, vars
+  if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["\#{bundle_path}"], _l, path, vars
+  if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["\#{bundle_path}"], _l, path, vars
   _t.print   = _l.print
   _t.json    = _l.json
   _t.raw     = _l.raw
@@ -474,7 +486,7 @@ tmpl.pub = (__locals) ->
 #{___}_to = (x) -> __locals.__toffee.out.push x
 #{___}_ln = (x) -> __locals.__toffee.lineno = x
 #{___}_ts = (x) -> __locals.__toffee.state  = x
-#{___}toffee.__augmentLocals __locals
+#{___}toffee.__augmentLocals __locals, "#{@bundlePath}"
 
 #{___}`with (__locals) {`
 #{___}__toffee.out = []
@@ -485,7 +497,7 @@ tmpl.pub = (__locals) ->
     """\n
 #{___}__toffee.res = __toffee.out.join ""
 #{___}return __toffee.res
-#{___}`} /* closing JS 'with' */ `
+#{___}`true; } /* closing JS 'with' */ `
 # sometimes we want to execute the whole thing in a sandbox
 # and just output results
 if __toffee_run_input?

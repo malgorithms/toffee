@@ -10,6 +10,7 @@ class engine
   constructor: (options) ->
     options             = options or {}
     @verbose            = options.verbose or false
+    @minimize           = options.minimize or false
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @viewCache          = {} # filename
 
@@ -114,6 +115,7 @@ class engine
       fileName:          filename
       verbose:           @verbose
       prettyPrintErrors: @prettyPrintErrors
+      minimize:          @minimize
     v = new view txt, view_options    
     @viewCache[filename] = v
     @_monitorForChanges filename, options
@@ -139,6 +141,7 @@ class engine
             fileName:          filename
             verbose:           @verbose
             prettyPrintErrors: @prettyPrintErrors
+            minimize:          @minimize
             cb: (v) =>
               @_log "#{filename} updated and ready"
               @viewCache[filename] = v
