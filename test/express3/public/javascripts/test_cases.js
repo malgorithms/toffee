@@ -34,6 +34,56 @@ toffee.__escape = function(locals, o) {
   return o;
 };
 
+toffee.__augmentLocals = function(locals) {
+  var _l, _t;
+  _l = locals;
+  _t = _l.__toffee = {
+    out: []
+  };
+  if (!(_l.print != null)) {
+    _l.print = function(o) {
+      return toffee.__print(_l, o);
+    };
+  }
+  if (!(_l.json != null)) {
+    _l.json = function(o) {
+      return toffee.__json(_l, o);
+    };
+  }
+  if (!(_l.raw != null)) {
+    _l.raw = function(o) {
+      return toffee.__raw(_l, o);
+    };
+  }
+  if (!(_l.html != null)) {
+    _l.html = function(o) {
+      return toffee.__html(_l, o);
+    };
+  }
+  if (!(_l.escape != null)) {
+    _l.escape = function(o) {
+      return toffee.__escape(_l, o);
+    };
+  }
+  if (!(_l.partial != null)) {
+    _l.partial = function(path, vars) {
+      return toffee.__partial(toffee.templates["undefined"], _l, path, vars);
+    };
+  }
+  if (!(_l.snippet != null)) {
+    _l.snippet = function(path, vars) {
+      return toffee.__snippet(toffee.templates["undefined"], _l, path, vars);
+    };
+  }
+  _t.print = _l.print;
+  _t.json = _l.json;
+  _t.raw = _l.raw;
+  _t.html = _l.html;
+  _t.escape = _l.escape;
+  _t.partial = _l.partial;
+  return _t.snippet = _l.snippet;
+};
+
 toffee.__print = function(locals, o) {
   if (locals.__toffee.state === toffee.states.COFFEE) {
     locals.__toffee.out.push(o);
@@ -111,11 +161,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var count, i, _i, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var count, i, _i, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -125,48 +171,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/big_file/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/big_file/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -542,11 +547,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -556,48 +557,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/big_file/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/big_file/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -625,11 +585,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -639,48 +595,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/comments/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/comments/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -734,11 +649,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -748,48 +659,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/comments/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/comments/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -828,11 +698,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var w, x, y, z, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var w, x, y, z, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -842,48 +708,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/custom_escape/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/custom_escape/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -992,11 +817,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1006,48 +827,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/custom_escape/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/custom_escape/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1121,11 +901,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var f, friends, project, _i, _l, _len, _ln, _ref, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var f, friends, project, _i, _len, _ln, _ref, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1135,48 +911,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/eco_compare/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/eco_compare/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1274,11 +1009,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1288,48 +1019,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/eco_compare/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/eco_compare/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1373,11 +1063,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var w, x, y, z, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var w, x, y, z, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1387,48 +1073,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/escape/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/escape/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1573,11 +1218,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1587,48 +1228,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/escape/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/escape/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1730,11 +1330,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1744,48 +1340,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/hello_world/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/hello_world/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1814,11 +1369,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1828,48 +1379,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/hello_world/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/hello_world/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1897,11 +1407,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -1911,48 +1417,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/hello_world/temp.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/hello_world/temp.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -1993,11 +1458,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2007,48 +1468,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_order/child.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_order/child.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2085,11 +1505,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var say_hi, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var say_hi, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2099,48 +1515,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_order/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_order/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2187,11 +1562,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2201,48 +1572,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_order/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_order/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2282,11 +1612,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2296,48 +1622,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_recursion/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_recursion/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2373,11 +1658,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2387,48 +1668,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_recursion/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_recursion/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2456,11 +1696,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2470,48 +1706,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_techniques/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_techniques/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2562,11 +1757,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var from, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var from, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2576,48 +1767,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_techniques/message.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_techniques/message.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2652,11 +1802,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2666,48 +1812,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/include_techniques/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/include_techniques/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -2758,11 +1863,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var i, square, x, _i, _j, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var i, square, x, _i, _j, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -2772,48 +1873,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/indent_attack/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/indent_attack/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3076,11 +2136,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3090,48 +2146,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/indent_attack/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/indent_attack/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3189,11 +2204,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var supplies, supply, _i, _l, _len, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var supplies, supply, _i, _len, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3203,48 +2214,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/junk/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/junk/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3291,11 +2261,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3305,48 +2271,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/junk/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/junk/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3378,11 +2303,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var echo_it, print_it, print_it_twice, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var echo_it, print_it, print_it_twice, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3392,48 +2313,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/lambda_fns/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/lambda_fns/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3487,11 +2367,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3501,48 +2377,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/lambda_fns/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/lambda_fns/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3570,11 +2405,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3584,48 +2415,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/multiline_interpolation/foo.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/multiline_interpolation/foo.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3655,11 +2445,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3669,48 +2455,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/multiline_interpolation/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/multiline_interpolation/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3748,11 +2493,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3762,48 +2503,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/multiline_interpolation/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/multiline_interpolation/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3835,11 +2535,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3849,48 +2545,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/plaintext/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/plaintext/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -3918,11 +2573,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -3932,48 +2583,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/plaintext/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/plaintext/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -4001,11 +2611,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var msg, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var msg, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -4015,48 +2621,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/snippets/foo/bar/body.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/snippets/foo/bar/body.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -4083,11 +2648,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var from, msg, _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var from, msg, _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -4097,48 +2658,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/snippets/foo/message.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/snippets/foo/message.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -4168,11 +2688,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -4182,48 +2698,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/snippets/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/snippets/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -4264,11 +2739,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -4278,48 +2749,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/snippets/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/snippets/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -4361,11 +2791,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -4375,48 +2801,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/special_cases/input.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/special_cases/input.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];
@@ -4481,11 +2866,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   };
 
   tmpl.pub = function(__locals) {
-    var _l, _ln, _t, _to, _ts;
-    _l = __locals;
-    _t = _l.__toffee = {
-      out: []
-    };
+    var _ln, _to, _ts;
     _to = function(x) {
       return __locals.__toffee.out.push(x);
     };
@@ -4495,48 +2876,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
     _ts = function(x) {
       return __locals.__toffee.state = x;
     };
-    if (!(_l.print != null)) {
-      _l.print = function(o) {
-        return toffee.__print(_l, o);
-      };
-    }
-    if (!(_l.json != null)) {
-      _l.json = function(o) {
-        return toffee.__json(_l, o);
-      };
-    }
-    if (!(_l.raw != null)) {
-      _l.raw = function(o) {
-        return toffee.__raw(_l, o);
-      };
-    }
-    if (!(_l.html != null)) {
-      _l.html = function(o) {
-        return toffee.__html(_l, o);
-      };
-    }
-    if (!(_l.escape != null)) {
-      _l.escape = function(o) {
-        return toffee.__escape(_l, o);
-      };
-    }
-    if (!(_l.partial != null)) {
-      _l.partial = function(path, vars) {
-        return toffee.__partial(toffee.templates["/special_cases/output.toffee"], _l, path, vars);
-      };
-    }
-    if (!(_l.snippet != null)) {
-      _l.snippet = function(path, vars) {
-        return toffee.__snippet(toffee.templates["/special_cases/output.toffee"], _l, path, vars);
-      };
-    }
-    _t.print = _l.print;
-    _t.json = _l.json;
-    _t.raw = _l.raw;
-    _t.html = _l.html;
-    _t.escape = _l.escape;
-    _t.partial = _l.partial;
-    _t.snippet = _l.snippet;
+    toffee.__augmentLocals(__locals);
     with (__locals) {;
 
     __toffee.out = [];

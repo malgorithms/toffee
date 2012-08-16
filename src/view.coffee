@@ -41,6 +41,24 @@ toffee.__escape = (locals, o) ->
     return locals.html o
   return o
 
+toffee.__augmentLocals = (locals) ->
+  _l = locals
+  _t = _l.__toffee = { out: []}
+  if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
+  if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
+  if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
+  if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
+  if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
+  if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["#{@bundlePath}"], _l, path, vars
+  if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["#{@bundlePath}"], _l, path, vars
+  _t.print   = _l.print
+  _t.json    = _l.json
+  _t.raw     = _l.raw
+  _t.html    = _l.html
+  _t.escape  = _l.escape
+  _t.partial = _l.partial
+  _t.snippet = _l.snippet
+
 #{if include_bundle_headers then getBundleHeaders() else ""}
 """
 
@@ -453,27 +471,10 @@ class view
 tmpl = toffee.templates["#{@bundlePath}"]  =
   bundlePath: "#{@bundlePath}"
 tmpl.pub = (__locals) ->
-#{___}_l = __locals
-#{___}_t = _l.__toffee       = { out: []}
 #{___}_to = (x) -> __locals.__toffee.out.push x
 #{___}_ln = (x) -> __locals.__toffee.lineno = x
 #{___}_ts = (x) -> __locals.__toffee.state  = x
-
-#{___}if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
-#{___}if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
-#{___}if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
-#{___}if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
-#{___}if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
-#{___}if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["#{@bundlePath}"], _l, path, vars
-#{___}if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["#{@bundlePath}"], _l, path, vars
-
-#{___}_t.print   = _l.print
-#{___}_t.json    = _l.json
-#{___}_t.raw     = _l.raw
-#{___}_t.html    = _l.html
-#{___}_t.escape  = _l.escape
-#{___}_t.partial = _l.partial
-#{___}_t.snippet = _l.snippet
+#{___}toffee.__augmentLocals __locals
 
 #{___}`with (__locals) {`
 #{___}__toffee.out = []
