@@ -151,23 +151,23 @@ class toffeeError
     res = ""
     header = "#{cerr.dir_name}/<span style=\"background-color:#fde\"><b>#{cerr.file}</b>: #{_ppEscape cerr.message}</span>"
     res += """
-      <div style="border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;width:960px;z-index:9999;">
+      <div style="line-height:1.05em;border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;max-width:90%;z-index:9999;max-height:90%;overflow:scroll;">
         \n<pre>#{header}</pre>
         \n<hr />
-        \n<div style=\"font-family:courier new;font-size:10pt;color:#900;\">        
+        \n<div style=\"font-family:courier new;font-size:10pt;color:#900;width:100%;\">        
     """
     if cerr.stack?.length
-      res += "<div style=\"border:1px solid #000;background-color:#eee;\">"
+      res += "<div style=\"border:1px solid #000;background-color:#eee;width:100%;\">"
       count = 0
       for item,i in cerr.stack
         if i is 0
-          res += "<div style=\"color:#333;\">#{count++} #{item.line}</div>"
+          res += "<div style=\"color:#333;width:100%\">#{count++} #{item.line}</div>"
         else if item.in_src_file and (item.above_pub_call or item.at_pub_call)
-          res += "<div style=\"color:#000;\">#{count++} [#{@_lineRangeToPhrase item.line_range}] #{cerr.dir_name}/#{cerr.file}</div>"
+          res += "<div style=\"color:#000;width:100%\">#{count++} [#{@_lineRangeToPhrase item.line_range}] #{cerr.dir_name}/#{cerr.file}</div>"
         else if item.in_src_file
           continue
         else
-          res += "<div style=\"color:#999;\">#{count++}#{item.line}</div>"
+          res += "<div style=\"color:#999;width:100%\">#{count++}#{item.line}</div>"
       res += "</div>"
 
     for i in [(cerr.line_range[0]-3)...(cerr.line_range[1]+1)]
