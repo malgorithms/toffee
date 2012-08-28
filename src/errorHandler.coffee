@@ -151,10 +151,10 @@ class toffeeError
     res = ""
     header = "#{cerr.dir_name}/<span style=\"background-color:#fde\"><b>#{cerr.file}</b>: #{_ppEscape cerr.message}</span>"
     res += """
-      <div style="line-height:1.05em;border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;max-width:90%;z-index:9999;max-height:90%;overflow:scroll;">
+      <div style="line-height:13px;border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;max-width:90%;z-index:9999;max-height:90%;overflow:scroll;">
         \n<pre>#{header}</pre>
         \n<hr />
-        \n<div style=\"font-family:courier new;font-size:10pt;color:#900;width:100%;\">        
+        \n<div style=\"font-family:courier new;font-size:12px;color:#900;width:100%;\">        
     """
     if cerr.stack?.length
       res += "<div style=\"border:1px solid #000;background-color:#eee;width:100%;\">"

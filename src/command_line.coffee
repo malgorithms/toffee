@@ -53,11 +53,14 @@ compile = (start_path, path) ->
     bundlePath:   bundle_path
     browserMode:  true
     minimize:     program.minimize? and program.minimize
-  js = v._toJavaScript()
+  if program.coffee
+    output = v._toCoffee()
+  else
+    output = v._toJavaScript()
   if v.error
     process.stderr.write v.error.getPrettyPrintText()
     process.exit 1
-  js
+  output
 
 # -----------------------------------------------------------------------------
 
@@ -91,7 +94,13 @@ run = exports.run = ->
       console.log "Input file/path not found. toffee --help for examples"
       process.exit 1
     start_path = path.normalize start_path
-    out_text = """#{getCommonHeadersJs true, true}\n#{recurseRun start_path, start_path, ''}"""    
+    template_out = recurseRun start_path, start_path, ''
+    header_out   = getCommonHeadersJs true, true
+    if program.coffee
+      out_text = "`#{header_out}`\n#{template_out}"
+    else
+      out_text = "#{header_out}\n;\n#{template_out}"    
+
     if program.print
       console.log out_text
     if program.output
