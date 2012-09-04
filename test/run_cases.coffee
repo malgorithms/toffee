@@ -17,7 +17,8 @@ minimized_engine = new engine({
 
 run_case_dir = (eng, dir, cb) ->
   expected = fs.readFileSync "#{dir}/output.toffee", "utf8"
-  if path.existsSync "#{dir}/vars.js"
+  existsSync = if path.existsSync? then path.existsSync else fs.existsSync
+  if existsSync "#{dir}/vars.js"
     vars     = fs.readFileSync "#{dir}/vars.js", "utf8"
     vars     = eval "(#{vars})"
   else

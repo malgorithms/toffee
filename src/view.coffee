@@ -15,8 +15,8 @@ minimizeJs = (js) ->
     jsp     = require("uglify-js").parser
     pro     = require("uglify-js").uglify
     ast     = jsp.parse js, true # parse code and get the initial AST
-    #ast     = pro.ast_mangle ast              # get a new AST with mangled names
-    #ast     = pro.ast_squeeze ast             # get an AST with compression optimizations
+    ast     = pro.ast_mangle ast              # get a new AST with mangled names
+    ast     = pro.ast_squeeze ast             # get an AST with compression optimizations
     js = pro.gen_code ast
   catch e
     console.log js

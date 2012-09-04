@@ -1,5 +1,7 @@
 # expose the render function
 eclass                = require('./lib/engine').engine
+exports.engine        = eclass
+
 e                     = new eclass { verbose: false, prettyPrintErrors: true }
 exports.expressEngine = e
 
