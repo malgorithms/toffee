@@ -110,9 +110,9 @@ maybeAttachHeaders = (pre_output) ->
   else
     header_out = getCommonHeadersJs true, true
     if program.coffee
-      return "`#{header_out}`\n#{template_out}"
+      return "`#{header_out}`\n\n#{pre_output}"
     else
-      return "#{header_out}#{template_out}"
+      return "#{header_out}\n;\n#{pre_output}"
 
 # -----------------------------------------------------------------------------
 
