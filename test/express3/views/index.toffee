@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Test Toffee in the browser</title>
+    <script type="text/javascript" src="/javascripts/toffee.js"></script>
     <script type="text/javascript" src="/javascripts/test_cases.js"></script>
     <style>
       .test_case {font-size:10px; font-family:courier new;}

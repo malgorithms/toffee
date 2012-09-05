@@ -33,23 +33,33 @@ program.on '--help', ->
   "
 
 program.version(getVersionNumber())
-  .option('-o, --output [path]',  'output file')
-  .option('-p, --print',          'print output to stdout')
-  .option('-m, --minimize',       'minimize output (ugly, smaller file)')
-  .option('-c, --coffee',         'output to CoffeeScript (not JS)')
+  .option('-o, --output [path]',      'output to single file')
+  .option('-p, --print',              'print output to stdout')
+  .option('-m, --minimize',           'minimize output (ugly, smaller file)')
+  .option('-c, --coffee',             'output to CoffeeScript (not JS)')
+  .option('-b, --bundle_path [path]', 'bundle_path (instead of "/") for templates')
+  .option('-n, --no_headers',         'exclude boilerplate toffee (requires toffee.js included separately)')
   .parse process.argv
 
 # -----------------------------------------------------------------------------
 
-compile = (start_path, path) ->
+compile = (start_path, full_path) ->
   ###
   e.g., if start_path is /foo/bar
   and   path is /foo/bar/car/thing.toffee
   ###
-  source = fs.readFileSync path, 'utf8'
-  bundle_path = path[start_path.length...]
+  source = fs.readFileSync full_path, 'utf8'
+  bundle_path = full_path[start_path.length...]
+
+  if start_path is full_path
+    bundle_path = "/" + path.basename full_path
+
+  if program.bundle_path
+    bundle_path = path.normalize "#{program.bundle_path}/#{bundle_path}"
+
+
   v = new view source,
-    fileName:     path
+    fileName:     full_path
     bundlePath:   bundle_path
     browserMode:  true
     minimize:     program.minimize? and program.minimize
@@ -81,6 +91,8 @@ recurseRun = (start_path, curr_path, out_text) ->
 
   return out_text
 
+# -----------------------------------------------------------------------------
+
 run = exports.run = ->
 
   if program.args.length isnt 1
@@ -95,11 +107,14 @@ run = exports.run = ->
       process.exit 1
     start_path = path.normalize start_path
     template_out = recurseRun start_path, start_path, ''
-    header_out   = getCommonHeadersJs true, true
+    if program.no_headers
+      header_out = ""
+    else
+      header_out = getCommonHeadersJs true, true
     if program.coffee
       out_text = "`#{header_out}`\n#{template_out}"
     else
-      out_text = "#{header_out}\n;\n#{template_out}"    
+      out_text = "#{header_out}#{template_out}"    
 
     if program.print
       console.log out_text

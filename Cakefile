@@ -1,7 +1,8 @@
-{spawn, exec} = require 'child_process'
-fs            = require 'fs'
-jison         = require 'jison'
-path          = require 'path'
+{spawn, exec}          = require 'child_process'
+fs                     = require 'fs'
+jison                  = require 'jison'
+path                   = require 'path'
+{getCommonHeadersJs}   = require './lib/view'
 
 task 'build', 'build the whole jam', (cb) ->  
   console.log "Building"
@@ -11,9 +12,10 @@ task 'build', 'build the whole jam', (cb) ->
     buildParser ->
       runCoffee ['-c', '-o', 'lib/'].concat(files), ->
         runCoffee ['-c', 'index.coffee'], ->
-          generateExpressTest ->
-            console.log "Done building."
-            cb() if typeof cb is 'function'
+          buildCommonHeaders ->
+            generateExpressTest ->
+              console.log "Done building."
+              cb() if typeof cb is 'function'
 
 runCoffee = (args, cb) ->
   proc =  spawn 'coffee', args
@@ -40,16 +42,24 @@ buildParser = (cb) ->
   fs.writeFileSync "./lib/#{file_name}", source
   cb()
 
+buildCommonHeaders = (cb) ->
+  headers = getCommonHeadersJs true, true
+  fs.writeFileSync "./toffee.js", headers, "utf8"
+  cb()
+
 generateExpressTest = (cb) ->
 
   # generate the JS file bundling all the tests
 
-  proc = spawn 'coffee', ['./src/command_line.coffee', '-m', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
+  proc = spawn 'coffee', ['./src/command_line.coffee', '-n', '-m', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
   proc.on 'exit', (status) ->
     process.exit(1) if status isnt 0
     cb() if typeof cb is 'function'
+
+  headers = getCommonHeadersJs true, true
+  fs.writeFileSync "./test/express3/public/javascripts/toffee.js", headers, "utf8"
 
   # generate an index page that tests them all
 
@@ -57,6 +67,7 @@ generateExpressTest = (cb) ->
   <html>
     <head>
       <title>Test Toffee in the browser</title>
+      <script type="text/javascript" src="/javascripts/toffee.js"></script>
       <script type="text/javascript" src="/javascripts/test_cases.js"></script>
       <style>
         .test_case {font-size:10px; font-family:courier new;}
