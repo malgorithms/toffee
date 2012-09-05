@@ -440,7 +440,7 @@ toffee.expressEngine.autoEscape = false
 
 ## <a name="section_5"></a>Browser Usage! (Compiling your .toffee files)
 
-You can compile an entire project of .toffee files easily into a .js file. Even partials work with the same path-based syntax.
+You can compile an entire project of .toffee files easily into one or more .js files. Even partials work with the same path-based syntax.
 
 Please see [Browser Usage](https://github.com/malgorithms/toffee/wiki/Browser-Usage) in the wiki, as the `toffee` command line program has a lot of options.
 
