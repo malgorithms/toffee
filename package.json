@@ -10,8 +10,13 @@
  "bin": "./bin/toffee",
  "dependencies": {
  	"coffee-script": "*",
- 	"commander": "*",
- 	"uglify-js": "*"
+ 	"commander":     "*",
+ 	"uglify-js":     "*"
+ },
+ "devDependencies": {
+ 	"jison" :        "*",
+ 	"mkdirp":        "*",
+ 	"commander":     "*"
  },
  "repository": {
   "type": "git",

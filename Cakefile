@@ -2,7 +2,6 @@
 fs                     = require 'fs'
 jison                  = require 'jison'
 path                   = require 'path'
-{getCommonHeadersJs}   = require './lib/view'
 
 task 'build', 'build the whole jam', (cb) ->  
   console.log "Building"
@@ -43,6 +42,7 @@ buildParser = (cb) ->
   cb()
 
 buildCommonHeaders = (cb) ->
+  {getCommonHeadersJs}   = require './lib/view'
   headers = getCommonHeadersJs true, true
   fs.writeFileSync "./toffee.js", headers, "utf8"
   cb()
@@ -58,6 +58,7 @@ generateExpressTest = (cb) ->
     process.exit(1) if status isnt 0
     cb() if typeof cb is 'function'
 
+  {getCommonHeadersJs}   = require './lib/view'
   headers = getCommonHeadersJs true, true
   fs.writeFileSync "./test/express3/public/javascripts/toffee.js", headers, "utf8"
 

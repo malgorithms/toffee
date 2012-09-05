@@ -2,6 +2,7 @@ fs                              = require 'fs'
 path                            = require 'path'
 {view, getCommonHeadersJs}      = require '../lib/view'
 program                         = require 'commander'
+mkdirp                          = require 'mkdirp'
 
 # -----------------------------------------------------------------------------
 
@@ -33,9 +34,10 @@ program.on '--help', ->
   "
 
 program.version(getVersionNumber())
-  .option('-o, --output [path]',      'output to single file')
-  .option('-p, --print',              'print output to stdout')
-  .option('-m, --minimize',           'minimize output (ugly, smaller file)')
+  .option('-o, --output [path]',      'file (bundles all output into a single .js)')
+  .option('-d, --output_dir [path]',  'compiles templates into parallel .js files')
+  .option('-p, --print',              'print to stdout')
+  .option('-m, --minimize',           'minimize output (ugly, smaller file(s))')
   .option('-c, --coffee',             'output to CoffeeScript (not JS)')
   .option('-b, --bundle_path [path]', 'bundle_path (instead of "/") for templates')
   .option('-n, --no_headers',         'exclude boilerplate toffee (requires toffee.js included separately)')
@@ -57,7 +59,6 @@ compile = (start_path, full_path) ->
   if program.bundle_path
     bundle_path = path.normalize "#{program.bundle_path}/#{bundle_path}"
 
-
   v = new view source,
     fileName:     full_path
     bundlePath:   bundle_path
@@ -70,7 +71,8 @@ compile = (start_path, full_path) ->
   if v.error
     process.stderr.write v.error.getPrettyPrintText()
     process.exit 1
-  output
+
+  [output, bundle_path]
 
 # -----------------------------------------------------------------------------
 
@@ -87,9 +89,30 @@ recurseRun = (start_path, curr_path, out_text) ->
         if sub_stats.isDirectory()
           out_text = recurseRun start_path, sub_path, out_text
   else
-    out_text += "\n;\n" + compile start_path, curr_path
+    comp = compile start_path, curr_path
+    out_text += "\n;\n" + comp[0]
+    if program.output_dir
+      file_out_path = path.normalize "#{program.output_dir}/#{comp[1]}"
+      file_out_path = "#{path.dirname file_out_path}/#{path.basename file_out_path, '.toffee'}"
+      file_out_path += if program.coffee then '.coffee' else '.js'
+      if not program.print
+        console.log "Outputting #{file_out_path}"
+      mkdirp.sync path.dirname file_out_path
+      fs.writeFileSync file_out_path, maybeAttachHeaders(comp[0]), "utf8"
 
   return out_text
+
+# -----------------------------------------------------------------------------
+
+maybeAttachHeaders = (pre_output) ->
+  if program.no_headers
+    return pre_output
+  else
+    header_out = getCommonHeadersJs true, true
+    if program.coffee
+      return "`#{header_out}`\n#{template_out}"
+    else
+      return "#{header_out}#{template_out}"
 
 # -----------------------------------------------------------------------------
 
@@ -105,19 +128,21 @@ run = exports.run = ->
     catch e
       console.log "Input file/path not found. toffee --help for examples"
       process.exit 1
+
+    if program.output_dir
+      try
+        mkdirp.sync program.output_dir
+      catch e
+        console.log "Couldn't make/use #{program.output_dir}; #{e}" 
+        process.exit 1
+
     start_path = path.normalize start_path
     template_out = recurseRun start_path, start_path, ''
-    if program.no_headers
-      header_out = ""
-    else
-      header_out = getCommonHeadersJs true, true
-    if program.coffee
-      out_text = "`#{header_out}`\n#{template_out}"
-    else
-      out_text = "#{header_out}#{template_out}"    
+    out_text = maybeAttachHeaders template_out
 
     if program.print
       console.log out_text
+
     if program.output
       try
         console.log "Writing #{program.output}"
