@@ -328,7 +328,7 @@ TOFFEE
 ```html
 {#
    if projects.length
-    for project in @projects
+    for project in projects
       if project.is_active {:
         <p>#{project.name} | #{project.description}</p>
       :}
