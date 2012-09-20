@@ -31,6 +31,10 @@ class engine
         __toffee.autoEscape:     if set as false, don't escape output of #{} vars by default
     ###
 
+    if options?.layout
+      layout_options    = {}
+      layout_options[k] = v for k,v of options when k isnt "layout"
+
     [err, res] = @runSync filename, options
 
     # if we got an error but want to pretty-print by faking ok result
@@ -38,9 +42,9 @@ class engine
       [err, res] = [null, err]
 
     # if we're using a layout, pub into that
-    if (not err) and options?.layout
-      options.body = res
-      [err, res] = @runSync options.layout, options
+    if (not err) and layout_options?
+      layout_options.body = res
+      [err, res] = @runSync options.layout, layout_options
       if err and @prettyPrintErrors
         [err, res] = [null, err]
 
