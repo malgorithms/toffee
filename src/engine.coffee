@@ -1,9 +1,9 @@
-{view}          = require './view'
-{states}        = require './consts'
-utils           = require './utils'
-fs              = require 'fs'
-path            = require 'path'
-util            = require 'util'
+{view}                = require './view'
+{states, tweakables}  = require './consts'
+utils                 = require './utils'
+fs                    = require 'fs'
+path                  = require 'path'
+util                  = require 'util'
 
 class engine
 
@@ -12,7 +12,8 @@ class engine
     @verbose            = options.verbose or false
     @minimize           = options.minimize or false
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
-    @viewCache          = {} # filename
+    @viewCache          = {} # filename -> view
+    @fsErrorCache       = {} # filename -> timestamp last failed
 
   _log: (o) ->
     if @verbose
@@ -117,32 +118,25 @@ class engine
     catch e
       txt = "Error: Could not read #{filename}"
       if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
-    view_options = 
+      @fsErrorCache[filename] = Date.now()      
+    view_options =
       fileName:          filename
       verbose:           @verbose
       prettyPrintErrors: @prettyPrintErrors
       minimize:          @minimize
-    v = new view txt, view_options    
+    v = new view txt, view_options
     @viewCache[filename] = v
     @_monitorForChanges filename, options
     v
 
-  _monitorForChanges: (filename, options) ->
-    ###
-    we must continuously unwatch/rewatch because some editors/systems invoke a "rename"
-    event and we'll end up following the wrong, old 'file' as a new one
-    is dropped in its place.
-    ###
-    fsw = null
-    fsw = fs.watch filename, {persistent: true}, (change) =>
-      fsw.close()
-      @_log "Got an fs.watch hit on #{filename}"
-      fs.readFile filename, 'utf8', (err, txt) =>
-        @_monitorForChanges filename, options
-        if txt isnt @viewCache[filename].txt
-          if err
-            txt = "Error: Could not read #{filename} after fs.watch() hit."
-            if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
+  _reloadFileInBkg: (filename, options) ->
+    fs.readFile filename, 'utf8', (err, txt) =>
+      if err or (txt isnt @viewCache[filename].txt)
+        if err
+          @fsErrorCache[filename] = Date.now()
+          txt = "Error: Could not read #{filename}"
+          if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
+        if not (err and @viewCache[filename].fsError) # i.e., don't just create a new error view
           view_options = 
             fileName:          filename
             verbose:           @verbose
@@ -151,6 +145,30 @@ class engine
             cb: (v) =>
               @_log "#{filename} updated and ready"
               @viewCache[filename] = v
+          if err
+            view_options.fsError = true
           v = new view txt, view_options
+
+  _monitorForChanges: (filename, options) ->
+    ###
+    we must continuously unwatch/rewatch because some editors/systems invoke a "rename"
+    event and we'll end up following the wrong, old 'file' as a new one
+    is dropped in its place.
+    ###
+    if @fsErrorCache[filename]? and ((Date.now() - @fsErrorCache[filename]) > tweakables.MISSING_FILE_RECHECK)
+      delete @fsErrorCache[filename]
+      @_reloadFileInBkg   filename, options
+      @_monitorForChanges filename, options
+    else
+      fsw = null
+      try
+        @_log "#{filename} starting fs.watch()"
+        fsw = fs.watch filename, {persistent: true}, (change) =>
+          @_log "#{filename} closing fs.watch()"
+          fsw.close()
+          @_monitorForChanges filename, options
+          @_reloadFileInBkg filename, options
+      catch e
+        setTimeout (=> @_monitorForChanges filename, options), tweakables.MISSING_FILE_RECHECK
 
 exports.engine = engine

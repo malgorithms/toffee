@@ -157,6 +157,7 @@ class view
     @browserMode        = options.browserMode or false
     @minimize           = options.minimize    or false # excludes line numbers from coffee ; uses uglify.JS
     @verbose            = options.verbose     or false
+    @fsError            = options.fsError     or false # pass true if you could not load the view template and passed in error text
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @txt                = txt
     @tokenObj           = null # constructed as needed
