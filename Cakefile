@@ -103,7 +103,7 @@ generateExpressTest = (cb) ->
         </tr>
         <script type="text/javascript">
           var gbid = function(x) {return document.getElementById(x); }
-          var script_res = toffee.templates["/#{dir}/input.toffee"].pub(#{vars});
+          var script_res = toffee.templates["/#{dir}/input.toffee"].render(#{vars});
           gbid("browser_#{rid}").innerHTML = script_res;
           if (gbid("browser_#{rid}").innerHTML == gbid("expected_#{rid}").innerHTML) { 
             gbid("browser_#{rid}").style.backgroundColor="#dfe";

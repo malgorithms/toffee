@@ -25,7 +25,7 @@
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/big_file/input.toffee"].pub({});
+  var script_res = toffee.templates["/big_file/input.toffee"].render({});
   gbid("browser_0").innerHTML = script_res;
   if (gbid("browser_0").innerHTML == gbid("expected_0").innerHTML) { 
     gbid("browser_0").style.backgroundColor="#dfe";
@@ -60,7 +60,7 @@ Pass 3
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/comments/input.toffee"].pub({
+  var script_res = toffee.templates["/comments/input.toffee"].render({
 	"greeting": "Hello"
 });
   gbid("browser_1").innerHTML = script_res;
@@ -97,7 +97,7 @@ You have 3 female friends.</td>
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/eco_compare/input.toffee"].pub({});
+  var script_res = toffee.templates["/eco_compare/input.toffee"].render({});
   gbid("browser_3").innerHTML = script_res;
   if (gbid("browser_3").innerHTML == gbid("expected_3").innerHTML) { 
     gbid("browser_3").style.backgroundColor="#dfe";
@@ -161,7 +161,7 @@ You have 3 female friends.</td>
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/escape/input.toffee"].pub({});
+  var script_res = toffee.templates["/escape/input.toffee"].render({});
   gbid("browser_4").innerHTML = script_res;
   if (gbid("browser_4").innerHTML == gbid("expected_4").innerHTML) { 
     gbid("browser_4").style.backgroundColor="#dfe";
@@ -190,7 +190,7 @@ You have 3 female friends.</td>
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/hello_world/input.toffee"].pub({
+  var script_res = toffee.templates["/hello_world/input.toffee"].render({
 	"greeting": "Hello"
 });
   gbid("browser_5").innerHTML = script_res;
@@ -227,7 +227,7 @@ b
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/include_order/input.toffee"].pub({
+  var script_res = toffee.templates["/include_order/input.toffee"].render({
 	"greeting": "Hello"
 });
   gbid("browser_6").innerHTML = script_res;
@@ -258,7 +258,7 @@ b
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/include_recursion/input.toffee"].pub({
+  var script_res = toffee.templates["/include_recursion/input.toffee"].render({
 	"countdown" : 10
 });
   gbid("browser_7").innerHTML = script_res;
@@ -300,7 +300,7 @@ Msg:  Hello, world
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/include_techniques/input.toffee"].pub({
+  var script_res = toffee.templates["/include_techniques/input.toffee"].render({
 });
   gbid("browser_8").innerHTML = script_res;
   if (gbid("browser_8").innerHTML == gbid("expected_8").innerHTML) { 
@@ -344,7 +344,7 @@ Pass7Pass8
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/indent_attack/input.toffee"].pub({
+  var script_res = toffee.templates["/indent_attack/input.toffee"].render({
 });
   gbid("browser_9").innerHTML = script_res;
   if (gbid("browser_9").innerHTML == gbid("expected_9").innerHTML) { 
@@ -374,7 +374,7 @@ Pass7Pass8
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/junk/input.toffee"].pub({});
+  var script_res = toffee.templates["/junk/input.toffee"].render({});
   gbid("browser_10").innerHTML = script_res;
   if (gbid("browser_10").innerHTML == gbid("expected_10").innerHTML) { 
     gbid("browser_10").style.backgroundColor="#dfe";
@@ -401,7 +401,7 @@ Pass7Pass8
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/lambda_fns/input.toffee"].pub({});
+  var script_res = toffee.templates["/lambda_fns/input.toffee"].render({});
   gbid("browser_11").innerHTML = script_res;
   if (gbid("browser_11").innerHTML == gbid("expected_11").innerHTML) { 
     gbid("browser_11").style.backgroundColor="#dfe";
@@ -430,7 +430,7 @@ Goodbye, world</td>
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/multiline_interpolation/input.toffee"].pub({});
+  var script_res = toffee.templates["/multiline_interpolation/input.toffee"].render({});
   gbid("browser_12").innerHTML = script_res;
   if (gbid("browser_12").innerHTML == gbid("expected_12").innerHTML) { 
     gbid("browser_12").style.backgroundColor="#dfe";
@@ -457,7 +457,7 @@ Goodbye, world</td>
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/plaintext/input.toffee"].pub({});
+  var script_res = toffee.templates["/plaintext/input.toffee"].render({});
   gbid("browser_13").innerHTML = script_res;
   if (gbid("browser_13").innerHTML == gbid("expected_13").innerHTML) { 
     gbid("browser_13").style.backgroundColor="#dfe";
@@ -494,7 +494,7 @@ Unknown message.</td>
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/snippets/input.toffee"].pub({
+  var script_res = toffee.templates["/snippets/input.toffee"].render({
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 });
@@ -534,7 +534,7 @@ A backslash is a \
 </tr>
 <script type="text/javascript">
   var gbid = function(x) {return document.getElementById(x); }
-  var script_res = toffee.templates["/special_cases/input.toffee"].pub({});
+  var script_res = toffee.templates["/special_cases/input.toffee"].render({});
   gbid("browser_15").innerHTML = script_res;
   if (gbid("browser_15").innerHTML == gbid("expected_15").innerHTML) { 
     gbid("browser_15").style.backgroundColor="#dfe";

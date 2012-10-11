@@ -483,7 +483,7 @@ class view
 #{if @browserMode then '' else getCommonHeaders(false)}
 tmpl = toffee.templates["#{@bundlePath}"]  =
   bundlePath: "#{@bundlePath}"
-tmpl.pub = (__locals) ->
+tmpl.render = tmpl.pub = (__locals) ->
 #{___}_to = (x) -> __locals.__toffee.out.push x
 #{___}_ln = (x) -> __locals.__toffee.lineno = x
 #{___}_ts = (x) -> __locals.__toffee.state  = x
