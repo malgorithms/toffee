@@ -67,7 +67,8 @@ class engine
     realpath             = path.normalize filename
     pwd                  = path.dirname realpath
 
-    v = @viewCache[realpath] or @_loadCacheAndMonitor realpath, options
+    v = (@_viewCacheGet realpath) or (@_loadCacheAndMonitor realpath, options)
+
     if v
       options.__toffee.parent = realpath
       options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
@@ -80,6 +81,16 @@ class engine
 
     @_log "#{realpath} run in #{Date.now() - start_time}ms"
     return [err, res]
+
+  _viewCacheGet: (filename) ->
+    if not @viewCache[filename]?
+      return null
+    else if not @fsErrorCache[filename]?
+      return @viewCache[filename]
+    else if (Date.now() - @fsErrorCache[filename]) < tweakables.MISSING_FILE_RECHECK
+      return @viewCache[filename]
+    else
+      return null
 
   _inlineInclude: (filename, local_vars, parent_realpath, parent_options) =>
     options                 = local_vars or {}
@@ -113,21 +124,28 @@ class engine
       return txt
 
   _loadCacheAndMonitor: (filename, options) ->
+    previous_fs_err = @fsErrorCache[filename]?
     try
       txt = fs.readFileSync filename, 'utf8'
+      if @fsErrorCache[filename]? then delete @fsErrorCache[filename]
     catch e
       txt = "Error: Could not read #{filename}"
       if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
-      @fsErrorCache[filename] = Date.now()      
-    view_options =
-      fileName:          filename
-      verbose:           @verbose
-      prettyPrintErrors: @prettyPrintErrors
-      minimize:          @minimize
-    v = new view txt, view_options
-    @viewCache[filename] = v
-    @_monitorForChanges filename, options
-    v
+      @fsErrorCache[filename] = Date.now()
+    
+    # if we hit an fs error and it already happened, just return that
+    if (@fsErrorCache[filename] and previous_fs_err and @viewCache[filename])
+      return @viewCache[filename]
+    else
+      view_options =
+        fileName:          filename
+        verbose:           @verbose
+        prettyPrintErrors: @prettyPrintErrors
+        minimize:          @minimize
+      v = new view txt, view_options
+      @viewCache[filename] = v
+      @_monitorForChanges filename, options
+      return v
 
   _reloadFileInBkg: (filename, options) ->
     fs.readFile filename, 'utf8', (err, txt) =>
@@ -154,12 +172,10 @@ class engine
     we must continuously unwatch/rewatch because some editors/systems invoke a "rename"
     event and we'll end up following the wrong, old 'file' as a new one
     is dropped in its place.
+
+    Files that are missing are ignored here because they get picked up by new calls to _loadCacheAndMonitor
     ###
-    if @fsErrorCache[filename]? and ((Date.now() - @fsErrorCache[filename]) > tweakables.MISSING_FILE_RECHECK)
-      delete @fsErrorCache[filename]
-      @_reloadFileInBkg   filename, options
-      @_monitorForChanges filename, options
-    else
+    if not @fsErrorCache[filename]? # if there's an fsError, this will get rechecked on-demand occasionally
       fsw = null
       try
         @_log "#{filename} starting fs.watch()"
@@ -169,6 +185,7 @@ class engine
           @_monitorForChanges filename, options
           @_reloadFileInBkg filename, options
       catch e
-        setTimeout (=> @_monitorForChanges filename, options), tweakables.MISSING_FILE_RECHECK
+        @_log "fs.watch() failed for #{filename}; settings fsErrorCache = true"
+        @fsErrorCache[filename] = Date.now()
 
 exports.engine = engine
