@@ -21,6 +21,8 @@ class engine
       else
         console.log "toffee: #{util.inspect o}"
 
+  render: (filename, options, cb) => @run filename, options, cb 
+
   run: (filename, options, cb) =>
     ###
     "options" contains the pub vars and may contain special items:
