@@ -10,8 +10,7 @@ Table of Contents
    * [1. Language Basics](#section_1)
    * [2. Notes on Escaping](#section_2)
    * [3. Common Questions](#section_3)
-   * [4. NodeJS Installation & Usage](#section_4)
-   * [5. Browser Usage](#section_5)
+   * [4. Installation & Usage (Node, Express, and the browser)](#section_4)
 
 ## <a name="section_1"></a> Language Basics
 
