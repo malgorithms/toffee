@@ -130,7 +130,7 @@ class engine
       if @fsErrorCache[filename]? then delete @fsErrorCache[filename]
     catch e
       txt = "Error: Could not read #{filename}"
-      if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
+      if options.__toffee?.parent? then txt += " first requested in #{options.__toffee.parent}"
       @fsErrorCache[filename] = Date.now()
     
     # if we hit an fs error and it already happened, just return that
