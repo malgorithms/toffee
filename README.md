@@ -388,61 +388,15 @@ For example, in the above code, `session` would also be available in the user_me
 
 #### Does it support `layout`?
 
-Yes, this works in Express 3.0, emulating the Express 2.0 way. If you publish a file `foo.toffee` and pass a `layout` filename to it as a var, `foo.toffee` is rendered, and the results are put into
-a var called `body`. Then your layout is rendered, using all your vars plus the new `body` var.
-
+Yes, this works in NodeJS and Express 3.0, emulating the Express 2.0 way. The var `layout` is considered special, and should
+be the path to your layout file.
 
 ## <a name="section_4"></a>Installation & Usage
 
-```
-npm install -g toffee
-```
-
-In Express 3.x to make it your default engine:
-```
-app.set 'view engine', 'toffee'
-```
-
-In Express 3.x to use it just for .toffee files:
-```
-toffee = require 'toffee'
-app.engine 'toffee', toffee.__express
-```
-
-Express 2.x:
-```
-toffee      = require 'toffee'
-app.register '.toffee', toffee
-```
-
-## express 3.x options
-
-Pretty-print errors
------
-
-Express's default error page is great for stack traces but not so great for pretty-printing template errors.
-So by default, when Toffee hits any kind of error (in your templates, in your CoffeeScript, or even at runtime), 
-it fakes an okay result by returning some pretty HTML showing the error. If you don't like this - say you want to catch render errors - 
-you can turn it off.
-
-```
-toffee = require 'toffee'
-toffee.expressEngine.prettyPrintErrors = false
-```
-
-Turning off auto-escaping for HTML
----------
-By default, Toffee escapes `#{}` output for HTML. You can turn this off in your engine with:
-```
-toffee = require 'toffee'
-toffee.expressEngine.autoEscape = false
-```
-
-## <a name="section_5"></a>Browser Usage! (Compiling your .toffee files)
-
-You can compile an entire project of .toffee files easily into one or more .js files. Even partials work with the same path-based syntax.
-
-Please see [Browser Usage](https://github.com/malgorithms/toffee/wiki/Browser-Usage) in the wiki, as the `toffee` command line program has a lot of options.
+ * [Using Toffee in NodeJS](https://github.com/malgorithms/toffee/wiki/NodeJS-Usage)
+ * [Using Toffee in Express 3](https://github.com/malgorithms/toffee/wiki/Express3-Usage)
+ * [Using Toffee in Express 2](https://github.com/malgorithms/toffee/wiki/Express2-Usage)
+ * [Using Toffee in the Browser](https://github.com/malgorithms/toffee/wiki/Browser-Usage)
 
 
 contributing & asking for fixes.
