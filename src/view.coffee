@@ -160,6 +160,7 @@ class view
     @fsError            = options.fsError     or false # pass true if you could not load the view template and passed in error text
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors    = if options.prettyLogErrors?   then options.prettyLogErrors   else false
+    @additionalErrorHandler = options.additionalErrorHandler or null
     @txt                = txt
     @tokenObj           = null # constructed as needed
     @coffeeScript       = null # constructed as needed
@@ -227,6 +228,9 @@ class view
         txt = @error.getPrettyPrintText()
         for line in txt.split "\n"
           console.log "toffee err: #{line}"
+      if @additionalErrorHandler
+        @additionalErrorHandler @error.getPrettyPrintText(), @error.getPrettyPrint(), @fileName
+
       if @prettyPrintErrors
         pair = [null, @error.getPrettyPrint()]
       else

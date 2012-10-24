@@ -12,13 +12,14 @@ class engine
     @verbose            = options.verbose or false
     @minimize           = options.minimize or false
 
-    @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
-    @prettyLogErrors    = if options.prettyLogErrors?   then options.prettyLogErrors   else true
+    @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
+    @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
+    @additionalErrorHandler = options.additionalErrorHandler or null
 
     @viewCache          = {} # filename -> view
     @fsErrorCache       = {} # filename -> timestamp last failed
 
-  _log: (o) ->
+  _log: (o) -> 
     if @verbose
       if (typeof o) in ["string","number","boolean"]
         console.log "toffee: #{o}"
@@ -37,8 +38,9 @@ class engine
         __toffee.autoEscape:     if set as false, don't escape output of #{} vars by default
     ###
 
-    if not options.prettyPrintErrors? then options.prettyPrintErrors = @prettyPrintErrors
-    if not options.prettyLogErrors?   then options.prettyLogErrors   = @prettyLogErrors
+    if not options.prettyPrintErrors? then options.prettyPrintErrors            = @prettyPrintErrors
+    if not options.prettyLogErrors?   then options.prettyLogErrors              = @prettyLogErrors
+    if not options.additionalErrorHandler? then options.additionalErrorHandler  = @additionalErrorHandler
 
     if options?.layout
       layout_options    = {}
@@ -144,11 +146,12 @@ class engine
       return @viewCache[filename]
     else
       view_options =
-        fileName:          filename
-        verbose:           @verbose
-        prettyPrintErrors: @prettyPrintErrors
-        prettyLogErrors:   @prettyLogErrors
-        minimize:          @minimize
+        fileName:           filename
+        verbose:            @verbose
+        prettyPrintErrors:  @prettyPrintErrors
+        prettyLogErrors:    @prettyLogErrors
+        additionalErrorHandler: @additionalErrorHandler
+        minimize:           @minimize
       v = new view txt, view_options
       @viewCache[filename] = v
       @_monitorForChanges filename, options
