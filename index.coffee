@@ -9,7 +9,12 @@ exports.expressEngine = e
 exports.render        = e.run
 
 # express 3.x support
-exports.__express     = e.run
+exports.__express     = (filename, options, cb) ->
+  e.run filename, options, (err, res) ->
+    if err
+      cb new Error(err)
+    else
+      cb null, res
 
 # express 2.x support
 exports.compile       = require('./lib/view').expressCompile

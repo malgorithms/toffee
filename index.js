@@ -15,7 +15,15 @@
 
   exports.render = e.run;
 
-  exports.__express = e.run;
+  exports.__express = function(filename, options, cb) {
+    return e.run(filename, options, function(err, res) {
+      if (err) {
+        return cb(new Error(err));
+      } else {
+        return cb(null, res);
+      }
+    });
+  };
 
   exports.compile = require('./lib/view').expressCompile;
 

@@ -78,7 +78,11 @@ class toffeeError
     stack        = converted_err.stack
     for line, i in stack
 
-      rxx_pub = /// Object[\.]pub[\s]\(undefined\:([0-9]+)\:[0-9]+ ///
+      rxx_pub = /// 
+        Object[\.].*?pub[\s]\(undefined\:([0-9]+)\:[0-9]+ 
+        |
+        tmpl[\.]render[\.]tmpl[\.]pub.*\(undefined\:([0-9]+)\:[0-9]+ 
+        ///
       m           = line.match rxx_pub
       in_src_file = false
       lrange      = [null, null]

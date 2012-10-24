@@ -11,7 +11,10 @@ class engine
     options             = options or {}
     @verbose            = options.verbose or false
     @minimize           = options.minimize or false
+
     @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
+    @prettyLogErrors    = if options.prettyLogErrors?   then options.prettyLogErrors   else true
+
     @viewCache          = {} # filename -> view
     @fsErrorCache       = {} # filename -> timestamp last failed
 
@@ -34,6 +37,9 @@ class engine
         __toffee.autoEscape:     if set as false, don't escape output of #{} vars by default
     ###
 
+    if not options.prettyPrintErrors? then options.prettyPrintErrors = @prettyPrintErrors
+    if not options.prettyLogErrors?   then options.prettyLogErrors   = @prettyLogErrors
+
     if options?.layout
       layout_options    = {}
       layout_options[k] = v for k,v of options when k isnt "layout"
@@ -41,7 +47,7 @@ class engine
     [err, res] = @runSync filename, options
 
     # if we got an error but want to pretty-print by faking ok result
-    if err and @prettyPrintErrors      
+    if err and @prettyPrintErrors
       [err, res] = [null, err]
 
     # if we're using a layout, pub into that
@@ -141,6 +147,7 @@ class engine
         fileName:          filename
         verbose:           @verbose
         prettyPrintErrors: @prettyPrintErrors
+        prettyLogErrors:   @prettyLogErrors
         minimize:          @minimize
       v = new view txt, view_options
       @viewCache[filename] = v
