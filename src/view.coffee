@@ -24,7 +24,7 @@ minimizeJs = (js) ->
     process.exit 1
   js
 
-getCommonHeaders = (include_bundle_headers) ->
+getCommonHeaders = (include_bundle_headers, auto_escape) ->
   ###
   each view will use this, or if they're bundled together,
   it'll only be used once.
@@ -47,7 +47,10 @@ toffee.__html = (locals, o) ->
   (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 toffee.__escape = (locals, o) ->
-  if (not locals.__toffee.autoEscape?) or locals.__toffee.autoEscape
+  if locals.__toffee.autoEscape? then ae = locals.__toffee.autoEscape
+  else if #{auto_escape?}        then ae = #{auto_escape}
+  else                                ae = true
+  if ae
     if o is undefined then return ''
     if o? and (typeof o) is "object" then return locals.json o
     return locals.html o
@@ -55,7 +58,7 @@ toffee.__escape = (locals, o) ->
 
 toffee.__augmentLocals = (locals, bundle_path) ->
   _l = locals
-  _t = _l.__toffee = { out: []}
+  _t = _l.__toffee = {out: []}
   if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
   if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
   if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
@@ -138,8 +141,8 @@ toffee.__inlineInclude = (path, locals, parent_locals) ->
 
 """
 
-getCommonHeadersJs = (include_bundle_headers, minimize)->
-  ch = getCommonHeaders include_bundle_headers
+getCommonHeadersJs = (include_bundle_headers, auto_escape, minimize)->
+  ch = getCommonHeaders include_bundle_headers, auto_escape
   js = coffee.compile ch, {bare: true}
   if minimize then js = minimizeJs js
   js
@@ -152,21 +155,22 @@ class view
       cb: if this is set, compilation will happen async and cb will be executed when it's ready
     ###
     options = options or {}
-    @fileName           = options.fileName    or options.filename or null
-    @bundlePath         = options.bundlePath  or "/" # if to be included inside a bundle, this is the path inside it.
-    @browserMode        = options.browserMode or false
-    @minimize           = options.minimize    or false # excludes line numbers from coffee ; uses uglify.JS
-    @verbose            = options.verbose     or false
-    @fsError            = options.fsError     or false # pass true if you could not load the view template and passed in error text
-    @prettyPrintErrors  = if options.prettyPrintErrors? then options.prettyPrintErrors else true
-    @prettyLogErrors    = if options.prettyLogErrors?   then options.prettyLogErrors   else false
+    @fileName               = options.fileName    or options.filename or null
+    @bundlePath             = options.bundlePath  or "/" # if to be included inside a bundle, this is the path inside it.
+    @browserMode            = options.browserMode or false
+    @minimize               = options.minimize    or false # excludes line numbers from coffee ; uses uglify.JS
+    @verbose                = options.verbose     or false
+    @fsError                = options.fsError     or false # pass true if you could not load the view template and passed in error text
+    @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
+    @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else false
+    @autoEscape             = if options.autoEscape?        then options.autoEscape        else false
     @additionalErrorHandler = options.additionalErrorHandler or null
-    @txt                = txt
-    @tokenObj           = null # constructed as needed
-    @coffeeScript       = null # constructed as needed
-    @javaScript         = null # constructed as needed
-    @scriptObj          = null # constructed as needed 
-    @error              = null # if err, instance of toffeeError class
+    @txt                    = txt
+    @tokenObj               = null # constructed as needed
+    @coffeeScript           = null # constructed as needed
+    @javaScript             = null # constructed as needed
+    @scriptObj              = null # constructed as needed 
+    @error                  = null # if err, instance of toffeeError class
     if options.cb
       @_prepAsync txt, =>
         options.cb @
@@ -489,7 +493,7 @@ class view
     ___  = @_tabAsSpaces()
 
     """
-#{if @browserMode then '' else getCommonHeaders(false)}
+#{if @browserMode then '' else getCommonHeaders false, @autoEscape }
 tmpl = toffee.templates["#{@bundlePath}"]  =
   bundlePath: "#{@bundlePath}"
 tmpl.render = tmpl.pub = (__locals) ->

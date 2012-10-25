@@ -33,6 +33,12 @@
   else {
     gbid("browser_0").style.backgroundColor="#fcc";
   }
+  if (gbid("server_0").innerHTML == gbid("expected_0").innerHTML) { 
+    gbid("server_0").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_0").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -70,6 +76,12 @@ Pass 3
   else {
     gbid("browser_1").style.backgroundColor="#fcc";
   }
+  if (gbid("server_1").innerHTML == gbid("expected_1").innerHTML) { 
+    gbid("server_1").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_1").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -105,6 +117,12 @@ You have 3 female friends.</td>
   else {
     gbid("browser_3").style.backgroundColor="#fcc";
   }
+  if (gbid("server_3").innerHTML == gbid("expected_3").innerHTML) { 
+    gbid("server_3").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_3").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -169,6 +187,12 @@ You have 3 female friends.</td>
   else {
     gbid("browser_4").style.backgroundColor="#fcc";
   }
+  if (gbid("server_4").innerHTML == gbid("expected_4").innerHTML) { 
+    gbid("server_4").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_4").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -200,6 +224,12 @@ You have 3 female friends.</td>
   else {
     gbid("browser_5").style.backgroundColor="#fcc";
   }
+  if (gbid("server_5").innerHTML == gbid("expected_5").innerHTML) { 
+    gbid("server_5").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_5").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -237,6 +267,12 @@ b
   else {
     gbid("browser_6").style.backgroundColor="#fcc";
   }
+  if (gbid("server_6").innerHTML == gbid("expected_6").innerHTML) { 
+    gbid("server_6").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_6").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -268,6 +304,12 @@ b
   else {
     gbid("browser_7").style.backgroundColor="#fcc";
   }
+  if (gbid("server_7").innerHTML == gbid("expected_7").innerHTML) { 
+    gbid("server_7").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_7").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -309,6 +351,12 @@ Msg:  Hello, world
   else {
     gbid("browser_8").style.backgroundColor="#fcc";
   }
+  if (gbid("server_8").innerHTML == gbid("expected_8").innerHTML) { 
+    gbid("server_8").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_8").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -353,6 +401,12 @@ Pass7Pass8
   else {
     gbid("browser_9").style.backgroundColor="#fcc";
   }
+  if (gbid("server_9").innerHTML == gbid("expected_9").innerHTML) { 
+    gbid("server_9").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_9").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -382,6 +436,12 @@ Pass7Pass8
   else {
     gbid("browser_10").style.backgroundColor="#fcc";
   }
+  if (gbid("server_10").innerHTML == gbid("expected_10").innerHTML) { 
+    gbid("server_10").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_10").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -409,6 +469,12 @@ Pass7Pass8
   else {
     gbid("browser_11").style.backgroundColor="#fcc";
   }
+  if (gbid("server_11").innerHTML == gbid("expected_11").innerHTML) { 
+    gbid("server_11").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_11").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -438,6 +504,12 @@ Goodbye, world</td>
   else {
     gbid("browser_12").style.backgroundColor="#fcc";
   }
+  if (gbid("server_12").innerHTML == gbid("expected_12").innerHTML) { 
+    gbid("server_12").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_12").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -465,6 +537,12 @@ Goodbye, world</td>
   else {
     gbid("browser_13").style.backgroundColor="#fcc";
   }
+  if (gbid("server_13").innerHTML == gbid("expected_13").innerHTML) { 
+    gbid("server_13").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_13").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -505,6 +583,12 @@ Unknown message.</td>
   else {
     gbid("browser_14").style.backgroundColor="#fcc";
   }
+  if (gbid("server_14").innerHTML == gbid("expected_14").innerHTML) { 
+    gbid("server_14").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_14").style.backgroundColor="#fcc";
+  }          
 </script>
 
 
@@ -542,6 +626,12 @@ A backslash is a \
   else {
     gbid("browser_15").style.backgroundColor="#fcc";
   }
+  if (gbid("server_15").innerHTML == gbid("expected_15").innerHTML) { 
+    gbid("server_15").style.backgroundColor="#dfe";
+  }
+  else {
+    gbid("server_15").style.backgroundColor="#fcc";
+  }          
 </script>
 
 

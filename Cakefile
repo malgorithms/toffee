@@ -111,6 +111,12 @@ generateExpressTest = (cb) ->
           else {
             gbid("browser_#{rid}").style.backgroundColor="#fcc";
           }
+          if (gbid("server_#{rid}").innerHTML == gbid("expected_#{rid}").innerHTML) { 
+            gbid("server_#{rid}").style.backgroundColor="#dfe";
+          }
+          else {
+            gbid("server_#{rid}").style.backgroundColor="#fcc";
+          }          
         </script>
         \n\n\n
       """

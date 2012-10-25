@@ -14,6 +14,7 @@ class engine
 
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
+    @autoEscape             = if options.autoEscape?        then options.autoEscape        else true
     @additionalErrorHandler = options.additionalErrorHandler or null
 
     @viewCache          = {} # filename -> view
@@ -38,9 +39,10 @@ class engine
         __toffee.autoEscape:     if set as false, don't escape output of #{} vars by default
     ###
 
-    if not options.prettyPrintErrors? then options.prettyPrintErrors            = @prettyPrintErrors
-    if not options.prettyLogErrors?   then options.prettyLogErrors              = @prettyLogErrors
-    if not options.additionalErrorHandler? then options.additionalErrorHandler  = @additionalErrorHandler
+    if not options.prettyPrintErrors?       then options.prettyPrintErrors        = @prettyPrintErrors
+    if not options.prettyLogErrors?         then options.prettyLogErrors          = @prettyLogErrors
+    if not options.additionalErrorHandler?  then options.additionalErrorHandler   = @additionalErrorHandler
+    if not options.autoEscape?              then options.autoEscape               = @autoEscape
 
     if options?.layout
       layout_options    = {}
@@ -145,13 +147,7 @@ class engine
     if (@fsErrorCache[filename] and previous_fs_err and @viewCache[filename])
       return @viewCache[filename]
     else
-      view_options =
-        fileName:           filename
-        verbose:            @verbose
-        prettyPrintErrors:  @prettyPrintErrors
-        prettyLogErrors:    @prettyLogErrors
-        additionalErrorHandler: @additionalErrorHandler
-        minimize:           @minimize
+      view_options = @_generateViewOptions filename
       v = new view txt, view_options
       @viewCache[filename] = v
       @_monitorForChanges filename, options
@@ -165,17 +161,24 @@ class engine
           txt = "Error: Could not read #{filename}"
           if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
         if not (err and @viewCache[filename].fsError) # i.e., don't just create a new error view
-          view_options = 
-            fileName:          filename
-            verbose:           @verbose
-            prettyPrintErrors: @prettyPrintErrors
-            minimize:          @minimize
-            cb: (v) =>
-              @_log "#{filename} updated and ready"
-              @viewCache[filename] = v
+          view_options = @_generateViewOptions filename
+          view_options.cb = (v) =>
+            @_log "#{filename} updated and ready"
+            @viewCache[filename] = v
           if err
             view_options.fsError = true
           v = new view txt, view_options
+
+  _generateViewOptions: (filename) ->
+    return {
+      fileName:               filename
+      verbose:                @verbose
+      prettyPrintErrors:      @prettyPrintErrors
+      prettyLogErrors:        @prettyLogErrors
+      autoEscape:             @autoEscape
+      additionalErrorHandler: @additionalErrorHandler
+      minimize:               @minimize
+    }
 
   _monitorForChanges: (filename, options) ->
     ###
