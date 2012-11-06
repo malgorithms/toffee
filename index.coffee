@@ -10,11 +10,9 @@ exports.expressEngine = e
 # a pretty name for general usage
 exports.render        = e.run
 
-# express 3.x support; by default, caching is on
+# express 3.x support;
 __express = exports.__express     = (filename, options, cb) ->
-  cache = if options.cache? then options.cache else true
-  eng = if options.cache then e else new engine { prettyPrintErrors: true }
-  eng.run filename, options, (err, res) ->
+  e.run filename, options, (err, res) ->
     if err
       cb new Error(err)
     else
@@ -22,8 +20,15 @@ __express = exports.__express     = (filename, options, cb) ->
 
 # consolidate.js support, which doesn't want caching on by default
 exports.__consolidate_engine_render = (filename, options, cb) ->
-  if not options.cache? then options.cache = false
-  __express filename, options, cb
+  if (options.cache?) and options.cache
+    eng = e
+  else
+    eng = new engine { verbose: false, prettyPrintErrors: true }
+  eng.run filename, options, (err, res) ->
+    if err
+      cb new Error(err)
+    else
+      cb null, res
 
 # consolidate.js wants this, but it might generally be useful
 exports.str_render = (template_str, options, cb) ->

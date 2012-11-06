@@ -18,12 +18,7 @@
   exports.render = e.run;
 
   __express = exports.__express = function(filename, options, cb) {
-    var cache, eng;
-    cache = options.cache != null ? options.cache : true;
-    eng = options.cache ? e : new engine({
-      prettyPrintErrors: true
-    });
-    return eng.run(filename, options, function(err, res) {
+    return e.run(filename, options, function(err, res) {
       if (err) {
         return cb(new Error(err));
       } else {
@@ -33,10 +28,22 @@
   };
 
   exports.__consolidate_engine_render = function(filename, options, cb) {
-    if (!(options.cache != null)) {
-      options.cache = false;
+    var eng;
+    if ((options.cache != null) && options.cache) {
+      eng = e;
+    } else {
+      eng = new engine({
+        verbose: false,
+        prettyPrintErrors: true
+      });
     }
-    return __express(filename, options, cb);
+    return eng.run(filename, options, function(err, res) {
+      if (err) {
+        return cb(new Error(err));
+      } else {
+        return cb(null, res);
+      }
+    });
   };
 
   exports.str_render = function(template_str, options, cb) {
