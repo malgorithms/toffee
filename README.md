@@ -44,7 +44,7 @@ But the greatest pleasure arises when you enter
 ```html
 <p>
   {#
-    ten_numbers = (Math.random() for i in [0...10])
+    ten_numbers = [1,3,2,4,5,8,6,7,9, Math.random()]
     ten_numbers.sort (a,b) -> b - a
   #}
   The largest number I can even think of is #{ten_numbers[0]}.
