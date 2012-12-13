@@ -26,7 +26,7 @@ The `#{}` syntax is powerful, so be responsible.
 
 ```html
 <p>
-  You have #{(limb for limb in limbs when limb.hasHand()).length} arms worth keeping.
+  You have #{(limb for limb in limbs when limb.has_a_hand).length} arms worth keeping.
 </p>
 ```
 
@@ -44,7 +44,7 @@ But the greatest pleasure arises when you enter
 ```html
 <p>
   {#
-    ten_numbers = (Math.random() for i in [0...10])
+    ten_numbers = [1,3,2,4,5,8,6,7,69, Math.random()]
     ten_numbers.sort (a,b) -> b - a
   #}
   The largest number I can even think of is #{ten_numbers[0]}.
@@ -95,23 +95,24 @@ Or, using Toffee's `print`:
 #}
 ```
 
-These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode safely escapes for HTML. This escaping
-is customizable. More on that below.
+These are slightly different, as `print` outputs raw text, while `#{}` used in toffee mode safely escapes HTML or JSON. This escaping
+escaping is customizable. More on that below.
 
 With nested code, indentation of your CoffeeScript is magically maintained.
 
 ```html
 {#
-   for name, profile of friends when profile.is_responsible {:
-      <p>
-        You know, #{name} would make a great designated driver.
-        And she only lives #{profile.distance}km away.
-        {#
-           if profile.cars.length {: And wow, she drives a #{profile.cars[0].model} :}
-           else                   {: But, alas, she has no wheels. :}
-        #}
-      </p>
-   :}
+   if user.is_drunk
+     for name, profile of friends when profile.is_responsible {:
+        <p class="designated-driver-candidate">
+          You know, #{name} would make a great designated driver.
+          And she only lives #{profile.distance}km away.
+          {#
+             if profile.car? {: And wow, she drives a #{profile.car.model} :}
+             else            {: But, alas, she has no wheels. :}
+          #}
+        </p>
+    :}
 #}
 ```
 
@@ -224,7 +225,7 @@ GOOD
 With a single line of CoffeeScript, feel free to keep it all on one line:
 
 GOOD
-```
+```html
 <div>{# foo = "bar" #}</div>
 ```
 
