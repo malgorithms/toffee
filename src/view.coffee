@@ -10,14 +10,9 @@ catch e
 
 
 minimizeJs = (js) ->
-  # uglify doesn't seem to be working right; #TODO: This
   try
-    jsp     = require("uglify-js").parser
-    pro     = require("uglify-js").uglify
-    ast     = jsp.parse js, true # parse code and get the initial AST
-    ast     = pro.ast_mangle ast              # get a new AST with mangled names
-    ast     = pro.ast_squeeze ast             # get an AST with compression optimizations
-    js = pro.gen_code ast
+    uglify = require 'uglify-js'
+    js = uglify.minify(js, { fromString: true }).code
   catch e
     console.log js
     console.log e

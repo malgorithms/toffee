@@ -1,6 +1,6 @@
 var toffee;
 
-if (!(typeof toffee !== "undefined" && toffee !== null)) toffee = {};
+if (typeof toffee === "undefined" || toffee === null) toffee = {};
 
 if (!toffee.templates) toffee.templates = {};
 
@@ -10,7 +10,7 @@ toffee.states = {
 };
 
 toffee.__json = function(locals, o) {
-  if (!(o != null)) {
+  if (o == null) {
     return "null";
   } else {
     return "" + JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026');
@@ -48,37 +48,37 @@ toffee.__augmentLocals = function(locals, bundle_path) {
   _t = _l.__toffee = {
     out: []
   };
-  if (!(_l.print != null)) {
+  if (_l.print == null) {
     _l.print = function(o) {
       return toffee.__print(_l, o);
     };
   }
-  if (!(_l.json != null)) {
+  if (_l.json == null) {
     _l.json = function(o) {
       return toffee.__json(_l, o);
     };
   }
-  if (!(_l.raw != null)) {
+  if (_l.raw == null) {
     _l.raw = function(o) {
       return toffee.__raw(_l, o);
     };
   }
-  if (!(_l.html != null)) {
+  if (_l.html == null) {
     _l.html = function(o) {
       return toffee.__html(_l, o);
     };
   }
-  if (!(_l.escape != null)) {
+  if (_l.escape == null) {
     _l.escape = function(o) {
       return toffee.__escape(_l, o);
     };
   }
-  if (!(_l.partial != null)) {
+  if (_l.partial == null) {
     _l.partial = function(path, vars) {
       return toffee.__partial(toffee.templates["" + bundle_path], _l, path, vars);
     };
   }
-  if (!(_l.snippet != null)) {
+  if (_l.snippet == null) {
     _l.snippet = function(path, vars) {
       return toffee.__snippet(toffee.templates["" + bundle_path], _l, path, vars);
     };
@@ -103,7 +103,7 @@ toffee.__print = function(locals, o) {
 
 toffee.__normalize = function(path) {
   var np, part, parts, _i, _len;
-  if ((!(path != null)) || path === "/") {
+  if ((path == null) || path === "/") {
     return path;
   } else {
     parts = path.split("/");
@@ -147,7 +147,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   if (!options.__toffee.noInheritance) {
     for (k in parent_locals) {
       v = parent_locals[k];
-      if (!((locals != null ? locals[k] : void 0) != null)) {
+      if ((locals != null ? locals[k] : void 0) == null) {
         if (!(k === "print" || k === "partial" || k === "snippet" || k === "layout" || k === "__toffee")) {
           options[k] = v;
         }
