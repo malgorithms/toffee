@@ -180,9 +180,9 @@ class view
     @_toTokenObj()
     v = @
     setTimeout ->
-      v._toCoffee()
+      v.toCoffee()
       setTimeout ->
-        v._toJavaScript()
+        v.toJavaScript()
         setTimeout ->
           v._toScriptObj()
           v._log "Done async prep of #{if v.fileName? then v.fileName else 'unknown'}. Calling back."
@@ -257,16 +257,16 @@ class view
 
   _toScriptObj: ->
     if not @scriptObj?
-      txt = @_toJavaScript()
+      txt = @toJavaScript()
       if not @error
         d = Date.now()
         @scriptObj = vm.createScript txt
         @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
     @scriptObj
 
-  _toJavaScript: ->
+  toJavaScript: ->
     if not @javaScript?
-      c = @_toCoffee()
+      c = @toCoffee()
       if not @error
         d = Date.now()
         try
@@ -279,7 +279,7 @@ class view
         @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
-  _toCoffee: ->
+  toCoffee: ->
     if not @coffeeScript?
       tobj = @_toTokenObj()
       if not @error

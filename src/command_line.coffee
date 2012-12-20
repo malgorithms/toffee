@@ -65,9 +65,9 @@ compile = (start_path, full_path) ->
     browserMode:  true
     minimize:     program.minimize? and program.minimize
   if program.coffee
-    output = v._toCoffee()
+    output = v.toCoffee()
   else
-    output = v._toJavaScript()
+    output = v.toJavaScript()
   if v.error
     process.stderr.write v.error.getPrettyPrintText()
     process.exit 1

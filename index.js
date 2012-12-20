@@ -8,6 +8,8 @@
 
   exports.engine = engine;
 
+  exports.view = view;
+
   e = new engine({
     verbose: false,
     prettyPrintErrors: true

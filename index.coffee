@@ -3,6 +3,7 @@
 {view}                = require('./lib/view')
 
 exports.engine        = engine
+exports.view          = view
 
 e                     = new engine { verbose: false, prettyPrintErrors: true }
 exports.expressEngine = e
