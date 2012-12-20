@@ -1,15 +1,15 @@
 # expose the render function
-{engine}              = require('./lib/engine')
-{view}                = require('./lib/view')
+{engine}                                      = require('./lib/engine')
+{view, getCommonHeaders, getCommonHeadersJs}  = require('./lib/view')
 
-exports.engine        = engine
-exports.view          = view
+exports.engine            = engine
+exports.view              = view
+exports.getCommonHeaders  = getCommonHeaders
+exports.getCommonHeaders  = getCommonHeadersJs
 
-e                     = new engine { verbose: false, prettyPrintErrors: true }
-exports.expressEngine = e
+exports.expressEngine = e = new engine { verbose: false, prettyPrintErrors: true }
+exports.render            = e.run
 
-# a pretty name for general usage
-exports.render        = e.run
 
 # express 3.x support;
 __express = exports.__express     = (filename, options, cb) ->
