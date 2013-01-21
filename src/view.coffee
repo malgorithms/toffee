@@ -228,7 +228,7 @@ class view
         for line in txt.split "\n"
           console.log "toffee err: #{line}"
       if @additionalErrorHandler
-        @additionalErrorHandler @error.getPrettyPrintText(), @error.getPrettyPrint(), @fileName
+        @additionalErrorHandler @error.getPrettyPrintText(), @error.getPrettyPrint(), @fileName, options
 
       if @prettyPrintErrors
         pair = [null, @error.getPrettyPrint()]
