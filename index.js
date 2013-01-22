@@ -12,7 +12,7 @@
 
   exports.getCommonHeaders = getCommonHeaders;
 
-  exports.getCommonHeaders = getCommonHeadersJs;
+  exports.getCommonHeadersjs = getCommonHeadersJs;
 
   exports.expressEngine = e = new engine({
     verbose: false,
