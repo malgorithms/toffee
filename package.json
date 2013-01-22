@@ -1,7 +1,7 @@
 {
  "name": "toffee",
  "description": "A NodeJs, Express 3.x, Express 2.x, and browser-side templating language based on CoffeeScript with slicker tokens and syntax. Built with love at OkCupid.",
- "version": "0.0.60",
+ "version": "0.0.61",
  "directories": {
   "lib": "./lib"
  },
