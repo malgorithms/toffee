@@ -5,7 +5,7 @@
 exports.engine            = engine
 exports.view              = view
 exports.getCommonHeaders  = getCommonHeaders
-exports.getCommonHeaders  = getCommonHeadersJs
+exports.getCommonHeadersJs  = getCommonHeadersJs
 
 exports.expressEngine = e = new engine { verbose: false, prettyPrintErrors: true }
 exports.render            = e.run
