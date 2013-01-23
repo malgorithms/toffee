@@ -73,8 +73,7 @@ class engine
     options              = options or {}
     options.__toffee     = options.__toffee or {}
     options.__toffee.dir = options.__toffee.dir or process.cwd()
-    filename             = if filename[0] isnt "/" then "#{options.__toffee.dir}/#{filename}" else filename
-    realpath             = path.normalize filename
+    realpath             = path.normalize path.resolve options.__toffee.dir, filename
     pwd                  = path.dirname realpath
 
     v = (@_viewCacheGet realpath) or (@_loadCacheAndMonitor realpath, options)
