@@ -164,7 +164,7 @@ class view
     @tokenObj               = null # constructed as needed
     @coffeeScript           = null # constructed as needed
     @javaScript             = null # constructed as needed
-    @scriptObj              = null # constructed as needed
+    @fun                    = null # constructed as needed
     @error                  = null # if err, instance of toffeeError class
     if options.cb
       @_prepAsync txt, =>
@@ -184,7 +184,7 @@ class view
       setTimeout ->
         v.toJavaScript()
         setTimeout ->
-          v._toScriptObj()
+          v._toFun()
           v._log "Done async prep of #{if v.fileName? then v.fileName else 'unknown'}. Calling back."
           cb()
         , 0
@@ -211,11 +211,11 @@ class view
     ###
     returns [err, str]
     ###
-    script = @_toScriptObj(ctx)
+    fun = @_toFun(ctx)
     res    = null
     if not @error
       try
-        res = script options
+        res = fun options
       catch e
         @error = new toffeeError @, errorTypes.RUNTIME, e
 
@@ -252,15 +252,15 @@ class view
 
     @tokenObj
 
-  _toScriptObj: (ctx) ->
-    if not @scriptObj?
+  _toFun: (ctx) ->
+    if not @fun?
       txt = @toJavaScript()
       if not @error
         d = Date.now()
         vm.runInContext(txt, ctx)
-        @scriptObj = ctx['_TMPL_']
+        @fun = ctx['_TMPL_']
         @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
-    @scriptObj
+    @fun
 
   toJavaScript: ->
     if not @javaScript?
