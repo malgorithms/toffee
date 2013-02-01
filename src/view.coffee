@@ -3,7 +3,7 @@
 {states, TAB_SPACES}                    = require './consts'
 utils                                   = require './utils'
 vm                                      = require 'vm'
-try 
+try
   coffee                                = require "iced-coffee-script"
 catch e
   coffee                                = require "coffee-script"
@@ -74,7 +74,7 @@ toffee.__augmentLocals = (locals, bundle_path) ->
 
 getBundleHeaders = ->
   ###
-  header stuff 
+  header stuff
   only needed when compiling to a JS file
   ###
   """
@@ -89,7 +89,7 @@ toffee.__print = (locals, o) ->
 toffee.__normalize = (path) ->
   if (not path?) or path is "/"
     return path
-  else 
+  else
     parts = path.split "/"
     np = []
     # make sure path always starts with '/'
@@ -164,7 +164,7 @@ class view
     @tokenObj               = null # constructed as needed
     @coffeeScript           = null # constructed as needed
     @javaScript             = null # constructed as needed
-    @scriptObj              = null # constructed as needed 
+    @scriptObj              = null # constructed as needed
     @error                  = null # if err, instance of toffeeError class
     if options.cb
       @_prepAsync txt, =>
@@ -207,7 +207,7 @@ class view
     else if obj[0] is "COFFEE"
       obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
 
-  run: (options) ->
+  run: (options, ctx) ->
     ###
     returns [err, str]
     ###
@@ -215,10 +215,12 @@ class view
     res    = null
     if not @error
       try
-        sandbox = { __toffee_run_input: options }
-        script.runInNewContext sandbox
-        res = sandbox.__toffee_run_input.__toffee.res
-        delete sandbox.__toffee_run_input.__toffee
+        ctx['__toffee_run_input'] = options
+        vm.runInContext(script, ctx)
+#        sandbox = { __toffee_run_input: options }
+#        script.runInNewContext sandbox
+        res = ctx.__toffee_run_input.__toffee.res
+#        delete sandbox.__toffee_run_input.__toffee
       catch e
         @error = new toffeeError @, errorTypes.RUNTIME, e
 
@@ -260,7 +262,7 @@ class view
       txt = @toJavaScript()
       if not @error
         d = Date.now()
-        @scriptObj = vm.createScript txt
+        @scriptObj = txt # vm.createScript txt
         @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
     @scriptObj
 
@@ -289,7 +291,7 @@ class view
           res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0, {})[0]
           res += @_coffeeFooters()
           @coffeeScript = res
-        catch e 
+        catch e
           @error # already assigned inside _toCoffeeRecurse
         @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
@@ -325,7 +327,7 @@ class view
   _toCoffeeRecurse: (obj, indent_level, indent_baseline, state_carry) ->
     # returns [res, indent_baseline_delta]
     # indent_level    = # of spaces to add to each coffeescript section
-    # indent_baseline = # of chars to strip from each line inside {# #} 
+    # indent_baseline = # of chars to strip from each line inside {# #}
 
     res = ""
     i_delta = 0
@@ -383,7 +385,7 @@ class view
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
         i_delta = @_getIndentationDelta c, indent_baseline
         state_carry.last_coffee_ends_with_newline = @_doesEndWithNewline c
-      else 
+      else
         throw "Bad parsing. #{obj} not handled."
         return ["",0]
 
@@ -458,17 +460,17 @@ class view
     if not baseline? then baseline = @_getIndentationBaseline coffee
     if not baseline?
       res = 0
-    else 
+    else
       lines = coffee.split "\n"
       if lines.length < 1
         res = 0
-      else 
+      else
         y   = lines[lines.length - 1]
         y_l = y.match(/[ ]*/)[0].length
         res = y_l - baseline
     return res
 
-  _reindent: (coffee, indent_level, indent_baseline) ->    
+  _reindent: (coffee, indent_level, indent_baseline) ->
     lines = coffee.split '\n'
     # strip out any leading whitespace lines
     while lines.length and lines[0].match /^[ ]*$/
@@ -481,7 +483,7 @@ class view
     res
 
   _space: (indent) -> (" " for i in [0...indent]).join ""
-    
+
   _tabAsSpaces: -> (" " for i in [0...TAB_SPACES]).join ""
 
   _coffeeHeaders: ->

@@ -1,9 +1,15 @@
 {view}                = require './view'
 {states, tweakables}  = require './consts'
+{Pool}                = require './pool'
 utils                 = require './utils'
 fs                    = require 'fs'
 path                  = require 'path'
 util                  = require 'util'
+vm                    = require 'vm'
+
+sandboxCons = () ->
+  vm.createContext({})
+
 
 class engine
 
@@ -11,7 +17,7 @@ class engine
     options             = options or {}
     @verbose            = options.verbose or false
     @minimize           = options.minimize or false
-
+    @pool               = new Pool(sandboxCons, options.poolSize or 100)
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
     @autoEscape             = if options.autoEscape?        then options.autoEscape        else true
@@ -20,14 +26,14 @@ class engine
     @viewCache          = {} # filename -> view
     @fsErrorCache       = {} # filename -> timestamp last failed
 
-  _log: (o) -> 
+  _log: (o) ->
     if @verbose
       if (typeof o) in ["string","number","boolean"]
         console.log "toffee: #{o}"
       else
         console.log "toffee: #{util.inspect o}"
 
-  render: (filename, options, cb) => @run filename, options, cb 
+  render: (filename, options, cb) => @run filename, options, cb
 
   run: (filename, options, cb) =>
     ###
@@ -87,7 +93,9 @@ class engine
         options.snippet = options.snippet or (fname, lvars) => @_fn_snippet fname, lvars, realpath, options
         options.print   = options.print   or (txt)          => @_fn_print   txt, options
         if not options.console? then options.console = log: console.log
-        [err, res] = v.run options
+        ctx = @pool.get()
+        [err, res] = v.run options, ctx
+        @pool.release(ctx)
     else
       [err, res] = ["Couldn't load #{realpath}", null]
 
@@ -144,7 +152,7 @@ class engine
       txt = "Error: Could not read #{filename}"
       if options.__toffee?.parent? then txt += " first requested in #{options.__toffee.parent}"
       @fsErrorCache[filename] = Date.now()
-    
+
     # if we hit an fs error and it already happened, just return that
     if (@fsErrorCache[filename] and previous_fs_err and @viewCache[filename])
       return @viewCache[filename]
