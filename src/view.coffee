@@ -167,10 +167,10 @@ class view
     @fun                    = null # constructed as needed
     @error                  = null # if err, instance of toffeeError class
     if options.cb
-      @_prepAsync txt, =>
-        options.cb @
+      @_prepAsync txt, options.ctx, (=> options.cb @)
 
-  _prepAsync: (txt, cb) ->
+
+  _prepAsync: (txt, ctx, cb) ->
     ###
     Only once it's fully compiled does it callback.
     Defers via setTimeouts in each stage in the compile process
@@ -184,7 +184,7 @@ class view
       setTimeout ->
         v.toJavaScript()
         setTimeout ->
-          v._toFun()
+          v._toFun(ctx)
           v._log "Done async prep of #{if v.fileName? then v.fileName else 'unknown'}. Calling back."
           cb()
         , 0

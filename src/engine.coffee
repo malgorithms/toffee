@@ -173,9 +173,12 @@ class engine
           if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
         if not (err and @viewCache[filename].fsError) # i.e., don't just create a new error view
           view_options = @_generateViewOptions filename
+          ctx = @pool.get()
+          view_options.ctx = ctx
           view_options.cb = (v) =>
             @_log "#{filename} updated and ready"
             @viewCache[filename] = v
+            @pool.release(ctx)
           if err
             view_options.fsError = true
           v = new view txt, view_options
