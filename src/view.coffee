@@ -26,115 +26,115 @@ getCommonHeaders = (include_bundle_headers, auto_escape) ->
 
   include_bundle_headers: includes some functions needed for browser use
   ###
+  __ = "  "
   """
-if not toffee?            then toffee = {}
-if not toffee.templates   then toffee.templates = {}
-
-toffee.states = #{JSON.stringify states}
-
-toffee.__json = (locals, o) ->
-  if not o? then return "null"
-  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
-
-toffee.__raw = (locals, o) -> o
-
-toffee.__html = (locals, o) ->
-  (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-
-toffee.__escape = (locals, o) ->
-  if locals.__toffee.autoEscape? then ae = locals.__toffee.autoEscape
-  else if #{auto_escape?}        then ae = #{auto_escape}
-  else                                ae = true
-  if ae
-    if o is undefined then return ''
-    if o? and (typeof o) is "object" then return locals.json o
-    return locals.html o
-  return o
-
-toffee.__augmentLocals = (locals, bundle_path) ->
-  _l = locals
-  _t = _l.__toffee = {out: []}
-  if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
-  if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
-  if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
-  if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
-  if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
-  if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["\#{bundle_path}"], _l, path, vars
-  if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["\#{bundle_path}"], _l, path, vars
-  _t.print   = _l.print
-  _t.json    = _l.json
-  _t.raw     = _l.raw
-  _t.html    = _l.html
-  _t.escape  = _l.escape
-  _t.partial = _l.partial
-  _t.snippet = _l.snippet
-
-#{if include_bundle_headers then getBundleHeaders() else ""}
-"""
+#{__}if not toffee?            then toffee = {}
+#{__}if not toffee.templates   then toffee.templates = {}
+#{__}
+#{__}toffee.states = #{JSON.stringify states}
+#{__}
+#{__}toffee.__json = (locals, o) ->
+#{__}  if not o? then return "null"
+#{__}  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
+#{__}
+#{__}toffee.__raw = (locals, o) -> o
+#{__}
+#{__}toffee.__html = (locals, o) ->
+#{__}  (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')
+#{__}
+#{__}toffee.__escape = (locals, o) ->
+#{__}  if locals.__toffee.autoEscape? then ae = locals.__toffee.autoEscape
+#{__}  else if #{auto_escape?}        then ae = #{auto_escape}
+#{__}  else                                ae = true
+#{__}  if ae
+#{__}    if o is undefined then return ''
+#{__}    if o? and (typeof o) is "object" then return locals.json o
+#{__}    return locals.html o
+#{__}  return o
+#{__}
+#{__}toffee.__augmentLocals = (locals, bundle_path) ->
+#{__}  _l = locals
+#{__}  _t = _l.__toffee = {out: []}
+#{__}  if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
+#{__}  if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
+#{__}  if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
+#{__}  if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
+#{__}  if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
+#{__}  if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["\#{bundle_path}"], _l, path, vars
+#{__}  if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["\#{bundle_path}"], _l, path, vars
+#{__}  _t.print   = _l.print
+#{__}  _t.json    = _l.json
+#{__}  _t.raw     = _l.raw
+#{__}  _t.html    = _l.html
+#{__}  _t.escape  = _l.escape
+#{__}  _t.partial = _l.partial
+#{__}  _t.snippet = _l.snippet
+#{__}
+#{__}#{if include_bundle_headers then getBundleHeaders() else ""}
+#{__}"""
 
 getBundleHeaders = ->
   ###
   header stuff
   only needed when compiling to a JS file
   ###
+  __ = "  "
   """
-
-toffee.__print = (locals, o) ->
-  if locals.__toffee.state is toffee.states.COFFEE
-    locals.__toffee.out.push o
-    return ''
-  else
-    return "\#{o}"
-
-toffee.__normalize = (path) ->
-  if (not path?) or path is "/"
-    return path
-  else
-    parts = path.split "/"
-    np = []
-    # make sure path always starts with '/'
-    if parts[0]
-      np.push ''
-    for part in parts
-      if part is ".."
-        if np.length > 1
-          np.pop()
-        else
-          np.push part
-      else
-        if part isnt "."
-          np.push part
-    path = np.join "/"
-    if not path then path = "/"
-    return path
-
-toffee.__partial = (parent_tmpl, parent_locals, path, vars) ->
-  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
-  return toffee.__inlineInclude path, vars, parent_locals
-
-toffee.__snippet = (parent_tmpl, parent_locals, path, vars) ->
-  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
-  vars = if vars? then vars else {}
-  vars.__toffee = vars.__toffee or {}
-  vars.__toffee.noInheritance = true
-  return toffee.__inlineInclude path, vars, parent_locals
-
-toffee.__inlineInclude = (path, locals, parent_locals) ->
-  options                 = locals or {}
-  options.__toffee        = options.__toffee or {}
-
-  # we need to make a shallow copy of parent variables
-  if not options.__toffee.noInheritance
-    for k,v of parent_locals when not locals?[k]?
-      if not (k in ["print", "partial", "snippet", "layout", "__toffee"])
-        options[k] = v
-
-  if not toffee.templates[path]
-    return "Inline toffee include: Could not find \#{path}"
-  else
-    return toffee.templates[path].pub options
-
-"""
+#{__}toffee.__print = (locals, o) ->
+#{__}  if locals.__toffee.state is toffee.states.COFFEE
+#{__}    locals.__toffee.out.push o
+#{__}    return ''
+#{__}  else
+#{__}    return "\#{o}"
+#{__}
+#{__}toffee.__normalize = (path) ->
+#{__}  if (not path?) or path is "/"
+#{__}    return path
+#{__}  else
+#{__}    parts = path.split "/"
+#{__}    np = []
+#{__}    # make sure path always starts with '/'
+#{__}    if parts[0]
+#{__}      np.push ''
+#{__}    for part in parts
+#{__}      if part is ".."
+#{__}        if np.length > 1
+#{__}          np.pop()
+#{__}        else
+#{__}          np.push part
+#{__}      else
+#{__}        if part isnt "."
+#{__}          np.push part
+#{__}    path = np.join "/"
+#{__}    if not path then path = "/"
+#{__}    return path
+#{__}
+#{__}toffee.__partial = (parent_tmpl, parent_locals, path, vars) ->
+#{__}  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
+#{__}  return toffee.__inlineInclude path, vars, parent_locals
+#{__}
+#{__}toffee.__snippet = (parent_tmpl, parent_locals, path, vars) ->
+#{__}  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
+#{__}  vars = if vars? then vars else {}
+#{__}  vars.__toffee = vars.__toffee or {}
+#{__}  vars.__toffee.noInheritance = true
+#{__}  return toffee.__inlineInclude path, vars, parent_locals
+#{__}
+#{__}toffee.__inlineInclude = (path, locals, parent_locals) ->
+#{__}  options                 = locals or {}
+#{__}  options.__toffee        = options.__toffee or {}
+#{__}
+#{__}  # we need to make a shallow copy of parent variables
+#{__}  if not options.__toffee.noInheritance
+#{__}    for k,v of parent_locals when not locals?[k]?
+#{__}      if not (k in ["print", "partial", "snippet", "layout", "__toffee"])
+#{__}        options[k] = v
+#{__}
+#{__}  if not toffee.templates[path]
+#{__}    return "Inline toffee include: Could not find \#{path}"
+#{__}  else
+#{__}    return toffee.templates[path].pub options
+#{__}"""
 
 getCommonHeadersJs = (include_bundle_headers, auto_escape, minimize)->
   ch = getCommonHeaders include_bundle_headers, auto_escape
@@ -211,16 +211,11 @@ class view
     ###
     returns [err, str]
     ###
-    script = @_toScriptObj()
+    script = @_toScriptObj(ctx)
     res    = null
     if not @error
       try
-        ctx['__toffee_run_input'] = options
-        vm.runInContext(script, ctx)
-#        sandbox = { __toffee_run_input: options }
-#        script.runInNewContext sandbox
-        res = ctx.__toffee_run_input.__toffee.res
-#        delete sandbox.__toffee_run_input.__toffee
+        res = script options
       catch e
         @error = new toffeeError @, errorTypes.RUNTIME, e
 
@@ -257,12 +252,13 @@ class view
 
     @tokenObj
 
-  _toScriptObj: ->
+  _toScriptObj: (ctx) ->
     if not @scriptObj?
       txt = @toJavaScript()
       if not @error
         d = Date.now()
-        @scriptObj = txt # vm.createScript txt
+        vm.runInContext(txt, ctx)
+        @scriptObj = ctx['_TMPL_']
         @_log "#{@fileName} compiled to scriptObj in #{Date.now()-d}ms"
     @scriptObj
 
@@ -272,7 +268,7 @@ class view
       if not @error
         d = Date.now()
         try
-          @javaScript = coffee.compile c, {bare: false}
+          @javaScript = coffee.compile c, {bare: true}
         catch e
           @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
         if @minimize and not @error
@@ -288,7 +284,7 @@ class view
         d = Date.now()
         res =  @_coffeeHeaders()
         try
-          res += @_toCoffeeRecurse(tobj, TAB_SPACES, 0, {})[0]
+          res += @_toCoffeeRecurse(tobj, TAB_SPACES + 2, 0, {})[0]
           res += @_coffeeFooters()
           @coffeeScript = res
         catch e
@@ -488,32 +484,34 @@ class view
 
   _coffeeHeaders: ->
     ___  = @_tabAsSpaces()
-
+    __ = "  "
     """
+_TMPL_ = (__toffee_run_input) ->
 #{if @browserMode then '' else getCommonHeaders false, @autoEscape }
-tmpl = toffee.templates["#{@bundlePath}"]  =
-  bundlePath: "#{@bundlePath}"
-tmpl.render = tmpl.pub = (__locals) ->
-#{___}_to = (x) -> __locals.__toffee.out.push x
-#{___}_ln = (x) -> __locals.__toffee.lineno = x
-#{___}_ts = (x) -> __locals.__toffee.state  = x
-#{___}toffee.__augmentLocals __locals, "#{@bundlePath}"
-
-#{___}`with (__locals) {`
-#{___}__toffee.out = []
-"""
+#{__}tmpl = toffee.templates["#{@bundlePath}"]  =
+#{__}  bundlePath: "#{@bundlePath}"
+#{__}tmpl.render = tmpl.pub = (__locals) ->
+#{__}#{___}_to = (x) -> __locals.__toffee.out.push x
+#{__}#{___}_ln = (x) -> __locals.__toffee.lineno = x
+#{__}#{___}_ts = (x) -> __locals.__toffee.state  = x
+#{__}#{___}toffee.__augmentLocals __locals, "#{@bundlePath}"
+#{__}
+#{__}#{___}`with (__locals) {`
+#{__}#{___}__toffee.out = []
+#{__}"""
 
   _coffeeFooters: ->
     ___    = @_tabAsSpaces()
+    __ = "  "
     """\n
-#{___}__toffee.res = __toffee.out.join ""
-#{___}return __toffee.res
-#{___}`true; } /* closing JS 'with' */ `
-# sometimes we want to execute the whole thing in a sandbox
-# and just output results
-if __toffee_run_input?
-#{___}return tmpl.pub __toffee_run_input
-"""
+#{__}#{___}__toffee.res = __toffee.out.join ""
+#{__}#{___}return __toffee.res
+#{__}#{___}`true; } /* closing JS 'with' */ `
+#{__}# sometimes we want to execute the whole thing in a sandbox
+#{__}# and just output results
+#{__}if __toffee_run_input?
+#{__}#{___}return tmpl.pub __toffee_run_input
+#{__}"""
 
 exports.view                = view
 exports.getCommonHeaders    = getCommonHeaders
