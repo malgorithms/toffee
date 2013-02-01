@@ -7,9 +7,10 @@ path                  = require 'path'
 util                  = require 'util'
 vm                    = require 'vm'
 
+MAX_CACHED_SANDBOXES = 100
+
 sandboxCons = () ->
   vm.createContext({})
-
 
 class engine
 
@@ -17,7 +18,7 @@ class engine
     options             = options or {}
     @verbose            = options.verbose or false
     @minimize           = options.minimize or false
-    @pool               = new Pool(sandboxCons, options.poolSize or 100)
+    @pool               = new Pool(sandboxCons, options.poolSize or MAX_CACHED_SANDBOXES)
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
     @autoEscape             = if options.autoEscape?        then options.autoEscape        else true
