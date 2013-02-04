@@ -28,8 +28,9 @@ getCommonHeaders = (include_bundle_headers, auto_escape) ->
   ###
   __ = "  "
   """
-#{__}if not toffee?            then toffee = {}
-#{__}if not toffee.templates   then toffee.templates = {}
+
+#{__}if not toffee? then toffee = {}
+#{__}if not toffee.templates then toffee.templates = {}
 #{__}
 #{__}toffee.states = #{JSON.stringify states}
 #{__}
@@ -80,6 +81,7 @@ getBundleHeaders = ->
   ###
   __ = "  "
   """
+# keep this, for proper indenting
 #{__}toffee.__print = (locals, o) ->
 #{__}  if locals.__toffee.state is toffee.states.COFFEE
 #{__}    locals.__toffee.out.push o
@@ -268,7 +270,10 @@ class view
       if not @error
         d = Date.now()
         try
-          @javaScript = coffee.compile c, {bare: true}
+          opts = { bare: true }
+          if @browserMode
+            opts.bare = false
+          @javaScript = coffee.compile c, opts
         catch e
           @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
         if @minimize and not @error
@@ -486,8 +491,7 @@ class view
     ___  = @_tabAsSpaces()
     __ = "  "
     """
-_TMPL_ = (__toffee_run_input) ->
-#{if @browserMode then '' else getCommonHeaders false, @autoEscape }
+#{if @browserMode then '' else ('_TMPL_ = (__toffee_run_input) ->' + (getCommonHeaders false, @autoEscape)) }
 #{__}tmpl = toffee.templates["#{@bundlePath}"]  =
 #{__}  bundlePath: "#{@bundlePath}"
 #{__}tmpl.render = tmpl.pub = (__locals) ->
