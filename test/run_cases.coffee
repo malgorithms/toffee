@@ -1,6 +1,7 @@
 {engine} = require '../lib/engine'
 fs       = require 'fs'
 path     = require 'path'
+zombie   = require 'zombie'
 
 regular_engine = new engine({
   verbose:           false
@@ -63,14 +64,34 @@ run_multiple_runs = (eng, num_runs, cb) ->
       if countdown is 0
         cb null, total_time, total_tests
 
-# ----------------------------------------------------------------
 
-run_all_case_dirs regular_engine, (err, time, tests_run) ->
-  console.log "Regular Engine: SUCCESS for #{tests_run} cold tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
-  run_multiple_runs regular_engine, 30, (err, time, tests_run) ->
-    console.log "Regular Engine: SUCCESS for #{tests_run} hot tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
-    run_all_case_dirs minimized_engine, (err, time, tests_run) ->
-      console.log "Minimized (browser) Engine: SUCCESS for #{tests_run} cold tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
-      run_multiple_runs minimized_engine, 30, (err, time, tests_run) ->
-        console.log "Minimized (browser) Engine: SUCCESS for #{tests_run} hot tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
-        process.exit 0
+run_express_test = (cb) ->
+  require('./express3/app').run ->
+    zombie.visit 'http://localhost:3033', (e, browser) ->
+      if e
+        console.log e
+      $ = browser.window.$
+      successes = $('.success').length
+      fails     = $('.fail').length
+      if (fails is 0) and (successes > 0)
+        return cb()
+      console.log "BROWSER ERROR! Server left running at http://localhost:3033 for your convenience"
+
+# ----------------------------------------------------------------
+go = ->
+  run_all_case_dirs regular_engine, (err, time, tests_run) ->
+    console.log "Regular Engine:             SUCCESS for #{tests_run} cold tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
+    run_multiple_runs regular_engine, 30, (err, time, tests_run) ->
+      console.log "Regular Engine:             SUCCESS for #{tests_run} hot tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
+      run_all_case_dirs minimized_engine, (err, time, tests_run) ->
+        console.log "Minimized (browser) Engine: SUCCESS for #{tests_run} cold tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
+        run_multiple_runs minimized_engine, 30, (err, time, tests_run) ->
+          console.log "Minimized (browser) Engine: SUCCESS for #{tests_run} hot tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
+          run_express_test ->
+            console.log "Browser:                    SUCCESS for tests at http://localhost:3033; server terminated successfully"
+            process.exit 0
+
+if not module.parent?
+  go()
+
+else exports.test = go

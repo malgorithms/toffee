@@ -408,13 +408,12 @@ Also, I'm likely to accept good pull requests.
 If you'd like to edit code for this project, note that you should always edit the `.coffee` files,
 as the `.js` files are generated automatically by building.
 
-To build
+To build and test your changes
+
 ```
 > cake build
+> cake test
 ```
 
-To make sure you didn't break something
-```
-> coffee tests/run_cases.coffee
-```
+
 

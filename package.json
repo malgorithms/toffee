@@ -15,7 +15,9 @@
   "mkdirp":        "*"
  },
  "devDependencies": {
-  "jison" :        "*"
+  "jison" :        "*",
+  "zombie":        "*",
+  "assert":        "*"
  },
  "repository": {
   "type": "git",
