@@ -59,7 +59,10 @@ generateExpressTest = (cb) ->
       if path.existsSync "./test/cases/#{dir}/vars.js"
         vars     = fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
       else
-        vars     = "{}"
+        if dir == "render_no_args"
+          vars = ""
+        else
+          vars     = "{}"
       rid = i
       test_page += """
         \n\n\n<!-- ************ #{dir} -->
