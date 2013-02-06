@@ -495,6 +495,7 @@ class view
 #{__}tmpl = toffee.templates["#{@bundlePath}"]  =
 #{__}  bundlePath: "#{@bundlePath}"
 #{__}tmpl.render = tmpl.pub = (__locals) ->
+#{__}#{___}__locals = __locals or {}
 #{__}#{___}_to = (x) -> __locals.__toffee.out.push x
 #{__}#{___}_ln = (x) -> __locals.__toffee.lineno = x
 #{__}#{___}_ts = (x) -> __locals.__toffee.state  = x
