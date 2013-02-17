@@ -26,7 +26,7 @@ The `#{}` syntax is powerful, so be responsible.
 
 ```html
 <p>
-  You have #{(limb for limb in limbs when limb.has_a_hand).length} arms worth keeping.
+  You have #{(sheep for sheep in flock when sheep.color is 'black').length} black sheep in the flock.
 </p>
 ```
 
