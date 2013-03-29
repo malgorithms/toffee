@@ -15,17 +15,17 @@ sandboxCons = () ->
 class engine
 
   constructor: (options) ->
-    options             = options or {}
-    @verbose            = options.verbose or false
-    @minimize           = options.minimize or false
-    @pool               = new Pool(sandboxCons, options.poolSize or MAX_CACHED_SANDBOXES)
+    options                 = options or {}
+    @verbose                = options.verbose or false
+    @minimize               = options.minimize or false
+    @pool                   = new Pool(sandboxCons, options.poolSize or MAX_CACHED_SANDBOXES)
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
     @autoEscape             = if options.autoEscape?        then options.autoEscape        else true
     @additionalErrorHandler = options.additionalErrorHandler or null
 
-    @viewCache          = {} # filename -> view
-    @fsErrorCache       = {} # filename -> timestamp last failed
+    @viewCache              = {} # filename -> view
+    @fsErrorCache           = {} # filename -> timestamp last failed
 
   _log: (o) ->
     if @verbose

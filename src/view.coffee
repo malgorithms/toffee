@@ -9,6 +9,9 @@ catch e
   coffee                                = require "coffee-script"
 
 
+spaces      = (n) -> (" " for i in [0...n]).join ""
+tabs        = (n) -> (spaces(TAB_SPACES) for i in [0...n]).join ""
+
 minimizeJs = (js) ->
   try
     uglify = require 'uglify-js'
@@ -19,30 +22,31 @@ minimizeJs = (js) ->
     process.exit 1
   js
 
-getCommonHeaders = (include_bundle_headers, auto_escape) ->
+getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
   ###
   each view will use this, or if they're bundled together,
   it'll only be used once.
 
   include_bundle_headers: includes some functions needed for browser use
   ###
-  __ = "  "
+  __ = tabs tab_level
+
   """
 
 #{__}if not toffee? then toffee = {}
 #{__}if not toffee.templates then toffee.templates = {}
-#{__}
+
 #{__}toffee.states = #{JSON.stringify states}
-#{__}
+
 #{__}toffee.__json = (locals, o) ->
 #{__}  if not o? then return "null"
 #{__}  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
-#{__}
+
 #{__}toffee.__raw = (locals, o) -> o
-#{__}
+
 #{__}toffee.__html = (locals, o) ->
 #{__}  (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')
-#{__}
+
 #{__}toffee.__escape = (locals, o) ->
 #{__}  if locals.__toffee.autoEscape? then ae = locals.__toffee.autoEscape
 #{__}  else if #{auto_escape?}        then ae = #{auto_escape}
@@ -52,7 +56,7 @@ getCommonHeaders = (include_bundle_headers, auto_escape) ->
 #{__}    if o? and (typeof o) is "object" then return locals.json o
 #{__}    return locals.html o
 #{__}  return o
-#{__}
+
 #{__}toffee.__augmentLocals = (locals, bundle_path) ->
 #{__}  _l = locals
 #{__}  _t = _l.__toffee = {out: []}
@@ -70,25 +74,24 @@ getCommonHeaders = (include_bundle_headers, auto_escape) ->
 #{__}  _t.escape  = _l.escape
 #{__}  _t.partial = _l.partial
 #{__}  _t.snippet = _l.snippet
-#{__}
-#{__}#{if include_bundle_headers then getBundleHeaders() else ""}
-#{__}"""
 
-getBundleHeaders = ->
+#{if include_bundle_headers then getBundleHeaders(tab_level) else ""}
+"""
+
+getBundleHeaders = (tab_level) ->
   ###
   header stuff
   only needed when compiling to a JS file
   ###
-  __ = "  "
+  __ = tabs tab_level
   """
-# keep this, for proper indenting
 #{__}toffee.__print = (locals, o) ->
 #{__}  if locals.__toffee.state is toffee.states.COFFEE
 #{__}    locals.__toffee.out.push o
 #{__}    return ''
 #{__}  else
 #{__}    return "\#{o}"
-#{__}
+
 #{__}toffee.__normalize = (path) ->
 #{__}  if (not path?) or path is "/"
 #{__}    return path
@@ -110,18 +113,18 @@ getBundleHeaders = ->
 #{__}    path = np.join "/"
 #{__}    if not path then path = "/"
 #{__}    return path
-#{__}
+
 #{__}toffee.__partial = (parent_tmpl, parent_locals, path, vars) ->
 #{__}  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
 #{__}  return toffee.__inlineInclude path, vars, parent_locals
-#{__}
+
 #{__}toffee.__snippet = (parent_tmpl, parent_locals, path, vars) ->
 #{__}  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
 #{__}  vars = if vars? then vars else {}
 #{__}  vars.__toffee = vars.__toffee or {}
 #{__}  vars.__toffee.noInheritance = true
 #{__}  return toffee.__inlineInclude path, vars, parent_locals
-#{__}
+
 #{__}toffee.__inlineInclude = (path, locals, parent_locals) ->
 #{__}  options                 = locals or {}
 #{__}  options.__toffee        = options.__toffee or {}
@@ -136,10 +139,10 @@ getBundleHeaders = ->
 #{__}    return "Inline toffee include: Could not find \#{path}"
 #{__}  else
 #{__}    return toffee.templates[path].pub options
-#{__}"""
+"""
 
 getCommonHeadersJs = (include_bundle_headers, auto_escape, minimize)->
-  ch = getCommonHeaders include_bundle_headers, auto_escape
+  ch = getCommonHeaders 0, include_bundle_headers, auto_escape
   js = coffee.compile ch, {bare: true}
   if minimize then js = minimizeJs js
   js
@@ -207,7 +210,7 @@ class view
     if obj[0] in ["TOFFEE_ZONE", "COFFEE_ZONE"]
       @_cleanTabs item for item in obj[1]
     else if obj[0] is "COFFEE"
-      obj[1] = obj[1].replace /\t/g, @_tabAsSpaces()
+      obj[1] = obj[1].replace /\t/g, tabs 1
 
   run: (options, ctx) ->
     ###
@@ -289,10 +292,11 @@ class view
         d = Date.now()
         res =  @_coffeeHeaders()
         try
-          res += @_toCoffeeRecurse(tobj, TAB_SPACES + 2, 0, {})[0]
+          res += @_toCoffeeRecurse(tobj, TAB_SPACES * (1 + @_globalTabLevel()), 0, {})[0]
           res += @_coffeeFooters()
           @coffeeScript = res
         catch e
+          console.log e
           @error # already assigned inside _toCoffeeRecurse
         @_log "#{@fileName} compiled to CoffeeScript in #{Date.now()-d}ms"
     @coffeeScript
@@ -302,7 +306,7 @@ class view
       return ""
     else
       @lastLineNo = n
-      return "\n#{@_space ind}_ln #{n}"
+      return "\n#{spaces ind}_ln #{n}"
 
   _snippetHasEscapeOverride: (str) ->
     for token in ['print',' snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
@@ -336,12 +340,12 @@ class view
       when "TOFFEE_ZONE"
         if state_carry.last_coffee_ends_with_newline is false
           indent_level += TAB_SPACES
-        res += "\n#{@_space indent_level}_ts #{states.TOFFEE}"
+        res += "\n#{spaces indent_level}_ts #{states.TOFFEE}"
         for item in obj[1]
           [s, delta] = @_toCoffeeRecurse item, indent_level, indent_baseline, state_carry
           res += s
       when "COFFEE_ZONE"
-        res += "\n#{@_space indent_level}_ts #{states.COFFEE}"
+        res += "\n#{spaces indent_level}_ts #{states.COFFEE}"
         zone_baseline   = @_getZoneBaseline obj[1]
         temp_indent_level = indent_level
         for item in obj[1]
@@ -350,7 +354,7 @@ class view
           temp_indent_level = indent_level + delta
       when "TOFFEE"
         ind = indent_level
-        res += "\n#{@_space ind}_ts #{states.TOFFEE}"
+        res += "\n#{spaces ind}_ts #{states.TOFFEE}"
         lineno = obj[2]
         try
           t_int = utils.interpolateString obj[1]
@@ -368,7 +372,7 @@ class view
               chunk = "\#{#{interp}}"
             else
               chunk = "\#{escape(#{interp})}"
-            res    += "\n#{@_space ind}_to #{@_quoteStr chunk}"
+            res    += "\n#{spaces ind}_to #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
             lines = part[1].split "\n"
@@ -377,10 +381,10 @@ class view
               lbreak  = if i isnt lines.length - 1 then "\n" else ""
               chunk   = @_escapeForStr "#{line}#{lbreak}"
               if chunk.length
-                res    += "\n#{@_space ind}_to #{@_quoteStr(chunk + lbreak)}"
+                res    += "\n#{spaces ind}_to #{@_quoteStr(chunk + lbreak)}"
               if i < lines.length - 1 then lineno++
         res += @_printLineNo obj[2] + (obj[1].split('\n').length-1), ind
-        res += "\n#{@_space ind}_ts #{states.COFFEE}"
+        res += "\n#{spaces ind}_ts #{states.COFFEE}"
       when "COFFEE"
         c = obj[1]
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
@@ -479,19 +483,21 @@ class view
     return '' unless lines.length
     rxx    = /^[ ]*/
     strip  = indent_baseline
-    indent = @_space indent_level
+    indent = spaces indent_level
     res    = ("#{indent}#{line[strip...]}" for line in lines).join "\n"
     res
 
-  _space: (indent) -> (" " for i in [0...indent]).join ""
+  _globalTabLevel: ->
+    if @browserMode then 0 else 1
 
-  _tabAsSpaces: -> (" " for i in [0...TAB_SPACES]).join ""
+  _globalTabs: -> tabs @_globalTabLevel()
 
   _coffeeHeaders: ->
-    ___  = @_tabAsSpaces()
-    __ = "  "
+    __  = @_globalTabs()
+    ___ = tabs 1 # guaranteed tabs
     """
-#{if @browserMode then '' else ('_TMPL_ = (__toffee_run_input) ->' + (getCommonHeaders false, @autoEscape)) }
+#{if @browserMode then '' else ('_TMPL_ = (__toffee_run_input) ->' + (getCommonHeaders 1, false, @autoEscape)) }
+#{__}# browser mode = #{@browserMode}
 #{__}tmpl = toffee.templates["#{@bundlePath}"]  =
 #{__}  bundlePath: "#{@bundlePath}"
 #{__}tmpl.render = tmpl.pub = (__locals) ->
@@ -500,23 +506,23 @@ class view
 #{__}#{___}_ln = (x) -> __locals.__toffee.lineno = x
 #{__}#{___}_ts = (x) -> __locals.__toffee.state  = x
 #{__}#{___}toffee.__augmentLocals __locals, "#{@bundlePath}"
-#{__}
+
 #{__}#{___}`with (__locals) {`
 #{__}#{___}__toffee.out = []
-#{__}"""
+"""
 
   _coffeeFooters: ->
-    ___    = @_tabAsSpaces()
-    __ = "  "
+    __  = @_globalTabs()
+    ___ = tabs 1 # guaranteed tabs
     """\n
 #{__}#{___}__toffee.res = __toffee.out.join ""
 #{__}#{___}return __toffee.res
-#{__}#{___}`true; } /* closing JS 'with' */ `
+#{__}`true; } /* closing JS 'with' */ `
 #{__}# sometimes we want to execute the whole thing in a sandbox
 #{__}# and just output results
 #{__}if __toffee_run_input?
 #{__}#{___}return tmpl.pub __toffee_run_input
-#{__}"""
+"""
 
 exports.view                = view
 exports.getCommonHeaders    = getCommonHeaders

@@ -24,7 +24,6 @@ task 'test', 'test server and browser support', (cb) ->
 
 runCoffee = (args, cb) ->
   proc =  spawn 'coffee', args
-  console.log args
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.on        'exit', (status) ->
     process.exit(1) if status isnt 0

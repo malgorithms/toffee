@@ -14,6 +14,7 @@ class toffeeError
     @view           = view
     @e              = e
     @toffeeSrc      = view.txt
+    console.log @errType
     switch @errType
       when errorTypes.PARSER          then @offensiveSrc = @toffeeSrc
       when errorTypes.STR_INTERPOLATE then @offensiveSrc = @toffeeSrc

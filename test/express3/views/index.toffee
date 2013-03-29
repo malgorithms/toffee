@@ -357,10 +357,27 @@ Goodbye, world</td>
 
 
 
+<!-- ************ render_no_args -->
+<tr class="test_case">
+  <td class="test_cell">render_no_args</td>
+  <td class="expected_output" id="expected_14">No arguments passed.</td>
+  <td class="server_output fail" id="server_14">#{partial '../../cases/render_no_args/input.toffee', }</td>
+  <td class="script_output fail" id="browser_14"></td>
+</tr>
+<script type="text/javascript">
+  var script_res = toffee.templates["/render_no_args/input.toffee"].render();
+  $("#browser_14").html(script_res);
+</script>
+
+
+
+
+
+
 <!-- ************ snippets -->
 <tr class="test_case">
   <td class="test_cell">snippets</td>
-  <td class="expected_output" id="expected_14">From: Preloaded sender
+  <td class="expected_output" id="expected_15">From: Preloaded sender
 Preloaded message.
 From: Unknown sender
 Unknown message.
@@ -368,18 +385,18 @@ From: Sam
 Preloaded message.
 From: Max
 Unknown message.</td>
-  <td class="server_output fail" id="server_14">#{partial '../../cases/snippets/input.toffee', {
+  <td class="server_output fail" id="server_15">#{partial '../../cases/snippets/input.toffee', {
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 }}</td>
-  <td class="script_output fail" id="browser_14"></td>
+  <td class="script_output fail" id="browser_15"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/snippets/input.toffee"].render({
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 });
-  $("#browser_14").html(script_res);
+  $("#browser_15").html(script_res);
 </script>
 
 
@@ -390,7 +407,7 @@ Unknown message.</td>
 <!-- ************ special_cases -->
 <tr class="test_case">
   <td class="test_cell">special_cases</td>
-  <td class="expected_output" id="expected_15">
+  <td class="expected_output" id="expected_16">
 "PASSED"
 
 <p>
@@ -401,12 +418,12 @@ A backslash is a \
 <script>
  var passed = "\"passed\"";
 </script></td>
-  <td class="server_output fail" id="server_15">#{partial '../../cases/special_cases/input.toffee', {}}</td>
-  <td class="script_output fail" id="browser_15"></td>
+  <td class="server_output fail" id="server_16">#{partial '../../cases/special_cases/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_16"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/special_cases/input.toffee"].render({});
-  $("#browser_15").html(script_res);
+  $("#browser_16").html(script_res);
 </script>
 
 
