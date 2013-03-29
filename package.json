@@ -17,7 +17,8 @@
  "devDependencies": {
   "jison" :        "*",
   "zombie":        "*",
-  "assert":        "*"
+  "assert":        "*",
+  "express": 	   "*"
  },
  "repository": {
   "type": "git",
