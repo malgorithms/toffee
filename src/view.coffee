@@ -32,7 +32,7 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
   __ = tabs tab_level
 
   """
-
+\n
 #{__}if not toffee? then toffee = {}
 #{__}if not toffee.templates then toffee.templates = {}
 
@@ -85,6 +85,7 @@ getBundleHeaders = (tab_level) ->
   ###
   __ = tabs tab_level
   """
+\n
 #{__}toffee.__print = (locals, o) ->
 #{__}  if locals.__toffee.state is toffee.states.COFFEE
 #{__}    locals.__toffee.out.push o
