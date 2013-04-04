@@ -27,12 +27,27 @@ class engine
     @viewCache              = {} # filename -> view
     @fsErrorCache           = {} # filename -> timestamp last failed
 
+    @filenameCache = {} # caches dir -> filename -> path.normalize path.resolve dir, filename
+
   _log: (o) ->
     if @verbose
       if (typeof o) in ["string","number","boolean"]
         console.log "toffee: #{o}"
       else
         console.log "toffee: #{util.inspect o}"
+
+  # basically returns `path.normalize path.resolve dir, filename`, but caches it to speed up multiple inclusions
+  normalizeFilename: (dir, filename) ->
+    cache = @filenameCache[dir]
+    if not cache?
+      @filenameCache[dir] = {}
+      cache = {}
+    normalized = cache[filename]
+    if not normalized?
+      normalized = path.normalize path.resolve dir, filename
+      @filenameCache[dir][filename] = normalized
+    return normalized
+
 
   render: (filename, options, cb) => @run filename, options, cb
 
@@ -80,8 +95,7 @@ class engine
     options              = options or {}
     options.__toffee     = options.__toffee or {}
     options.__toffee.dir = options.__toffee.dir or process.cwd()
-    realpath             = path.normalize path.resolve options.__toffee.dir, filename
-    pwd                  = path.dirname realpath
+    realpath = @normalizeFilename options.__toffee.dir, filename
 
     v = (@_viewCacheGet realpath) or (@_loadCacheAndMonitor realpath, options)
 
