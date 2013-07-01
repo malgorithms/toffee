@@ -2,14 +2,19 @@
 {engine}                                      = require('./lib/engine')
 {view, getCommonHeaders, getCommonHeadersJs}  = require('./lib/view')
 
-exports.engine            = engine
-exports.view              = view
-exports.getCommonHeaders  = getCommonHeaders
+exports.engine              = engine
+exports.view                = view
+exports.getCommonHeaders    = getCommonHeaders
 exports.getCommonHeadersJs  = getCommonHeadersJs
 
-exports.expressEngine = e = new engine { verbose: false, prettyPrintErrors: true }
-exports.render            = e.run
+exports.expressEngine       = e = new engine { verbose: false, prettyPrintErrors: true }
+exports.render              = e.run
 
+# given a template string, returns a function that can be called
+# on an object to render it.
+exports.compileStr          = (template_str, options) ->
+  v = new view template_str, options
+  return (x) -> v.run x
 
 # express 3.x support;
 __express = exports.__express     = (filename, options, cb) ->
@@ -32,7 +37,7 @@ exports.__consolidate_engine_render = (filename, options, cb) ->
       cb null, res
 
 # consolidate.js wants this, but it might generally be useful
-exports.str_render = (template_str, options, cb) ->
+exports.str_render = exports.strRender = (template_str, options, cb) ->
   v = new view template_str, options
   [err, res] = v.run options
   cb err, res

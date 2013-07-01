@@ -1,8 +1,14 @@
 var toffee;
 
-if (typeof toffee === "undefined" || toffee === null) toffee = {};
 
-if (!toffee.templates) toffee.templates = {};
+
+if (typeof toffee === "undefined" || toffee === null) {
+  toffee = {};
+}
+
+if (!toffee.templates) {
+  toffee.templates = {};
+}
 
 toffee.states = {
   "TOFFEE": 1,
@@ -35,8 +41,12 @@ toffee.__escape = function(locals, o) {
     ae = true;
   }
   if (ae) {
-    if (o === void 0) return '';
-    if ((o != null) && (typeof o) === "object") return locals.json(o);
+    if (o === void 0) {
+      return '';
+    }
+    if ((o != null) && (typeof o) === "object") {
+      return locals.json(o);
+    }
     return locals.html(o);
   }
   return o;
@@ -108,7 +118,9 @@ toffee.__normalize = function(path) {
   } else {
     parts = path.split("/");
     np = [];
-    if (parts[0]) np.push('');
+    if (parts[0]) {
+      np.push('');
+    }
     for (_i = 0, _len = parts.length; _i < _len; _i++) {
       part = parts[_i];
       if (part === "..") {
@@ -118,11 +130,15 @@ toffee.__normalize = function(path) {
           np.push(part);
         }
       } else {
-        if (part !== ".") np.push(part);
+        if (part !== ".") {
+          np.push(part);
+        }
       }
     }
     path = np.join("/");
-    if (!path) path = "/";
+    if (!path) {
+      path = "/";
+    }
     return path;
   }
 };

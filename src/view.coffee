@@ -217,6 +217,7 @@ class view
     ###
     returns [err, str]
     ###
+    ctx = ctx or vm.createContext({})
     fun = @_toFun(ctx)
     res    = null
     if not @error

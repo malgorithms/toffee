@@ -3,7 +3,6 @@ fs                     = require 'fs'
 jison                  = require 'jison'
 path                   = require 'path'
 express_test           = require './test/generate_express_test'
-run_cases              = require './test/run_cases'
 
 task 'build', 'build the whole jam', (cb) ->  
   console.log "Building"
@@ -19,10 +18,12 @@ task 'build', 'build the whole jam', (cb) ->
               cb() if typeof cb is 'function'
 
 task 'test', 'test server and browser support', (cb) ->
+  run_cases = require './test/run_cases'
   run_cases.test ->
     console.log "Done."
 
 runCoffee = (args, cb) ->
+  console.log args
   proc =  spawn 'coffee', args
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.on        'exit', (status) ->
