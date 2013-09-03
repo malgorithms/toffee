@@ -2,8 +2,9 @@ TOFFEE
 =========
 *Toffee* is a templating language developed at OkCupid, based on the simplicity and beauty of CoffeeScript.
  * it works with nodeJS (including Express 2.x and 3.x)
- * it works in the browser, too!
+ * it works in the browser, too
  * it does not require that you use CoffeeScript elsewhere in your project.
+ * it supports partials (including other files), layouts, and configuration files (passing vars back up the scope, when desired)
 
 Table of Contents
 =================
@@ -40,6 +41,7 @@ Including other files is possible thanks to the function `partial`. This works i
 
 But the greatest pleasure arises when you enter
 `coffee mode`. Note the `{# ... #}` region, where you can write multiple lines of CoffeeScript.
+
 
 ```html
 <p>
@@ -116,7 +118,52 @@ With nested code, indentation of your CoffeeScript is magically maintained.
 #}
 ```
 
-### By now, you probably have questions about indenting
+### Partials (including other files), both for output and configuration
+
+Including other files in Toffee is easy with the `partial` function, which includes another template file.
+
+```html
+<div class="whatever">
+  #{partial '../main_navigation.toffee'}
+</div>
+```
+
+Shallow copies of variables are passed through from the parent document, however you can pass additional variables with a dictionary.
+
+```html
+<div class="whatever">
+  #{partial '../main_navigation.toffee', {user: elon_musk, iq: 180} }
+</div>
+```
+
+Again, toffee's `print` function allows you to use partials when in coffeescript mode:
+
+```html
+{#
+   if user?
+      print partial "logged_in_template.toffee"
+#}
+```
+
+For your safety and convenience, variables are shallow-copied into a template. This means if you redefine or create a variable in a
+child template, it won't be available back in the parent template. However, you can relay variables by modifying the special `passback` dictionary
+in a the child template.
+
+```html
+<!-- parent doc -->
+{# partial './config.toffee' #}
+<p>Our site's name is #{site_name}.</p>
+
+<!-- inside config.toffee -->
+{#
+   passback.site_name = "gittub.com"
+#}
+```
+
+For your naming convenience, you can also use the `load` function, which is identical to `partial` but withholds output.
+
+
+### Indentation
 
 Since CoffeeScript is sensitive to indenting, so is Toffee.
 
