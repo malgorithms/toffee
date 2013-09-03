@@ -1,0 +1,11 @@
+vx,vy,vz = #{vx},#{vy},#{vz}
+#{partial "./const1.toffee"}
+vx,vy,vz = #{vx},#{vy},#{vz}
+#{load "./const2.toffee"}
+vx,vy,vz = #{vx},#{vy},#{vz}
+#{load "./const3.toffee"}
+vx,vy,vz = #{vx},#{vy},#{vz}
+#{load "./const4.toffee"}
+vx,vy,vz = #{vx},#{vy},#{vz}
+#{load "./const5.toffee"}
+vx,vy,vz = #{vx},#{vy},#{vz}

@@ -1,0 +1,6 @@
+{#
+   passback.vx = "vx4"
+   passback.vy = "vy4"
+   partial "./const4_sub.toffee"
+#}
+This should not output (4).

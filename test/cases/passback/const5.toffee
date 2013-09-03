@@ -1,0 +1,8 @@
+{#
+   passback.vx = "vx5"
+   passback.vy = "vy5"
+   print load "./const5_sub.toffee"
+   passback.vx = vx
+   passback.vy = vy
+#}
+This should not output (5).

@@ -58,6 +58,7 @@ class engine
         __toffee.dir:            path to look relative to
         __toffee.parent:         parent file
         __toffee.noInheritance:  if true, don't pass variables through unless explicitly passed
+        __toffee.repress         if true, don't output anything; useful with including definition files with passback of vars
         __toffee.autoEscape:     if set as false, don't escape output of #{} vars by default
     ###
 
@@ -106,6 +107,7 @@ class engine
         options.__toffee.parent = realpath
         options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
         options.snippet = options.snippet or (fname, lvars) => @_fn_snippet fname, lvars, realpath, options
+        options.load    = options.load    or (fname, lvars) => @_fn_load    fname, lvars, realpath, options
         options.print   = options.print   or (txt)          => @_fn_print   txt, options
         if not options.console? then options.console = log: console.log
         ctx = @pool.get()
@@ -129,18 +131,33 @@ class engine
 
   _inlineInclude: (filename, local_vars, parent_realpath, parent_options) =>
     options                 = local_vars or {}
+    options.passback        = {}
     options.__toffee        = options.__toffee or {}
     options.__toffee.dir    = path.dirname parent_realpath
     options.__toffee.parent = parent_realpath
+    noInheritance           = options.__toffee.noInheritance
+    repress                 = options.__toffee.repress
 
     # we need to make a shallow copy of parent variables
-    if not options.__toffee.noInheritance
+    reserved = {}
+    reserved[k] = true for k in ["passback", "load", "print", "partial", "snippet", "layout", "__toffee"]
+    if not noInheritance
       for k,v of parent_options when not local_vars?[k]?
-        if not (k in ["print", "partial", "snippet", "layout", "__toffee"])
+        if not reserved[k]?
           options[k] = v
 
     [err, res] = @runSync filename, options
+
+    for k,v of options.passback
+      parent_options[k] = v
+
     return err or res
+
+  _fn_load: (fname, lvars, realpath, options) =>
+    lvars = if lvars? then lvars else {}
+    lvars.__toffee = lvars.__toffee or {}
+    lvars.__toffee.repress  = true
+    @_inlineInclude fname, lvars, realpath, options
 
   _fn_snippet: (fname, lvars, realpath, options) =>
     lvars = if lvars? then lvars else {}

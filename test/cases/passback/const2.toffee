@@ -1,0 +1,6 @@
+{#
+  passback.vz = "vz2"
+  vx          = "Should not set."
+  vy          = "Should not set."
+#}
+This should not output (2).

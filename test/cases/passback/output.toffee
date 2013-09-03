@@ -1,0 +1,12 @@
+vx,vy,vz = vx0,,
+
+This should output (1).
+vx,vy,vz = vx1,vy1,
+
+vx,vy,vz = vx1,vy1,vz2
+
+vx,vy,vz = vx3,vy3,vz2
+
+vx,vy,vz = vx4,vy4,vz2
+
+vx,vy,vz = vx5_sub,vy5_sub,vz2

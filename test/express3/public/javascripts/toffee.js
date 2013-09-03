@@ -93,13 +93,19 @@ toffee.__augmentLocals = function(locals, bundle_path) {
       return toffee.__snippet(toffee.templates["" + bundle_path], _l, path, vars);
     };
   }
+  if (_l.load == null) {
+    _l.load = function(path, vars) {
+      return toffee.__load(toffee.templates["" + bundle_path], _l, path, vars);
+    };
+  }
   _t.print = _l.print;
   _t.json = _l.json;
   _t.raw = _l.raw;
   _t.html = _l.html;
   _t.escape = _l.escape;
   _t.partial = _l.partial;
-  return _t.snippet = _l.snippet;
+  _t.snippet = _l.snippet;
+  return _t.load = _l.load;
 };
 
 toffee.__print = function(locals, o) {
@@ -156,15 +162,30 @@ toffee.__snippet = function(parent_tmpl, parent_locals, path, vars) {
   return toffee.__inlineInclude(path, vars, parent_locals);
 };
 
+toffee.__load = function(parent_tmpl, parent_locals, path, vars) {
+  path = toffee.__normalize(parent_tmpl.bundlePath + "/../" + path);
+  vars = vars != null ? vars : {};
+  vars.__toffee = vars.__toffee || {};
+  vars.__toffee.repress = true;
+  return toffee.__inlineInclude(path, vars, parent_locals);
+};
+
 toffee.__inlineInclude = function(path, locals, parent_locals) {
-  var k, options, v;
+  var k, options, res, reserved, v, _i, _len, _ref, _ref1;
   options = locals || {};
+  options.passback = {};
   options.__toffee = options.__toffee || {};
+  reserved = {};
+  _ref = ["passback", "load", "print", "partial", "snippet", "layout", "__toffee"];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    k = _ref[_i];
+    reserved[k] = true;
+  }
   if (!options.__toffee.noInheritance) {
     for (k in parent_locals) {
       v = parent_locals[k];
       if ((locals != null ? locals[k] : void 0) == null) {
-        if (!(k === "print" || k === "partial" || k === "snippet" || k === "layout" || k === "__toffee")) {
+        if (reserved[k] == null) {
           options[k] = v;
         }
       }
@@ -173,6 +194,12 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   if (!toffee.templates[path]) {
     return "Inline toffee include: Could not find " + path;
   } else {
-    return toffee.templates[path].pub(options);
+    res = toffee.templates[path].pub(options);
+    _ref1 = options.passback;
+    for (k in _ref1) {
+      v = _ref1[k];
+      parent_locals[k] = v;
+    }
+    return res;
   }
 };

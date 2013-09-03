@@ -67,6 +67,7 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 #{__}  if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o
 #{__}  if not _l.partial? then _l.partial  = (path, vars) -> toffee.__partial toffee.templates["\#{bundle_path}"], _l, path, vars
 #{__}  if not _l.snippet? then _l.snippet  = (path, vars) -> toffee.__snippet toffee.templates["\#{bundle_path}"], _l, path, vars
+#{__}  if not _l.load?    then _l.load     = (path, vars) -> toffee.__load    toffee.templates["\#{bundle_path}"], _l, path, vars
 #{__}  _t.print   = _l.print
 #{__}  _t.json    = _l.json
 #{__}  _t.raw     = _l.raw
@@ -74,6 +75,7 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 #{__}  _t.escape  = _l.escape
 #{__}  _t.partial = _l.partial
 #{__}  _t.snippet = _l.snippet
+#{__}  _t.load    = _l.load
 
 #{if include_bundle_headers then getBundleHeaders(tab_level) else ""}
 """
@@ -126,20 +128,33 @@ getBundleHeaders = (tab_level) ->
 #{__}  vars.__toffee.noInheritance = true
 #{__}  return toffee.__inlineInclude path, vars, parent_locals
 
+#{__}toffee.__load = (parent_tmpl, parent_locals, path, vars) ->
+#{__}  path = toffee.__normalize parent_tmpl.bundlePath + "/../" + path
+#{__}  vars = if vars? then vars else {}
+#{__}  vars.__toffee = vars.__toffee or {}
+#{__}  vars.__toffee.repress = true
+#{__}  return toffee.__inlineInclude path, vars, parent_locals
+
 #{__}toffee.__inlineInclude = (path, locals, parent_locals) ->
 #{__}  options                 = locals or {}
+#{__}  options.passback        = {}
 #{__}  options.__toffee        = options.__toffee or {}
 #{__}
 #{__}  # we need to make a shallow copy of parent variables
+#{__}  reserved = {}
+#{__}  reserved[k] = true for k in ["passback", "load", "print", "partial", "snippet", "layout", "__toffee"]
 #{__}  if not options.__toffee.noInheritance
 #{__}    for k,v of parent_locals when not locals?[k]?
-#{__}      if not (k in ["print", "partial", "snippet", "layout", "__toffee"])
+#{__}      if not reserved[k]?
 #{__}        options[k] = v
 #{__}
 #{__}  if not toffee.templates[path]
 #{__}    return "Inline toffee include: Could not find \#{path}"
 #{__}  else
-#{__}    return toffee.templates[path].pub options
+#{__}    res = toffee.templates[path].pub options
+#{__}    for k,v of options.passback
+#{__}      parent_locals[k] = v
+#{__}    return res
 """
 
 getCommonHeadersJs = (include_bundle_headers, auto_escape, minimize)->
@@ -216,7 +231,7 @@ class view
   run: (options, ctx) ->
     ###
     returns [err, str]
-    ###
+    ###    
     ctx = ctx or vm.createContext({})
     fun = @_toFun(ctx)
     res    = null
@@ -243,6 +258,7 @@ class view
         @error = null
     else
       pair = [null, res]
+
     return pair
 
   _toTokenObj: ->
@@ -311,7 +327,7 @@ class view
       return "\n#{spaces ind}_ln #{n}"
 
   _snippetHasEscapeOverride: (str) ->
-    for token in ['print',' snippet', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
+    for token in ['print',' snippet', 'load', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
       if str[0...token.length] is token
         if (str.length > token.length) and (str[token.length] in [' ','\t','\n','('])
           return true
@@ -504,6 +520,7 @@ class view
 #{__}  bundlePath: "#{@bundlePath}"
 #{__}tmpl.render = tmpl.pub = (__locals) ->
 #{__}#{___}__locals = __locals or {}
+#{__}#{___}__repress = __locals.__toffee?.repress
 #{__}#{___}_to = (x) -> __locals.__toffee.out.push x
 #{__}#{___}_ln = (x) -> __locals.__toffee.lineno = x
 #{__}#{___}_ts = (x) -> __locals.__toffee.state  = x
@@ -518,7 +535,7 @@ class view
     ___ = tabs 1 # guaranteed tabs
     """\n
 #{__}#{___}__toffee.res = __toffee.out.join ""
-#{__}#{___}return __toffee.res
+#{__}#{___}if (not __repress) then return __toffee.res else return ""
 #{__}`true; } /* closing JS 'with' */ `
 #{__}# sometimes we want to execute the whole thing in a sandbox
 #{__}# and just output results

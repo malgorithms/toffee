@@ -1,0 +1,5 @@
+{#
+   passback["vx"] = "vx3"
+   passback["vy"] = "vy3"
+#}
+This should not output (3).
