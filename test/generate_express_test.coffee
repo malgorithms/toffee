@@ -1,6 +1,7 @@
 {spawn, exec}          = require 'child_process'
 fs                     = require 'fs'
 path                   = require 'path'
+coffee                 = require 'coffee-script'
 
 
 generateExpressTest = (cb) ->
@@ -54,30 +55,35 @@ generateExpressTest = (cb) ->
   case_dirs = fs.readdirSync "./test/cases/"
 
   for dir,i in case_dirs
-    if dir isnt "custom_escape" # a special case since this isn't actually JSON
-      expected_output = fs.readFileSync "./test/cases/#{dir}/output.toffee", "utf8"
-      if path.existsSync "./test/cases/#{dir}/vars.js"
-        vars     = fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
+    expected_output = fs.readFileSync "./test/cases/#{dir}/output.toffee", "utf8"
+    if path.existsSync "./test/cases/#{dir}/vars.coffee"
+      coffee_vars = fs.readFileSync "./test/cases/#{dir}/vars.coffee", "utf8"
+      js_vars     = coffee.compile(coffee_vars, {bare: true}).replace(/;[ \n]*$/,'')
+    else if path.existsSync "./test/cases/#{dir}/vars.js"
+      coffee_vars = fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
+      js_vars     = coffee_vars;
+    else
+      if dir == "render_no_args"
+        coffee_vars = ""
+        js_vars     = ""
       else
-        if dir == "render_no_args"
-          vars = ""
-        else
-          vars     = "{}"
-      rid = i
-      test_page += """
-        \n\n\n<!-- ************ #{dir} -->
-        <tr class="test_case">
-          <td class="test_cell">#{dir}</td>
-          <td class="expected_output" id="expected_#{rid}">#{expected_output}</td>
-          <td class="server_output fail" id="server_#{rid}">\#{partial '../../cases/#{dir}/input.toffee', #{vars}}</td>
-          <td class="script_output fail" id="browser_#{rid}"></td>
-        </tr>
-        <script type="text/javascript">
-          var script_res = toffee.templates["/#{dir}/input.toffee"].render(#{vars});
-          $("#browser_#{rid}").html(script_res);
-        </script>
-        \n\n\n
-      """
+        coffee_vars = "{}"
+        js_vars     = "{}"
+    rid = i
+    test_page += """
+      \n\n\n<!-- ************ #{dir} -->
+      <tr class="test_case">
+        <td class="test_cell">#{dir}</td>
+        <td class="expected_output" id="expected_#{rid}">#{expected_output}</td>
+        <td class="server_output fail" id="server_#{rid}">\#{partial '../../cases/#{dir}/input.toffee', #{coffee_vars}}</td>
+        <td class="script_output fail" id="browser_#{rid}"></td>
+      </tr>
+      <script type="text/javascript">
+        var script_res = toffee.templates["/#{dir}/input.toffee"].render(#{js_vars});
+        $("#browser_#{rid}").html(script_res);
+      </script>
+      \n\n\n
+    """             
 
   test_page += """
     </table>

@@ -1,0 +1,7 @@
+#{greeting}, world. 
+#{partial './signature.toffee'}
+{#
+  reverse = (s) -> (c for c in s by -1).join ""
+  clean   = (s) -> (c for c in s when c.match /[a-z\-]/gi).join ""
+#}
+#{partial './buncha_junk.toffee', {postProcess: (s) -> reverse(clean(s))}}

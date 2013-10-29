@@ -2,6 +2,7 @@
 fs       = require 'fs'
 path     = require 'path'
 zombie   = require 'zombie'
+coffee   = require 'coffee-script'
 
 regular_engine = new engine({
   verbose:           false
@@ -19,7 +20,11 @@ minimized_engine = new engine({
 run_case_dir = (eng, dir, cb) ->
   expected = fs.readFileSync "#{dir}/output.toffee", "utf8"
   existsSync = if path.existsSync? then path.existsSync else fs.existsSync
-  if existsSync "#{dir}/vars.js"
+  if existsSync "#{dir}/vars.coffee"
+    txt     = fs.readFileSync "#{dir}/vars.coffee", "utf8"
+    vars    = coffee.compile(txt, {bare: true})
+    vars    = eval "#{vars}"
+  else if existsSync "#{dir}/vars.js"
     vars     = fs.readFileSync "#{dir}/vars.js", "utf8"
     vars     = eval "(#{vars})"
   else

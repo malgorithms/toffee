@@ -55,6 +55,7 @@ class engine
     ###
     "options" contains the pub vars and may contain special items:
         layout:                  path to a template expecting a body var (express 2.x style, but for use with express 3.x)
+        postProcess:             a function which takes the string of output and post processes it (returning new string)
         __toffee.dir:            path to look relative to
         __toffee.parent:         parent file
         __toffee.noInheritance:  if true, don't pass variables through unless explicitly passed
@@ -66,6 +67,10 @@ class engine
     if not options.prettyLogErrors?         then options.prettyLogErrors          = @prettyLogErrors
     if not options.additionalErrorHandler?  then options.additionalErrorHandler   = @additionalErrorHandler
     if not options.autoEscape?              then options.autoEscape               = @autoEscape
+
+   # we only want to pass post_process into the layout
+    post_process = options.postProcess
+    options.postProcess = null
 
     if options?.layout
       layout_options    = {}
@@ -84,7 +89,19 @@ class engine
       if err and @prettyPrintErrors
         [err, res] = [null, err]
 
+    # post processing
+    if (not err) and (typeof(post_process) is "function")
+      [err, res] = @postProcess post_process, res
+
     cb err, res
+
+  postProcess: (fn, res) ->
+    err = null
+    try 
+      res = fn res
+    catch e
+      err = e
+    return [err, res]
 
   runSync: (filename, options) ->
     ###
@@ -140,7 +157,7 @@ class engine
 
     # we need to make a shallow copy of parent variables
     reserved = {}
-    reserved[k] = true for k in ["passback", "load", "print", "partial", "snippet", "layout", "__toffee"]
+    reserved[k] = true for k in ["passback", "load", "print", "partial", "snippet", "layout", "__toffee", "postProcess"]
     if not noInheritance
       for k,v of parent_options when not local_vars?[k]?
         if not reserved[k]?

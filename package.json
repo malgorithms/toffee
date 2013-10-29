@@ -1,7 +1,7 @@
 {
  "name": "toffee",
  "description": "A NodeJs, Express 3.x, Express 2.x, and browser-side templating language based on CoffeeScript with slicker tokens and syntax.",
- "version": "0.1.4",
+ "version": "0.1.5",
  "directories": {
   "lib": "./lib"
  },
@@ -12,7 +12,8 @@
   "coffee-script": "*",
   "commander":     "*",
   "uglify-js":     "*",
-  "mkdirp":        "*"
+  "mkdirp":        "*",
+  "highlight.js":  "*"
  },
  "devDependencies": {
   "jison" :        "*",

@@ -72,6 +72,34 @@ Pass 3
 
 
 
+<!-- ************ custom_escape -->
+<tr class="test_case">
+  <td class="test_cell">custom_escape</td>
+  <td class="expected_output" id="expected_2"><p>
+ custom x = Helloworldscriptvarx100script
+ custom y = td
+ custom z = clickclack
+ custom w = 12objectObject
+</p></td>
+  <td class="server_output fail" id="server_2">#{partial '../../cases/custom_escape/input.toffee', {
+  escape: (s) -> "#{s}".replace /[^a-z0-9]/gi, ''
+}}</td>
+  <td class="script_output fail" id="browser_2"></td>
+</tr>
+<script type="text/javascript">
+  var script_res = toffee.templates["/custom_escape/input.toffee"].render(({
+  escape: function(s) {
+    return ("" + s).replace(/[^a-z0-9]/gi, '');
+  }
+}));
+  $("#browser_2").html(script_res);
+</script>
+
+
+
+
+
+
 <!-- ************ eco_compare -->
 <tr class="test_case">
   <td class="test_cell">eco_compare</td>
@@ -391,16 +419,53 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
 
 
 
-<!-- ************ render_no_args -->
+<!-- ************ post_process -->
 <tr class="test_case">
-  <td class="test_cell">render_no_args</td>
-  <td class="expected_output" id="expected_15">No arguments passed.</td>
-  <td class="server_output fail" id="server_15">#{partial '../../cases/render_no_args/input.toffee', }</td>
+  <td class="test_cell">post_process</td>
+  <td class="expected_output" id="expected_15">This-is-a-hidden-message
+
+.dlrow leurc ,eybdooG
+ .dlrow ,olleH</td>
+  <td class="server_output fail" id="server_15">#{partial '../../cases/post_process/input.toffee', {
+  greeting: 'Hello'
+  postProcess: (s) -> (c for c in s by -1).join ''
+}}</td>
   <td class="script_output fail" id="browser_15"></td>
 </tr>
 <script type="text/javascript">
-  var script_res = toffee.templates["/render_no_args/input.toffee"].render();
+  var script_res = toffee.templates["/post_process/input.toffee"].render(({
+  greeting: 'Hello',
+  postProcess: function(s) {
+    var c;
+    return ((function() {
+      var _i, _results;
+      _results = [];
+      for (_i = s.length - 1; _i >= 0; _i += -1) {
+        c = s[_i];
+        _results.push(c);
+      }
+      return _results;
+    })()).join('');
+  }
+}));
   $("#browser_15").html(script_res);
+</script>
+
+
+
+
+
+
+<!-- ************ render_no_args -->
+<tr class="test_case">
+  <td class="test_cell">render_no_args</td>
+  <td class="expected_output" id="expected_16">No arguments passed.</td>
+  <td class="server_output fail" id="server_16">#{partial '../../cases/render_no_args/input.toffee', }</td>
+  <td class="script_output fail" id="browser_16"></td>
+</tr>
+<script type="text/javascript">
+  var script_res = toffee.templates["/render_no_args/input.toffee"].render();
+  $("#browser_16").html(script_res);
 </script>
 
 
@@ -411,7 +476,7 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
 <!-- ************ snippets -->
 <tr class="test_case">
   <td class="test_cell">snippets</td>
-  <td class="expected_output" id="expected_16">From: Preloaded sender
+  <td class="expected_output" id="expected_17">From: Preloaded sender
 Preloaded message.
 From: Unknown sender
 Unknown message.
@@ -419,18 +484,18 @@ From: Sam
 Preloaded message.
 From: Max
 Unknown message.</td>
-  <td class="server_output fail" id="server_16">#{partial '../../cases/snippets/input.toffee', {
+  <td class="server_output fail" id="server_17">#{partial '../../cases/snippets/input.toffee', {
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 }}</td>
-  <td class="script_output fail" id="browser_16"></td>
+  <td class="script_output fail" id="browser_17"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/snippets/input.toffee"].render({
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 });
-  $("#browser_16").html(script_res);
+  $("#browser_17").html(script_res);
 </script>
 
 
@@ -441,7 +506,7 @@ Unknown message.</td>
 <!-- ************ special_cases -->
 <tr class="test_case">
   <td class="test_cell">special_cases</td>
-  <td class="expected_output" id="expected_17">
+  <td class="expected_output" id="expected_18">
 "PASSED"
 
 <p>
@@ -452,12 +517,12 @@ A backslash is a \
 <script>
  var passed = "\"passed\"";
 </script></td>
-  <td class="server_output fail" id="server_17">#{partial '../../cases/special_cases/input.toffee', {}}</td>
-  <td class="script_output fail" id="browser_17"></td>
+  <td class="server_output fail" id="server_18">#{partial '../../cases/special_cases/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_18"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/special_cases/input.toffee"].render({});
-  $("#browser_17").html(script_res);
+  $("#browser_18").html(script_res);
 </script>
 
 

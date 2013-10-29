@@ -142,7 +142,7 @@ getBundleHeaders = (tab_level) ->
 #{__}
 #{__}  # we need to make a shallow copy of parent variables
 #{__}  reserved = {}
-#{__}  reserved[k] = true for k in ["passback", "load", "print", "partial", "snippet", "layout", "__toffee"]
+#{__}  reserved[k] = true for k in ["passback", "load", "print", "partial", "snippet", "layout", "__toffee", "postProcess"]
 #{__}  if not options.__toffee.noInheritance
 #{__}    for k,v of parent_locals when not locals?[k]?
 #{__}      if not reserved[k]?
@@ -535,6 +535,8 @@ class view
     ___ = tabs 1 # guaranteed tabs
     """\n
 #{__}#{___}__toffee.res = __toffee.out.join ""
+#{__}#{___}if postProcess?
+#{__}#{___}#{___}__toffee.res = postProcess __toffee.res
 #{__}#{___}if (not __repress) then return __toffee.res else return ""
 #{__}`true; } /* closing JS 'with' */ `
 #{__}# sometimes we want to execute the whole thing in a sandbox

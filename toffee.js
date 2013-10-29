@@ -176,7 +176,7 @@ toffee.__inlineInclude = function(path, locals, parent_locals) {
   options.passback = {};
   options.__toffee = options.__toffee || {};
   reserved = {};
-  _ref = ["passback", "load", "print", "partial", "snippet", "layout", "__toffee"];
+  _ref = ["passback", "load", "print", "partial", "snippet", "layout", "__toffee", "postProcess"];
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     k = _ref[_i];
     reserved[k] = true;
