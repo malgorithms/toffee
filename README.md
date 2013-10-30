@@ -5,6 +5,10 @@ TOFFEE
  * it works with Node.js
  * it works in the browser, too -- even the advanced features.
 
+Newest feature:
+
+ * post-processing! You can let Toffee do your server-side code highighting, and other magic.
+
 Toffee has many cool features. Keep on reading.
 
 Table of Contents
