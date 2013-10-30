@@ -1,17 +1,18 @@
 TOFFEE
 =========
-*Toffee* is a templating language developed at OkCupid, based on the simplicity and beauty of CoffeeScript.
- * it works with nodeJS (including Express 2.x and 3.x)
- * it works in the browser, too
- * it does not require that you use CoffeeScript elsewhere in your project.
- * it supports partials (including other files), layouts, and configuration files (passing vars back up the scope, when desired)
+*Toffee* is a templating language, based on the simplicity and beauty of CoffeeScript.
+
+ * it works with Node.js
+ * it works in the browser, too -- even the advanced features.
+
+Toffee has many cool features. Keep on reading.
 
 Table of Contents
 =================
-   * [1. Language Basics](#section_1)
-   * [2. Notes on Escaping](#section_2)
-   * [3. Common Questions](#section_3)
-   * [4. Installation & Usage (Node, Express, and the browser)](#section_4)
+ * [1. Language Basics](#section_1)
+ * [2. Notes on Escaping](#section_2)
+ * [3. Common Questions](#section_3)
+ * [4. Installation & Usage (Node, Express, and the browser)](#section_4)
 
 ## <a name="section_1"></a> Language Basics
 
@@ -162,6 +163,27 @@ in a the child template.
 
 For your naming convenience, you can also use the `load` function, which is identical to `partial` but withholds output.
 
+### Post-processing
+
+New in the latest version of Toffee, you can pass a `postProcess` function to Toffee. This works for individual partials or even
+an entire document.  The `postProcess` function performs a final transformation on your output.
+
+One smart use of postProcess is to find anything inside triple tick marks and perform a code higlighting.
+
+```html
+{#
+   print partial './something.toffee', {
+      foo: 1000
+      postProcess: (s) -> find_and_higlight_code_in s
+   }
+#}
+```
+
+You could define `find_and_highlight_code_in` anywhere in your publishing stack. You can pass it from your webserver, define it above, whatever. If you're
+doing this server-side, consider the popular Node module *highlight.js*. In that case, define a highlight function that hunts for
+triple tick marks and then uses highlight's highlighter to transform it.
+
+Your users shouldn't have to wait for client-side JS to re-process your pages.
 
 ### Indentation
 
