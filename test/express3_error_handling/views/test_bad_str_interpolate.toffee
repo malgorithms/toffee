@@ -1,0 +1,6 @@
+
+This is a bad variable.
+
+foo.bar = #{foo.bar}
+
+Hah.

@@ -1,0 +1,13 @@
+
+About to convert a circular JSON structure
+
+{#
+   x = [1,2,3]
+   x.push x
+   {:
+      <h2>x as JSON</h2>
+      {#
+         print JSON.stringify x
+      #}
+   :}
+#}

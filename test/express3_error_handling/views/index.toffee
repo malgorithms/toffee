@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Express 3 Test</title>
+  </head>
+  <style>
+    body {
+      background-color: #ddd;
+    }
+  </style>
+  <body>
+  {#
+    ports   = [3034, 3035]
+    percent = ~~(100 / (ports.length)) - 2 
+    tests = [
+      ["test_bad_str_interpolate",  300]
+      ["test_bad_toffee_syntax",    300]
+      ["test_bad_coffee_syntax",    300]
+      ["test_bad_runtime",          300]
+    ]
+  #}
+
+
+  <table width="100%">  
+  {#
+    for [t,height] in tests
+      {:<tr><th>#{t}</th>:}
+      for p in ports
+        {:
+          <td style="width:#{percent}%">
+            <iframe src="http://localhost:#{p}/#{t}" width="100%" height="#{height}"></iframe>
+          </td>
+        :}
+      {:</tr>:}      
+  #}
+  </ul>
+  </body>
+</html>

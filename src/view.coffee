@@ -3,6 +3,7 @@
 {states, TAB_SPACES}                    = require './consts'
 utils                                   = require './utils'
 vm                                      = require 'vm'
+util                                    = require 'util'
 try
   coffee                                = require "iced-coffee-script"
 catch e
@@ -252,7 +253,7 @@ class view
       if @prettyPrintErrors
         pair = [null, @error.getPrettyPrint()]
       else
-        pair = [@error.getPrettyPrintText(), null]
+        pair = [@error.e, null]
       if @error.errType is errorTypes.RUNTIME
         # don't hold onto runtime errors after value returned.
         @error = null

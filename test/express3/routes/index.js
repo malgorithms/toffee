@@ -10,5 +10,5 @@ exports.index = function(req, res){
 		title: 'Express',
 		a_bad_test_function: function() {return JSON.stringify(circular_obj);}
 	}
-  	res.render('index', vars);
+  	res.render('index.toffee', vars);
 };

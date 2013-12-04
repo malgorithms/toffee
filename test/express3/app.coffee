@@ -1,9 +1,9 @@
 
 run = (cb) ->
+  toffee  = require '../../index.js'
   express = require 'express'
   routes  = require './routes'
   http    = require 'http'
-  toffee  = require 'toffee'
   
   app = express()
   
@@ -15,7 +15,7 @@ run = (cb) ->
   
     app.set 'port', process.env.PORT or 3033
     app.set 'views', __dirname + '/views'
-    app.set 'view engine', 'toffee'
+    app.engine 'toffee', toffee.__express
     app.use express.favicon()
     app.use express.logger 'dev'
     app.use express.bodyParser()

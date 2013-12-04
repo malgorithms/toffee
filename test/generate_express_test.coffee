@@ -56,10 +56,10 @@ generateExpressTest = (cb) ->
 
   for dir,i in case_dirs
     expected_output = fs.readFileSync "./test/cases/#{dir}/output.toffee", "utf8"
-    if path.existsSync "./test/cases/#{dir}/vars.coffee"
+    if fs.existsSync "./test/cases/#{dir}/vars.coffee"
       coffee_vars = fs.readFileSync "./test/cases/#{dir}/vars.coffee", "utf8"
       js_vars     = coffee.compile(coffee_vars, {bare: true}).replace(/;[ \n]*$/,'')
-    else if path.existsSync "./test/cases/#{dir}/vars.js"
+    else if fs.existsSync "./test/cases/#{dir}/vars.js"
       coffee_vars = fs.readFileSync "./test/cases/#{dir}/vars.js", "utf8"
       js_vars     = coffee_vars;
     else

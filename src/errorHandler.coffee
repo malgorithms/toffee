@@ -7,7 +7,7 @@ errorTypes = exports.errorTypes =
   COFFEE_COMPILE:   2
   RUNTIME:          3
 
-class toffeeError
+class toffeeError extends Error
 
   constructor: (view, err_type, e) ->
     @errType        = err_type
@@ -43,15 +43,21 @@ class toffeeError
       full_path:  @view.fileName
       dir_name:   path.dirname @view.fileName
       file:       path.basename @view.fileName
-      line_range: [0,0]
+      line_range: null # will be a pair
     }
 
     if @e?.message? then res.message = @e.message
+
+    # Error objects now support line numbers in certain cases.
+    if @e?.location?.first_line?
+      res.line_range = @_convertJsErrorRangeToToffeeRange @e.location
+
     switch @errType
 
       when errorTypes.PARSER
-        line            = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
-        res.line_range  = [line, line + 1]
+        if not res.line_range?
+          line            = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
+          res.line_range  = [line, line + 1]
 
       when errorTypes.STR_INTERPOLATE
         res.line_range  = [@e.relayed_line_range[0], @e.relayed_line_range[1]]
@@ -59,11 +65,18 @@ class toffeeError
         res.message     = res.message.replace 'missing }', 'unclosed `\#{}`'
 
       when errorTypes.COFFEE_COMPILE
-        line            = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
-        res.line_range  = @_convertOffensiveLineToToffeeRange line
-        res.message     = res.message.replace /on line [0-9]+/, @_lineRangeToPhrase res.line_range
+        if not res.line_range?
+          line            = @_extractOffensiveLineNo @e.message, /on line ([0-9]+)/
+          res.line_range  = @_convertOffensiveLineToToffeeRange line
+        if res.message.indexOf('on line') isnt -1
+          res.message     = res.message.replace /on line [0-9]+/, @_lineRangeToPhrase res.line_range
+        else
+          res.message += " " + @_lineRangeToPhrase res.line_range
+        
 
       when errorTypes.RUNTIME
+        if not res.line_range?
+          res.line_range = [0,0]
         if @e.stack
           res.stack     = @e.stack.split "\n"
           @_convertRuntimeStackLines res
@@ -81,7 +94,7 @@ class toffeeError
       rxx_pub = /// 
         Object[\.].*?pub[\s]\(undefined\:([0-9]+)\:[0-9]+ 
         |
-        tmpl[\.]render[\.]tmpl[\.]pub.*\(undefined\:([0-9]+)\:[0-9]+ 
+        tmpl[\.]render[\.]tmpl[\.]pub.*\(.*\:([0-9]+)\:[0-9]+ 
         ///
       m           = line.match rxx_pub
       in_src_file = false
@@ -201,6 +214,13 @@ class toffeeError
     m = msg.match rxx
     if not (m?.length >= 2) then return null
     return parseInt m[1]
+
+  _convertJsErrorRangeToToffeeRange: (loc) ->
+    range = @_convertOffensiveLineToToffeeRange loc.first_line
+    if loc.last_line?
+      range2 = @_convertOffensiveLineToToffeeRange loc.last_line
+      range[1] = range2[1]
+    return range
 
   _convertOffensiveLineToToffeeRange: (lineno) ->
     ###

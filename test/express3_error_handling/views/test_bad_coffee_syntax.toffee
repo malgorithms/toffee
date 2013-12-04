@@ -1,0 +1,15 @@
+
+{#
+    x = "Foo"
+#}
+
+{#
+   y = "Bar"
+   {:
+      Hello there
+      {#
+        var x = 100
+      #}
+   :}
+#}
+Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah Bleah bleah bleah Bleah 
