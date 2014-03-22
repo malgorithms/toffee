@@ -119,7 +119,7 @@ class engine
 
     if v
       if @fsErrorCache[realpath]
-        [err, res] = ["Couldn't load #{realpath}", null]
+        [err, res] = [new Error("Couldn't load #{realpath}"), null]
       else
         options.__toffee.parent = realpath
         options.partial = options.partial or (fname, lvars) => @_fn_partial fname, lvars, realpath, options
@@ -131,7 +131,7 @@ class engine
         [err, res] = v.run options, ctx
         @pool.release(ctx)
     else
-      [err, res] = ["Couldn't load #{realpath}", null]
+      [err, res] = [new Error("Couldn't load #{realpath}"), null]
 
     @_log "#{realpath} run in #{Date.now() - start_time}ms"
     return [err, res]
