@@ -1,3 +1,4 @@
+require 'coffee-script/register'
 {spawn, exec}          = require 'child_process'
 fs                     = require 'fs'
 jison                  = require 'jison'
