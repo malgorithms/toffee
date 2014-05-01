@@ -7,8 +7,9 @@ exports.view                = view
 exports.getCommonHeaders    = getCommonHeaders
 exports.getCommonHeadersJs  = getCommonHeadersJs
 
-exports.expressEngine       = e = new engine { verbose: false, prettyPrintErrors: true }
+exports.expressEngine       = e  = new engine { verbose: false, prettyPrintErrors: true }
 exports.render              = e.run
+cacheless_engine            = new engine { verbose: false, prettyPrintErrors: true, cache: false}
 
 # given a template string, returns a function that can be called
 # on an object to render it.
@@ -43,17 +44,9 @@ __express = exports.__express = to_express e
 # --------------------------------------------
 
 exports.__consolidate_engine_render = (filename, options, cb) ->
-  if (options.cache?) and options.cache
-    eng = e
-  else
-    eng = new engine { verbose: false, prettyPrintErrors: true }
+  eng = if options.cache then e else cacheless_engine
   eng.run filename, options, (err, res) ->
-    if err
-      if typeof(err) is "string"
-        err = new Error err
-      cb err
-    else
-      cb null, res
+    cb err, res
 
 # consolidate.js wants this, but it might generally be useful
 # --------------------------------------------

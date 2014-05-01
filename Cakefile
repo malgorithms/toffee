@@ -1,4 +1,4 @@
-require 'coffee-script/register'
+require 'iced-coffee-script/register'
 {spawn, exec}          = require 'child_process'
 fs                     = require 'fs'
 jison                  = require 'jison'
@@ -19,7 +19,7 @@ task 'build', 'build the whole jam', (cb) ->
               cb() if typeof cb is 'function'
 
 task 'test', 'test server and browser support', (cb) ->
-  run_cases = require './test/run_cases'
+  run_cases = require './test/run_cases.iced'
   run_cases.test ->
     console.log "Done."
 

@@ -22,6 +22,7 @@ class engine
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
     @autoEscape             = if options.autoEscape?        then options.autoEscape        else true
+    @cache                  = if options.cache?             then options.cache             else true
     @additionalErrorHandler = options.additionalErrorHandler or null
 
     @viewCache              = {} # filename -> view
@@ -115,7 +116,10 @@ class engine
     options.__toffee.dir = options.__toffee.dir or process.cwd()
     realpath = @normalizeFilename options.__toffee.dir, filename
 
-    v = (@_viewCacheGet realpath) or (@_loadCacheAndMonitor realpath, options)
+    if @cache
+      v = (@_viewCacheGet realpath) or (@_loadCacheAndMonitor realpath, options)
+    else
+      v = @_loadWithoutCache realpath, options
 
     if v
       if @fsErrorCache[realpath]
@@ -191,6 +195,17 @@ class engine
       return ''
     else
       return txt
+
+  _loadWithoutCache: (filename, options) ->
+    try
+      txt = fs.readFileSync filename, 'utf8'
+    catch e
+      txt = "Error: Could not read #{filename}"
+      if options.__toffee?.parent? then txt += " first requested in #{options.__toffee.parent}"
+
+    view_options = @_generateViewOptions filename
+    v = new view txt, view_options
+    return v
 
   _loadCacheAndMonitor: (filename, options) ->
     previous_fs_err = @fsErrorCache[filename]?

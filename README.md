@@ -484,8 +484,9 @@ as the `.js` files are generated automatically by building.
 To build and test your changes
 
 ```
-> cake build
-> cake test
+# icake is iced-coffee-script's version of cake
+> icake build
+> icake test
 ```
 
 

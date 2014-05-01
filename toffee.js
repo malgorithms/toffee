@@ -1,7 +1,5 @@
 var toffee;
 
-
-
 if (typeof toffee === "undefined" || toffee === null) {
   toffee = {};
 }
