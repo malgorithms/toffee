@@ -4,19 +4,19 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJTfiBAAAoJENIkQTsc+mSQW1wP/AhGolTn73gJX4wIray/naOg
-7BxYeIt7k7RS4YxMcaaT8NtvK6N6oEcUTcWINjT6rMnRTzLE56XiegdzBzp4I+na
-HAdMOwvDNmGziDx6Fstcw/eIYdUHOeQkfeUZNW2/RxVwcMcUbIs7cBflGFL1DUKK
-xjqGE+Kbck6mkblaNBvqWHbp/ZmjbyZVMSqDTysk/RiqqcjBBNBlcJNgSQeNcxm6
-bUmIMX4jzfd5OTHvWqn2/XdvwmLAXE1kZ1ap1/uU9qKw+Y5pHA+MgfptxifrMk4f
-G3ZryRSABuuqQV0VEjyt1s4nhEFCX7iur2qSbWEtweLJRqRU/2sn073oDt87Jsgw
-mmrJMFWMEyKyw6i+xWOs0W5vmq/rHbYg5yk0LDD4awtJ2UmnIngZjo86JGWXVywL
-zugvzxPSZECJTiYWrYYeQOa72xZKJqdDQzjj3n2U2AdaYCpw/TpnGDaqCxXQliSQ
-uEWjGi1Kh8e/kGdEvgbXgvqlGi24sh/OMh0wNOQS3+xpbp+5zpP+lvBEuSMtNfst
-Al3DpkCSIKa6+FVAaJi7yzkZElGQcCw8QtOMDIxYY6glnBkzgaWUo9rsRgip5Rpa
-C4+RxnYkPrfvFvOXThE+w0kJbNHSbBRmAfySwhWwgP0HsF/HtRYUCmIUnLWBn8xG
-+MmYw7Qcwz/n8nciWNkE
-=/OyP
+iQIcBAABCgAGBQJThfhsAAoJENIkQTsc+mSQpOkQAKukgBMg9jVFFtEZxLsqEx4v
+qUC/wvqiNp3iv/YVl/y4mglKCbhCPiuVm2boT48zsITPXsWI9dkPVzO2U6b1rM5X
+07UCDE8qQ5esROLbdfXPdREfpQr4ehMQ+/nTEUGapcPXxB+kxyJvZXd2H3L8/C/d
+w4AwOHP9FeCXlOxFkaorYvtwIuqpHYOk2qhX/l6dY3tKqKlKLGHa67PJL8zZmv/9
+hvli7KhLJjmlbE9lzdyaxNbe9T7/kHHhy3YybA2fcGCut+zBknx3OwwyNsQEz15h
+CWZhR/aYSDKb9jgY8N+5u9ZuJDZkAQYpiswu/zVJBcX24Y7zh3E2HCUegLbvBz+h
+DM/y8UULWDD4JlXpOdmlTSOWBLz2TJQ3et3YvQ3a/mootAa4+rGY6yWodwTAX11n
+wvJNzoXlZyPE9ForN93Q6gbc85/gL6ChH5QlDggZI4tY71jplh/aT2JJ6PDN/JFU
+6ij1R7uTJxtROWFba0aKW7ptlWrJEPMIbfX90evSgrQI3u8rwN4YNhZ7a2Sv33pl
+4P9C4EomHS8dHlT63SpncVmQGH6q1Hz1fl2YlxyauwVTKEkRhxtunmULoPj26YHw
+sPZtSYeNf7n/ZmOlv9xr/5233Ve28IBheRRYVkULQfxJPylnoypCGcDBSdJ1Zh2K
+Hg298+wX+RFuTOE3OvHR
+=diAQ
 -----END PGP SIGNATURE-----
 
 ```
@@ -63,7 +63,7 @@ size    exec  file                                     contents
 23739             toffee_lang.js                       e875ff2e17aa6977a5613409c46e4d775c1551676173b69dced7f53e391501f1
 1733              utils.js                             b9e0d093afed0c282195365fd5c90e2f4c93d9860ce24807d55d510cdd5ae042
 25118             view.js                              a3e6239a1fcad055480c5f85f0865b9900db8b311371e1195519747a6164f01e
-859             package.json                           ce699e01cf0550d0032620b6888b61c23ddb3fd0a12419ba0e27fe58ffb3115c
+859             package.json                           d95051a58b39631db768561a7a90c4f13a5ed16a24d38c4f3f8d24cdcb49ccb9
                 src/                                                                                                   
 5155              command_line.coffee                  707f1df79cc865f4096ab19ccadfe0c0a627a74093c2e5b56a94011ac8a99bc3
 197               consts.coffee                        2f1c1ecef13818b126d49cc7eb0568019a1f5e46cee28164321d496c93568a2e
