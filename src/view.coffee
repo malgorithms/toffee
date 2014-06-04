@@ -198,6 +198,7 @@ class view
     Defers via setTimeouts in each stage in the compile process
     for CPU friendliness. This is a lot prettier with iced-coffee-script.
     ###
+    ctx = ctx or vm.createContext({})
     @_log "Prepping #{if @fileName? then @fileName else 'unknown'} async."
     @_toTokenObj()
     v = @

@@ -4,19 +4,19 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJThfkZAAoJENIkQTsc+mSQ+fwQAMUUPH3gPofTtMuaBuoagIS7
-AFOe1CjBg2pU5OU/alfwIuLo2C6TUdQQY0tEbFUp5ZXB9lsM0P9WJ/TbMwObSBu4
-ZE4qud8BEupUv6YubiNmUf+UyMttSKnHWZdn/hbW8d19eG4Z0oTR31npExKigXcL
-S6VgrIE7aazXqUMpAozd2urf/ivnk4cyTysFSBUtZbW1IgNxttoYlFZwvpiYfNfn
-vmCfvOxVZyoNg8v805TAYLwMxvIjctFMvykDC9BYKg3/tFcTXC9uVPDFyjaffPz4
-2VFCYcejM+nBhS1/w/Cafe3RQNOKzIZtQat7n+qm4DscIEztOhMzJ+h+qkbU2Npv
-kfL+S8KTk3yijongU/Yyh7AYWn0t7HflQj2SsoYtRzL2Hcgb3XoO6pshx8q0OHm+
-TaXtMBPLfWD6luVqq0R+Trvrc9C7WRBR9Cul4sgvX9q2pDCWFSGqjNPSCim57E+C
-cRPBDxy5CUMXUvSt1ld+JypXcxR+Atumk119ODNb2GZ2lgA77uzILOiSc4ipVn4/
-qPWvmeJSaKi8FAcDho7gy11qh1NHBZe7fSeLKcwrvf4vJEEoXefhDmUb1I6lJEq8
-U6ypJ95lzA+ozsoHTArdiuwp6nR7fOGe//A8U2KB6Sr8QBteU8NkIz9WHeeE39Iy
-jPkgI5vUz20vJpz9u9Ba
-=xBg0
+iQIcBAABCgAGBQJTj0goAAoJENIkQTsc+mSQ/GUP/ipdQKg4bzlCs2KCCQhwsI0b
+PoFrdnvqq/a0rjgDRYoZ4XB2e2a2tS4MkXGsxzbsBZynT0/MPrcC8xNZRTMWdT+D
+ir2kAk4bfs0scXOzvPUrUeHlWfNDNWtJmbFCzECpJThkGtlZxAnNK/wIDAgMIVn3
+C6X+f076t/eF0E5agcfKueoM9WiUyBbqN6QWb4CamagezG+i+FjKPFexrlnTomZG
+IHR79uoxn9Fc4mQiNlcyXespenKgQou1DAYEG8vYmfDZR9jAfJ+efjNotV9KtXjy
+6YfWV2AistCz7Ve/oRzDHYVhVemPzBoIPF41xx7afNa0vmP+oo5q9MefMqdF5xPJ
+4nR02S2PnKncwqzZF6jNA/2D+O5ETEEo5Zi80CjkHgLhG+rCfztZzJ5Y6/97F6Vb
+QYxydvjJkrnIAq4ifSTfqa2kXupNs97G22qtSGWdqFMSrYZeDHGL3cQeNh42ubHc
+Drcqv9FQD9j5ZCALVLizRMMqmE0Gc/KBUzeNGCUwsRsIdiONNWtnhalFteZe9aZ6
+WfxQnKXeyPxj0GrkMwYp6egCxo2jsJ1N/+xoSgIYouJ7KvUb/7JI2eDHiOg/5PWe
+pVNMa44Zkzq54Cr1QVEnXPzEZobPBVNwhhMq8FDTusI/BI5u0rcCUJ9q/g94D4AP
+Qs8fr86Wp31esmOPxSX+
+=pc0T
 -----END PGP SIGNATURE-----
 
 ```
@@ -63,8 +63,8 @@ size    exec  file                                     contents
 571               pool.js                              2f83097467cbde33e9f1d091a6e31b524ea43bf9e97ef05ba35ae641182f3e90
 23739             toffee_lang.js                       e875ff2e17aa6977a5613409c46e4d775c1551676173b69dced7f53e391501f1
 1733              utils.js                             b9e0d093afed0c282195365fd5c90e2f4c93d9860ce24807d55d510cdd5ae042
-25118             view.js                              a3e6239a1fcad055480c5f85f0865b9900db8b311371e1195519747a6164f01e
-860             package.json                           a3836e58c837bb9476745bbddfcb752f02b18939e48d30a73fe877e8da197c17
+25159             view.js                              a5a79dc59f9ca375c67baacb6b4048595c5867d74a32a3fe87553605f8496f4c
+860             package.json                           e224e7a8db7aa1aff09badf4b19101f3ead5435208df9c28f61f11eac3b43c37
                 src/                                                                                                   
 5155              command_line.coffee                  707f1df79cc865f4096ab19ccadfe0c0a627a74093c2e5b56a94011ac8a99bc3
 197               consts.coffee                        2f1c1ecef13818b126d49cc7eb0568019a1f5e46cee28164321d496c93568a2e
@@ -73,7 +73,7 @@ size    exec  file                                     contents
 270               pool.coffee                          b493416ba61c6d2f98b713b7f30cc8002142c26205be21653a00f7c11ea1b6c4
 2604              toffee.jison                         8d040196ea79ed3676b5874f8d85da3849cc3ad82ecaeba212a4194033bfb72e
 1227              utils.coffee                         efd639a91f7cca74fdc138743aeb572bcaffc2c151d9a8a89bf31e3d3c798873
-18996             view.coffee                          6d55d928827a30db1d6ae8abb331e1839628688a70ef17ab98918421431dfcfd
+19034             view.coffee                          f57989990e08deb868c247af945b67999791d783cf51db68a481ff69971488c0
                 test/                                                                                                  
                   cases/                                                                                               
                     big_file/                                                                                          
