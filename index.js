@@ -69,4 +69,38 @@
 
   exports.compile = require('./lib/view').expressCompile;
 
+  exports.configurable_compile = function(source, opts) {
+    var err, header, output, v;
+    opts = opts || {};
+    opts.minimize = opts.minimize != null ? opts.minimize : false;
+    opts.bundle_path = opts.bundle_path || null;
+    opts.headers = opts.headers != null ? opts.headers : true;
+    opts.filename = opts.filename || null;
+    opts.to_coffee = opts.to_coffee || false;
+    err = null;
+    v = new view(source, {
+      filename: opts.filename,
+      bundlePath: opts.filename,
+      browserMode: true,
+      minimize: opts.minimize
+    });
+    if (opts.to_coffee) {
+      output = v.toCoffee();
+    } else {
+      output = v.toJavaScript();
+    }
+    if (v.error) {
+      throw v.error.e;
+    }
+    if (opts.headers) {
+      header = getCommonHeadersJs(true, true, true);
+      if (opts.coffee) {
+        output = "`" + header + "`\n\n" + output;
+      } else {
+        output = "" + header + "\n;\n" + output;
+      }
+    }
+    return output;
+  };
+
 }).call(this);

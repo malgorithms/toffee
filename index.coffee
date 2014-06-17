@@ -60,3 +60,33 @@ exports.str_render = exports.strRender = (template_str, options, cb) ->
 # --------------------------------------------
 
 exports.compile       = require('./lib/view').expressCompile
+
+# better support for string compiling
+# --------------------------------------------
+
+exports.configurable_compile = (source, opts) ->
+  opts                  = opts or {}
+  opts.minimize         = if opts.minimize? then opts.minimize else false
+  opts.bundle_path      = opts.bundle_path or null
+  opts.headers          = if opts.headers? then opts.headers else true
+  opts.filename         = opts.filename or null
+  opts.to_coffee        = opts.to_coffee or false
+  err                   = null
+
+ # this compiles an individual template that you've read while recursing:
+  v = new view source, {
+    filename:     opts.filename
+    bundlePath:   opts.filename
+    browserMode:  true
+    minimize:     opts.minimize
+  }
+  if opts.to_coffee
+    output = v.toCoffee()
+  else
+    output = v.toJavaScript()
+  if v.error then throw v.error.e
+  if opts.headers
+    header = getCommonHeadersJs true, true, true
+    if opts.coffee then output = "`#{header}`\n\n#{output}"
+    else output = "#{header}\n;\n#{output}"
+  return output
