@@ -4,19 +4,19 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJTj0goAAoJENIkQTsc+mSQ/GUP/ipdQKg4bzlCs2KCCQhwsI0b
-PoFrdnvqq/a0rjgDRYoZ4XB2e2a2tS4MkXGsxzbsBZynT0/MPrcC8xNZRTMWdT+D
-ir2kAk4bfs0scXOzvPUrUeHlWfNDNWtJmbFCzECpJThkGtlZxAnNK/wIDAgMIVn3
-C6X+f076t/eF0E5agcfKueoM9WiUyBbqN6QWb4CamagezG+i+FjKPFexrlnTomZG
-IHR79uoxn9Fc4mQiNlcyXespenKgQou1DAYEG8vYmfDZR9jAfJ+efjNotV9KtXjy
-6YfWV2AistCz7Ve/oRzDHYVhVemPzBoIPF41xx7afNa0vmP+oo5q9MefMqdF5xPJ
-4nR02S2PnKncwqzZF6jNA/2D+O5ETEEo5Zi80CjkHgLhG+rCfztZzJ5Y6/97F6Vb
-QYxydvjJkrnIAq4ifSTfqa2kXupNs97G22qtSGWdqFMSrYZeDHGL3cQeNh42ubHc
-Drcqv9FQD9j5ZCALVLizRMMqmE0Gc/KBUzeNGCUwsRsIdiONNWtnhalFteZe9aZ6
-WfxQnKXeyPxj0GrkMwYp6egCxo2jsJ1N/+xoSgIYouJ7KvUb/7JI2eDHiOg/5PWe
-pVNMa44Zkzq54Cr1QVEnXPzEZobPBVNwhhMq8FDTusI/BI5u0rcCUJ9q/g94D4AP
-Qs8fr86Wp31esmOPxSX+
-=pc0T
+iQIcBAABCgAGBQJToFAjAAoJENIkQTsc+mSQV94P/ix41qMd4pSsBD5f7ZJZLpD8
+Pakq8q49mvdoErz+uzNqZ/eHjCXORc6Caqx3HYuvXh+Y8fiNFK8tV9IjF3C2UKx+
+be/n8mU/nb8HOvS6ZWh6p0us5Pmm3aETaKKquBmUT6klOUg2g0ZO2D0Bj5XD4tSn
+SkhcgAAEKglLTtqhXScuoeSAygVOmM5KkiAv4Q+5IcqhkwnOv2af8ta15d6DmKuj
+tpFcQd6pTYn6dKAnEWCXQs/+I4uBhwo93+DzIC1HI6m7lI7+piqA5gcb3/KAoagV
+qDufapXLEGepfl6Jb0Wq46sfS7DkpGmYebJvOH0swMXjF2uB3SddOT0ZBtf9Zl+6
+6rfbZF9MHDqf+Mela9AAfXd3vrBXXxGHpbDm8uBCSIinp/wH//4nn6pLJlq1XRFU
+yDA0p1mYAHsdl4keFd0cvWDHaMwLWR8Rx/aLHkkz5F4GEI2DjixlpnxGw+swbTZu
+FxRwUv9E8jVXApbcojQR0HzGyBPDQe7FY0lORKPVhTr+gLIwNM5sQ7PEChL8tOXa
+QA+NYgHceG1gAXh6WDhR5Ih3XoeVZGVxdl9TxW7MrMzvRBFI4PJBgG/n9JfDgrxx
+PbC9xIrqzM4DH4CCPXhWvJZNLBNfUHbxTSEj0DvGatNnxCXa0ZovMCFq7ETyL6H7
+oCnPRDIz9m1+wV1wnysq
+=gehN
 -----END PGP SIGNATURE-----
 
 ```
@@ -37,8 +37,8 @@ size    exec  file                                     contents
 13715           README.md                              44a697135c4145b598a812e7d904781faf772d384e8859c2767fea4be8afffb4
                 bin/                                                                                                   
 57                toffee                               616023d8f8b8dbb5450051ddc21c8887829fba38dc3341feaaa3ffd5afd3ee8c
-2099            index.coffee                           a121e739dd5e8013bc40e217f2a6529a39b2e6424297410565866667bb124603
-1866            index.js                               f897f1995a661aea7b4a1fdc300de342cb0556b751900dd50269c158dc1122b8
+3124            index.coffee                           3183ed24e04b288ffa009f5e990a3775351bd7551b235849faf5c18f9e1c2120
+2827            index.js                               90b42e60179783077f02c7e086247fcaf15b3d391e18904516c9a3eaa5d4ef21
                 lib/                                                                                                   
 0                 README.md                            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
                   coffee-script/                                                                                       
@@ -64,7 +64,7 @@ size    exec  file                                     contents
 23739             toffee_lang.js                       e875ff2e17aa6977a5613409c46e4d775c1551676173b69dced7f53e391501f1
 1733              utils.js                             b9e0d093afed0c282195365fd5c90e2f4c93d9860ce24807d55d510cdd5ae042
 25159             view.js                              a5a79dc59f9ca375c67baacb6b4048595c5867d74a32a3fe87553605f8496f4c
-860             package.json                           e224e7a8db7aa1aff09badf4b19101f3ead5435208df9c28f61f11eac3b43c37
+860             package.json                           2cd00d299ada6fd0cdceed5e12dda24de7625e8a63bea84935702e5734ed2160
                 src/                                                                                                   
 5155              command_line.coffee                  707f1df79cc865f4096ab19ccadfe0c0a627a74093c2e5b56a94011ac8a99bc3
 197               consts.coffee                        2f1c1ecef13818b126d49cc7eb0568019a1f5e46cee28164321d496c93568a2e
@@ -217,7 +217,7 @@ dropbox  # ignore .dropbox-cache and other Dropbox-related files
 kb       # ignore anything as described by .kbignore files          
 ```
 
-<!-- summarize version = 0.0.8 -->
+<!-- summarize version = 0.0.9 -->
 
 ### End signed statement
 
