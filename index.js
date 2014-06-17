@@ -73,7 +73,6 @@
     var err, header, output, v;
     opts = opts || {};
     opts.minimize = opts.minimize != null ? opts.minimize : false;
-    opts.bundle_path = opts.bundle_path || null;
     opts.headers = opts.headers != null ? opts.headers : true;
     opts.filename = opts.filename || null;
     opts.to_coffee = opts.to_coffee || false;
