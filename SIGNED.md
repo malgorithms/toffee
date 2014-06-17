@@ -4,19 +4,19 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAABCgAGBQJToFAjAAoJENIkQTsc+mSQV94P/ix41qMd4pSsBD5f7ZJZLpD8
-Pakq8q49mvdoErz+uzNqZ/eHjCXORc6Caqx3HYuvXh+Y8fiNFK8tV9IjF3C2UKx+
-be/n8mU/nb8HOvS6ZWh6p0us5Pmm3aETaKKquBmUT6klOUg2g0ZO2D0Bj5XD4tSn
-SkhcgAAEKglLTtqhXScuoeSAygVOmM5KkiAv4Q+5IcqhkwnOv2af8ta15d6DmKuj
-tpFcQd6pTYn6dKAnEWCXQs/+I4uBhwo93+DzIC1HI6m7lI7+piqA5gcb3/KAoagV
-qDufapXLEGepfl6Jb0Wq46sfS7DkpGmYebJvOH0swMXjF2uB3SddOT0ZBtf9Zl+6
-6rfbZF9MHDqf+Mela9AAfXd3vrBXXxGHpbDm8uBCSIinp/wH//4nn6pLJlq1XRFU
-yDA0p1mYAHsdl4keFd0cvWDHaMwLWR8Rx/aLHkkz5F4GEI2DjixlpnxGw+swbTZu
-FxRwUv9E8jVXApbcojQR0HzGyBPDQe7FY0lORKPVhTr+gLIwNM5sQ7PEChL8tOXa
-QA+NYgHceG1gAXh6WDhR5Ih3XoeVZGVxdl9TxW7MrMzvRBFI4PJBgG/n9JfDgrxx
-PbC9xIrqzM4DH4CCPXhWvJZNLBNfUHbxTSEj0DvGatNnxCXa0ZovMCFq7ETyL6H7
-oCnPRDIz9m1+wV1wnysq
-=gehN
+iQIcBAABCgAGBQJToFs5AAoJENIkQTsc+mSQTpUP/2JLLdKyFlXRetWbRQd770cL
+q2wKmmtu0oxG3kMjRrvnB2lS2Qxjtu0imXcIl8hqObtx2ScI+buk/DbdS0gZ1RmW
+DM10MDYzoWQRAZ6sUKLcStQGP4lEpq6wYeAqWxf7N8aX8kKgkJoUsirq8w7NeosB
+72EPYAd/Eth3ka0WdMf/KU8w1bpnC77nAxExlCafJ8enCZx3R8236Cy1LbGZ86v/
+Ob1FQkLD1Um+gY4mndd9s3FU4kxPJF9ISchdpHCxIq0kE7qHBGZejozjP4J1xr2U
+HEwvOGN4s40k62jIEGmLzvqj87BaCplWLHtl7oV3d5ZTFSUkFoVaXKsvXlSDzAUw
+uJGt2j30++C51b8vDZvX9nnegULXzNA/rnTa1zubvk2w2jDE0VT3+/ySWLRTwNHz
+2e1aEWr7SL75bvi+nCCHQKYJiWuB7Xc6i+DUM6nlPxUuvFdnLTW8CV1lBtwbd9gW
+7XOij+9mF3LsAaeZ+XzvLwoLE+aMpIaqIJpOi1JVoafWBnk1/O7+hHxkWKFjKJXv
+3sbnG+4KpMw+YTUN35htLBiT+8V76JmsvArUYjTlkpg1x67Vv58jlhucIxOKQfaq
+khnfmNA3HuPCHOTDyMBaa7LEPRU53GbhU3Y0W9PsZKI/KG1LfUP+0iPT8o4AlAT/
+6gmBoAw7Qud8v7mbvpmE
+=Dlsg
 -----END PGP SIGNATURE-----
 
 ```
@@ -37,8 +37,8 @@ size    exec  file                                     contents
 13715           README.md                              44a697135c4145b598a812e7d904781faf772d384e8859c2767fea4be8afffb4
                 bin/                                                                                                   
 57                toffee                               616023d8f8b8dbb5450051ddc21c8887829fba38dc3341feaaa3ffd5afd3ee8c
-3124            index.coffee                           3183ed24e04b288ffa009f5e990a3775351bd7551b235849faf5c18f9e1c2120
-2827            index.js                               90b42e60179783077f02c7e086247fcaf15b3d391e18904516c9a3eaa5d4ef21
+3073            index.coffee                           6e43b294bbee4b1f22327ae31d154bda633bc003b6e9345fabf9d8741191f07e
+2778            index.js                               256cbe97d8d3895f8867e27045811b81b1fe50c2ec09fb8e71bc1f5c90f3c90e
                 lib/                                                                                                   
 0                 README.md                            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
                   coffee-script/                                                                                       
