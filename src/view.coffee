@@ -41,7 +41,7 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 
 #{__}toffee.__json = (locals, o) ->
 #{__}  if not o? then return "null"
-#{__}  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026')
+#{__}  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026').replace(/\\u2028/g, '\\\\u2028').replace(/\\u2029/g, '\\\\u2029')
 
 #{__}toffee.__raw = (locals, o) -> o
 
@@ -233,7 +233,7 @@ class view
   run: (options, ctx) ->
     ###
     returns [err, str]
-    ###    
+    ###
     ctx = ctx or vm.createContext({})
     fun = @_toFun(ctx)
     res    = null
