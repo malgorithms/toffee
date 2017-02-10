@@ -5,6 +5,7 @@
  default w = [1,2,{"place":"The Dreadfort"}]
  default r = 
  default w.foo = 
+ default v = ["\u2028","\u2029"]
 </p>
 <p>
  raw x = "Hello world"
@@ -17,6 +18,7 @@
   y = "\u003Chr /\u003E"
   z = "click\u0026clack"
   w = [1,2,{"place":"The Dreadfort"}]
+  v = ["\u2028","\u2029"]
 </script>
 <p>
  raw printed x = "Hello world"
@@ -29,6 +31,7 @@
  json printed y = "\u003Chr /\u003E"
  json printed z = "click\u0026clack"
  json printed w = [1,2,{"place":"The Dreadfort"}]
+ json printed v = ["\u2028","\u2029"]
 </p>
 <p>
  html printed longhand x = &quot;Hello world&quot;

@@ -1,36 +1,36 @@
 {
- "name": "toffee",
- "description": "A NodeJs, Express 3.x, Express 2.x, and browser-side templating language based on CoffeeScript with slicker tokens and syntax.",
- "version": "0.1.12",
- "directories": {
-  "lib": "./lib"
- },
- "main": "index.js",
- "author": "Chris Coyne <ccoyne77@gmail.com>",
- "bin": "./bin/toffee",
- "dependencies": {
-  "coffee-script": "*",
-  "commander":     "*",
-  "uglify-js":     "*",
-  "mkdirp":        "*",
-  "highlight.js":  "*"
- },
- "devDependencies": {
-  "jison" :             "*",
-  "zombie":             "*",
-  "assert":             "*",
-  "express": 	          "*",
-  "tablify":            "*",
-  "iced-coffee-script": "*"
- },
- "repository": {
-  "type": "git",
-  "url": "http://github.com/malgorithms/toffee"
- },
- "licenses": [
-  {
-   "type": "MIT",
-   "url": "http://github.com/malgorithms/toffee/raw/master/LICENSE"
-  }
- ]
+  "name": "toffee",
+  "description": "A NodeJs and browser-side templating language based on CoffeeScript with slicker tokens and syntax.",
+  "version": "0.1.13",
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "index.js",
+  "author": "Chris Coyne <ccoyne77@gmail.com>",
+  "bin": "./bin/toffee",
+  "dependencies": {
+    "coffee-script": "*",
+    "commander": "*",
+    "uglify-js": "*",
+    "mkdirp": "*",
+    "highlight.js": "*"
+  },
+  "devDependencies": {
+    "assert": "*",
+    "express": "^3.21.2",
+    "iced-coffee-script": "*",
+    "jison": "*",
+    "tablify": "*",
+    "zombie": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/malgorithms/toffee"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/malgorithms/toffee/raw/master/LICENSE"
+    }
+  ]
 }

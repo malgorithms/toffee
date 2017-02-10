@@ -5,7 +5,7 @@ jison                  = require 'jison'
 path                   = require 'path'
 express_test           = require './test/generate_express_test'
 
-task 'build', 'build the whole jam', (cb) ->  
+task 'build', 'build the whole jam', (cb) ->
   console.log "Building"
   files = fs.readdirSync 'src'
   files = ('src/' + file for file in files when file.match(/\.coffee$/))

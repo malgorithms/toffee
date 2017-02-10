@@ -135,6 +135,7 @@ You have 3 female friends.</td>
  default w = [1,2,{"place":"The Dreadfort"}]
  default r = 
  default w.foo = 
+ default v = ["\u2028","\u2029"]
 </p>
 <p>
  raw x = "Hello world"
@@ -147,6 +148,7 @@ You have 3 female friends.</td>
   y = "\u003Chr /\u003E"
   z = "click\u0026clack"
   w = [1,2,{"place":"The Dreadfort"}]
+  v = ["\u2028","\u2029"]
 </script>
 <p>
  raw printed x = "Hello world"
@@ -159,13 +161,15 @@ You have 3 female friends.</td>
  json printed y = "\u003Chr /\u003E"
  json printed z = "click\u0026clack"
  json printed w = [1,2,{"place":"The Dreadfort"}]
+ json printed v = ["\u2028","\u2029"]
 </p>
 <p>
  html printed longhand x = &quot;Hello world&quot;
  html printed longhand y = &lt;hr /&gt;
  html printed longhand z = click&amp;clack
  html printed longhand w = 1,2,[object Object]
-</p></td>
+</p>
+</td>
   <td class="server_output fail" id="server_4">#{partial '../../cases/escape/input.toffee', {}}</td>
   <td class="script_output fail" id="browser_4"></td>
 </tr>
@@ -438,13 +442,13 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
   postProcess: function(s) {
     var c;
     return ((function() {
-      var _i, _results;
-      _results = [];
-      for (_i = s.length - 1; _i >= 0; _i += -1) {
-        c = s[_i];
-        _results.push(c);
+      var i, results;
+      results = [];
+      for (i = s.length - 1; i >= 0; i += -1) {
+        c = s[i];
+        results.push(c);
       }
-      return _results;
+      return results;
     })()).join('');
   }
 }));

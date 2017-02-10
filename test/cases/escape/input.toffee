@@ -3,6 +3,7 @@
   y = '<hr />'
   z = 'click&clack'
   w = [1, 2, {"place": "The Dreadfort"}]
+  v = ["\u2028", "\u2029"]
 #}<p>
  default x = #{x}
  default y = #{y}
@@ -10,6 +11,7 @@
  default w = #{w}
  default r = #{r}
  default w.foo = #{w.foo}
+ default v = #{v}
 </p>
 <p>
  raw x = #{raw x}
@@ -22,6 +24,7 @@
   y = #{json y}
   z = #{json z}
   w = #{json w}
+  v = #{json v}
 </script>
 <p>
 {#
@@ -36,7 +39,8 @@
   print " json printed x = #{ raw raw raw raw json x }\n"
   print " json printed y = #{ raw raw raw raw json y }\n"
   print " json printed z = #{ raw raw raw raw json z }\n"
-  print " json printed w = #{ raw raw raw raw json w }"
+  print " json printed w = #{ raw raw raw raw json w }\n"
+  print " json printed v = #{ raw raw raw raw json v }"
 #}
 </p>
 <p>
