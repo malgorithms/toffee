@@ -30,14 +30,13 @@ program.on '--help', ->
 \n       var pubvars   = { name: \"Hans Gruber\", criminal: true };
 \n       var some_html = toffee.render (\"views/layout.toffee\", pubvars);
 \n    </script>
-\n 
+\n
   "
 
 program.version(getVersionNumber())
   .option('-o, --output [path]',      'file (bundles all output into a single .js)')
   .option('-d, --output_dir [path]',  'compiles templates into parallel .js files')
   .option('-p, --print',              'print to stdout')
-  .option('-m, --minimize',           'minimize output (ugly, smaller file(s))')
   .option('-c, --coffee',             'output to CoffeeScript (not JS)')
   .option('-b, --bundle_path [path]', 'bundle_path (instead of "/") for templates')
   .option('-n, --no_headers',         'exclude boilerplate toffee (requires toffee.js included separately)')
@@ -63,7 +62,6 @@ compile = (start_path, full_path) ->
     fileName:     full_path
     bundlePath:   bundle_path
     browserMode:  true
-    minimize:     program.minimize? and program.minimize
   if program.coffee
     output = v.toCoffee()
   else
@@ -133,7 +131,7 @@ run = exports.run = ->
       try
         mkdirp.sync program.output_dir
       catch e
-        console.log "Couldn't make/use #{program.output_dir}; #{e}" 
+        console.log "Couldn't make/use #{program.output_dir}; #{e}"
         process.exit 1
 
     start_path = path.normalize start_path

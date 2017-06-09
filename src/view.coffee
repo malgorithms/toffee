@@ -13,16 +13,6 @@ catch e
 spaces      = (n) -> (" " for i in [0...n]).join ""
 tabs        = (n) -> (spaces(TAB_SPACES) for i in [0...n]).join ""
 
-minimizeJs = (js) ->
-  try
-    uglify = require 'uglify-js'
-    js = uglify.minify(js, { fromString: true }).code
-  catch e
-    console.log js
-    console.log e
-    process.exit 1
-  js
-
 getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
   ###
   each view will use this, or if they're bundled together,
@@ -40,13 +30,46 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 #{__}toffee.states = #{JSON.stringify states}
 
 #{__}toffee.__json = (locals, o) ->
-#{__}  if not o? then return "null"
-#{__}  else return "" + JSON.stringify(o).replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E').replace(/&/g,'\\\\u0026').replace(/\\u2028/g, '\\\\u2028').replace(/\\u2029/g, '\\\\u2029')
+#{__}  if not o?
+#{__}    return "null"
+#{__}  else
+#{__}    return "" + JSON.stringify(o)
+#{__}    .replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E')
+#{__}    .replace(/&/g,'\\\\u0026').replace(/\\u2028/g, '\\\\u2028')
+#{__}    .replace(/\\u2029/g, '\\\\u2029')
+#{__}    .replace(/\\u200e/g, '\\\\u200e') # LEFT-TO-RIGHT MARK
+#{__}    .replace(/\\u200f/g, '\\\\u200f') # RIGHT-TO-LEFT MARK
+#{__}    .replace(/\\u202a/g, '\\\\u202a') # LEFT-TO-RIGHT EMBEDDING
+#{__}    .replace(/\\u202b/g, '\\\\u202b') # RIGHT-TO-LEFT EMBEDDING
+#{__}    .replace(/\\u202c/g, '\\\\u202c') # POP DIRECTIONAL FORMATTING
+#{__}    .replace(/\\u202d/g, '\\\\u202d') # LEFT-TO-RIGHT OVERRIDE
+#{__}    .replace(/\\u202e/g, '\\\\u202e') # RIGHT-TO-LEFT OVERRIDE
+#{__}    .replace(/\\u206a/g, '\\\\u206a') # INHIBIT SYMMETRIC SWAPPING
+#{__}    .replace(/\\u206b/g, '\\\\u206b') # ACTIVATE SYMMETRIC SWAPPING
+#{__}    .replace(/\\u206c/g, '\\\\u206c') # INHIBIT ARABIC FORM SHAPING
+#{__}    .replace(/\\u206d/g, '\\\\u206d') # ACTIVATE ARABIC FORM SHAPING
+#{__}    .replace(/\\u206e/g, '\\\\u206e') # NATIONAL DIGIT SHAPES
+#{__}    .replace(/\\u206f/g, '\\\\u206f') # NOMINAL DIGIT SHAPES
 
 #{__}toffee.__raw = (locals, o) -> o
 
 #{__}toffee.__html = (locals, o) ->
-#{__}  (""+o).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;')
+#{__}  (""+o).replace(/&/g, '&amp;')
+#{__}  .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+#{__}  .replace(/\"/g, '&quot;')
+#{__}  .replace(/\\u200e/g, '') # LEFT-TO-RIGHT MARK
+#{__}  .replace(/\\u200f/g, '') # RIGHT-TO-LEFT MARK
+#{__}  .replace(/\\u202a/g, '') # LEFT-TO-RIGHT EMBEDDING
+#{__}  .replace(/\\u202b/g, '') # RIGHT-TO-LEFT EMBEDDING
+#{__}  .replace(/\\u202c/g, '') # POP DIRECTIONAL FORMATTING
+#{__}  .replace(/\\u202d/g, '') # LEFT-TO-RIGHT OVERRIDE
+#{__}  .replace(/\\u202e/g, '') # RIGHT-TO-LEFT OVERRIDE
+#{__}  .replace(/\\u206a/g, '') # INHIBIT SYMMETRIC SWAPPING
+#{__}  .replace(/\\u206b/g, '') # ACTIVATE SYMMETRIC SWAPPING
+#{__}  .replace(/\\u206c/g, '') # INHIBIT ARABIC FORM SHAPING
+#{__}  .replace(/\\u206d/g, '') # ACTIVATE ARABIC FORM SHAPING
+#{__}  .replace(/\\u206e/g, '') # NATIONAL DIGIT SHAPES
+#{__}  .replace(/\\u206f/g, '') # NOMINAL DIGIT SHAPES
 
 #{__}toffee.__escape = (locals, o) ->
 #{__}  if locals.__toffee.autoEscape? then ae = locals.__toffee.autoEscape
@@ -158,10 +181,9 @@ getBundleHeaders = (tab_level) ->
 #{__}    return res
 """
 
-getCommonHeadersJs = (include_bundle_headers, auto_escape, minimize)->
+getCommonHeadersJs = (include_bundle_headers, auto_escape)->
   ch = getCommonHeaders 0, include_bundle_headers, auto_escape
   js = coffee.compile ch, {bare: true}
-  if minimize then js = minimizeJs js
   js
 
 class view
@@ -175,7 +197,6 @@ class view
     @fileName               = options.fileName    or options.filename or null
     @bundlePath             = options.bundlePath  or "/" # if to be included inside a bundle, this is the path inside it.
     @browserMode            = options.browserMode or false
-    @minimize               = options.minimize    or false # excludes line numbers from coffee ; uses uglify.JS
     @verbose                = options.verbose     or false
     @fsError                = options.fsError     or false # pass true if you could not load the view template and passed in error text
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
@@ -299,9 +320,6 @@ class view
           @javaScript = coffee.compile c, opts
         catch e
           @error = new toffeeError @, errorTypes.COFFEE_COMPILE, e
-        if @minimize and not @error
-          d2 = Date.now()
-          @javaScript = minimizeJs @javaScript
         @_log "#{@fileName} compiled to JavaScript in #{Date.now()-d}ms"
     @javaScript
 
@@ -322,7 +340,7 @@ class view
     @coffeeScript
 
   _printLineNo: (n, ind) ->
-    if @minimize or (@lastLineNo? and (n is @lastLineNo))
+    if (@lastLineNo? and (n is @lastLineNo))
       return ""
     else
       @lastLineNo = n

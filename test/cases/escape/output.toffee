@@ -3,9 +3,11 @@
  default y = &lt;hr /&gt;
  default z = click&amp;clack
  default w = [1,2,{"place":"The Dreadfort"}]
- default r = 
- default w.foo = 
+ default r = eol
+ default w.foo = eol
  default v = ["\u2028","\u2029"]
+ default dir = ["hi\u202ethere"]
+ default dir0 = hithere
 </p>
 <p>
  raw x = "Hello world"

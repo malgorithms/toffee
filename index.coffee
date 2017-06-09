@@ -66,7 +66,6 @@ exports.compile       = require('./lib/view').expressCompile
 
 exports.configurable_compile = (source, opts) ->
   opts                  = opts or {}
-  opts.minimize         = if opts.minimize? then opts.minimize else false
   opts.headers          = if opts.headers? then opts.headers else true
   opts.filename         = opts.filename or null
   opts.to_coffee        = opts.to_coffee or false
@@ -77,7 +76,6 @@ exports.configurable_compile = (source, opts) ->
     filename:     opts.filename
     bundlePath:   opts.filename
     browserMode:  true
-    minimize:     opts.minimize
   }
   if opts.to_coffee
     output = v.toCoffee()

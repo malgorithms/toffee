@@ -4,14 +4,17 @@
   z = 'click&clack'
   w = [1, 2, {"place": "The Dreadfort"}]
   v = ["\u2028", "\u2029"]
+  dir = ["hi\u{202e}there"] # ltr type things
 #}<p>
  default x = #{x}
  default y = #{y}
  default z = #{z}
  default w = #{w}
- default r = #{r}
- default w.foo = #{w.foo}
+ default r = #{r}eol
+ default w.foo = #{w.foo}eol
  default v = #{v}
+ default dir = #{dir}
+ default dir0 = #{dir[0]}
 </p>
 <p>
  raw x = #{raw x}

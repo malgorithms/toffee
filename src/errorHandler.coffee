@@ -72,7 +72,7 @@ class toffeeError extends Error
           res.message     = res.message.replace /on line [0-9]+/, @_lineRangeToPhrase res.line_range
         else
           res.message += " " + @_lineRangeToPhrase res.line_range
-        
+
 
       when errorTypes.RUNTIME
         if not res.line_range?
@@ -91,10 +91,10 @@ class toffeeError extends Error
     stack        = converted_err.stack
     for line, i in stack
 
-      rxx_pub = /// 
-        Object[\.].*?pub[\s]\(undefined\:([0-9]+)\:[0-9]+ 
+      rxx_pub = ///
+        Object[\.].*?pub[\s]\(undefined\:([0-9]+)\:[0-9]+
         |
-        tmpl[\.]render[\.]tmpl[\.]pub.*\(.*\:([0-9]+)\:[0-9]+ 
+        tmpl[\.]render[\.]tmpl[\.]pub.*\(.*\:([0-9]+)\:[0-9]+
         ///
       m           = line.match rxx_pub
       in_src_file = false
@@ -161,7 +161,7 @@ class toffeeError extends Error
 
   getPrettyPrint: ->
     ###
-    returns an HTML blob explaining the error 
+    returns an HTML blob explaining the error
     with lines highlighted
     ###
     cerr = @getConvertedError()
@@ -171,7 +171,7 @@ class toffeeError extends Error
       <div style="line-height:13px;border:1px solid #999;margin:10px;padding:10px;background-color:#fff;position:fixed;top:0;left:0;max-width:90%;z-index:9999;max-height:90%;overflow:scroll;">
         \n<pre>#{header}</pre>
         \n<hr />
-        \n<div style=\"font-family:courier new;font-size:12px;color:#900;width:100%;\">        
+        \n<div style=\"font-family:courier new;font-size:12px;color:#900;width:100%;\">
     """
     if cerr.stack?.length
       res += "<div style=\"border:1px solid #000;background-color:#eee;width:100%;\">"
@@ -190,7 +190,7 @@ class toffeeError extends Error
     for i in [(cerr.line_range[0]-3)...(cerr.line_range[1]+1)]
       if (i < 0) or i > @toffeeSrcLines.length - 1
         continue
-      line = _ppEscape @toffeeSrcLines[i] 
+      line = _ppEscape @toffeeSrcLines[i]
       padding_len = 5 - ("#{i+1}").length
       padding     = ("&nbsp;" for j in [0...padding_len]).join ""
       if (cerr.line_range[0] - 1) <= (i) < cerr.line_range[1]

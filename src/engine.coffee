@@ -17,7 +17,6 @@ class engine
   constructor: (options) ->
     options                 = options or {}
     @verbose                = options.verbose or false
-    @minimize               = options.minimize or false
     @pool                   = new Pool(sandboxCons, options.poolSize or MAX_CACHED_SANDBOXES)
     @prettyPrintErrors      = if options.prettyPrintErrors? then options.prettyPrintErrors else true
     @prettyLogErrors        = if options.prettyLogErrors?   then options.prettyLogErrors   else true
@@ -98,7 +97,7 @@ class engine
 
   postProcess: (fn, res) ->
     err = null
-    try 
+    try
       res = fn res
     catch e
       err = e
@@ -254,7 +253,6 @@ class engine
       prettyLogErrors:        @prettyLogErrors
       autoEscape:             @autoEscape
       additionalErrorHandler: @additionalErrorHandler
-      minimize:               @minimize
     }
 
   _monitorForChanges: (filename, options) ->
