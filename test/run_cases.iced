@@ -10,12 +10,6 @@ regular_engine = new engine({
   prettyPrintErrors: false
 })
 
-minimized_engine = new engine({
-  verbose:           false
-  prettyPrintErrors: false
-  minimize:          true
-})
-
 # ---------------------------------------------------------------
 
 MULTI_RUNS = 50
@@ -95,10 +89,6 @@ go = ->
   console.log "Regular Engine:             SUCCESS for #{tests_run} cold tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
   await run_multiple_runs regular_engine, MULTI_RUNS, defer err, time, tests_run
   console.log "Regular Engine:             SUCCESS for #{tests_run} hot tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
-  await run_all_case_dirs minimized_engine, defer err, time, tests_run
-  console.log "Minimized (browser) Engine: SUCCESS for #{tests_run} cold tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
-  await run_multiple_runs minimized_engine, MULTI_RUNS, defer err, time, tests_run
-  console.log "Minimized (browser) Engine: SUCCESS for #{tests_run} hot tests in #{time}ms (#{(time/tests_run).toFixed 2}ms/test)"
   await run_express_test defer()
   process.exit 0
 

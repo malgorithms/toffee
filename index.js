@@ -72,7 +72,6 @@
   exports.configurable_compile = function(source, opts) {
     var err, header, output, v;
     opts = opts || {};
-    opts.minimize = opts.minimize != null ? opts.minimize : false;
     opts.headers = opts.headers != null ? opts.headers : true;
     opts.filename = opts.filename || null;
     opts.to_coffee = opts.to_coffee || false;
@@ -80,8 +79,7 @@
     v = new view(source, {
       filename: opts.filename,
       bundlePath: opts.filename,
-      browserMode: true,
-      minimize: opts.minimize
+      browserMode: true
     });
     if (opts.to_coffee) {
       output = v.toCoffee();
