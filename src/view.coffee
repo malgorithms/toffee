@@ -50,6 +50,11 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 #{__}    .replace(/\\u206d/g, '\\\\u206d') # ACTIVATE ARABIC FORM SHAPING
 #{__}    .replace(/\\u206e/g, '\\\\u206e') # NATIONAL DIGIT SHAPES
 #{__}    .replace(/\\u206f/g, '\\\\u206f') # NOMINAL DIGIT SHAPES
+#{__}    .replace(/\\u2066/g, '\\\\u2066') # LEFT-TO-RIGHT ISOLATE (LRI)
+#{__}    .replace(/\\u2067/g, '\\\\u2067') # RIGHT-TO-LEFT ISOLATE (RLI)
+#{__}    .replace(/\\u2068/g, '\\\\u2068') # FIRST STRONG ISOLATE (FSI)
+#{__}    .replace(/\\u2069/g, '\\\\u2069') # POP DIRECTIONAL ISOLATE (PDI)
+
 
 #{__}toffee.__raw = (locals, o) -> o
 
@@ -70,6 +75,11 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 #{__}  .replace(/\\u206d/g, '') # ACTIVATE ARABIC FORM SHAPING
 #{__}  .replace(/\\u206e/g, '') # NATIONAL DIGIT SHAPES
 #{__}  .replace(/\\u206f/g, '') # NOMINAL DIGIT SHAPES
+#{__}  .replace(/\\u2066/g, '') # LEFT-TO-RIGHT ISOLATE (LRI)
+#{__}  .replace(/\\u2067/g, '') # RIGHT-TO-LEFT ISOLATE (RLI)
+#{__}  .replace(/\\u2068/g, '') # FIRST STRONG ISOLATE (FSI)
+#{__}  .replace(/\\u2069/g, '') # POP DIRECTIONAL ISOLATE (PDI)
+
 
 #{__}toffee.__escape = (locals, o) ->
 #{__}  if locals.__toffee.autoEscape? then ae = locals.__toffee.autoEscape
