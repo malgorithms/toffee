@@ -2,7 +2,7 @@
  default x = &quot;Hello world&quot;
  default y = &lt;hr /&gt;
  default z = click&amp;clack
- default w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003Ecode\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
+ default w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003E\"code\"\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
  default r = eol
  default w.foo = eol
  default v = ["\u2028","\u2029"]
@@ -16,14 +16,14 @@
  raw w = 1,2,[object Object]
 </p>
 <pre>
-  w_as_json_stringify=[1,2,{&quot;place&quot;:&quot;The Dreadfort&quot;,&quot;evil &lt;b&gt;code&lt;/b&gt;&quot;:&quot;&lt;i&gt;italic&lt;/i&gt;&quot;}]
-  w_as_json_stringify_raw=[1,2,{"place":"The Dreadfort","evil <b>code</b>":"<i>italic</i>"}]
+  w_as_json_stringify=[1,2,{&quot;place&quot;:&quot;The Dreadfort&quot;,&quot;evil &lt;b&gt;\&quot;code\&quot;&lt;/b&gt;&quot;:&quot;&lt;i&gt;italic&lt;/i&gt;&quot;}]
+  w_as_json_stringify_raw=[1,2,{"place":"The Dreadfort","evil <b>\"code\"</b>":"<i>italic</i>"}]
 </pre>
 <script>
   x = "\"Hello world\""
   y = "\u003Chr /\u003E"
   z = "click\u0026clack"
-  w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003Ecode\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
+  w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003E\"code\"\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
   v = ["\u2028","\u2029"]
 </script>
 <p>
@@ -36,7 +36,7 @@
  json printed x = "\"Hello world\""
  json printed y = "\u003Chr /\u003E"
  json printed z = "click\u0026clack"
- json printed w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003Ecode\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
+ json printed w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003E\"code\"\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
  json printed v = ["\u2028","\u2029"]
 </p>
 <p>

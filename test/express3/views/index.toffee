@@ -132,7 +132,7 @@ You have 3 female friends.</td>
  default x = &quot;Hello world&quot;
  default y = &lt;hr /&gt;
  default z = click&amp;clack
- default w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003Ecode\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
+ default w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003E\"code\"\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
  default r = eol
  default w.foo = eol
  default v = ["\u2028","\u2029"]
@@ -146,14 +146,14 @@ You have 3 female friends.</td>
  raw w = 1,2,[object Object]
 </p>
 <pre>
-  w_as_json_stringify=[1,2,{&quot;place&quot;:&quot;The Dreadfort&quot;,&quot;evil &lt;b&gt;code&lt;/b&gt;&quot;:&quot;&lt;i&gt;italic&lt;/i&gt;&quot;}]
-  w_as_json_stringify_raw=[1,2,{"place":"The Dreadfort","evil <b>code</b>":"<i>italic</i>"}]
+  w_as_json_stringify=[1,2,{&quot;place&quot;:&quot;The Dreadfort&quot;,&quot;evil &lt;b&gt;\&quot;code\&quot;&lt;/b&gt;&quot;:&quot;&lt;i&gt;italic&lt;/i&gt;&quot;}]
+  w_as_json_stringify_raw=[1,2,{"place":"The Dreadfort","evil <b>\"code\"</b>":"<i>italic</i>"}]
 </pre>
 <script>
   x = "\"Hello world\""
   y = "\u003Chr /\u003E"
   z = "click\u0026clack"
-  w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003Ecode\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
+  w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003E\"code\"\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
   v = ["\u2028","\u2029"]
 </script>
 <p>
@@ -166,7 +166,7 @@ You have 3 female friends.</td>
  json printed x = "\"Hello world\""
  json printed y = "\u003Chr /\u003E"
  json printed z = "click\u0026clack"
- json printed w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003Ecode\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
+ json printed w = [1,2,{"place":"The Dreadfort","evil \u003Cb\u003E\"code\"\u003C/b\u003E":"\u003Ci\u003Eitalic\u003C/i\u003E"}]
  json printed v = ["\u2028","\u2029"]
 </p>
 <p>
@@ -323,18 +323,105 @@ Pass7Pass8
 
 
 
-<!-- ************ junk -->
+<!-- ************ json_formatting -->
 <tr class="test_case">
-  <td class="test_cell">junk</td>
-  <td class="expected_output" id="expected_10"><ul>
-  <li>broom</li><li>mop</li><li>vacuum</li>
-</ul></td>
-  <td class="server_output fail" id="server_10">#{partial '../../cases/junk/input.toffee', {}}</td>
+  <td class="test_cell">json_formatting</td>
+  <td class="expected_output" id="expected_10">
+{"foo":[1,2,3],"bar":{"car":[4,5,"\u003C/html",{"zar":[6,7,null]}]}}
+{
+  "foo": [
+    1,
+    2,
+    3
+  ],
+  "bar": {
+    "car": [
+      4,
+      5,
+      "\u003C/html",
+      {
+        "zar": [
+          6,
+          7,
+          null
+        ]
+      }
+    ]
+  }
+}
+{
+  "foo": [
+    1,
+    2,
+    3
+  ],
+  "bar": {
+    "car": [
+      4,
+      5,
+      "\u003C/html",
+      {
+        "zar": [
+          6,
+          7,
+          null
+        ]
+      }
+    ]
+  }
+}
+{
+	"foo": [
+		1,
+		2,
+		3
+	],
+	"bar": {
+		"car": [
+			4,
+			5,
+			"\u003C/html",
+			{
+				"zar": [
+					6,
+					7,
+					null
+				]
+			}
+		]
+	}
+}
+[
+   1,
+   2,
+   "\u003C/script\u003E\""
+]
+</td>
+  <td class="server_output fail" id="server_10">#{partial '../../cases/json_formatting/input.toffee', {}}</td>
   <td class="script_output fail" id="browser_10"></td>
 </tr>
 <script type="text/javascript">
-  var script_res = toffee.templates["/junk/input.toffee"].render({});
+  var script_res = toffee.templates["/json_formatting/input.toffee"].render({});
   $("#browser_10").html(script_res);
+</script>
+
+
+
+
+
+
+<!-- ************ junk -->
+<tr class="test_case">
+  <td class="test_cell">junk</td>
+  <td class="expected_output" id="expected_11"><ul>
+  <li>broom</li><li>mop</li><li>vacuum</li>
+</ul></td>
+  <td class="server_output fail" id="server_11">#{partial '../../cases/junk/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_11"></td>
+</tr>
+<script type="text/javascript">
+  var script_res = toffee.templates["/junk/input.toffee"].render({});
+  $("#browser_11").html(script_res);
 </script>
 
 
@@ -345,13 +432,13 @@ Pass7Pass8
 <!-- ************ lambda_fns -->
 <tr class="test_case">
   <td class="test_cell">lambda_fns</td>
-  <td class="expected_output" id="expected_11">PassPassPassPass</td>
-  <td class="server_output fail" id="server_11">#{partial '../../cases/lambda_fns/input.toffee', {}}</td>
-  <td class="script_output fail" id="browser_11"></td>
+  <td class="expected_output" id="expected_12">PassPassPassPass</td>
+  <td class="server_output fail" id="server_12">#{partial '../../cases/lambda_fns/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_12"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/lambda_fns/input.toffee"].render({});
-  $("#browser_11").html(script_res);
+  $("#browser_12").html(script_res);
 </script>
 
 
@@ -362,15 +449,15 @@ Pass7Pass8
 <!-- ************ multiline_interpolation -->
 <tr class="test_case">
   <td class="test_cell">multiline_interpolation</td>
-  <td class="expected_output" id="expected_12">Hello, world
+  <td class="expected_output" id="expected_13">Hello, world
 <hr />
 Goodbye, world</td>
-  <td class="server_output fail" id="server_12">#{partial '../../cases/multiline_interpolation/input.toffee', {}}</td>
-  <td class="script_output fail" id="browser_12"></td>
+  <td class="server_output fail" id="server_13">#{partial '../../cases/multiline_interpolation/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_13"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/multiline_interpolation/input.toffee"].render({});
-  $("#browser_12").html(script_res);
+  $("#browser_13").html(script_res);
 </script>
 
 
@@ -381,7 +468,7 @@ Goodbye, world</td>
 <!-- ************ passback -->
 <tr class="test_case">
   <td class="test_cell">passback</td>
-  <td class="expected_output" id="expected_13">vx,vy,vz = vx0,,
+  <td class="expected_output" id="expected_14">vx,vy,vz = vx0,,
 
 This should output (1).
 vx,vy,vz = vx1,vy1,
@@ -393,18 +480,18 @@ vx,vy,vz = vx3,vy3,vz2
 vx,vy,vz = vx4,vy4,vz2
 
 vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
-  <td class="server_output fail" id="server_13">#{partial '../../cases/passback/input.toffee', {
+  <td class="server_output fail" id="server_14">#{partial '../../cases/passback/input.toffee', {
   "vx": "vx0",
   "x" : "hi"
 }}</td>
-  <td class="script_output fail" id="browser_13"></td>
+  <td class="script_output fail" id="browser_14"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/passback/input.toffee"].render({
   "vx": "vx0",
   "x" : "hi"
 });
-  $("#browser_13").html(script_res);
+  $("#browser_14").html(script_res);
 </script>
 
 
@@ -415,13 +502,13 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
 <!-- ************ plaintext -->
 <tr class="test_case">
   <td class="test_cell">plaintext</td>
-  <td class="expected_output" id="expected_14">Hi there.</td>
-  <td class="server_output fail" id="server_14">#{partial '../../cases/plaintext/input.toffee', {}}</td>
-  <td class="script_output fail" id="browser_14"></td>
+  <td class="expected_output" id="expected_15">Hi there.</td>
+  <td class="server_output fail" id="server_15">#{partial '../../cases/plaintext/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_15"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/plaintext/input.toffee"].render({});
-  $("#browser_14").html(script_res);
+  $("#browser_15").html(script_res);
 </script>
 
 
@@ -432,15 +519,15 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
 <!-- ************ post_process -->
 <tr class="test_case">
   <td class="test_cell">post_process</td>
-  <td class="expected_output" id="expected_15">This-is-a-hidden-message
+  <td class="expected_output" id="expected_16">This-is-a-hidden-message
 
 .dlrow leurc ,eybdooG
  .dlrow ,olleH</td>
-  <td class="server_output fail" id="server_15">#{partial '../../cases/post_process/input.toffee', {
+  <td class="server_output fail" id="server_16">#{partial '../../cases/post_process/input.toffee', {
   greeting: 'Hello'
   postProcess: (s) -> (c for c in s by -1).join ''
 }}</td>
-  <td class="script_output fail" id="browser_15"></td>
+  <td class="script_output fail" id="browser_16"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/post_process/input.toffee"].render(({
@@ -458,7 +545,7 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
     })()).join('');
   }
 }));
-  $("#browser_15").html(script_res);
+  $("#browser_16").html(script_res);
 </script>
 
 
@@ -469,13 +556,13 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
 <!-- ************ render_no_args -->
 <tr class="test_case">
   <td class="test_cell">render_no_args</td>
-  <td class="expected_output" id="expected_16">No arguments passed.</td>
-  <td class="server_output fail" id="server_16">#{partial '../../cases/render_no_args/input.toffee', }</td>
-  <td class="script_output fail" id="browser_16"></td>
+  <td class="expected_output" id="expected_17">No arguments passed.</td>
+  <td class="server_output fail" id="server_17">#{partial '../../cases/render_no_args/input.toffee', }</td>
+  <td class="script_output fail" id="browser_17"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/render_no_args/input.toffee"].render();
-  $("#browser_16").html(script_res);
+  $("#browser_17").html(script_res);
 </script>
 
 
@@ -486,7 +573,7 @@ vx,vy,vz = vx5_sub,vy5_sub,vz2</td>
 <!-- ************ snippets -->
 <tr class="test_case">
   <td class="test_cell">snippets</td>
-  <td class="expected_output" id="expected_17">From: Preloaded sender
+  <td class="expected_output" id="expected_18">From: Preloaded sender
 Preloaded message.
 From: Unknown sender
 Unknown message.
@@ -494,18 +581,18 @@ From: Sam
 Preloaded message.
 From: Max
 Unknown message.</td>
-  <td class="server_output fail" id="server_17">#{partial '../../cases/snippets/input.toffee', {
+  <td class="server_output fail" id="server_18">#{partial '../../cases/snippets/input.toffee', {
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 }}</td>
-  <td class="script_output fail" id="browser_17"></td>
+  <td class="script_output fail" id="browser_18"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/snippets/input.toffee"].render({
 	"from": "Preloaded sender",
 	"msg" : "Preloaded message."
 });
-  $("#browser_17").html(script_res);
+  $("#browser_18").html(script_res);
 </script>
 
 
@@ -516,7 +603,7 @@ Unknown message.</td>
 <!-- ************ special_cases -->
 <tr class="test_case">
   <td class="test_cell">special_cases</td>
-  <td class="expected_output" id="expected_18">
+  <td class="expected_output" id="expected_19">
 "PASSED"
 
 <p>
@@ -527,12 +614,12 @@ A backslash is a \
 <script>
  var passed = "\"passed\"";
 </script></td>
-  <td class="server_output fail" id="server_18">#{partial '../../cases/special_cases/input.toffee', {}}</td>
-  <td class="script_output fail" id="browser_18"></td>
+  <td class="server_output fail" id="server_19">#{partial '../../cases/special_cases/input.toffee', {}}</td>
+  <td class="script_output fail" id="browser_19"></td>
 </tr>
 <script type="text/javascript">
   var script_res = toffee.templates["/special_cases/input.toffee"].render({});
-  $("#browser_18").html(script_res);
+  $("#browser_19").html(script_res);
 </script>
 
 
