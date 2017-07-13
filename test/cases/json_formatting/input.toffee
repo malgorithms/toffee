@@ -1,0 +1,12 @@
+{#
+  x =
+   foo: [1,2,3]
+   bar:
+     car: [4,5,"<\/html",{zar: [6,7,null]}]
+  y = [1,2,"<\/script>\""]
+#}
+#{x}
+#{json x, {indent: '  '}}
+#{json x, {indent: 2}}
+#{json x, {indent: '\t'}}
+#{__toffee.json y, {indent:3}}

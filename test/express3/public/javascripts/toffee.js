@@ -13,11 +13,13 @@ toffee.states = {
   "COFFEE": 2
 };
 
-toffee.__json = function(locals, o) {
+toffee.__json = function(locals, o, opts) {
+  opts || (opts = {});
+  opts.indent || (opts.indent = "");
   if (o == null) {
     return "null";
   } else {
-    return "" + JSON.stringify(o).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029').replace(/\u200e/g, '\\u200e').replace(/\u200f/g, '\\u200f').replace(/\u202a/g, '\\u202a').replace(/\u202b/g, '\\u202b').replace(/\u202c/g, '\\u202c').replace(/\u202d/g, '\\u202d').replace(/\u202e/g, '\\u202e').replace(/\u206a/g, '\\u206a').replace(/\u206b/g, '\\u206b').replace(/\u206c/g, '\\u206c').replace(/\u206d/g, '\\u206d').replace(/\u206e/g, '\\u206e').replace(/\u206f/g, '\\u206f').replace(/\u2066/g, '\\u2066').replace(/\u2067/g, '\\u2067').replace(/\u2068/g, '\\u2068').replace(/\u2069/g, '\\u2069');
+    return "" + JSON.stringify(o, null, opts.indent).replace(/</g, '\\u003C').replace(/>/g, '\\u003E').replace(/&/g, '\\u0026').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029').replace(/\u200e/g, '\\u200e').replace(/\u200f/g, '\\u200f').replace(/\u202a/g, '\\u202a').replace(/\u202b/g, '\\u202b').replace(/\u202c/g, '\\u202c').replace(/\u202d/g, '\\u202d').replace(/\u202e/g, '\\u202e').replace(/\u206a/g, '\\u206a').replace(/\u206b/g, '\\u206b').replace(/\u206c/g, '\\u206c').replace(/\u206d/g, '\\u206d').replace(/\u206e/g, '\\u206e').replace(/\u206f/g, '\\u206f').replace(/\u2066/g, '\\u2066').replace(/\u2067/g, '\\u2067').replace(/\u2068/g, '\\u2068').replace(/\u2069/g, '\\u2069');
   }
 };
 
@@ -62,8 +64,8 @@ toffee.__augmentLocals = function(locals, bundle_path) {
     };
   }
   if (_l.json == null) {
-    _l.json = function(o) {
-      return toffee.__json(_l, o);
+    _l.json = function(o, opts) {
+      return toffee.__json(_l, o, opts);
     };
   }
   if (_l.raw == null) {

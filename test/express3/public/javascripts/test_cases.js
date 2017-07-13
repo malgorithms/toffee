@@ -925,7 +925,7 @@
     w = [
       1, 2, {
         "place": "The Dreadfort",
-        "evil <b>code</b>": "<i>italic</i>"
+        "evil <b>\"code\"</b>": "<i>italic</i>"
       }
     ];
     v = ["\u2028", "\u2029"];
@@ -1126,7 +1126,7 @@
     _ln(4);
     _to(" default z = click&amp;clack\n");
     _ln(5);
-    _to(" default w = [1,2,{\"place\":\"The Dreadfort\",\"evil \\u003Cb\\u003Ecode\\u003C/b\\u003E\":\"\\u003Ci\\u003Eitalic\\u003C/i\\u003E\"}]\n");
+    _to(" default w = [1,2,{\"place\":\"The Dreadfort\",\"evil \\u003Cb\\u003E\\\"code\\\"\\u003C/b\\u003E\":\"\\u003Ci\\u003Eitalic\\u003C/i\\u003E\"}]\n");
     _ln(6);
     _to(" default r = eol\n");
     _ln(7);
@@ -1154,9 +1154,9 @@
     _ln(18);
     _to("<pre>\n");
     _ln(19);
-    _to("  w_as_json_stringify=[1,2,{&quot;place&quot;:&quot;The Dreadfort&quot;,&quot;evil &lt;b&gt;code&lt;/b&gt;&quot;:&quot;&lt;i&gt;italic&lt;/i&gt;&quot;}]\n");
+    _to("  w_as_json_stringify=[1,2,{&quot;place&quot;:&quot;The Dreadfort&quot;,&quot;evil &lt;b&gt;\\&quot;code\\&quot;&lt;/b&gt;&quot;:&quot;&lt;i&gt;italic&lt;/i&gt;&quot;}]\n");
     _ln(20);
-    _to("  w_as_json_stringify_raw=[1,2,{\"place\":\"The Dreadfort\",\"evil <b>code</b>\":\"<i>italic</i>\"}]\n");
+    _to("  w_as_json_stringify_raw=[1,2,{\"place\":\"The Dreadfort\",\"evil <b>\\\"code\\\"</b>\":\"<i>italic</i>\"}]\n");
     _ln(21);
     _to("</pre>\n");
     _ln(22);
@@ -1168,7 +1168,7 @@
     _ln(25);
     _to("  z = \"click\\u0026clack\"\n");
     _ln(26);
-    _to("  w = [1,2,{\"place\":\"The Dreadfort\",\"evil \\u003Cb\\u003Ecode\\u003C/b\\u003E\":\"\\u003Ci\\u003Eitalic\\u003C/i\\u003E\"}]\n");
+    _to("  w = [1,2,{\"place\":\"The Dreadfort\",\"evil \\u003Cb\\u003E\\\"code\\\"\\u003C/b\\u003E\":\"\\u003Ci\\u003Eitalic\\u003C/i\\u003E\"}]\n");
     _ln(27);
     _to("  v = [\"\\u2028\",\"\\u2029\"]\n");
     _ln(28);
@@ -1194,7 +1194,7 @@
     _ln(38);
     _to(" json printed z = \"click\\u0026clack\"\n");
     _ln(39);
-    _to(" json printed w = [1,2,{\"place\":\"The Dreadfort\",\"evil \\u003Cb\\u003Ecode\\u003C/b\\u003E\":\"\\u003Ci\\u003Eitalic\\u003C/i\\u003E\"}]\n");
+    _to(" json printed w = [1,2,{\"place\":\"The Dreadfort\",\"evil \\u003Cb\\u003E\\\"code\\\"\\u003C/b\\u003E\":\"\\u003Ci\\u003Eitalic\\u003C/i\\u003E\"}]\n");
     _ln(40);
     _to(" json printed v = [\"\\u2028\",\"\\u2029\"]\n");
     _ln(41);
@@ -2216,6 +2216,277 @@
     _to("      Pass20\n");
     _ln(16);
     _to("</p>");
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    if (typeof postProcess !== "undefined" && postProcess !== null) {
+      __toffee.res = postProcess(__toffee.res);
+    }
+    if (!__repress) {
+      return __toffee.res;
+    } else {
+      return "";
+    }
+  };
+
+  true; } /* closing JS 'with' */ ;
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+;
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/json_formatting/input.toffee"] = {
+    bundlePath: "/json_formatting/input.toffee"
+  };
+
+  tmpl.render = tmpl.pub = function(__locals) {
+    var x, y, __repress, _ln, _ref, _to, _ts;
+    __locals = __locals || {};
+    __repress = (_ref = __locals.__toffee) != null ? _ref.repress : void 0;
+    _to = function(x) {
+      return __locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return __locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return __locals.__toffee.state = x;
+    };
+    toffee.__augmentLocals(__locals, "/json_formatting/input.toffee");
+    with (__locals) {;
+    __toffee.out = [];
+    _ts(1);
+    _ts(2);
+    x = {
+      foo: [1, 2, 3],
+      bar: {
+        car: [
+          4, 5, "<\/html", {
+            zar: [6, 7, null]
+          }
+        ]
+      }
+    };
+    y = [1, 2, "<\/script>\""];
+    _ts(1);
+    _ln(7);
+    _to("\n");
+    _ln(8);
+    _to("" + (x != null ? escape(x) : ''));
+    _to("\n");
+    _ln(9);
+    _to("" + (json(x, {
+      indent: '  '
+    })));
+    _to("\n");
+    _ln(10);
+    _to("" + (json(x, {
+      indent: 2
+    })));
+    _to("\n");
+    _ln(11);
+    _to("" + (json(x, {
+      indent: '\t'
+    })));
+    _to("\n");
+    _ln(12);
+    _to("" + (__toffee.json(y, {
+      indent: 3
+    })));
+    _to("\n");
+    _ln(13);
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    if (typeof postProcess !== "undefined" && postProcess !== null) {
+      __toffee.res = postProcess(__toffee.res);
+    }
+    if (!__repress) {
+      return __toffee.res;
+    } else {
+      return "";
+    }
+  };
+
+  true; } /* closing JS 'with' */ ;
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+;
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/json_formatting/output.toffee"] = {
+    bundlePath: "/json_formatting/output.toffee"
+  };
+
+  tmpl.render = tmpl.pub = function(__locals) {
+    var __repress, _ln, _ref, _to, _ts;
+    __locals = __locals || {};
+    __repress = (_ref = __locals.__toffee) != null ? _ref.repress : void 0;
+    _to = function(x) {
+      return __locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return __locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return __locals.__toffee.state = x;
+    };
+    toffee.__augmentLocals(__locals, "/json_formatting/output.toffee");
+    with (__locals) {;
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _ln(1);
+    _to("\n");
+    _ln(2);
+    _to("{\"foo\":[1,2,3],\"bar\":{\"car\":[4,5,\"\\u003C/html\",{\"zar\":[6,7,null]}]}}\n");
+    _ln(3);
+    _to("{\n");
+    _ln(4);
+    _to("  \"foo\": [\n");
+    _ln(5);
+    _to("    1,\n");
+    _ln(6);
+    _to("    2,\n");
+    _ln(7);
+    _to("    3\n");
+    _ln(8);
+    _to("  ],\n");
+    _ln(9);
+    _to("  \"bar\": {\n");
+    _ln(10);
+    _to("    \"car\": [\n");
+    _ln(11);
+    _to("      4,\n");
+    _ln(12);
+    _to("      5,\n");
+    _ln(13);
+    _to("      \"\\u003C/html\",\n");
+    _ln(14);
+    _to("      {\n");
+    _ln(15);
+    _to("        \"zar\": [\n");
+    _ln(16);
+    _to("          6,\n");
+    _ln(17);
+    _to("          7,\n");
+    _ln(18);
+    _to("          null\n");
+    _ln(19);
+    _to("        ]\n");
+    _ln(20);
+    _to("      }\n");
+    _ln(21);
+    _to("    ]\n");
+    _ln(22);
+    _to("  }\n");
+    _ln(23);
+    _to("}\n");
+    _ln(24);
+    _to("{\n");
+    _ln(25);
+    _to("  \"foo\": [\n");
+    _ln(26);
+    _to("    1,\n");
+    _ln(27);
+    _to("    2,\n");
+    _ln(28);
+    _to("    3\n");
+    _ln(29);
+    _to("  ],\n");
+    _ln(30);
+    _to("  \"bar\": {\n");
+    _ln(31);
+    _to("    \"car\": [\n");
+    _ln(32);
+    _to("      4,\n");
+    _ln(33);
+    _to("      5,\n");
+    _ln(34);
+    _to("      \"\\u003C/html\",\n");
+    _ln(35);
+    _to("      {\n");
+    _ln(36);
+    _to("        \"zar\": [\n");
+    _ln(37);
+    _to("          6,\n");
+    _ln(38);
+    _to("          7,\n");
+    _ln(39);
+    _to("          null\n");
+    _ln(40);
+    _to("        ]\n");
+    _ln(41);
+    _to("      }\n");
+    _ln(42);
+    _to("    ]\n");
+    _ln(43);
+    _to("  }\n");
+    _ln(44);
+    _to("}\n");
+    _ln(45);
+    _to("{\n");
+    _ln(46);
+    _to("\t\"foo\": [\n");
+    _ln(47);
+    _to("\t\t1,\n");
+    _ln(48);
+    _to("\t\t2,\n");
+    _ln(49);
+    _to("\t\t3\n");
+    _ln(50);
+    _to("\t],\n");
+    _ln(51);
+    _to("\t\"bar\": {\n");
+    _ln(52);
+    _to("\t\t\"car\": [\n");
+    _ln(53);
+    _to("\t\t\t4,\n");
+    _ln(54);
+    _to("\t\t\t5,\n");
+    _ln(55);
+    _to("\t\t\t\"\\u003C/html\",\n");
+    _ln(56);
+    _to("\t\t\t{\n");
+    _ln(57);
+    _to("\t\t\t\t\"zar\": [\n");
+    _ln(58);
+    _to("\t\t\t\t\t6,\n");
+    _ln(59);
+    _to("\t\t\t\t\t7,\n");
+    _ln(60);
+    _to("\t\t\t\t\tnull\n");
+    _ln(61);
+    _to("\t\t\t\t]\n");
+    _ln(62);
+    _to("\t\t\t}\n");
+    _ln(63);
+    _to("\t\t]\n");
+    _ln(64);
+    _to("\t}\n");
+    _ln(65);
+    _to("}\n");
+    _ln(66);
+    _to("[\n");
+    _ln(67);
+    _to("   1,\n");
+    _ln(68);
+    _to("   2,\n");
+    _ln(69);
+    _to("   \"\\u003C/script\\u003E\\\"\"\n");
+    _ln(70);
+    _to("]\n");
+    _ln(71);
     _ts(2);
     __toffee.res = __toffee.out.join("");
     if (typeof postProcess !== "undefined" && postProcess !== null) {

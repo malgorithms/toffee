@@ -29,11 +29,13 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 
 #{__}toffee.states = #{JSON.stringify states}
 
-#{__}toffee.__json = (locals, o) ->
+#{__}toffee.__json = (locals, o, opts) ->
+#{__}  opts or= {}
+#{__}  opts.indent or= ""
 #{__}  if not o?
 #{__}    return "null"
 #{__}  else
-#{__}    return "" + JSON.stringify(o)
+#{__}    return "" + JSON.stringify(o,null,opts.indent)
 #{__}    .replace(/</g,'\\\\u003C').replace(/>/g,'\\\\u003E')
 #{__}    .replace(/&/g,'\\\\u0026').replace(/\\u2028/g, '\\\\u2028')
 #{__}    .replace(/\\u2029/g, '\\\\u2029')
@@ -95,7 +97,7 @@ getCommonHeaders = (tab_level, include_bundle_headers, auto_escape) ->
 #{__}  _l = locals
 #{__}  _t = _l.__toffee = {out: []}
 #{__}  if not _l.print?   then _l.print    = (o) -> toffee.__print   _l, o
-#{__}  if not _l.json?    then _l.json     = (o) -> toffee.__json    _l, o
+#{__}  if not _l.json?    then _l.json     = (o, opts) -> toffee.__json    _l, o, opts
 #{__}  if not _l.raw?     then _l.raw      = (o) -> toffee.__raw     _l, o
 #{__}  if not _l.html?    then _l.html     = (o) -> toffee.__html    _l, o
 #{__}  if not _l.escape?  then _l.escape   = (o) -> toffee.__escape  _l, o

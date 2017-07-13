@@ -2,7 +2,7 @@
   x = '"Hello world"'
   y = '<hr />'
   z = 'click&clack'
-  w = [1, 2, {"place": "The Dreadfort", "evil <b>code</b>": "<i>italic</i>"}]
+  w = [1, 2, {"place": "The Dreadfort", "evil <b>\"code\"</b>": "<i>italic</i>"}]
   v = ["\u2028", "\u2029"]
   dir = ["hi\u{202e}there"] # ltr type things
 #}<p>
