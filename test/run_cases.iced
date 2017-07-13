@@ -4,6 +4,8 @@ path     = require 'path'
 zombie   = require 'zombie'
 coffee   = require 'coffee-script'
 tablify  = require 'tablify'
+colors   = require 'colors'
+jsdiff   = require 'diff'
 
 regular_engine = new engine({
   verbose:           false
@@ -45,9 +47,14 @@ run_case_dir = (eng, dir, cb) ->
     cb err, time_ms
   else
     if res isnt expected
+      diff = jsdiff.diffLines res, expected
+      delta = ""
+      diff.forEach (part) ->
+        c = if part.added then 'green' else if part.removed then 'red' else 'grey'
+        v = part.value
+        delta += v[c]
       cb "Failure in case #{dir}." +
-        "\n\nExpected\n=====\n#{expected}\n=====" +
-        "\nGot\n=====\n#{res}\n=====\n", time_ms
+        "#{delta}", time_ms
     else
       cb null, time_ms
 

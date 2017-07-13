@@ -2,7 +2,7 @@
   x = '"Hello world"'
   y = '<hr />'
   z = 'click&clack'
-  w = [1, 2, {"place": "The Dreadfort"}]
+  w = [1, 2, {"place": "The Dreadfort", "evil <b>code</b>": "<i>italic</i>"}]
   v = ["\u2028", "\u2029"]
   dir = ["hi\u{202e}there"] # ltr type things
 #}<p>
@@ -22,6 +22,10 @@
  raw z = #{raw z}
  raw w = #{raw w}
 </p>
+<pre>
+  w_as_json_stringify=#{JSON.stringify w}
+  w_as_json_stringify_raw=#{raw JSON.stringify w}
+</pre>
 <script>
   x = #{json x}
   y = #{json y}
