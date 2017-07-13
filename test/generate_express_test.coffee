@@ -6,7 +6,7 @@ coffee                 = require 'coffee-script'
 
 generateExpressTest = (cb) ->
 
-  proc = spawn 'coffee', ['./src/command_line.coffee', '-n', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
+  proc = spawn path.join(__dirname,"../node_modules/.bin/coffee"), ['./src/command_line.coffee', '-n', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
   proc.on 'exit', (status) ->

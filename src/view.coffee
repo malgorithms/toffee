@@ -357,7 +357,7 @@ class view
       return "\n#{spaces ind}_ln #{n}"
 
   _snippetHasEscapeOverride: (str) ->
-    for token in ['print',' snippet', 'load', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json', 'JSON.stringify']
+    for token in ['print',' snippet', 'load', 'partial', 'raw', 'html', 'json', '__toffee.raw', '__toffee.html', '__toffee.json']
       if str[0...token.length] is token
         if (str.length > token.length) and (str[token.length] in [' ','\t','\n','('])
           return true
