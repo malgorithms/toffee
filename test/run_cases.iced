@@ -78,7 +78,7 @@ run_multiple_runs = (eng, num_runs, cb) ->
   cb null, (Date.now() - start), total_tests
 
 run_express_test = (cb) ->
-  require('./express3/app').run ->
+  require('./express4/app').run ->
     zombie.visit 'http://localhost:3033', (e, browser) ->
       if e
         console.log e

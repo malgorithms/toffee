@@ -6,7 +6,7 @@ coffee                 = require 'coffee-script'
 
 generateExpressTest = (cb) ->
 
-  proc = spawn path.join(__dirname,"../node_modules/.bin/coffee"), ['./src/command_line.coffee', '-n', './test/cases', '-o', './test/express3/public/javascripts/test_cases.js']
+  proc = spawn path.join(__dirname,"../node_modules/.bin/coffee"), ['./src/command_line.coffee', '-n', './test/cases', '-o', './test/express4/public/javascripts/test_cases.js']
   proc.stderr.on 'data', (buffer) -> console.log buffer.toString()
   proc.stdout.on 'data', (buffer) -> console.log buffer.toString()
   proc.on 'exit', (status) ->
@@ -17,7 +17,7 @@ generateExpressTest = (cb) ->
 
   {getCommonHeadersJs}   = require '../lib/view'
   headers = getCommonHeadersJs true, true
-  fs.writeFileSync "./test/express3/public/javascripts/toffee.js", headers, "utf8"
+  fs.writeFileSync "./test/express4/public/javascripts/toffee.js", headers, "utf8"
 
   # generate an index page that tests them all
 
@@ -90,7 +90,7 @@ generateExpressTest = (cb) ->
     </body>
   </html>
   """
-  fs.writeFileSync "./test/express3/views/index.toffee", test_page, "utf8"
+  fs.writeFileSync "./test/express4/views/index.toffee", test_page, "utf8"
 
 exports.generate = generateExpressTest
 

@@ -1,7 +1,7 @@
 {
   "name": "toffee",
   "description": "A NodeJs and browser-side templating language based on CoffeeScript with slicker tokens and syntax.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "directories": {
     "lib": "./lib"
   },
@@ -9,20 +9,20 @@
   "author": "Chris Coyne <ccoyne77@gmail.com>",
   "bin": "./bin/toffee",
   "dependencies": {
-    "coffee-script": "*",
-    "commander": "*",
-    "mkdirp": "*",
-    "highlight.js": "*"
+    "coffee-script": "^1.12.7",
+    "commander": "^2.19.0",
+    "highlight.js": "^9.13.1",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "assert": "*",
+    "assert": "^1.4.1",
     "colors": "^1.1.2",
     "diff": "^3.3.0",
-    "express": "^3.21.2",
-    "iced-coffee-script": "*",
-    "jison": "*",
-    "tablify": "*",
-    "zombie": "*"
+    "express": "^4.16.4",
+    "iced-coffee-script": "^108.0.11",
+    "jison": "^0.4.18",
+    "tablify": "^0.1.5",
+    "zombie": "^6.1.3"
   },
   "repository": {
     "type": "git",
