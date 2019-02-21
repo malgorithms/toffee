@@ -416,6 +416,7 @@ class view
           if part[0] is "TOKENS"
             res    += @_printLineNo lineno, ind
             interp  = part[1].replace /(^[\n \t]+)|([\n \t]+)$/g, ''
+            interp  = interp.replace /[\u2028\u2029]/g , '\n'
             if @_snippetIsSoloToken interp
               chunk = "\#{if #{interp}? then escape #{interp} else ''}"
             else if @_snippetHasEscapeOverride interp
@@ -425,7 +426,7 @@ class view
             res    += "\n#{spaces ind}_to #{@_quoteStr chunk}"
             lineno += part[1].split("\n").length - 1
           else
-            lines = part[1].split "\n"
+            lines = part[1].split /[\n\u2028\u2029]/
             for line,i in lines
               res += @_printLineNo lineno, ind
               lbreak  = if i isnt lines.length - 1 then "\n" else ""
@@ -437,6 +438,7 @@ class view
         res += "\n#{spaces ind}_ts #{states.COFFEE}"
       when "COFFEE"
         c = obj[1]
+        c = c.replace /[\u2028\u2029]/g , '\n'
         res += "\n#{@_reindent c, indent_level, indent_baseline}"
         i_delta = @_getIndentationDelta c, indent_baseline
         state_carry.last_coffee_ends_with_newline = @_doesEndWithNewline c
