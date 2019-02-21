@@ -3,6 +3,138 @@
 (function() {
   var tmpl;
 
+  tmpl = toffee.templates["/bad_unicode/input.toffee"] = {
+    bundlePath: "/bad_unicode/input.toffee"
+  };
+
+  tmpl.render = tmpl.pub = function(__locals) {
+    var u2028, __repress, _ln, _ref, _to, _ts;
+    __locals = __locals || {};
+    __repress = (_ref = __locals.__toffee) != null ? _ref.repress : void 0;
+    _to = function(x) {
+      return __locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return __locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return __locals.__toffee.state = x;
+    };
+    toffee.__augmentLocals(__locals, "/bad_unicode/input.toffee");
+    with (__locals) {;
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _ln(1);
+    _to("\\u2028:<i>\n");
+    _ln(2);
+    _to("</i>\n");
+    _ln(3);
+    _to("\\u2029:<i>\n");
+    _ln(4);
+    _to("</i>\n");
+    _ln(5);
+    _ln(3);
+    _ts(2);
+    _ts(2);
+    u2028 = "u2029 = ";
+    _ts(1);
+    _ln(6);
+    _to("\n");
+    _ln(7);
+    _to("<p>HI 2028: ");
+    _to("" + (escape("")));
+    _to("</p>\n");
+    _ln(8);
+    _to("<p>HI 2028: ");
+    _to("" + (escape("")));
+    _to("</p>\n");
+    _ln(9);
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    if (typeof postProcess !== "undefined" && postProcess !== null) {
+      __toffee.res = postProcess(__toffee.res);
+    }
+    if (!__repress) {
+      return __toffee.res;
+    } else {
+      return "";
+    }
+  };
+
+  true; } /* closing JS 'with' */ ;
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+;
+(function() {
+  var tmpl;
+
+  tmpl = toffee.templates["/bad_unicode/output.toffee"] = {
+    bundlePath: "/bad_unicode/output.toffee"
+  };
+
+  tmpl.render = tmpl.pub = function(__locals) {
+    var __repress, _ln, _ref, _to, _ts;
+    __locals = __locals || {};
+    __repress = (_ref = __locals.__toffee) != null ? _ref.repress : void 0;
+    _to = function(x) {
+      return __locals.__toffee.out.push(x);
+    };
+    _ln = function(x) {
+      return __locals.__toffee.lineno = x;
+    };
+    _ts = function(x) {
+      return __locals.__toffee.state = x;
+    };
+    toffee.__augmentLocals(__locals, "/bad_unicode/output.toffee");
+    with (__locals) {;
+    __toffee.out = [];
+    _ts(1);
+    _ts(1);
+    _ln(1);
+    _to("\\u2028:<i>\n");
+    _ln(2);
+    _to("</i>\n");
+    _ln(3);
+    _to("\\u2029:<i>\n");
+    _ln(4);
+    _to("</i>\n");
+    _ln(5);
+    _to("\n");
+    _ln(6);
+    _to("<p>HI 2028: </p>\n");
+    _ln(7);
+    _to("<p>HI 2028: </p>\n");
+    _ln(8);
+    _ts(2);
+    __toffee.res = __toffee.out.join("");
+    if (typeof postProcess !== "undefined" && postProcess !== null) {
+      __toffee.res = postProcess(__toffee.res);
+    }
+    if (!__repress) {
+      return __toffee.res;
+    } else {
+      return "";
+    }
+  };
+
+  true; } /* closing JS 'with' */ ;
+
+  if (typeof __toffee_run_input !== "undefined" && __toffee_run_input !== null) {
+    return tmpl.pub(__toffee_run_input);
+  }
+
+}).call(this);
+
+;
+(function() {
+  var tmpl;
+
   tmpl = toffee.templates["/big_file/input.toffee"] = {
     bundlePath: "/big_file/input.toffee"
   };
@@ -2553,7 +2685,8 @@
     _ts(1);
     _to("\n");
     _ln(5);
-    _to("</ul>");
+    _to("</ul>\n");
+    _ln(6);
     _ts(2);
     __toffee.res = __toffee.out.join("");
     if (typeof postProcess !== "undefined" && postProcess !== null) {
@@ -2605,7 +2738,8 @@
     _ln(2);
     _to("  <li>broom</li><li>mop</li><li>vacuum</li>\n");
     _ln(3);
-    _to("</ul>");
+    _to("</ul>\n");
+    _ln(4);
     _ts(2);
     __toffee.res = __toffee.out.join("");
     if (typeof postProcess !== "undefined" && postProcess !== null) {
