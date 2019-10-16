@@ -6,7 +6,7 @@ fs                    = require 'fs'
 path                  = require 'path'
 util                  = require 'util'
 vm                    = require 'vm'
-
+LockTable             = require('iced-lock').Table
 MAX_CACHED_SANDBOXES = 100
 
 sandboxCons = () ->
@@ -28,6 +28,7 @@ class engine
     @fsErrorCache           = {} # filename -> timestamp last failed
 
     @filenameCache = {} # caches dir -> filename -> path.normalize path.resolve dir, filename
+    @fileLockTable = new LockTable()
 
   _log: (o) ->
     if @verbose
@@ -227,23 +228,27 @@ class engine
       return v
 
   _reloadFileInBkg: (filename, options) ->
-    fs.readFile filename, 'utf8', (err, txt) =>
-      if err or (txt isnt @viewCache[filename].txt)
-        if err
-          @fsErrorCache[filename] = Date.now()
-          txt = "Error: Could not read #{filename}"
-          if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
-        if not (err and @viewCache[filename].fsError) # i.e., don't just create a new error view
-          view_options = @_generateViewOptions filename
-          ctx = @pool.get()
-          view_options.ctx = ctx
-          view_options.cb = (v) =>
-            @_log "#{filename} updated and ready"
-            @viewCache[filename] = v
-            @pool.release(ctx)
+    @_log "#{filename} acquiring lock to read"
+    @fileLockTable.acquire2 {name: filename}, (lock) =>
+      fs.readFile filename, 'utf8', (err, txt) =>
+        if err or (txt isnt @viewCache[filename].txt)
           if err
-            view_options.fsError = true
-          v = new view txt, view_options
+            @fsErrorCache[filename] = Date.now()
+            txt = "Error: Could not read #{filename}"
+            if options.__toffee?.parent? then txt += " requested in #{options.__toffee.parent}"
+          if not (err and @viewCache[filename].fsError) # i.e., don't just create a new error view
+            view_options = @_generateViewOptions filename
+            ctx = @pool.get()
+            view_options.ctx = ctx
+            view_options.cb = (v) =>
+              @_log "#{filename} updated and ready"
+              @viewCache[filename] = v
+              @pool.release(ctx)
+            if err
+              view_options.fsError = true
+            v = new view txt, view_options
+        @_log "#{filename} lock releasing"
+        lock.release()
 
   _generateViewOptions: (filename) ->
     return {
