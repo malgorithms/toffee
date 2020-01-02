@@ -231,7 +231,7 @@ class engine
     @_log "#{filename} acquiring lock to read"
     @fileLockTable.acquire2 {name: filename}, (lock) =>
       fs.readFile filename, 'utf8', (err, txt) =>
-        @_log "#{Date.now()} - #{filename} changed to #{txt?.length}bytes. #{txt?.replace?(/\n/g , '')[...80]}"
+        @_log "#{Date.now()} - #{filename} changed to #{txt?.length} bytes. #{txt?.replace?(/\n/g , '')[...80]}" if not err
         if err or (txt isnt @viewCache[filename].txt)
           if err
             @fsErrorCache[filename] = Date.now()
