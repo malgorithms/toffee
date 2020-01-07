@@ -232,6 +232,7 @@ class engine
     @fileLockTable.acquire2 {name: filename}, (lock) =>
       fs.readFile filename, 'utf8', (err, txt) =>
         @_log "#{Date.now()} - #{filename} changed to #{txt?.length} bytes. #{txt?.replace?(/\n/g , '')[...80]}" if not err
+        waiting_for_view = false
         if err or (txt isnt @viewCache[filename].txt)
           if err
             @fsErrorCache[filename] = Date.now()
@@ -245,11 +246,15 @@ class engine
               @_log "#{filename} updated and ready"
               @viewCache[filename] = v
               @pool.release(ctx)
+              @_log "#{filename} lock releasing (view_options.cb)"
+              lock.release()
+            waiting_for_view = true # do not release lock instantly
             if err
               view_options.fsError = true
             v = new view txt, view_options
-        @_log "#{filename} lock releasing"
-        lock.release()
+        if not waiting_for_view
+          @_log "#{filename} lock releasing (not waiting for view)"
+          lock.release()
 
   _generateViewOptions: (filename) ->
     return {
