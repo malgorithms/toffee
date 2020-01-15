@@ -1,7 +1,7 @@
 {
   "name": "toffee",
   "description": "A NodeJs and browser-side templating language based on CoffeeScript with slicker tokens and syntax.",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "directories": {
     "lib": "./lib"
   },
@@ -12,6 +12,7 @@
     "coffee-script": "1.12.7",
     "commander": "2.19.0",
     "highlight.js": "9.13.1",
+    "iced-lock": "2.0.1",
     "mkdirp": "0.5.1"
   },
   "devDependencies": {
