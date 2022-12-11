@@ -19,7 +19,7 @@
     "assert": "2.0.0",
     "colors": "1.1.2",
     "diff": "4.0.1",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "iced-coffee-script": "108.0.13",
     "jison": "0.4.18",
     "tablify": "0.1.5",
