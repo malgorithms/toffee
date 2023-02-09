@@ -1,7 +1,7 @@
 {engine} = require '../lib/engine'
 fs       = require 'fs'
 path     = require 'path'
-zombie   = require 'zombie'
+Browser   = require 'zombie'
 coffee   = require 'coffee-script'
 tablify  = require 'tablify'
 colors   = require 'colors'
@@ -79,7 +79,8 @@ run_multiple_runs = (eng, num_runs, cb) ->
 
 run_express_test = (cb) ->
   require('./express4/app').run ->
-    zombie.visit 'http://localhost:3033', (e, browser) ->
+    browser = new Browser()
+    browser.visit 'http://127.0.0.1:3033', (e) ->
       if e
         console.log e
       $ = browser.window.$
